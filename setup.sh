@@ -18,9 +18,28 @@ setup_homebrew() {
   fi
 }
 
+setup_ansible() {
+  if ! command -v ansible >/dev/null; then
+    echo "Installing Ansible ..."
+    brew install ansible
+  else
+    echo "Ansible already installed"
+  fi
+}
+
+run_ansible_playbook() {
+  echo "Running Ansible playbook with playbook.yml ..."
+  if ! ansible-playbook ansible/playbook.yml -i ansible/hosts -K; then
+    echo "Error running Ansible playbook"
+    exit 1
+  fi
+}
+
 setup() {
   setup_xcode
   setup_homebrew
+  setup_ansible
+  run_ansible_playbook
 }
 
 setup
