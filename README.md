@@ -2,7 +2,9 @@
 macOS setup script for development
 
 ## Usage
-- For the first time, download & execute bootstrap script `curl -L -o /tmp/bootstrap https://raw.githubusercontent.com/narze/laptop/master/bootstrap && sh /tmp/bootstrap`
+- `git clone https://github.com/narze/laptop.git ~/laptop`
+  - If you don't have git (really?), download & execute bootstrap script
+  - `curl -L -o /tmp/bootstrap https://raw.githubusercontent.com/narze/laptop/master/bootstrap && sh /tmp/bootstrap`
 - Run setup script `sh ~/laptop/setup.sh`
 
 ## TODO
@@ -11,3 +13,4 @@ macOS setup script for development
 - Add Mas
 - Install Zsh & packages
 - Sync app settings
+- Setup dotfiles
