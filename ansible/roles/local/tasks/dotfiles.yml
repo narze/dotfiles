@@ -1,6 +1,13 @@
+- name: Link dotfiles
+  file:
+    src: "{{ playbook_dir | dirname }}"
+    path: ~/.dotfiles
+    state: link
+    force: yes
+
 - name: Link zshrc
   file:
-    src: "{{ playbook_dir | dirname }}/zsh/zshrc"
+    src: ~/.dotfiles/zsh/zshrc
     path: ~/.zshrc
     state: link
     force: yes
