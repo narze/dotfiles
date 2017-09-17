@@ -8,9 +8,9 @@ macOS setup script for development
 - Run setup script `sh ~/laptop/setup.sh`
 
 ## TODO
-- Pull repo updates on setup
-- More brew & cask packages
-- Add Mas
-- Install Zsh & packages
-- Sync app settings
-- Setup dotfiles
+- [ ] Pull repo updates on setup
+- [ ] More brew & cask packages
+- [ ] Add Mas
+- [x] Install Zsh & packages
+- [ ] Sync app settings
+- [ ] Setup dotfiles

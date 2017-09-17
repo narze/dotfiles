@@ -1,0 +1,6 @@
+- name: Link zshrc
+  file:
+    src: "{{ playbook_dir | dirname }}/zsh/zshrc"
+    path: ~/.zshrc
+    state: link
+    force: yes

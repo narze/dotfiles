@@ -1,0 +1,22 @@
+#!/usr/bin/env zsh
+
+export ZPLUG_HOME=/usr/local/opt/zplug
+source $ZPLUG_HOME/init.zsh
+
+# Manage zplug itself
+zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+
+# Add plugins
+zplug "zsh-users/zsh-autosuggestions", defer:2
+zplug "zsh-users/zsh-history-substring-search", defer:2
+zplug "zsh-users/zsh-syntax-highlighting", defer:3
+zplug 'dracula/zsh', as:theme
+
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+
+zplug load
