@@ -1,0 +1,87 @@
+This is the default .slate file.
+# If no ~/.slate file exists this is the file that will be used.
+
+config defaultToCurrentScreen true
+config nudgePercentOf screenSize
+config resizePercentOf screenSize
+
+# General aliases
+alias sox screenOriginX
+alias soy screenOriginY
+alias ssx screenSizeX
+alias ssy screenSizeY
+
+# Position aliases
+alias centered ${sox}+${ssx}/8;${soy}+${ssy}/8 ${ssx}/8*6;${ssy}/8*6
+alias fullscreen ${sox};${soy} ${ssx};${ssy}
+alias leftHalf ${sox};${soy} ${ssx}/2;${ssy}
+alias bottomHalf ${sox};${soy}+${ssy}/2 ${ssx};${ssy}/2
+alias topHalf ${sox};${soy} ${ssx};${ssy}/2
+alias rightHalf ${sox}+${ssx}/2;${soy} ${ssx}/2;${ssy}
+alias topLeftQuarter ${sox};${soy} ${ssx}/2;${ssy}/2
+alias topRightQuarter ${sox}+${ssx}/2;${soy} ${ssx}/2;${ssy}/2
+alias bottomLeftQuarter ${sox};${soy}+${ssy}/2 ${ssx}/2;${ssy}/2
+alias bottomRightQuarter ${sox}+${ssx}/2;${soy}+${ssy}/2 ${ssx}/2;${ssy}/2
+
+# Move to other screen
+bind [:ctrl;alt;cmd throw prev resize
+bind ]:ctrl;alt;cmd throw next resize
+
+# Resize
+bind f:ctrl;alt;cmd move ${fullscreen}
+
+# Resize Bindings
+# bind right:alt       resize +10% +0
+# bind left:alt        resize -10% +0
+# bind up:alt          resize +0   -10%
+# bind down:alt        resize +0   +10%
+# bind right:ctrl;alt  resize -10% +0 bottom-right
+# bind left:ctrl;alt   resize +10% +0 bottom-right
+# bind up:ctrl;alt     resize +0   +10% bottom-right
+# bind down:ctrl;alt   resize +0   -10% bottom-right
+
+# Push Bindings
+bind right:ctrl;shift;cmd  chain push right bar-resize:screenSizeX/2 | throw next resize
+bind left:ctrl;shift;cmd   chain push left  bar-resize:screenSizeX/2 | throw prev resize
+bind up:ctrl;shift;cmd     push up    bar-resize:screenSizeY/2
+bind down:ctrl;shift;cmd   push down  bar-resize:screenSizeY/2
+bind g:ctrl;alt;cmd      move ${centered}
+bind o:ctrl;alt;cmd      move ${fullscreen}
+bind h:ctrl;alt;cmd      move ${leftHalf}
+bind j:ctrl;alt;cmd      move ${bottomHalf}
+bind k:ctrl;alt;cmd      move ${topHalf}
+bind l:ctrl;alt;cmd      move ${rightHalf}
+bind u:ctrl;alt;cmd      move ${topLeftQuarter}
+bind i:ctrl;alt;cmd      move ${topRightQuarter}
+bind n:ctrl;alt;cmd      move ${bottomLeftQuarter}
+bind m:ctrl;alt;cmd      move ${bottomRightQuarter}
+bind v:ctrl;alt;cmd      sequence focus down > move ${rightHalf} | move ${leftHalf}
+
+# Nudge Bindings
+# bind right:shift;alt nudge +10% +0
+# bind left:shift;alt  nudge -10% +0
+# bind up:shift;alt    nudge +0   -10%
+# bind down:shift;alt  nudge +0   +10%
+
+# Throw Bindings
+bind 1:ctrl;alt         throw 0 resize
+bind 2:ctrl;alt         throw 1 resize
+bind 3:ctrl;alt         throw 2 resize
+bind right:ctrl;alt;cmd throw right resize
+bind left:ctrl;alt;cmd  throw left  resize
+bind up:ctrl;alt;cmd    throw up    resize
+bind down:ctrl;alt;cmd  throw down  resize
+
+# Focus Bindings
+#bind right:cmd    focus right
+#bind left:cmd     focus left
+# bind up:cmd       focus up
+#bind down:cmd     focus down
+#bind up:cmd;alt   focus behind
+#bind down:cmd;alt focus behind
+
+# Window Hints
+bind esc:cmd hint
+bind f:alt;shift  hint fjrudkeislwoa;qp
+
+bind z:ctrl;alt;cmd       relaunch

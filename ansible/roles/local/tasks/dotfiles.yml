@@ -11,3 +11,17 @@
     path: ~/.zshrc
     state: link
     force: yes
+
+- name: Link slate
+  file:
+    src: ~/.dotfiles/etc/slate
+    path: ~/.slate
+    state: link
+    force: yes
+
+- name: Link tmux.conf
+  file:
+    src: ~/.dotfiles/etc/tmux.conf
+    path: ~/.tmux.conf
+    state: link
+    force: yes
