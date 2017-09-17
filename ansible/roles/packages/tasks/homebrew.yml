@@ -3,4 +3,22 @@
     name: "{{ item }}"
     state: present
   with_items:
-  - git
+    - chromedriver
+    - dfu-programmer
+    - dfu-util
+    - diff-so-fancy
+    - elasticsearch
+    - elixir
+    - exercism
+    - git
+    - git-flow
+    - imagemagick
+    - mas
+    - phantomjs
+    - rbenv
+    - reattach-to-user-namespace
+    - redis
+    - ruby-build
+    - tmux
+    - vim
+    - yarn

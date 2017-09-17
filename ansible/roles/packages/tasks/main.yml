@@ -1,3 +1,6 @@
+- name: Install Java
+  homebrew_cask: name=java state=present
+
 - include: homebrew.yml
 - include: cask.yml
 - include: zsh.yml

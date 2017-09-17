@@ -3,7 +3,7 @@
     name: "{{ item }}"
     state: present
   with_items:
-  - zsh
+    - zsh
 
 - name: Install zplug
   homebrew: name=zplug state=present

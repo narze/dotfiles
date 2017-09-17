@@ -3,4 +3,38 @@
     name: "{{ item }}"
     state: present
   with_items:
-  - google-chrome
+    - alfred
+    - android-file-transfer
+    - bartender
+    - bettertouchtool
+    - ccleaner
+    - crashplan
+    - cyberduck
+    - default-folder-x
+    - dash
+    - disk-inventory-x
+    - dropbox
+    - evernote
+    - flux
+    - google-chrome
+    - growlnotify
+    - xquartz
+    - hazel
+    - istat-menus
+    - karabiner
+    - keyboard-maestro
+    - ngrok
+    - postgres
+    - rescuetime
+    - seil
+    - sequel-pro
+    - shortcat
+    - slack
+    - mattr-slate
+    - sourcetree
+    - synergy
+    - teamviewer
+    - the-unarchiver
+    - trickster
+    - whatpulse
+    - xld
