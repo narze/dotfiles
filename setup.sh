@@ -27,6 +27,13 @@ setup_ansible() {
   fi
 }
 
+edit_secrets() {
+  if [ ! -f ansible/secrets.yml ]; then
+    cp ansible/secrets.yml.example ansible/secrets.yml
+    vi ansible/secrets.yml
+  fi
+}
+
 run_ansible_playbook() {
   echo "Running Ansible playbook with playbook.yml ..."
   if ! ansible-playbook ansible/playbook.yml -i ansible/hosts -K; then
@@ -39,6 +46,7 @@ setup() {
   setup_xcode
   setup_homebrew
   setup_ansible
+  edit_secrets
   run_ansible_playbook
 }
 

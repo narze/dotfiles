@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.monosor.nasmount</string>
+    <key>Disabled</key>
+    <false/>
+    <key>UserName</key>
+    <string>admin</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/sbin/mount_afp</string>
+        <string>{{secret.nas_addr}}</string>
+        <string>{{secret.nas_mount_point}}</string>
+    </array>
+    <key>KeepAlive</key>
+    <dict>
+        <key>SuccessfulExit</key>
+        <false/>
+    </dict>
+    <key>RunAtLoad</key>
+    <true/>
+</dict>
+</plist>
