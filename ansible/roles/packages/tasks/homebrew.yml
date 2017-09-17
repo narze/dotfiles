@@ -1,0 +1,6 @@
+- name: Install Homebrew packages
+  homebrew:
+    name: "{{ item }}"
+    state: present
+  with_items:
+  - git

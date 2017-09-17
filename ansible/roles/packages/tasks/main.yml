@@ -1,13 +1,3 @@
-- name: Install Homebrew packages
-  homebrew:
-    name: "{{ item }}"
-    state: present
-  with_items:
-  - git
-  - zsh
-- name: Install Cask packages
-  homebrew_cask:
-    name: "{{ item }}"
-    state: present
-  with_items:
-  - google-chrome
+- include: homebrew.yml
+- include: cask.yml
+- include: zsh.yml

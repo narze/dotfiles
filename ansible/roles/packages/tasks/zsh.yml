@@ -1,0 +1,12 @@
+- name: Install zsh
+  homebrew:
+    name: "{{ item }}"
+    state: present
+  with_items:
+  - zsh
+
+- name: Install zplug
+  homebrew: name=zplug state=present
+
+- name: Set default shell to installed zsh
+  user: name={{ansible_user_id}} shell=/usr/local/bin/zsh
