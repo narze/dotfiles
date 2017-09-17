@@ -1,1 +1,2 @@
 - include: dotfiles.yml
+- include: app_config.yml

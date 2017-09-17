@@ -1,0 +1,4 @@
+- name: Startupizer
+  template:
+    src: startupizer/startupizer.plist.j2
+    dest: ~/Library/Application Support/Startupizer/Startupizer.plist
