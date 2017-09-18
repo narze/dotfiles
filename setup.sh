@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+ANSIBLE_OPTS="$@"
+
 setup_xcode() {
   if ! command -v cc >/dev/null; then
     echo "Installing command line tools ..."
@@ -36,7 +38,7 @@ edit_secrets() {
 
 run_ansible_playbook() {
   echo "Running Ansible playbook with playbook.yml ..."
-  if ! ansible-playbook ansible/playbook.yml -i ansible/hosts -K; then
+  if ! ansible-playbook ansible/playbook.yml -i ansible/hosts -K $ANSIBLE_OPTS; then
     echo "Error running Ansible playbook"
     exit 1
   fi

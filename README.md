@@ -9,8 +9,9 @@ macOS setup script for development
 
 ## TODO
 - [ ] Pull repo updates on setup
-- [ ] More brew & cask packages
-- [ ] Add Mas
+- [x] More brew & cask packages
+- [x] Add Mas
 - [x] Install Zsh & packages
 - [ ] Sync app settings
-- [ ] Setup dotfiles
+- [x] Setup dotfiles
+- [x] Option to skip installing brew & cask packages

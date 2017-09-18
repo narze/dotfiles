@@ -2,6 +2,8 @@
   homebrew:
     name: "{{ item }}"
     state: present
+  tags:
+    - homebrew
   with_items:
     - chromedriver
     - dfu-programmer

@@ -2,6 +2,8 @@
   homebrew_cask:
     name: "{{ item }}"
     state: present
+  tags:
+    - cask
   with_items:
     - alfred
     - android-file-transfer
