@@ -2,7 +2,6 @@
   file:
     path: "{{secret.nas_mount_point}}"
     state: directory
-    recurse: yes
 
 - name: Add nasmount service
   template:
