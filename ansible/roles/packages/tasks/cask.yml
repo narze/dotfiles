@@ -1,3 +1,6 @@
+- name: Add Cask tap
+  homebrew_tap: tap=caskroom/fonts state=present
+
 - name: Install Cask packages
   homebrew_cask:
     name: "{{ item }}"
@@ -19,6 +22,7 @@
     - dropbox
     - evernote
     - flux
+    - font-fira-code
     - google-chrome
     - growlnotify
     - xquartz

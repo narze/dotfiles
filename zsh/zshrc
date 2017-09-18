@@ -12,7 +12,7 @@ zplug "rupa/z", use:z.sh
 zplug "zsh-users/zsh-autosuggestions", defer:2
 zplug "zsh-users/zsh-history-substring-search", defer:2
 zplug "zsh-users/zsh-syntax-highlighting", defer:3
-zplug "dracula/zsh", as:theme
+zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
 
 if ! zplug check --verbose; then
   printf "Install? [y/N]: "
