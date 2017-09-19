@@ -21,7 +21,14 @@
 
 - name: Link tmux.conf
   file:
-    src: ~/.dotfiles/etc/tmux.conf
+    src: ~/.dotfiles/etc/tmux/.tmux.conf
     path: ~/.tmux.conf
+    state: link
+    force: yes
+
+- name: Link tmux.conf.local
+  file:
+    src: ~/.dotfiles/etc/tmux/.tmux.conf.local
+    path: ~/.tmux.conf.local
     state: link
     force: yes

@@ -1,6 +1,10 @@
 #!/usr/bin/env zsh
 
+export TERM=xterm-256color
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
 export ZPLUG_HOME=/usr/local/opt/zplug
+
 source $ZPLUG_HOME/init.zsh
 
 # Manage zplug itself

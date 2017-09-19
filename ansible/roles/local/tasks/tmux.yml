@@ -1,0 +1,16 @@
+# - name: Install pip
+#   become: yes
+#   easy_install:
+#     name: pip
+#     state: latest
+
+# - name: Install tmux powerline
+#   pip:
+#     name: powerline-status
+#     state: latest
+#     extra_args: --user
+
+- name: Clone tmux config
+  git:
+    repo: https://github.com/narze/.tmux
+    dest: "{{ playbook_dir | dirname }}/etc/tmux"
