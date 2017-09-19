@@ -1,5 +1,7 @@
 - name: Install Java
   homebrew_cask: name=java state=present
+  tags:
+    - java
 
 - include: homebrew.yml
 - include: cask.yml

@@ -1,5 +1,7 @@
 - name: Add Cask tap
   homebrew_tap: tap=caskroom/fonts state=present
+  tags:
+    - cask
 
 - name: Install Cask packages
   homebrew_cask:
