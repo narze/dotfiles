@@ -1,0 +1,34 @@
+- name: Ensure mpd config directory
+  file: path=~/.local/mpd state=directory recurse=yes
+
+- name: Ensure mpd var & playlist directory
+  file: path=~/.local/var/mpd/playlists state=directory recurse=yes
+
+- name: Ensure mpd var files
+  file:
+    path: "~/.local/var/mpd/{{ item }}"
+    state: touch
+  with_items:
+    - mpd.db
+    - mpd.log
+    - mpd.pid
+    - mpdstate
+
+- name: Add mpd config
+  template:
+    src: templates/mpd/mpd.conf.j2
+    dest: ~/.local/mpd/mpd.conf
+
+- name: Add mpd service
+  template:
+    src: templates/LaunchAgents/com.monosor.mpd.plist.j2
+    dest: ~/Library/LaunchAgents/com.monosor.mpd.plist
+
+- name: Unload mpd service
+  command: launchctl unload ~/Library/LaunchAgents/com.monosor.mpd.plist
+  ignore_errors: yes
+
+- name: Load mpd service
+  command: launchctl load ~/Library/LaunchAgents/com.monosor.mpd.plist
+  ignore_errors: yes
+

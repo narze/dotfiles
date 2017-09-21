@@ -1,0 +1,28 @@
+music_directory         "{{ secret.mpd_music_dir }}"
+playlist_directory      "~/.local/var/mpd/playlists"
+db_file                 "~/.local/var/mpd/mpd.db"
+log_file                "~/.local/var/mpd/mpd.log"
+pid_file                "~/.local/var/mpd/mpd.pid"
+state_file              "~/.local/var/mpd/mpdstate"
+auto_update             "yes"
+auto_update_depth       "2"
+follow_outside_symlinks "yes"
+follow_inside_symlinks  "yes"
+max_playlist_length     "131072"
+max_output_buffer_size  "32768"
+
+audio_output {
+    type                  "osx"
+    name                  "CoreAudio"
+    mixer_type            "software"
+}
+
+decoder {
+    plugin                "mp4ff"
+    enabled               "no"
+}
+
+bind_to_address         "any"
+port                    "6600"
+
+user                    "{{ ansible_user_id }}"

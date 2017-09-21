@@ -2,3 +2,4 @@
 - include: dotfiles.yml
 - include: app_config.yml
 - include: services.yml
+- include: mpd.yml

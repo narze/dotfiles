@@ -6,3 +6,4 @@
 - include: homebrew.yml
 - include: cask.yml
 - include: zsh.yml
+- include: mpd.yml
