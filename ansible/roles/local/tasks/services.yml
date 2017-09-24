@@ -1,7 +1,15 @@
 - name: Ensure nas mount point
+  become: yes
   file:
     path: "{{secret.nas_mount_point}}"
     state: directory
+
+- name: Ensure nas mount point owner
+  become: yes
+  file:
+    path: "{{secret.nas_mount_point}}"
+    state: directory
+    owner: "{{ ansible_user_id }}"
 
 - name: Add nasmount service
   template:
