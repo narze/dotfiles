@@ -9,4 +9,5 @@
   homebrew: name=zplug state=present
 
 - name: Set default shell to installed zsh
+  become: yes
   user: name={{ansible_user_id}} shell=/usr/local/bin/zsh
