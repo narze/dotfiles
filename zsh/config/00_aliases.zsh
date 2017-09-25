@@ -52,6 +52,7 @@ alias gl="git pull"
 alias gli="git ls-files -o -i --exclude-standard --directory | grep -v '\.DS_Store'"
 
 # Misc
+alias -- -='cd -'
 alias b="bundle exec"
 alias c.="code ."
 alias cwd='pwd | pbcopy'
