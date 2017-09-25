@@ -27,3 +27,5 @@ if ! zplug check --verbose; then
 fi
 
 zplug load
+
+eval "$(rbenv init - --no-rehash)"
