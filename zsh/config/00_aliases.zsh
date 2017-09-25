@@ -54,6 +54,7 @@ alias gli="git ls-files -o -i --exclude-standard --directory | grep -v '\.DS_Sto
 # Misc
 alias -- -='cd -'
 alias b="bundle exec"
+alias c="clear"
 alias c.="code ."
 alias cwd='pwd | pbcopy'
 alias finder="cd \"$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')\""
