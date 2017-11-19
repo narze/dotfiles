@@ -10,7 +10,9 @@
     <string>admin</string>
     <key>ProgramArguments</key>
     <array>
-        <string>/sbin/mount_afp</string>
+        <string>/sbin/mount</string>
+        <string>-t smbfs</string>
+        <string>-o noatime,automounted</string>
         <string>{{secret.nas_addr}}</string>
         <string>{{secret.nas_mount_point}}</string>
     </array>
