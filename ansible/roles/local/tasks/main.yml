@@ -3,3 +3,6 @@
 - include: app_config.yml
 - include: services.yml
 - include: mpd.yml
+  when: secret.mpd_music_dir is defined
+- debug: msg="secret.mpd_music_dir undefined, skipping..."
+  when: secret.mpd_music_dir is not defined

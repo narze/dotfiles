@@ -1,0 +1,26 @@
+
+- name: Ensure nas mount point
+  become: yes
+  file:
+    path: "{{secret.nas_mount_point}}"
+    state: directory
+
+- name: Ensure nas mount point owner
+  become: yes
+  file:
+    path: "{{secret.nas_mount_point}}"
+    state: directory
+    owner: "{{ ansible_user_id }}"
+
+- name: Add nasmount service
+  template:
+    src: templates/LaunchAgents/com.monosor.nasmount.plist.j2
+    dest: ~/Library/LaunchAgents/com.monosor.nasmount.plist
+
+- name: Unload nasmount service
+  command: launchctl unload ~/Library/LaunchAgents/com.monosor.nasmount.plist
+  ignore_errors: yes
+
+- name: Load nasmount service
+  command: launchctl load ~/Library/LaunchAgents/com.monosor.nasmount.plist
+  ignore_errors: yes
