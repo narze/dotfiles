@@ -1,6 +1,5 @@
 - import_tasks: tmux.yml
 - import_tasks: dotfiles.yml
-- import_tasks: app_config.yml
 - import_tasks: services.yml
 - import_tasks: keyboard.yml
   tags:
