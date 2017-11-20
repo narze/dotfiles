@@ -1,0 +1,22 @@
+- name: Clone keyboard
+  git:
+    repo: https://github.com/narze/keyboard
+    dest: "{{ playbook_dir | dirname }}/etc/keyboard"
+
+- name: Link Hammerspoon config
+  file:
+    src: "{{ playbook_dir | dirname }}/etc/keyboard/hammerspoon"
+    path: ~/.hammerspoon/keyboard
+    state: link
+    force: yes
+
+- name: Check whether ~/.hammerspoon/init.lua contains "require('keyboard')"
+  command: grep -Fxq "require('keyboard')" ~/.hammerspoon/init.lua
+  register: check_require_keyboard
+  ignore_errors: yes
+
+- name: Ensure require keyboard script
+  lineinfile:
+    path: ~/.hammerspoon/init.lua
+    line: require('keyboard')
+  when: check_require_keyboard | failed
