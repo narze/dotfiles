@@ -10,6 +10,7 @@
   tags:
     - cask
   with_items:
+    - 1password
     - alfred
     - android-file-transfer
     - bartender
@@ -28,6 +29,7 @@
     - font-fira-code
     - google-chrome
     - growlnotify
+    - iterm2
     - xquartz
     - hazel
     - istat-menus
@@ -36,7 +38,6 @@
     - ngrok
     - postgres
     - rescuetime
-    - seil
     - sequel-pro
     - shortcat
     - slack
