@@ -10,13 +10,7 @@
     state: link
     force: yes
 
-- name: Check whether ~/.hammerspoon/init.lua contains "require('keyboard')"
-  command: grep -Fxq "require('keyboard')" ~/.hammerspoon/init.lua
-  register: check_require_keyboard
-  ignore_errors: yes
-
 - name: Ensure require keyboard script
   lineinfile:
     path: ~/.hammerspoon/init.lua
     line: require('keyboard')
-  when: check_require_keyboard | failed
