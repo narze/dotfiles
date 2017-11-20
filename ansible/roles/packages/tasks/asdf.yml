@@ -1,7 +1,42 @@
-- name: Install asdf
+- name: Install asdf dependencies
+  homebrew:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - coreutils
+    - automake
+    - autoconf
+    - openssl
+    - libyaml
+    - readline
+    - libxslt
+    - libtool
+    - unixodbc
+    - gpg # Nodejs dependency
   tags:
     - asdf
+
+- name: Install asdf
   git:
     repo: https://github.com/asdf-vm/asdf.git
     dest: ~/.asdf
     version: v0.4.0
+  tags:
+    - asdf
+
+- name: Install asdf-nodejs
+  command: ~/.asdf/bin/asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+  args:
+    creates: ~/.asdf/plugins/nodejs
+  tags:
+    - asdf
+
+- name: Import Node.js release team's OpenPGP keys to main keyring
+  command: bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring
+  tags:
+    - asdf
+
+- name: Install nodejs via asdf
+  command: ~/.asdf/bin/asdf install nodejs 8.9.1
+  tags:
+    - asdf
