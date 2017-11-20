@@ -19,6 +19,7 @@
     - git-flow
     - hub
     - imagemagick
+    - mackup
     - mas
     - phantomjs
     - rbenv
