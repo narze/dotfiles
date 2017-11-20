@@ -5,6 +5,7 @@
   tags:
     - homebrew
   with_items:
+    - asdf
     - awsebcli
     - chromedriver
     - dfu-programmer

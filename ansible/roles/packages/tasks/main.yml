@@ -7,3 +7,4 @@
 - include: cask.yml
 - include: zsh.yml
 - include: mpd.yml
+- include: asdf.yml

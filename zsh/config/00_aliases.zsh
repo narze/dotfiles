@@ -53,6 +53,7 @@ alias gli="git ls-files -o -i --exclude-standard --directory | grep -v '\.DS_Sto
 
 # Misc
 alias -- -='cd -'
+alias arst="asdf"
 alias b="bundle exec"
 alias c="clear"
 alias c.="code ."
