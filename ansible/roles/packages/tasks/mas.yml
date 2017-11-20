@@ -1,0 +1,15 @@
+---
+- name: Ensure MAS is installed.
+  homebrew: name=mas state=present
+
+- name: Install mas apps
+  command: mas install "{{ item.id }}"
+  with_items:
+    - { id: 979047768, name: "Browserism" }
+    - { id: 1278508951, name: "Trello" }
+    - { id: 918858936, name: "Airmail 3" }
+    - { id: 937984704, name: "Amphetamine" }
+    - { id: 409183694, name: "Keynote" }
+    - { id: 409203825, name: "Numbers" }
+    - { id: 409201541, name: "Pages" }
+    - { id: 557168941, name: "Tweetbot" }

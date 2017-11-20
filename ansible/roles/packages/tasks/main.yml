@@ -5,6 +5,9 @@
 
 - include: homebrew.yml
 - include: cask.yml
+- include: mas.yml
+  tags:
+    - mas
 - include: zsh.yml
 - include: mpd.yml
 - include: asdf.yml
