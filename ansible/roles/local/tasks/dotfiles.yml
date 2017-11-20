@@ -32,3 +32,10 @@
     path: ~/.tmux.conf.local
     state: link
     force: yes
+
+- name: Link mackup.cfg
+  file:
+    src: ~/.dotfiles/etc/mackup.cfg
+    path: ~/.mackup.cfg
+    state: link
+    force: yes
