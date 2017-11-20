@@ -1,4 +1,4 @@
-- include: nas.yml
+- import_tasks: nas.yml
   when:
     - secret.nas_addr is defined
     - secret.nas_mount_point is defined

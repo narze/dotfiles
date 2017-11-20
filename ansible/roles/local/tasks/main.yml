@@ -1,11 +1,11 @@
-- include: tmux.yml
-- include: dotfiles.yml
-- include: app_config.yml
-- include: services.yml
-- include: keyboard.yml
+- import_tasks: tmux.yml
+- import_tasks: dotfiles.yml
+- import_tasks: app_config.yml
+- import_tasks: services.yml
+- import_tasks: keyboard.yml
   tags:
     - keyboard
-- include: mpd.yml
+- import_tasks: mpd.yml
   when: secret.mpd_music_dir is defined
 - debug: msg="secret.mpd_music_dir undefined, skipping..."
   when: secret.mpd_music_dir is not defined
