@@ -39,3 +39,10 @@
     path: ~/.mackup.cfg
     state: link
     force: yes
+
+- name: Link asdfrc
+  file:
+    src: ~/.dotfiles/etc/asdfrc
+    path: ~/.asdfrc
+    state: link
+    force: yes
