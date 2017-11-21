@@ -1,2 +1,3 @@
 *.retry
 secrets.yml
+.DS_Store
