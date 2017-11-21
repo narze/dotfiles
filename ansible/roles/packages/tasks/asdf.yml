@@ -30,13 +30,31 @@
     creates: ~/.asdf/plugins/nodejs
   tags:
     - asdf
+    - nodejs
 
 - name: Import Node.js release team's OpenPGP keys to main keyring
   command: bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring
   tags:
     - asdf
+    - nodejs
 
 - name: Install nodejs via asdf
   command: ~/.asdf/bin/asdf install nodejs 8.9.1
   tags:
     - asdf
+    - nodejs
+
+- name: Install yarn
+  homebrew:
+    name: yarn
+    options: without-node
+    state: present
+  tags:
+    - asdf
+    - nodejs
+
+- name: Reshim nodejs
+  command: ~/.asdf/bin/asdf reshim nodejs
+  tags:
+    - asdf
+    - nodejs
