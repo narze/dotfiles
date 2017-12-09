@@ -26,6 +26,7 @@
     - reattach-to-user-namespace
     - redis
     - ruby-build
+    - terminal-notifier
     - tmux
     - vim
     - yarn
