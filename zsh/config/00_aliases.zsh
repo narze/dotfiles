@@ -9,17 +9,16 @@ fi
 
 # The rest of my fun git aliases
 alias g='git'
-alias gl='git pull --prune'
 alias gfr='git fetch && git rebase'
 alias glog="git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
 alias gp='git push origin HEAD'
 alias gd='git diff'
 alias gc='git commit'
-alias gca='git commit -a'
+alias gca='git commit --amend'
 alias gco='git checkout'
 alias gcb='git copy-branch-name'
 alias gb='git branch'
-alias gs='git status -sb' # upgrade your git if -sb breaks for you. it's fun.
+alias gs='git status -sb'
 
 alias ga="git add"
 alias ga.="git add ."
@@ -38,12 +37,9 @@ alias gcln="git clean"
 alias gds="git diff --staged"
 alias gff="git flow feature"
 alias gfo="git fetch origin"
-alias gg="git gui"
 alias gp="git push"
-alias gpom="git push origin master"
-alias glom="git pull origin master"
+alias gpu="git push -u origin $(git rev-parse --abbrev-ref HEAD)"
 alias gmd="git merge develop"
-alias gmom="git merge origin/master"
 alias grm="git rebase master"
 alias gr="git reset"
 alias grh="git reset HEAD"
@@ -55,6 +51,7 @@ alias gli="git ls-files -o -i --exclude-standard --directory | grep -v '\.DS_Sto
 alias -- -='cd -'
 alias arst="asdf"
 alias b="bundle exec"
+alias be="bundle exec"
 alias c="clear"
 alias c.="code ."
 alias cwd='pwd | pbcopy'
@@ -65,13 +62,9 @@ alias gowd='cd "`pbpaste`"'
 alias h='heroku'
 alias ip='curl ifconfig.me'
 alias jsc='/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc'
-alias laptop='sh ~/dotfiles/bin/mac 2>&1 | tee ~/laptop.log'
-alias mochacof='mocha --compilers coffee:coffee-script'
 alias mc='maid clean -n'
 alias mcf='maid clean'
-# alias mpc2mp3='2mp3 *.mpc'
 alias mux='tmuxinator'
-# alias nw="~/Applications/node-webkit.app/Contents/MacOS/node-webkit"
 alias o.="open ."
 alias o="open"
 alias ox="open *.xcworkspace || open *.xcodeproj"
