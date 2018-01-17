@@ -9,6 +9,7 @@
     state: present
   tags:
     - cask
+  ignore_errors: yes
   with_items:
     - 1password
     - alfred
