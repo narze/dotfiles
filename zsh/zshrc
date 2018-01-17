@@ -1,12 +1,15 @@
 #!/usr/bin/env zsh
 
-export EDITOR=vim
+export EDITOR=nvim
 export TERM=xterm-256color
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export ZPLUG_HOME=/usr/local/opt/zplug
 export PATH="/usr/local/sbin:$PATH"
 export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
+
+# Prefer using emacs mode for zsh
+bindkey -e
 
 source $ZPLUG_HOME/init.zsh
 
