@@ -87,7 +87,8 @@ alias redo='sudo !!'
 alias s.="subl -na ."
 alias sl="subl"
 alias serve='python -m SimpleHTTPServer 8000'
-alias v="vim"
+alias v="nvim"
+alias vim="nvim"
 
 # Docker
 alias d='docker'

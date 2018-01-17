@@ -28,5 +28,5 @@
     - ruby-build
     - terminal-notifier
     - tmux
-    - vim
+    - nvim
     - yarn
