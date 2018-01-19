@@ -42,3 +42,8 @@ fi
 if [ -d "$HOME/.rbenv" ]; then
   eval "$(rbenv init - --no-rehash)"
 fi
+
+if [ -d "$HOME/.jenv" ]; then
+  eval "$(jenv init -)"
+fi
+
