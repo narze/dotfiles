@@ -6,7 +6,7 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export ZPLUG_HOME=/usr/local/opt/zplug
 export PATH="/usr/local/sbin:$PATH"
-export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
+export PATH="/Applications/Postgres.app/Contents/Versions/9.6/bin:$PATH"
 
 # Prefer using emacs mode for zsh
 bindkey -e
