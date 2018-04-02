@@ -8,6 +8,8 @@ auto_update             "yes"
 auto_update_depth       "2"
 follow_outside_symlinks "yes"
 follow_inside_symlinks  "yes"
+log_level               "default"
+max_connections         "10"
 max_playlist_length     "131072"
 max_output_buffer_size  "32768"
 max_command_list_size   "32768"
@@ -16,6 +18,9 @@ buffer_before_play      "25%"
 connection_timeout      "60"
 filesystem_charset      "UTF-8"
 id3v1_encoding          "UTF-8"
+gapless_mp3_playback    "yes"
+zeroconf_enabled        "yes"
+zeroconf_name           "Music Player"
 
 audio_output {
     type                  "osx"
@@ -28,7 +33,7 @@ decoder {
     enabled               "no"
 }
 
-bind_to_address         "any"
+bind_to_address         "0.0.0.0"
 port                    "6600"
 
 user                    "{{ ansible_user_id }}"
