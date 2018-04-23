@@ -20,6 +20,7 @@ zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 zplug "~/.dotfiles/zsh/config", from:local
 zplug "lib/history", from:oh-my-zsh
 zplug "rupa/z", use:z.sh
+zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-autosuggestions", defer:2
 zplug "zsh-users/zsh-history-substring-search", defer:2
 zplug "zsh-users/zsh-syntax-highlighting", defer:3
