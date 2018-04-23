@@ -26,6 +26,15 @@ zplug "zsh-users/zsh-history-substring-search", defer:2
 zplug "zsh-users/zsh-syntax-highlighting", defer:3
 zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
 
+if zplug check zsh-users/zsh-history-substring-search; then
+  bindkey '^[[A' history-substring-search-up
+  bindkey '^[[B' history-substring-search-down
+  bindkey -M emacs '^P' history-substring-search-up
+  bindkey -M emacs '^N' history-substring-search-down
+  bindkey -M vicmd 'k' history-substring-search-up
+  bindkey -M vicmd 'j' history-substring-search-down
+fi
+
 if ! zplug check --verbose; then
   printf "Install? [y/N]: "
   if read -q; then
