@@ -46,3 +46,10 @@
     path: ~/.asdfrc
     state: link
     force: yes
+
+- name: Link gitignore_global
+  file:
+    src: ~/.dotfiles/etc/gitignore_global
+    path: ~/.gitignore_global
+    state: link
+    force: yes
