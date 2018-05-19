@@ -57,3 +57,4 @@ if [ -d "$HOME/.jenv" ]; then
   eval "$(jenv init -)"
 fi
 
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(user dir rbenv rspec_stats vcs newline)
