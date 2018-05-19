@@ -1,6 +1,7 @@
 - name: Install Homebrew packages
   homebrew:
-    name: "{{ item }}"
+    name: "{{ item.name | default(item) }}"
+    install_options: "{{ item.install_options | default(omit) }}"
     state: present
   tags:
     - homebrew
@@ -13,6 +14,8 @@
     - diff-so-fancy
     - elasticsearch
     - elixir
+    - { name: emacs, options: "with-cocoa,with-gnutls" }
+    - entr
     - exercism
     - fzy
     - git
@@ -21,12 +24,15 @@
     - imagemagick
     - mackup
     - mas
+    - most
+    - multitail
     - phantomjs
     - rbenv
     - reattach-to-user-namespace
     - redis
     - ruby-build
     - terminal-notifier
+    - tldr
     - tmux
     - nvim
     - yarn
