@@ -8,6 +8,9 @@ export ZPLUG_HOME=/usr/local/opt/zplug
 export PATH="/usr/local/sbin:$PATH"
 export PATH="/Applications/Postgres.app/Contents/Versions/9.6/bin:$PATH"
 
+POWERLEVEL9K_MODE='awesome-fontconfig'
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(user dir rbenv rspec_stats vcs newline)
+
 # Prefer using emacs mode for zsh
 bindkey -e
 
@@ -56,5 +59,3 @@ fi
 if [ -d "$HOME/.jenv" ]; then
   eval "$(jenv init -)"
 fi
-
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(user dir rbenv rspec_stats vcs newline)
