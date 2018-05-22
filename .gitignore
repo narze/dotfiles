@@ -1,3 +1,4 @@
 *.retry
 secrets.yml
 .DS_Store
+/zsh/config/local.zsh
