@@ -36,9 +36,16 @@ edit_secrets() {
   fi
 }
 
+encrypt_secrets() {
+  if head -1 ansible/secrets.yml | grep -v -q \$ANSIBLE_VAULT; then
+    echo "Encrypting secrets.yml"
+    ansible-vault encrypt ansible/secrets.yml
+  fi
+}
+
 run_ansible_playbook() {
   echo "Running Ansible playbook with playbook.yml ..."
-  if ! ansible-playbook ansible/playbook.yml -i ansible/hosts -K $ANSIBLE_OPTS; then
+  if ! ansible-playbook ansible/playbook.yml -i ansible/hosts --ask-vault-pass $ANSIBLE_OPTS; then
     echo "Error running Ansible playbook"
     exit 1
   fi
@@ -49,6 +56,7 @@ setup() {
   setup_homebrew
   setup_ansible
   edit_secrets
+  encrypt_secrets
   run_ansible_playbook
 }
 
