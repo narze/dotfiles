@@ -1,5 +1,5 @@
 - name: Add Cask tap
-  homebrew_tap: tap=caskroom/fonts state=present
+  homebrew_tap: tap=homebrew/cask-fonts state=present
   tags:
     - cask
 
