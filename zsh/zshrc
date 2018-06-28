@@ -70,6 +70,6 @@ POWERLEVEL9K_TIME_BACKGROUND="black"
 POWERLEVEL9K_TIME_FOREGROUND="007"
 POWERLEVEL9K_TIME_FORMAT="%D{%H:%M:%S} %F{003}\uF017"
 
-if [ -d "$HOME/.zshrc.local" ]; then
+if [ -f "$HOME/.zshrc.local" ]; then
   source "$HOME/.zshrc.local"
 fi
