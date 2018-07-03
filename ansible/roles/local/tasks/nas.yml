@@ -12,6 +12,11 @@
     state: directory
     owner: "{{ ansible_user_id }}"
 
+- name: Ensure LaunchAgents directory
+  file:
+    path: ~/Library/LaunchAgents
+    state: directory
+
 - name: Add nasmount service
   template:
     src: templates/LaunchAgents/com.monosor.nasmount.plist.j2
