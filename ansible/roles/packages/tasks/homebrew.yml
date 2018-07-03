@@ -8,7 +8,6 @@
   with_items:
     - asdf
     - awsebcli
-    - chromedriver
     - dfu-programmer
     - dfu-util
     - diff-so-fancy
