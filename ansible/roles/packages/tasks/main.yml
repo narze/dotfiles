@@ -3,6 +3,11 @@
   tags:
     - java
 
+- name: Install Java 1.8
+  homebrew_cask: name=homebrew/cask-versions/java8 state=present
+  tags:
+    - java
+
 - import_tasks: homebrew.yml
 - import_tasks: cask.yml
 - import_tasks: mas.yml
