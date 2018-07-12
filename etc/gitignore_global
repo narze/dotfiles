@@ -38,4 +38,6 @@ Thumbs.db
 
 # Redis snapshot
 dump.rdb
+
 .vscode
+.elixir_ls
