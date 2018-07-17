@@ -1,0 +1,159 @@
+#!/usr/bin/env bash
+
+# https://github.com/joeyhoer/gifv
+
+# Set global variables
+PROGNAME=$(basename "$0")
+VERSION='1.1.0'
+
+print_help() {
+cat <<EOF
+Usage:    $PROGNAME [options] input-file
+Version:  $VERSION
+Convert GIFs and videos into GIF-like videos
+Options: (all optional)
+  -c CROP      The x and y crops, from the top left of the image (e.g. 640:480)
+  -d DIRECTION Directon (normal, reverse, alternate) [default: normal]
+  -o OUTPUT    The basename of the file to be output. The default is the
+               basename of the input file.
+  -r FPS       Output at this (frame)rate.
+  -s SPEED     Output using this speed modifier. The default is 1 (equal speed).
+  -O OPTIMIZE  Change the compression level used (1-9), with 1 being the
+               fastest, with less compression, and 9 being the slowest, with
+               optimal compression. The default compression level is 6.
+  -p SCALE     Rescale the output (e.g. 320:240)
+  -x           Remove the original file
+Example:
+  gifv -c 240:80 -o gifv.mp4 -x video.mov
+EOF
+exit $1
+}
+
+##
+# Check for a dependency
+#
+# @param 1 Command to check
+##
+dependency() {
+  hash "$1" &>/dev/null || error "$1 must be installed"
+}
+
+##
+# Join a list with a seperator
+#
+# @param 1  Seperator
+# @param 2+ Items to join
+##
+join_by() { local d=$1; shift; echo -n "$1"; shift; printf "%s" "${@/#/$d}"; }
+
+################################################################################
+
+# Check dependencies
+dependency ffmpeg
+
+# Initialize variables
+levels=(ultrafast superfast veryfast faster fast medium slow slower veryslow)
+level=6
+
+OPTERR=0
+
+while getopts "c:d:o:p:r:s:O:xh" opt; do
+  case $opt in
+    c) crop=$OPTARG;;
+    d) direction_opt=$OPTARG;;
+    h) print_help 0;;
+    o) output=$OPTARG;;
+    p) scale=$OPTARG;;
+    r) fps=$OPTARG;;
+    s) speed=$OPTARG;;
+    O) level=$OPTARG;;
+    x) cleanup=1;;
+    *) print_help 1;;
+  esac
+done
+
+shift $(( OPTIND - 1 ))
+
+# Store input filename
+filename="$1"
+
+# Print help, if no input file
+[ -z "$filename" ] && print_help 1
+
+# Automatically set output filename, if not defined
+if [ -z "$output" ]; then
+  # Strip off extension and add new extension
+  ext="${filename##*.}"
+  path=$(dirname "$filename")
+  output="$path/$(basename "$filename" ".$ext").mp4"
+fi
+
+# Video filters (scale, crop, speed)
+if [ $crop ]; then
+  crop="crop=${crop}:0:0"
+fi
+
+if [ $scale ]; then
+  scale="scale=${scale}"
+fi
+
+if [ $speed ]; then
+  speed="setpts=$(bc -l <<< "scale=4;1/${speed}")*PTS"
+fi
+
+# Convert GIFs
+# A fix for gifs that may not have a perfectly sized aspect ratio
+if [ "$(file -b --mime-type "$filename")" == image/gif ]; then
+  giffix="scale='if(eq(mod(iw,2),0),iw,iw-1)':'if(eq(mod(ih,2),0),ih,ih-1)'"
+fi
+
+# Direction
+if [ "$direction_opt" == "reverse" ]; then
+  direction="reverse"
+elif [[ "$direction_opt" == "alternate" ]]; then
+  filter="trim=start_frame=1,reverse,trim=start_frame=1,setpts=PTS-STARTPTS[rev];[0][rev]concat"
+fi
+
+# Concatenate options into a filter string
+# Note: giffix must be applied after any scaling/cropping
+if [ $scale ] || [ $crop ] || [ $speed ] || [ $giffix ] || [ $direction ]; then
+  filter="$(join_by "[out];[out]" $filter $(join_by , $scale $crop $speed $giffix $direction))"
+fi
+
+# Prepare filter string opt
+if [ $filter ]; then
+  filter="-filter_complex [0]${filter}[out] -map [out]"
+fi
+
+# FPS
+if [ $fps ]; then
+  fps="-r $fps"
+fi
+
+# Optimization level
+# 1: Fastest, worst compression
+# 9: Slowest, best compression
+(( $level > 9 )) && level=9 # OR err
+(( $level < 1 )) && level=1 # OR err
+optimize="${levels[$((level-1))]}"
+
+# TODO: Offer further optimizations
+# Constant rate factor (for better optimizations): -crf 22
+# Bit rate: -b:v 1000k
+
+# Codecs:
+# libvpx: webm
+# libx264: h.264
+codec="-c:v libx264"
+
+# Verbosity
+verbosity="-loglevel panic"
+
+# Create optimized GIF-like video
+ffmpeg $verbosity -i "$filename" $codec $filter $fps \
+  -an -pix_fmt yuv420p -preset "$optimize" -movflags faststart "$output"
+
+# Cleanup
+if [ $cleanup ]; then
+  rm "$filename"
+fi
