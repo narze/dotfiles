@@ -87,6 +87,8 @@ alias sl="subl"
 alias serve='python -m SimpleHTTPServer 8000'
 alias v="nvim"
 alias vim="nvim"
+alias wa="watch "
+alias watch="watch "
 alias wk="cd ~/Workspaces && ls"
 
 # Docker
