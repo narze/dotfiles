@@ -28,6 +28,8 @@ zplug "zsh-users/zsh-autosuggestions", defer:2
 zplug "zsh-users/zsh-history-substring-search", defer:2
 zplug "zsh-users/zsh-syntax-highlighting", defer:3
 zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
+zplug "docker/compose", use:contrib/completion/zsh
+zplug "docker/cli", use:contrib/completion/zsh
 
 if zplug check zsh-users/zsh-history-substring-search; then
   bindkey '^[[A' history-substring-search-up
