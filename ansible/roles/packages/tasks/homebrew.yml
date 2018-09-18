@@ -1,3 +1,10 @@
+- name: Add Homebrew Taps
+  homebrew_tap:
+    tap: "{{ item }}"
+    state: present
+  with_items:
+    - crisidev/homebrew-chunkwm
+
 - name: Install Homebrew packages
   homebrew:
     name: "{{ item.name | default(item) }}"
@@ -8,6 +15,7 @@
   with_items:
     - asdf
     - awsebcli
+    - chunkwm
     - dfu-programmer
     - dfu-util
     - diff-so-fancy
@@ -21,6 +29,7 @@
     - git-flow
     - hub
     - imagemagick
+    - koekeishiya/formulae/skhd
     - mackup
     - mas
     - most

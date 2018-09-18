@@ -53,3 +53,17 @@
     path: ~/.gitignore_global
     state: link
     force: yes
+
+- name: Link chunkwmrc
+  file:
+    src: ~/.dotfiles/etc/chunkwmrc
+    path: ~/.chunkwmrc
+    state: link
+    force: yes
+
+- name: Link skhdrc
+  file:
+    src: ~/.dotfiles/etc/skhdrc
+    path: ~/.skhdrc
+    state: link
+    force: yes
