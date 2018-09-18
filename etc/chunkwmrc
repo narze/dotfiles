@@ -35,7 +35,7 @@ chunkc core::plugin_dir /usr/local/opt/chunkwm/share/chunkwm/plugins
 #       and automatically reload any '.so' file that is changed.
 #
 
-chunkc core::hotload 0
+chunkc core::hotload 1
 
 #
 # NOTE: the following are config variables for the chunkwm-tiling plugin.
@@ -78,12 +78,12 @@ chunkc set bsp_split_ratio               0.5
 chunkc set monitor_focus_cycle           1
 chunkc set window_focus_cycle            monitor
 
-chunkc set mouse_follows_focus           intrinsic
+chunkc set mouse_follows_focus           all # intrinsic
 chunkc set window_float_next             0
 chunkc set window_region_locked          1
 
-chunkc set mouse_move_window             \"fn 1\"
-chunkc set mouse_resize_window           \"fn 2\"
+chunkc set mouse_move_window             \"alt 1\"
+chunkc set mouse_resize_window           \"alt 2\"
 chunkc set mouse_motion_interval         35
 
 chunkc set preselect_border_color        0xffd75f5f
@@ -94,8 +94,8 @@ chunkc set preselect_border_width        5
 #       (https://github.com/koekeishiya/chwm-sa)
 #
 
-chunkc set window_float_topmost          0
-chunkc set window_fade_inactive          0
+chunkc set window_float_topmost          1
+chunkc set window_fade_inactive          1
 chunkc set window_fade_alpha             0.85
 chunkc set window_fade_duration          0.25
 chunkc set window_use_cgs_move           0
@@ -123,7 +123,7 @@ chunkc set ffm_standby_on_float          1
 
 chunkc core::load border.so
 chunkc core::load tiling.so
-chunkc core::load ffm.so
+chunkc core::unload ffm.so # Disabled
 
 #
 # NOTE: sample rules for the tiling plugin
