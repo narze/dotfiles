@@ -279,5 +279,5 @@ ctrl + cmd + shift - 4 -> : chunkc border::clear
 
 # MPC commands
 ctrl + alt + cmd + shift - 0x23 : mpc toggle
-ctrl + alt + cmd - 0x2B : mpc next
-ctrl + alt + cmd - 0x2F : mpc prev
+ctrl + alt + cmd - 0x2B : mpc prev
+ctrl + alt + cmd - 0x2F : mpc next
