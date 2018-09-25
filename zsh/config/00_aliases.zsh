@@ -38,7 +38,7 @@ alias gds="git diff --staged"
 alias gff="git flow feature"
 alias gfo="git fetch origin"
 alias gp="git push"
-alias gpu="git push -u origin $(git rev-parse --abbrev-ref HEAD)"
+gpuo() { git push -u origin $(git rev-parse --abbrev-ref HEAD) }
 alias gmd="git merge develop"
 alias grm="git rebase master"
 alias gr="git reset"
