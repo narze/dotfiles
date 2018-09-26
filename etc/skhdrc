@@ -114,9 +114,9 @@ alt - 0x2F : chunkc tiling::window --focus next
 
 # focus monitor
 alt - u  : chunkc tiling::monitor -f prev
-shift + alt - h  : chunkc tiling::monitor -f prev
+alt + ctrl - h  : chunkc tiling::monitor -f prev
 alt - y : chunkc tiling::monitor -f next # ;
-shift + alt - i  : chunkc tiling::monitor -f next
+alt + ctrl - i  : chunkc tiling::monitor -f next
 
 # equalize size of windows
 # shift + alt - 0 : chunkc tiling::desktop --equalize
