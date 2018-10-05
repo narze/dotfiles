@@ -82,8 +82,8 @@ chunkc set mouse_follows_focus           all # intrinsic
 chunkc set window_float_next             0
 chunkc set window_region_locked          1
 
-chunkc set mouse_move_window             \"shift 1\"
-chunkc set mouse_resize_window           \"shift 2\"
+chunkc set mouse_move_window             \"ctrl 1\"
+chunkc set mouse_resize_window           \"ctrl 2\"
 chunkc set mouse_motion_interval         35
 
 chunkc set preselect_border_color        0xffd75f5f
