@@ -9,11 +9,11 @@
  :devices {:filco-bt [{:vendor_id 2652 :product_id 34050}]}
  :main [{:des "Swap Option / Command on certain devices" :rules [
                                                                  [:##left_command :left_option [:filco-bt]]
-                                                                 [:##left_option :left_command [:filco-bt]]]}
+                                                                 [:##left_option :left_command [:filco-bt] {:alone :!Shyphen}]]}
         {:des "Caps -> Hyper / Esc" :rules [[:##caps_lock :!CTOleft_shift nil {:alone :escape}]]}
-        {:des "Cmd -> Cmd / Underscore" :rules [[:left_command :left_command nil {:alone :!Shyphen}]]}
-        {:des "LShift -> Shift / (" :rules [[:left_shift :left_shift nil {:alone :!S9}]]}
-        {:des "RShift -> Shift / )" :rules [[:right_shift :right_shift nil {:alone :!S0}]]}
+        {:des "Cmd -> Cmd / Underscore" :rules [[:##left_command :left_command nil {:alone :!Shyphen}]]}
+        {:des "LShift -> Shift / (" :rules [[:##left_shift :right_shift nil {:held :left_shift :alone :!S9}]]}
+        {:des "RShift -> Shift / )" :rules [[:##right_shift :left_shift nil {:held :right_shift :alone :!S0}]]}
         {:des "F-J -> Delete" :rules [:f-mode [:j :delete_or_backspace]]}
         {:des "F-K -> Delete Word" :rules [:f-mode [:k :!Odelete_or_backspace]]}
         {:des "F-L -> Delete Line" :rules [:f-mode [:l :!Cdelete_or_backspace]]}
@@ -63,4 +63,20 @@
                                     [:y :!!y]
                                     [:z :!!z]
                                     ]}
-        ]}
+        ]
+ ;; code won't read cheatsheet section
+ ;; ! stand for mandatory
+ ;; # stand for optional
+ ;; C T O S for left command control optional shift
+ ;; F for fn
+ ;; need to prefix C T O S F with ! or #
+ :cheatsheet {:!Ca "command a" ;; mandatory left_command
+              :!Ta "control a" ;; mandatory left_control
+              :!Oa "option a"
+              :!Sa "shift a"
+              :#Sa "shift a" ;; keycode a, optional left_shift
+              :!CTOa "command control option a"
+              :!Cspacebar "command space"
+              :!Fa "fn a"
+              :##a "keycode a optional any"
+              :!!a "mandatory hyper(control command option shift) a "}}}
