@@ -60,3 +60,10 @@
     path: ~/.skhdrc
     state: link
     force: yes
+
+- name: Link karabiner.edn
+  file:
+    src: ~/.dotfiles/etc/karabiner.edn
+    path: ~/.config/karabiner.edn
+    state: link
+    force: yes

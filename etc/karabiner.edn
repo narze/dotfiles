@@ -1,0 +1,65 @@
+{:templates {:alfred "osascript -e 'tell application \"Alfred 3\" to run trigger \"%s\" in workflow \"%s\" with argument \"\"'"
+             :km "osascript -e 'tell application \"Keyboard Maestro Engine\" to do script \"%s\"'"}
+ :simlayers {
+  :f-mode {:key :f}
+  :o-mode {:key :o}
+  :h-mode {:key :h}
+  :superduper-mode {:key :s}
+}
+ :devices {:filco-bt [{:vendor_id 2652 :product_id 34050}]}
+ :main [{:des "Swap Option / Command on certain devices" :rules [
+                                                                 [:##left_command :left_option [:filco-bt]] [:left_option :left_command [:filco-bt]]]}
+        {:des "Caps -> Hyper / Esc" :rules [[:##caps_lock :!CTOleft_shift nil {:alone :escape}]]}
+        {:des "Cmd -> Cmd / Underscore" :rules [[:left_command :left_command nil {:alone :!Shyphen}]]}
+        {:des "LShift -> Shift / (" :rules [[:left_shift :left_shift nil {:alone :!S9}]]}
+        {:des "RShift -> Shift / )" :rules [[:right_shift :right_shift nil {:alone :!S0}]]}
+        {:des "F-J -> Delete" :rules [:f-mode [:j :delete_or_backspace]]}
+        {:des "F-K -> Delete Word" :rules [:f-mode [:k :!Odelete_or_backspace]]}
+        {:des "F-L -> Delete Line" :rules [:f-mode [:l :!Cdelete_or_backspace]]}
+
+        ; SuperDuper Mode with S+D or S alone
+        {:des "SuperDuper <- S+D" :rules [[{:sim [:s :d]
+                                     :simo {:interrupt true
+                                            :dorder :strict
+                                            :uorder :strict_inverse
+                                            :afterup {:set ["superduper-mode" 0]}}} {:set ["superduper-mode" 1]}]]}
+        {:des "SuperDuper H -> Left" :rules [:superduper-mode [:##h :left_arrow]]}
+        {:des "SuperDuper J -> Down" :rules [:superduper-mode [:##j :down_arrow]]}
+        {:des "SuperDuper K -> Up" :rules [:superduper-mode [:##k :up_arrow]]}
+        {:des "SuperDuper L -> Right" :rules [:superduper-mode [:##l :right_arrow]]}
+        {:des "SuperDuper F -> Delete" :rules [:superduper-mode [:##f :delete_or_backspace]]}
+        {:des "SuperDuper ; -> Forward Delete" :rules [:superduper-mode [:##semicolon :delete_forward]]}
+        {:des "SuperDuper I -> Prev Tab" :rules [:superduper-mode [:##i :!CSopen_bracket]]}
+        {:des "SuperDuper O -> Next Tab" :rules [:superduper-mode [:##o :!CSclose_bracket]]}
+        {:des "SuperDuper A -> Option" :rules [:superduper-mode [:##a :left_option]]}
+        {:des "SuperDuper V -> Shift" :rules [:superduper-mode [:##v :left_shift]]}
+
+        ; H for Hyper
+        {:des "H for Hyper" :rules [:h-mode
+                                    [:a :!!a]
+                                    [:b :!!b]
+                                    [:c :!!c]
+                                    [:d :!!d]
+                                    [:e :!!e]
+                                    [:f :!!f]
+                                    [:g :!!g]
+                                    [:i :!!i]
+                                    [:j :!!j]
+                                    [:k :!!k]
+                                    [:l :!!l]
+                                    [:m :!!m]
+                                    [:n :!!n]
+                                    [:o :!!o]
+                                    [:p :!!p]
+                                    [:q :!!q]
+                                    [:r :!!r]
+                                    [:s :!!s]
+                                    [:t :!!t]
+                                    [:u :!!u]
+                                    [:v :!!v]
+                                    [:w :!!w]
+                                    [:x :!!x]
+                                    [:y :!!y]
+                                    [:z :!!z]
+                                    ]}
+        ]}
