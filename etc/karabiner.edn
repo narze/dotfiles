@@ -6,7 +6,8 @@
   :h-mode {:key :h}
   :superduper-mode {:key :s}
 }
- :devices {:filco-bt [{:vendor_id 2652 :product_id 34050}]}
+ :devices {:filco-bt [{:vendor_id 2652 :product_id 34050}]
+           :planck [{:vendor_id 65261 :product_id 24672}]}
  :main [{:des "Swap Option / Command on certain devices" :rules [
                                                                  [:##left_command :left_option [:filco-bt]]
                                                                  [:##left_option :left_command [:filco-bt] {:alone :!Shyphen}]]}
