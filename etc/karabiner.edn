@@ -18,12 +18,10 @@
         {:des "LShift -> Shift / (" :rules [[:##left_shift :right_shift nil {:held :left_shift :alone :!S9}]]}
         {:des "RShift -> Shift / )" :rules [[:##right_shift :left_shift nil {:held :right_shift :alone :!S0}]]}
         {:des "F+J -> Delete" :rules [[[:f :j] :delete_or_backspace]]}
-        {:des "F-J -> Delete" :rules [:f-mode [:j :delete_or_backspace]]}
-        {:des "F-K -> Delete Word" :rules [:f-mode [:k :!Odelete_or_backspace]]}
-        {:des "F-L -> Delete Line" :rules [:f-mode [:l :!Cdelete_or_backspace]]}
-        ;; {:des "Disable backspace" :rules [[:delete_or_backspace :vk_none]]}
-        {:des "Disable backspace" :rules [[:delete_or_backspace "osascript -e beep" [:!ergodox-infinity]]]}
-
+        {:des "F-J/K -> Delete" :rules [:f-mode [:j :delete_or_backspace] [:k :delete_or_backspace]]}
+        {:des "F-L -> Delete Word" :rules [:f-mode [:l :!Odelete_or_backspace]]}
+        {:des "F-; -> Delete Line" :rules [:f-mode [:semicolon :!Cdelete_or_backspace]]}
+        ;; {:des "Disable backspace" :rules [[:delete_or_backspace "osascript -e beep" [:!ergodox-infinity]]]}
 
         ; SuperDuper Mode with S+D or S alone
         {:des "SuperDuper <- S+D" :rules [[{:sim [:s :d]
