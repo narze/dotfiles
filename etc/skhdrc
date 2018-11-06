@@ -281,3 +281,6 @@ ctrl + cmd + shift - 4 -> : chunkc border::clear
 ctrl + alt + cmd + shift - 0x23 : mpc toggle
 ctrl + alt + cmd - 0x2B : mpc prev
 ctrl + alt + cmd - 0x2F : mpc next
+
+# Reload Chunkwm tiling rules
+ctrl + alt + zmd - z : .chunkwm_rules
