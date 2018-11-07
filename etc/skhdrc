@@ -283,4 +283,4 @@ ctrl + alt + cmd - 0x2B : mpc prev
 ctrl + alt + cmd - 0x2F : mpc next
 
 # Reload Chunkwm tiling rules
-ctrl + alt + zmd - z : .chunkwm_rules
+ctrl + alt + cmd - z : sh ~/.chunkwm_rules
