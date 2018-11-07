@@ -124,4 +124,4 @@ chunkc set ffm_standby_on_float          1
 chunkc core::load border.so
 chunkc core::unload ffm.so # Disabled
 
-.chunkwm_rules
+bash ~/.chunkwm_rules
