@@ -18,7 +18,8 @@ alias gca='git commit --amend'
 alias gco='git checkout'
 alias gcb='git copy-branch-name'
 alias gb='git branch'
-alias gs='git status -sb'
+alias gs='say "Please use S for gods sake"'
+alias s="git status -sb"
 
 alias ga="git add"
 alias ga.="git add ."
