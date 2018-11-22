@@ -12,6 +12,37 @@
     state: present
   tags:
     - homebrew
+  with_items:
+    - asdf
+    - awsebcli
+    - chunkwm
+    - dfu-programmer
+    - dfu-util
+    - diff-so-fancy
+    - elasticsearch
+    - elixir
+    - { name: emacs, options: "with-cocoa,with-gnutls" }
+    - entr
+    - exercism
+    - fzy
+    - git
+    - git-flow
+    - hub
+    - imagemagick
+    - koekeishiya/formulae/skhd
+    - mackup
+    - mas
+    - most
+    - multitail
+    - reattach-to-user-namespace
+    - redis
+    - ruby-build
+    - terminal-notifier
+    - tldr
+    - tmux
+    - nvim
+    - yarn
+    - yqrashawn/goku/goku
 
 - name: Remove Homebrew packages
   tags:
