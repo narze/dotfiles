@@ -34,7 +34,6 @@
     - mas
     - most
     - multitail
-    - rbenv
     - reattach-to-user-namespace
     - redis
     - ruby-build
@@ -44,3 +43,12 @@
     - nvim
     - yarn
     - yqrashawn/goku/goku
+
+- name: Remove Homebrew packages
+  homebrew:
+    name: "{{ item.name | default(item) }}"
+    state: absent
+  tags:
+    - homebrew
+  with_items:
+    - rbenv
