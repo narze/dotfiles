@@ -68,6 +68,9 @@
     state: link
     force: yes
 
+- name: Ensure .config directory
+  file: path=~/.config state=directory recurse=yes
+
 - name: Link karabiner.edn
   file:
     src: ~/.dotfiles/etc/karabiner.edn
