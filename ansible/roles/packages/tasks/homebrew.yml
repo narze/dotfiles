@@ -46,9 +46,8 @@
 
 - name: Remove Homebrew packages
   homebrew:
-    name: "{{ item.name | default(item) }}"
+    name:
+      - rbenv
     state: absent
   tags:
     - homebrew
-  with_items:
-    - rbenv

@@ -4,66 +4,64 @@
     - cask
 
 - name: Install Cask packages
-  homebrew_cask:
-    name: "{{ item }}"
-    state: present
   tags:
     - cask
   ignore_errors: yes
-  with_items:
-    - 1password
-    - alfred
-    - android-file-transfer
-    - arq
-    - bartender
-    - bettertouchtool
-    - bitbar
-    - ccleaner
-    - chromedriver
-    - cyberduck
-    - default-folder-x
-    - dash
-    - disk-inventory-x
-    - docker
-    - dropbox
-    - evernote
-    - firefoxdeveloperedition
-    - flux
-    - font-firacode-nerd-font
-    - google-chrome
-    - growlnotify
-    - iterm2
-    - xquartz
-    - hazel
-    - istat-menus
-    - karabiner-elements
-    - keyboard-maestro
-    - ngrok
-    - omnifocus
-    - postgres
-    - rescuetime
-    - sequel-pro
-    - shortcat
-    - slack
-    - sourcetree
-    - spotify
-    - startupizer
-    - synergy
-    - teamviewer
-    - telegram
-    - the-unarchiver
-    - time-out
-    - trickster
-    - visual-studio-code-insiders
-    - whatpulse
-    - xld
+  homebrew_cask:
+    name:
+      - 1password
+      - alfred
+      - android-file-transfer
+      - arq
+      - bartender
+      - bettertouchtool
+      - bitbar
+      - ccleaner
+      - chromedriver
+      - cyberduck
+      - default-folder-x
+      - dash
+      - disk-inventory-x
+      - docker
+      - dropbox
+      - evernote
+      - firefoxdeveloperedition
+      - flux
+      - font-firacode-nerd-font
+      - google-chrome
+      - growlnotify
+      - iterm2
+      - xquartz
+      - hazel
+      - istat-menus
+      - karabiner-elements
+      - keyboard-maestro
+      - ngrok
+      - omnifocus
+      - postgres
+      - rescuetime
+      - sequel-pro
+      - shortcat
+      - slack
+      - sourcetree
+      - spotify
+      - startupizer
+      - synergy
+      - teamviewer
+      - telegram
+      - the-unarchiver
+      - time-out
+      - trickster
+      - visual-studio-code-insiders
+      - whatpulse
+      - xld
+    state: present
 
 - name: Remove Cask packages
-  homebrew_cask:
-    name: "{{ item }}"
-    state: absent
   tags:
     - cask
   ignore_errors: yes
-  with_items:
-    - hammerspoon
+  homebrew_cask:
+    name:
+      - hammerspoon
+    state: absent

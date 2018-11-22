@@ -1,8 +1,7 @@
 - name: Install mpd & ncmpcpp
   homebrew:
-    name: "{{ item }}"
+    name:
+      - mpd
+      - mpc
+      - ncmpcpp
     state: present
-  with_items:
-    - mpd
-    - mpc
-    - ncmpcpp

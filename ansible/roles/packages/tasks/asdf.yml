@@ -1,18 +1,17 @@
 - name: Install asdf dependencies
   homebrew:
-    name: "{{ item }}"
+    name:
+      - coreutils
+      - automake
+      - autoconf
+      - openssl
+      - libyaml
+      - readline
+      - libxslt
+      - libtool
+      - unixodbc
+      - gpg # Nodejs dependency
     state: present
-  with_items:
-    - coreutils
-    - automake
-    - autoconf
-    - openssl
-    - libyaml
-    - readline
-    - libxslt
-    - libtool
-    - unixodbc
-    - gpg # Nodejs dependency
   tags:
     - asdf
 

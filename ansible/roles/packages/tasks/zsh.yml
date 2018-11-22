@@ -1,9 +1,8 @@
 - name: Install zsh
   homebrew:
-    name: "{{ item }}"
+    name:
+      - zsh
     state: present
-  with_items:
-    - zsh
 
 - name: Install zplug
   homebrew: name=zplug state=present
