@@ -34,7 +34,6 @@
     - growlnotify
     - iterm2
     - xquartz
-    - hammerspoon
     - hazel
     - istat-menus
     - karabiner-elements
@@ -58,3 +57,13 @@
     - visual-studio-code-insiders
     - whatpulse
     - xld
+
+- name: Remove Cask packages
+  homebrew_cask:
+    name: "{{ item }}"
+    state: absent
+  tags:
+    - cask
+  ignore_errors: yes
+  with_items:
+    - hammerspoon
