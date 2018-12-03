@@ -18,6 +18,10 @@ else
   chunkc tiling::rule --owner Chrome --except "^$" --state tile --monitor 2 &
 fi
 
+# Reload to unapply monitor rules
+chunkc core::unload tiling.so
+chunkc core::load tiling.so
+
 chunkc tiling::rule --owner Emacs --except "^$" --state tile &
 
 chunkc tiling::rule --owner \"Code - Insiders\" --role AXWindow --subrole AXStandardWindow --state tile --monitor 1 --desktop 1 --grid-layout 1:2:0:0:1:1 &
