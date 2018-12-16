@@ -19,16 +19,8 @@
     src: templates/mpd/mpd.conf.j2
     dest: ~/.local/mpd/mpd.conf
 
-- name: Add mpd service
-  template:
-    src: templates/LaunchAgents/com.monosor.mpd.plist.j2
-    dest: ~/Library/LaunchAgents/com.monosor.mpd.plist
-
-- name: Unload mpd service
-  command: launchctl unload ~/Library/LaunchAgents/com.monosor.mpd.plist
-  ignore_errors: yes
-
-- name: Load mpd service
-  command: launchctl load ~/Library/LaunchAgents/com.monosor.mpd.plist
-  ignore_errors: yes
+- name: Remove mpd service
+  file:
+    path: ~/Library/LaunchAgents/com.monosor.mpd.plist
+    state: absent
 
