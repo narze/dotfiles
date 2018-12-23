@@ -19,8 +19,7 @@
     - dfu-programmer
     - dfu-util
     - diff-so-fancy
-    - elasticsearch
-    - elixir
+    - elasticsearch@2.4
     - { name: emacs, options: "with-cocoa,with-gnutls" }
     - entr
     - exercism
@@ -30,7 +29,6 @@
     - hub
     - imagemagick
     - koekeishiya/formulae/skhd
-    - mackup
     - mas
     - most
     - multitail
