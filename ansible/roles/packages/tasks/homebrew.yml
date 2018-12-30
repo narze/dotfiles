@@ -3,7 +3,7 @@
     tap: "{{ item }}"
     state: present
   with_items:
-    - crisidev/homebrew-chunkwm
+    - koekeishiya/formulae
 
 - name: Install Homebrew packages
   homebrew:
