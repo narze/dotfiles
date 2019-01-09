@@ -13,8 +13,8 @@ max_connections         "10"
 max_playlist_length     "131072"
 max_output_buffer_size  "32768"
 max_command_list_size   "32768"
-audio_buffer_size       "4096"
-buffer_before_play      "25%"
+audio_buffer_size       "8192"
+buffer_before_play      "80%"
 connection_timeout      "60"
 filesystem_charset      "UTF-8"
 id3v1_encoding          "UTF-8"
@@ -23,9 +23,10 @@ zeroconf_enabled        "yes"
 zeroconf_name           "Music Player"
 
 audio_output {
-    type                  "osx"
-    name                  "CoreAudio"
+    name                  "default"
+    type                  "ao"
     mixer_type            "software"
+    options               "buf_size=8192,buffer_time=1500000"
 }
 
 audio_output {
