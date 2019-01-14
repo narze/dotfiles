@@ -56,6 +56,10 @@ alias be="bundle exec"
 alias c="clear"
 alias c.="code ."
 alias cwd='pwd | pbcopy'
+fd() {
+	local dir
+	dir=$(find ${1:-.} -path '*/\.*' -prune -o -type d -print 2> /dev/null | fzy) && cd "$dir"
+}
 alias finder="cd \"$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')\""
 alias fixappleeventsbug='sudo killall -KILL appleeventsd'
 alias fuck='eval $(thefuck $(fc -ln -1))'
@@ -65,6 +69,7 @@ alias ip='curl ifconfig.me'
 alias jsc='/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc'
 alias sand='cd ~/Sandbox && ls'
 alias k='kubectl'
+alias l='ls -la'
 alias lt='cd ~/laptop'
 alias mc='maid clean -n'
 alias mcf='maid clean'
