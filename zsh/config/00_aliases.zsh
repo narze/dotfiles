@@ -56,7 +56,7 @@ alias be="bundle exec"
 alias c="clear"
 alias c.="code ."
 alias cwd='pwd | pbcopy'
-fd() {
+f() {
 	local dir
 	dir=$(find ${1:-.} -path '*/\.*' -prune -o -type d -print 2> /dev/null | fzy) && cd "$dir"
 }
