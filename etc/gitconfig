@@ -1,0 +1,5 @@
+[user]
+	name = Manassarn Manoonchai
+	email = manassarn@gmail.com
+[core]
+	excludesfile = ~/.gitignore_global
