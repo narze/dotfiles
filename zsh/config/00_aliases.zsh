@@ -53,7 +53,8 @@ alias -- -='cd -'
 alias arst="asdf"
 alias b="bundle exec"
 alias be="bundle exec"
-alias c="clear"
+alias cl="clear"
+alias c='cd ~/Code && ls'
 alias c.="code ."
 alias cwd='pwd | pbcopy'
 f() {
