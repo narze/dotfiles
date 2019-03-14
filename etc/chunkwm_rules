@@ -9,13 +9,13 @@ if [[ $(seq $(chunkc tiling::query --monitor count) | tail -n 1) == 1 ]]; then
   chunkc tiling::rule --owner Slack --state tile --desktop 2 &
   chunkc tiling::rule --owner Spotify --state tile --desktop 2 &
   chunkc tiling::rule --owner Safari --except "^$" --state tile --desktop 2 &
-  chunkc tiling::rule --owner Chrome --except "^$" --state tile --desktop 2 &
+  chunkc tiling::rule --owner Firefox --except "^$" --state tile --desktop 2 &
 else
   # chunkc tiling::rule --owner ".*" --state float --monitor 2 &
   chunkc tiling::rule --owner Slack --state tile --monitor 2 &
   chunkc tiling::rule --owner Spotify --state tile --monitor 2 &
   chunkc tiling::rule --owner Safari --except "^$" --state tile --monitor 2 &
-  chunkc tiling::rule --owner Chrome --except "^$" --state tile --monitor 2 &
+  chunkc tiling::rule --owner Firefox --except "^$" --state tile --monitor 2 &
 fi
 
 # Reload to unapply monitor rules
@@ -27,6 +27,7 @@ chunkc tiling::rule --owner Emacs --except "^$" --state tile &
 chunkc tiling::rule --owner \"Code - Insiders\" --role AXWindow --subrole AXStandardWindow --state tile --monitor 1 --desktop 1 --grid-layout 1:2:0:0:1:1 &
 chunkc tiling::rule --owner iTerm2 --state float --role AXWindow --subrole AXSystemDialog &
 chunkc tiling::rule --owner iTerm2 --state tile --role AXWindow --subrole AXStandardWindow --monitor 1 --desktop 1 --grid-layout  1:2:1:0:1:1 &
+chunkc tiling::rule --owner Chrome --state float &
 chunkc tiling::rule --owner Finder --except "^$" --state float --monitor 2 &
 
 chunkc tiling::rule --owner "System Preferences" --state float &
