@@ -33,5 +33,6 @@ chunkc tiling::rule --owner Finder --except "^$" --state float --monitor 2 &
 
 chunkc tiling::rule --owner "System Preferences" --state float &
 chunkc tiling::rule --owner "Dash" --state float &
+chunkc tiling::rule --owner "Preview" --state float &
 chunkc tiling::rule --owner "Time Out" --state float &
 chunkc tiling::rule --owner ".*" --role AXSheet --state float &
