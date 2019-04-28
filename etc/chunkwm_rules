@@ -3,18 +3,26 @@
 chunkc core::unload tiling.so
 chunkc core::load tiling.so
 
-# # Monitor/desktop 2
-# if [[ $(seq $(chunkc tiling::query --monitor count) | tail -n 1) == 1 ]]; then
-#   chunkc tiling::rule --owner Slack --state tile --desktop 2 &
-#   chunkc tiling::rule --owner Spotify --state tile --desktop 2 &
-#   chunkc tiling::rule --owner Safari --except "^$" --state tile --desktop 2 &
-#   chunkc tiling::rule --owner Firefox --except "^$" --state tile --desktop 2 &
-# else
-#   chunkc tiling::rule --owner Slack --state tile --monitor 2 &
-#   chunkc tiling::rule --owner Spotify --state tile --monitor 2 &
-#   chunkc tiling::rule --owner Safari --except "^$" --state tile --monitor 2 &
-#   chunkc tiling::rule --owner Firefox --except "^$" --state tile --monitor 2 &
-# fi
+if [[ $(seq $(chunkc tiling::query --desktops-for-monitor 1) | tail -n 1) == 1 ]]; then
+  chunkc tiling::desktop --create
+fi
+
+if [[ $(seq $(chunkc tiling::query --desktops-for-monitor 1) | tail -n 1) == 2 ]]; then
+  chunkc tiling::desktop --create
+fi
+
+# Monitor/desktop 2
+if [[ $(seq $(chunkc tiling::query --monitor count) | tail -n 1) == 1 ]]; then
+  chunkc tiling::rule --owner Slack --state tile --desktop 2 &
+  chunkc tiling::rule --owner Spotify --state tile --desktop 2 &
+  chunkc tiling::rule --owner Safari --except "^$" --state tile --desktop 2 &
+  chunkc tiling::rule --owner Firefox --except "^$" --state tile --desktop 2 &
+else
+  chunkc tiling::rule --owner Slack --state tile --monitor 2 &
+  chunkc tiling::rule --owner Spotify --state tile --monitor 2 &
+  chunkc tiling::rule --owner Safari --except "^$" --state tile --monitor 2 &
+  chunkc tiling::rule --owner Firefox --except "^$" --state tile --monitor 2 &
+fi
 
 chunkc tiling::rule --owner Emacs --except "^$" --state tile &
 

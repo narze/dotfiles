@@ -292,7 +292,8 @@ ctrl + alt - a : chunkc tiling::desktop --layout bsp
 ctrl + alt - r : chunkc tiling::desktop --layout monocle
 ctrl + alt - s : chunkc tiling::desktop --layout float
 
-# ctrl + alt - w : chunkc tiling::desktop --deserialize ~/.chunkwm_layouts/dev_1
+ctrl + alt - l : chunkc tiling::desktop --deserialize ~/.chunkwm_layout
+ctrl + alt + cmd - l : chunkc tiling::desktop --serialize ~/.chunkwm_layout
 
 # Fix screenshot taking in app mode
 cmd + shift - 4 -> : chunkc border::clear
