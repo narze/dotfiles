@@ -58,22 +58,28 @@ chunkc set global_desktop_offset_gap     10
 #
 # NOTE: syntax for desktop-specific settings
 #
-# chunkc set 2_desktop_mode                monocle
-# chunkc set 5_desktop_mode                float
-# chunkc set 3_desktop_offset_top          190
-# chunkc set 3_desktop_offset_bottom       190
-# chunkc set 3_desktop_offset_left         190
-# chunkc set 3_desktop_offset_right        190
-# chunkc set 3_desktop_offset_gap          30
-#
+chunkc set 2_desktop_mode                monocle
+chunkc set 3_desktop_mode                float
+
+chunkc set 2_desktop_offset_top          50
+chunkc set 2_desktop_offset_bottom       50
+chunkc set 2_desktop_offset_left         50
+chunkc set 2_desktop_offset_right        50
+chunkc set 2_desktop_offset_gap          30
+
+chunkc set 3_desktop_offset_top          50
+chunkc set 3_desktop_offset_bottom       50
+chunkc set 3_desktop_offset_left         50
+chunkc set 3_desktop_offset_right        50
+chunkc set 3_desktop_offset_gap          30
 
 chunkc set desktop_padding_step_size     10.0
 chunkc set desktop_gap_step_size         5.0
 
-chunkc set bsp_spawn_left                1
+chunkc set bsp_spawn_left                0
 chunkc set bsp_optimal_ratio             1.618
 chunkc set bsp_split_mode                optimal
-chunkc set bsp_split_ratio               0.5
+chunkc set bsp_split_ratio               0.6
 
 chunkc set monitor_focus_cycle           1
 chunkc set window_focus_cycle            monitor
@@ -98,16 +104,16 @@ chunkc set window_float_topmost          0
 chunkc set window_fade_inactive          1
 chunkc set window_fade_alpha             0.85
 chunkc set window_fade_duration          0.25
-chunkc set window_use_cgs_move           0
+chunkc set window_use_cgs_move           1
 
 #
 # NOTE: the following are config variables for the chunkwm-border plugin.
 #
 
-chunkc set focused_border_color          0xaaff787f
-chunkc set focused_border_width          6
+chunkc set focused_border_color          0x77ff787f
+chunkc set focused_border_width          4
 chunkc set focused_border_radius         4
-chunkc set focused_border_skip_floating  0
+chunkc set focused_border_skip_floating  1
 chunkc set focused_border_skip_monocle   0
 
 #
@@ -116,12 +122,14 @@ chunkc set focused_border_skip_monocle   0
 
 chunkc set ffm_bypass_modifier           fn
 chunkc set ffm_standby_on_float          1
+chunkc set ffm_disable_autoraise         1
 
 #
 # NOTE: specify plugins to load when chunkwm starts.
 #
 
 chunkc core::load border.so
-chunkc core::unload ffm.so # Disabled
+chunkc core::load tiling.so
+chunkc core::load ffm.so
 
 bash ~/.chunkwm_rules
