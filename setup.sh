@@ -2,6 +2,41 @@
 
 ANSIBLE_OPTS="$@"
 
+q() {
+  QUESTION=$1
+
+  local YESNO=""
+
+  if [ -n "$ZSH_VERSION" ]; then
+    read -s -k1 "YESNO?$QUESTION [Y/n]"
+  elif [ -n "$BASH_VERSION" ]; then
+    read -s -n1 -r -p "$QUESTION [Y/n]" YESNO
+  else
+    echo "Please use Zsh or Bash"
+    exit 1
+  fi
+
+  if [[ "$YESNO" != "n" ]]; then
+    YESNO=1
+  else
+    YESNO=""
+  fi
+
+  echo $YESNO
+}
+
+setup_ask() {
+  local SETUP_FULL=$(q "Full Setup ?")
+
+  echo
+
+  if [[ -n $SETUP_FULL ]]; then
+    echo "Full setup"
+  else
+    echo "Selective Setup"
+  fi
+}
+
 setup_xcode() {
   if ! command -v cc >/dev/null; then
     echo "Installing command line tools ..."
