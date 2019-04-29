@@ -19,7 +19,6 @@
     - dfu-programmer
     - dfu-util
     - diff-so-fancy
-    - elasticsearch@2.4
     - { name: emacs, options: "with-cocoa,with-gnutls" }
     - entr
     - exercism
