@@ -41,14 +41,14 @@ chunkc core::hotload 1
 # NOTE: the following are config variables for the chunkwm-tiling plugin.
 #
 
-chunkc set custom_bar_enabled            0
-chunkc set custom_bar_all_monitors       0
-chunkc set custom_bar_offset_top         22
-chunkc set custom_bar_offset_bottom      0
+chunkc set custom_bar_enabled            1
+chunkc set custom_bar_all_monitors       1
+chunkc set custom_bar_offset_top         32
+chunkc set custom_bar_offset_bottom      32
 chunkc set custom_bar_offset_left        0
 chunkc set custom_bar_offset_right       0
 
-chunkc set global_desktop_mode           bsp
+chunkc set global_desktop_mode           float
 chunkc set global_desktop_offset_top     13
 chunkc set global_desktop_offset_bottom  13
 chunkc set global_desktop_offset_left    13
@@ -58,6 +58,7 @@ chunkc set global_desktop_offset_gap     10
 #
 # NOTE: syntax for desktop-specific settings
 #
+chunkc set 1_desktop_mode                bsp
 chunkc set 2_desktop_mode                monocle
 chunkc set 3_desktop_mode                float
 
@@ -130,6 +131,6 @@ chunkc set ffm_disable_autoraise         1
 
 chunkc core::load border.so
 chunkc core::load tiling.so
-chunkc core::load ffm.so
+# chunkc core::load ffm.so
 
 bash ~/.chunkwm_rules
