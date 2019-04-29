@@ -18,9 +18,3 @@
   template:
     src: templates/mpd/mpd.conf.j2
     dest: ~/.local/mpd/mpd.conf
-
-- name: Remove mpd service
-  file:
-    path: ~/Library/LaunchAgents/com.monosor.mpd.plist
-    state: absent
-

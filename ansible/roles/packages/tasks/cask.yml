@@ -57,12 +57,3 @@
       - whichspace
       - xld
     state: present
-
-- name: Remove Cask packages
-  tags:
-    - cask
-  ignore_errors: yes
-  homebrew_cask:
-    name:
-      - hammerspoon
-    state: absent
