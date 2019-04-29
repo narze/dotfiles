@@ -1,12 +1,5 @@
-- name: Install Java
-  homebrew_cask: name=java state=present
-  tags:
-    - java
-
-- name: Install Java 1.8
-  homebrew_cask: name=homebrew/cask-versions/java8 state=present
-  tags:
-    - java
+- name: Remove Java
+  homebrew_cask: name=java state=absent
 
 - import_tasks: homebrew.yml
 - import_tasks: cask.yml
