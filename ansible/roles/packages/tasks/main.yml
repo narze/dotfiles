@@ -2,10 +2,25 @@
   homebrew_cask: name=java state=absent
 
 - import_tasks: homebrew.yml
+  tags:
+    - homebrew
+
 - import_tasks: cask.yml
+  tags:
+    - cask
+
 - import_tasks: mas.yml
   tags:
     - mas
+
 - import_tasks: zsh.yml
+  tags:
+    - zsh
+
 - import_tasks: mpd.yml
+  tags:
+    - mpd
+
 - import_tasks: asdf.yml
+  tags:
+    - asdf

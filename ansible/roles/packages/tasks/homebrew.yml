@@ -10,8 +10,6 @@
     name: "{{ item.name | default(item) }}"
     install_options: "{{ item.install_options | default(omit) }}"
     state: present
-  tags:
-    - homebrew
   with_items:
     - asdf
     - awsebcli

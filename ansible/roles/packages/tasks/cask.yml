@@ -1,11 +1,7 @@
 - name: Add Cask tap
   homebrew_tap: tap=homebrew/cask-fonts state=present
-  tags:
-    - cask
 
 - name: Install Cask packages
-  tags:
-    - cask
   ignore_errors: yes
   homebrew_cask:
     name:

@@ -1,7 +1,19 @@
 - import_tasks: tmux.yml
+  tags:
+    - tmux
+
 - import_tasks: dotfiles.yml
+  tags:
+    - dotfiles
+
 - import_tasks: services.yml
+
 - import_tasks: mpd.yml
   when: secret.mpd_music_dir is defined
+  tags:
+    - mpd
+
 - debug: msg="secret.mpd_music_dir undefined, skipping..."
   when: secret.mpd_music_dir is not defined
+  tags:
+    - mpd

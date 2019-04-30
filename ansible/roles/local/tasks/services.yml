@@ -2,7 +2,11 @@
   when:
     - secret.nas_addr is defined
     - secret.nas_mount_point is defined
+  tags:
+    - nas
 
 - debug: msg="secret.nas_addr & secret.nas_mount_point undefined, skipping..."
   when: (secret.nas_addr is not defined) or
         (secret.nas_mount_point is not defined)
+  tags:
+    - nas
