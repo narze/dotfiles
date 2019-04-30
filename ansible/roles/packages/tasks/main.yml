@@ -24,3 +24,7 @@
 - import_tasks: asdf.yml
   tags:
     - asdf
+
+- import_tasks: docker.yml
+  tags:
+    - docker

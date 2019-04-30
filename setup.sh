@@ -11,6 +11,8 @@ SETUP_ASDF=
 SETUP_TMUX=
 SETUP_DOTFILES=
 SETUP_NAS=
+SETUP_DOCKER=
+STEPS=10
 
 _q() {
   local QUESTION=$1
@@ -40,15 +42,17 @@ setup_ask() {
   if [[ $FULL_SETUP == "y" ]]; then
     ANSIBLE_TAGS+=('all')
   else
-    SETUP_BREW=$(_q "Install Homebrew packages ?") ; echo $SETUP_BREW
-    SETUP_CASK=$(_q "Install Homebrew Cask packages ?") ; echo $SETUP_CASK
-    SETUP_MAS=$(_q "Install Mas packages?") ; echo $SETUP_MAS
-    SETUP_ZSH=$(_q "Install Zsh with Zplug ?") ; echo $SETUP_ZSH
-    SETUP_MPD=$(_q "Configure mpd ?") ; echo $SETUP_MPD
-    SETUP_ASDF=$(_q "Install asdf with nodejs & yarn ?") ; echo $SETUP_ASDF
-    SETUP_TMUX=$(_q "Configure tmux ?") ; echo $SETUP_TMUX
-    SETUP_DOTFILES=$(_q "Softlink dotfiles ?") ; echo $SETUP_DOTFILES
-    SETUP_NAS=$(_q "Setup your NAS ?") ; echo $SETUP_NAS
+    STEP=1
+    SETUP_BREW=$(_q "[$STEP/$STEPS] Install Homebrew packages ?") ; echo $SETUP_BREW ; STEP=$((STEP+1))
+    SETUP_CASK=$(_q "[$STEP/$STEPS] Install Homebrew Cask packages ?") ; echo $SETUP_CASK ; STEP=$((STEP+1))
+    SETUP_MAS=$(_q "[$STEP/$STEPS] Install Mas packages?") ; echo $SETUP_MAS ; STEP=$((STEP+1))
+    SETUP_ZSH=$(_q "[$STEP/$STEPS] Install Zsh with Zplug ?") ; echo $SETUP_ZSH ; STEP=$((STEP+1))
+    SETUP_MPD=$(_q "[$STEP/$STEPS] Configure mpd ?") ; echo $SETUP_MPD ; STEP=$((STEP+1))
+    SETUP_ASDF=$(_q "[$STEP/$STEPS] Install asdf with nodejs & yarn ?") ; echo $SETUP_ASDF ; STEP=$((STEP+1))
+    SETUP_TMUX=$(_q "[$STEP/$STEPS] Configure tmux ?") ; echo $SETUP_TMUX ; STEP=$((STEP+1))
+    SETUP_DOTFILES=$(_q "[$STEP/$STEPS] Softlink dotfiles ?") ; echo $SETUP_DOTFILES ; STEP=$((STEP+1))
+    SETUP_NAS=$(_q "[$STEP/$STEPS] Setup your NAS ?") ; echo $SETUP_NAS ; STEP=$((STEP+1))
+    SETUP_DOCKER=$(_q "[$STEP/$STEPS] Pull Docker images ?") ; echo $SETUP_DOCKER ; STEP=$((STEP+1))
 
     if [[ $SETUP_BREW == "y" ]]; then ANSIBLE_TAGS+=('homebrew'); fi
     if [[ $SETUP_CASK == "y" ]]; then ANSIBLE_TAGS+=('cask'); fi
@@ -59,6 +63,7 @@ setup_ask() {
     if [[ $SETUP_TMUX == "y" ]]; then ANSIBLE_TAGS+=('tmux'); fi
     if [[ $SETUP_DOTFILES == "y" ]]; then ANSIBLE_TAGS+=('dotfiles'); fi
     if [[ $SETUP_NAS == "y" ]]; then ANSIBLE_TAGS+=('nas'); fi
+    if [[ $SETUP_DOCKER == "y" ]]; then ANSIBLE_TAGS+=('docker'); fi
   fi
 }
 

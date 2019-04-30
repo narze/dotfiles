@@ -1,0 +1,24 @@
+- name: Ensure Docker.app is installed
+  homebrew_cask:
+    name:
+      - docker
+
+- name: Open Docker
+  command: open -a Docker
+
+- name: Wait for Docker daemon
+  command: docker version
+  register: result
+  retries: 40
+  delay: 3
+  until: result.rc == 0
+
+- name: Pull docker images
+  command: "docker pull {{ item }}"
+  with_items:
+    - drone/drone:1
+    - elasticsearch:5
+    - memcached:1.5-alpine
+    - postgres:9-alpine
+    - redis:latest
+    - tophfr/mailcatcher
