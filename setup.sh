@@ -12,7 +12,8 @@ SETUP_TMUX=
 SETUP_DOTFILES=
 SETUP_NAS=
 SETUP_DOCKER=
-STEPS=10
+SETUP_RUBY=
+STEPS=11
 
 _q() {
   local QUESTION=$1
@@ -53,6 +54,7 @@ setup_ask() {
     SETUP_DOTFILES=$(_q "[$STEP/$STEPS] Softlink dotfiles ?") ; echo $SETUP_DOTFILES ; STEP=$((STEP+1))
     SETUP_NAS=$(_q "[$STEP/$STEPS] Setup your NAS ?") ; echo $SETUP_NAS ; STEP=$((STEP+1))
     SETUP_DOCKER=$(_q "[$STEP/$STEPS] Pull Docker images ?") ; echo $SETUP_DOCKER ; STEP=$((STEP+1))
+    SETUP_RUBY=$(_q "[$STEP/$STEPS] Setup Ruby ?") ; echo $SETUP_RUBY ; STEP=$((STEP+1))
 
     if [[ $SETUP_BREW == "y" ]]; then ANSIBLE_TAGS+=('homebrew'); fi
     if [[ $SETUP_CASK == "y" ]]; then ANSIBLE_TAGS+=('cask'); fi
@@ -64,6 +66,7 @@ setup_ask() {
     if [[ $SETUP_DOTFILES == "y" ]]; then ANSIBLE_TAGS+=('dotfiles'); fi
     if [[ $SETUP_NAS == "y" ]]; then ANSIBLE_TAGS+=('nas'); fi
     if [[ $SETUP_DOCKER == "y" ]]; then ANSIBLE_TAGS+=('docker'); fi
+    if [[ $SETUP_RUBY == "y" ]]; then ANSIBLE_TAGS+=('ruby'); fi
   fi
 }
 
