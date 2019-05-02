@@ -9,6 +9,9 @@
   args:
     creates: ~/.asdf/installs/ruby/2.5.3
 
+- name: Update Ruby plugin
+  command: ~/.asdf/bin/asdf plugin-update ruby
+
 - name: Install Ruby 2.5.5
   command: ~/.asdf/bin/asdf install ruby 2.5.5
   args:
