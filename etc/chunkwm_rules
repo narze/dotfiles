@@ -31,6 +31,7 @@ chunkc tiling::rule --owner "iTerm2" --state tile --role AXWindow --subrole AXSt
 chunkc tiling::rule --owner "iTerm2" --state float --role AXWindow --subrole AXSystemDialog &
 
 chunkc tiling::rule --owner "Chrome" --state float &
+chunkc tiling::rule --owner "Fantastical" --state float &
 chunkc tiling::rule --owner \"1Password 7\" --state float &
 # chunkc tiling::rule --owner "Finder" --except "^$" --state float &
 
