@@ -1,4 +1,10 @@
-{:templates {:alfred "osascript -e 'tell application \"Alfred 3\" to run trigger \"%s\" in workflow \"%s\" with argument \"\"'"
+{:profiles
+ {:Default {:default true
+            :alone   200
+            :held    100
+            :delay   100
+            :sim     50}}
+ :templates {:alfred "osascript -e 'tell application \"Alfred 3\" to run trigger \"%s\" in workflow \"%s\" with argument \"\"'"
              :km "osascript -e 'tell application \"Keyboard Maestro Engine\" to do script \"%s\"'"}
  :simlayers {
   :f-mode {:key :f}
