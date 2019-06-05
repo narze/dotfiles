@@ -76,6 +76,16 @@ POWERLEVEL9K_TIME_BACKGROUND="black"
 POWERLEVEL9K_TIME_FOREGROUND="007"
 POWERLEVEL9K_TIME_FORMAT="%D{%H:%M:%S} %F{003}\uF017"
 
+# Timing App Terminal Support
+if [ $ITERM_SESSION_ID ]; then
+  DISABLE_AUTO_TITLE="true"
+  echo -ne "\033]0; ${USER} @ ${HOST%%.*} : ${PWD/# $HOME/ ~} \007"
+fi
+
+precmd() {
+  echo -ne "\033]0; ${USER} @ ${HOST%%.*} : ${PWD/# $HOME/ ~} \007"
+}
+
 if [ -f "$HOME/.zshrc.local" ]; then
   source "$HOME/.zshrc.local"
 fi
