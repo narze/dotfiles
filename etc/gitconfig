@@ -3,3 +3,5 @@
 	email = manassarn@gmail.com
 [core]
 	excludesfile = ~/.gitignore_global
+[alias]
+	conflicts = "diff --name-only --diff-filter=U"
