@@ -13,7 +13,6 @@
   with_items:
     - asdf
     - awsebcli
-    - chunkwm
     - dfu-programmer
     - dfu-util
     - diff-so-fancy
@@ -37,4 +36,5 @@
     - tmux
     - nvim
     - yarn
+    - yabai
     - yqrashawn/goku/goku

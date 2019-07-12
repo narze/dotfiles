@@ -54,17 +54,17 @@
     state: link
     force: yes
 
-- name: Link chunkwmrc
+- name: Link yabairc
   file:
-    src: ~/.dotfiles/etc/chunkwmrc
-    path: ~/.chunkwmrc
+    src: ~/.dotfiles/etc/yabairc
+    path: ~/.yabairc
     state: link
     force: yes
 
-- name: Link chunkwm_rules
+- name: Link yabai_rules
   file:
-    src: ~/.dotfiles/etc/chunkwm_rules
-    path: ~/.chunkwm_rules
+    src: ~/.dotfiles/etc/yabai_rules
+    path: ~/.yabai_rules
     state: link
     force: yes
 
