@@ -101,7 +101,7 @@
 # 0x2F = Fullstop / >
 
 # close focused window
-alt - w : yabai -m window --close
+alt - w : osascript -e 'tell application "System Events" to perform action "AXPress" of (first button whose subrole is "AXCloseButton") of (first window whose subrole is "AXStandardWindow") of (first process whose frontmost is true)'
 
 # focus window
 alt - h : yabai -m window --focus west
@@ -144,25 +144,25 @@ alt + shift - e : yabai -m window --swap north
 alt + shift - i : yabai -m window --swap east
 
 # make floating window fill screen
-ctrl + alt + cmd - t : yabai -m window --grid-layout 1:1:0:0:1:1
+ctrl + alt + cmd - t : yabai -m window --grid 1:1:0:0:1:1
 
 # float fill left half
-ctrl + alt + cmd - h : yabai -m window --grid-layout 1:2:0:0:1:1
+ctrl + alt + cmd - h : yabai -m window --grid 1:2:0:0:1:1
 
 # float fill right half
-ctrl + alt + cmd - i : yabai -m window --grid-layout 1:2:1:0:1:1
+ctrl + alt + cmd - i : yabai -m window --grid 1:2:1:0:1:1
 
 # float fill bottom half
-ctrl + alt + cmd - n : yabai -m window --grid-layout 2:1:0:1:1:1
+ctrl + alt + cmd - n : yabai -m window --grid 2:1:0:1:1:1
 
 # float fill top half
-ctrl + alt + cmd - e : yabai -m window --grid-layout 2:1:0:0:1:1
+ctrl + alt + cmd - e : yabai -m window --grid 2:1:0:0:1:1
 
 # create desktop, move window and follow focus
 ctrl + alt + cmd - k : yabai -m space --create; \
                        yabai -m window --space last;\
                        yabai -m space --focus last;\
-                       yabai -m window --grid-layout 1:1:0:0:1:1
+                       yabai -m window --grid 1:1:0:0:1:1
 
 # create desktop and follow focus
 # cmd + alt - n : yabai -m space --create;\
@@ -261,8 +261,8 @@ alt + shift - x : yabai -m space --mirror vertical
 # mirror tree x-axis
 alt - x : yabai -m space --mirror horizontal
 
-# toggle desktop offset
-alt - a : yabai -m space --toggle offset
+# toggle desktop padding
+alt - a : yabai -m space --toggle padding
 
 # toggle window fullscreen
 alt - f : yabai -m window --toggle fullscreen
@@ -281,14 +281,14 @@ alt - q : yabai -m window --toggle fade
 
 # float / unfloat window and center on screen
 alt - t : yabai -m window --toggle float;\
-          yabai -m window --grid-layout 4:4:1:1:2:2
+          yabai -m window --grid 4:4:1:1:2:2
 
 # toggle sticky
 alt - s : yabai -m window --toggle sticky
 
 # toggle sticky, float and resize to picture-in-picture size
 alt - p : yabai -m window --toggle sticky;\
-          yabai -m window --grid-layout 5:5:3:0:2:2
+          yabai -m window --grid 5:5:3:0:2:2
 
 # float next window to be tiled
 shift + alt - t : chunkc set window_float_next 1
@@ -313,3 +313,9 @@ ctrl + alt + cmd - 0x2F : mpc next
 
 # Reload yabai
 ctrl + alt + cmd - z : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
+
+# Wiggle window
+ctrl + alt + cmd - x : yabai -m window --resize top_right:-1:-1 && \
+                       yabai -m window --resize top_right:1:1 && \
+                       yabai -m window --resize bottom_left:-1:-1 && \
+                       yabai -m window --resize bottom_left:1:1
