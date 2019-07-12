@@ -159,10 +159,9 @@ ctrl + alt + cmd - n : yabai -m window --grid-layout 2:1:0:1:1:1
 ctrl + alt + cmd - e : yabai -m window --grid-layout 2:1:0:0:1:1
 
 # create desktop, move window and follow focus
-ctrl + alt + cmd - k : yabai -m space --create;\
-                       id=$(chunkc tiling::query --desktops-for-monitor $(chunkc tiling::query --monitor-for-desktop $(chunkc tiling::query --desktop id)));\
-                       yabai -m window --send-to-desktop $(echo ${id##* });\
-                       yabai -m space --focus $(echo ${id##* });\
+ctrl + alt + cmd - k : yabai -m space --create; \
+                       yabai -m window --space last;\
+                       yabai -m space --focus last;\
                        yabai -m window --grid-layout 1:1:0:0:1:1
 
 # create desktop and follow focus
@@ -171,10 +170,10 @@ ctrl + alt + cmd - k : yabai -m space --create;\
 #                yabai -m space --focus $(echo ${id##* })
 
 # destroy desktop
-ctrl + cmd + alt - w : yabai -m space --annihilate
+ctrl + cmd + alt - w : yabai -m space --destroy
 
 # fast focus desktop
-alt + ctrl - 0x2B : yabai -m space --focus $(chunkc get _last_active_desktop)
+alt + ctrl - 0x2B : yabai -m space --focus recent
 alt - l : yabai -m space --focus prev
 alt + ctrl - h : yabai -m space --focus prev
 alt - 0x23 : yabai -m space --focus next
@@ -189,39 +188,39 @@ alt - 7 : yabai -m space --focus 7
 alt - 8 : yabai -m space --focus 8
 
 # send window to desktop
-alt + ctrl + shift - 0x2B : yabai -m window --send-to-desktop $(chunkc get _last_active_desktop)
-alt + shift - l : yabai -m window --send-to-desktop prev
-alt + ctrl + shift - h  : yabai -m window --send-to-desktop prev
-alt + shift - 0x23 : yabai -m window --send-to-desktop next
-alt + ctrl + shift - i  : yabai -m window --send-to-desktop next
-shift + alt - 1 : yabai -m window --send-to-desktop 1
-shift + alt - 2 : yabai -m window --send-to-desktop 2
-shift + alt - 3 : yabai -m window --send-to-desktop 3
-shift + alt - 4 : yabai -m window --send-to-desktop 4
-shift + alt - 5 : yabai -m window --send-to-desktop 5
-shift + alt - 6 : yabai -m window --send-to-desktop 6
-shift + alt - 7 : yabai -m window --send-to-desktop 7
-shift + alt - 8 : yabai -m window --send-to-desktop 8
-shift + alt + cmd - 1 : yabai -m window --send-to-desktop 1; yabai -m space -f 1
-shift + alt + cmd - 2 : yabai -m window --send-to-desktop 2; yabai -m space -f 2
-shift + alt + cmd - 3 : yabai -m window --send-to-desktop 3; yabai -m space -f 3
-shift + alt + cmd - 4 : yabai -m window --send-to-desktop 4; yabai -m space -f 4
-shift + alt + cmd - 5 : yabai -m window --send-to-desktop 5; yabai -m space -f 5
-shift + alt + cmd - 6 : yabai -m window --send-to-desktop 6; yabai -m space -f 6
-shift + alt + cmd - 7 : yabai -m window --send-to-desktop 7; yabai -m space -f 7
-shift + alt + cmd - 8 : yabai -m window --send-to-desktop 8; yabai -m space -f 8
+alt + ctrl + shift - 0x2B : yabai -m window --space recent
+alt + shift - l : yabai -m window --space prev
+alt + ctrl + shift - h  : yabai -m window --space prev
+alt + shift - 0x23 : yabai -m window --space next
+alt + ctrl + shift - i  : yabai -m window --space next
+shift + alt - 1 : yabai -m window --space 1
+shift + alt - 2 : yabai -m window --space 2
+shift + alt - 3 : yabai -m window --space 3
+shift + alt - 4 : yabai -m window --space 4
+shift + alt - 5 : yabai -m window --space 5
+shift + alt - 6 : yabai -m window --space 6
+shift + alt - 7 : yabai -m window --space 7
+shift + alt - 8 : yabai -m window --space 8
+shift + alt + cmd - 1 : yabai -m window --space 1; yabai -m space -f 1
+shift + alt + cmd - 2 : yabai -m window --space 2; yabai -m space -f 2
+shift + alt + cmd - 3 : yabai -m window --space 3; yabai -m space -f 3
+shift + alt + cmd - 4 : yabai -m window --space 4; yabai -m space -f 4
+shift + alt + cmd - 5 : yabai -m window --space 5; yabai -m space -f 5
+shift + alt + cmd - 6 : yabai -m window --space 6; yabai -m space -f 6
+shift + alt + cmd - 7 : yabai -m window --space 7; yabai -m space -f 7
+shift + alt + cmd - 8 : yabai -m window --space 8; yabai -m space -f 8
 
 # send window to desktop and follow focus
-# shift + cmd - x : yabai -m window --send-to-desktop $(chunkc get _last_active_desktop); yabai -m space --focus $(chunkc get _last_active_desktop)
-# shift + cmd - z : yabai -m window --send-to-desktop prev; yabai -m space --focus prev
-# shift + cmd - c : yabai -m window --send-to-desktop next; yabai -m space --focus next
-# shift + cmd - 1 : yabai -m window --send-to-desktop 1; yabai -m space --focus 1
-# shift + cmd - 2 : yabai -m window --send-to-desktop 2; yabai -m space --focus 2
-# shift + cmd - 3 : yabai -m window --send-to-desktop 3; yabai -m space --focus 3
-# shift + cmd - 4 : yabai -m window --send-to-desktop 4; yabai -m space --focus 4
-# shift + cmd - 5 : yabai -m window --send-to-desktop 5; yabai -m space --focus 5
-# shift + cmd - 6 : yabai -m window --send-to-desktop 6; yabai -m space --focus 6
-# shift + cmd - 7 : yabai -m window --send-to-desktop 7; yabai -m space --focus 7
+# shift + cmd - x : yabai -m window --space $(chunkc get _last_active_desktop); yabai -m space --focus $(chunkc get _last_active_desktop)
+# shift + cmd - z : yabai -m window --space prev; yabai -m space --focus prev
+# shift + cmd - c : yabai -m window --space next; yabai -m space --focus next
+# shift + cmd - 1 : yabai -m window --space 1; yabai -m space --focus 1
+# shift + cmd - 2 : yabai -m window --space 2; yabai -m space --focus 2
+# shift + cmd - 3 : yabai -m window --space 3; yabai -m space --focus 3
+# shift + cmd - 4 : yabai -m window --space 4; yabai -m space --focus 4
+# shift + cmd - 5 : yabai -m window --space 5; yabai -m space --focus 5
+# shift + cmd - 6 : yabai -m window --space 6; yabai -m space --focus 6
+# shift + cmd - 7 : yabai -m window --space 7; yabai -m space --focus 7
 
 # ctrl + alt - 1  : yabai -m display -f 1
 # ctrl + alt - 2  : yabai -m display -f 2
