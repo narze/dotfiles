@@ -123,10 +123,10 @@ alt - 0x2F : echo "$(chunkc tiling::query --desktop windows | sort)""\n" \
              xargs yabai -m window --focus
 
 # focus monitor
-alt - u  : yabai -m display -f prev
-alt + ctrl - h  : yabai -m display -f prev
-alt - y : yabai -m display -f next # ;
-alt + ctrl - i  : yabai -m display -f next
+alt - u  : yabai -m config display -f prev
+alt + ctrl - h  : yabai -m config display -f prev
+alt - y : yabai -m config display -f next # ;
+alt + ctrl - i  : yabai -m config display -f next
 
 # equalize size of windows
 shift + alt - 0 : yabai -m space --equalize
@@ -227,11 +227,11 @@ shift + alt + cmd - 8 : yabai -m window --space 8; yabai -m space -f 8
 # ctrl + alt - 3  : yabai -m display -f 3
 
 # send window to monitor and follow focus
-alt + shift - u : yabai -m window --send-to-monitor prev; yabai -m display -f prev
-alt + shift - y : yabai -m window --send-to-monitor next; yabai -m display -f next
-# shift + alt + cmd - 1  : yabai -m window --send-to-monitor 1; yabai -m display -f 1
-# shift + alt + cmd - 2  : yabai -m window --send-to-monitor 2; yabai -m display -f 2
-# shift + alt + cmd - 3  : yabai -m window --send-to-monitor 3; yabai -m display -f 3
+alt + shift - u : yabai -m window --display prev; yabai -m config display -f prev
+alt + shift - y : yabai -m window --display next; yabai -m config display -f next
+# shift + alt + cmd - 1  : yabai -m window --display 1; yabai -m config display -f 1
+# shift + alt + cmd - 2  : yabai -m window --display 2; yabai -m config display -f 2
+# shift + alt + cmd - 3  : yabai -m window --display 3; yabai -m config display -f 3
 
 # increase region size
 alt + cmd - a : yabai -m window --use-temporary-ratio 0.05 --adjust-window-edge west
