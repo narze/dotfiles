@@ -2,6 +2,7 @@
 
 yabai -m rule --add app="^1Password 7" manage=off
 yabai -m rule --add app="^Chrome" manage=off
+yabai -m rule --add app="^Chromium" manage=off
 yabai -m rule --add app="^Dash$" manage=off
 yabai -m rule --add app="^Fantastical" manage=off
 yabai -m rule --add app="^Finder" manage=off
