@@ -8,9 +8,8 @@ export ZPLUG_HOME=/usr/local/opt/zplug
 export PATH="/usr/local/sbin:$HOME/.dotfiles/etc/bin:$PATH"
 export PATH="/Applications/Postgres.app/Contents/Versions/9.6/bin:$PATH"
 
-POWERLEVEL9K_MODE='awesome-fontconfig'
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(user dir vcs rbenv rspec_stats newline)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator ip background_jobs history time)
+# POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(user dir vcs rbenv rspec_stats newline)
+# POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator ip background_jobs history time)
 
 # Prefer using emacs mode for zsh
 bindkey -e
@@ -28,7 +27,7 @@ zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-autosuggestions", defer:2
 zplug "zsh-users/zsh-history-substring-search", defer:2
 zplug "zsh-users/zsh-syntax-highlighting", defer:3
-zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
+zplug "romkatv/powerlevel10k", use:powerlevel10k.zsh-theme
 zplug "docker/compose", use:contrib/completion/zsh
 zplug "docker/cli", use:contrib/completion/zsh
 
@@ -63,19 +62,6 @@ if [ -d "$HOME/.jenv" ]; then
   eval "$(jenv init -)"
 fi
 
-POWERLEVEL9K_CONTEXT_DEFAULT_BACKGROUND="000"
-POWERLEVEL9K_CONTEXT_DEFAULT_FOREGROUND="007"
-POWERLEVEL9K_DIR_HOME_BACKGROUND="001"
-POWERLEVEL9K_DIR_HOME_FOREGROUND="000"
-POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND="001"
-POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND="000"
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
-POWERLEVEL9K_SHORTEN_DELIMITER=""
-POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_right"
-POWERLEVEL9K_TIME_BACKGROUND="black"
-POWERLEVEL9K_TIME_FOREGROUND="007"
-POWERLEVEL9K_TIME_FORMAT="%D{%H:%M:%S} %F{003}\uF017"
-
 # Timing App Terminal Support
 if [ $ITERM_SESSION_ID ]; then
   DISABLE_AUTO_TITLE="true"
@@ -89,3 +75,6 @@ precmd() {
 if [ -f "$HOME/.zshrc.local" ]; then
   source "$HOME/.zshrc.local"
 fi
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
