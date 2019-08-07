@@ -51,6 +51,10 @@ alias grp="git rebase -p"
 alias gl="git pull"
 alias gli="git ls-files -o -i --exclude-standard --directory | grep -v '\.DS_Store'"
 
+# Ruby/Rails
+alias rdm="bin/rake db:migrate"
+alias rdt="bin/rake db:test:load"
+
 # Misc
 alias -- -='cd -'
 alias arst="asdf"
