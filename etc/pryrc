@@ -1,1 +1,1 @@
-Pry.config.editor = 'code -nw' # New window & watch
+Pry.config.editor = 'vim'
