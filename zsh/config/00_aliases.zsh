@@ -21,9 +21,7 @@ alias gca='git commit --amend'
 alias gco='git checkout'
 alias gcb='git copy-branch-name'
 alias gb='git branch'
-alias gs='say "Please use S for gods sake"'
 alias s="git status -sb"
-
 alias ga="git add"
 alias ga.="git add ."
 alias gaa="git add --all"
@@ -55,8 +53,9 @@ alias gl="git pull"
 alias gli="git ls-files -o -i --exclude-standard --directory | grep -v '\.DS_Store'"
 
 # Ruby/Rails
-alias rdm="bin/rake db:migrate"
-alias rdt="bin/rake db:test:load"
+alias rdm="bundle exec rake db:migrate"
+alias rdt="bundle exec rake db:test:load"
+alias ss="bundle exec spring stop"
 
 # Misc
 alias -- -='cd -'
