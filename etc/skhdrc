@@ -109,18 +109,10 @@ alt - n : yabai -m window --focus south
 alt - e : yabai -m window --focus north
 alt - i : yabai -m window --focus east
 
-# focus prev/next window, works with floats
-alt - 0x2B : echo "$(chunkc tiling::query --desktop windows | sort)""\n" \
-             "$(chunkc tiling::query --desktop windows | sort | head -n 1)" | \
-             grep -B1 $(chunkc tiling::query --window id) | \
-             tail -n2 | head -n1 | sed 's/,.*//' | \
-             xargs yabai -m window --focus
-
-alt - 0x2F : echo "$(chunkc tiling::query --desktop windows | sort)""\n" \
-             "$(chunkc tiling::query --desktop windows | sort | head -n 1)" | \
-             grep -A1 $(chunkc tiling::query --window id) | \
-             head -n2 | tail -n1 | sed 's/,.*//' | \
-             xargs yabai -m window --focus
+# focus prev/next window
+alt - 0x2B : yabai -m window --focus prev
+alt - 0x2F : yabai -m window --focus next
+alt - m : yabai -m window --focus recent
 
 # focus monitor
 alt - u  : yabai -m display --focus prev
@@ -271,7 +263,7 @@ alt - f : yabai -m window --toggle fullscreen
 shift + alt - f : yabai -m window --toggle native-fullscreen
 
 # toggle window parent zoom
-alt - z : yabai -m window --toggle parent
+alt - z : yabai -m window --toggle zoom-parent
 
 # toggle window split type
 alt - c : yabai -m window --toggle split
@@ -281,7 +273,7 @@ alt - q : yabai -m window --toggle fade
 
 # float / unfloat window and center on screen
 alt - t : yabai -m window --toggle float;\
-          yabai -m window --grid 4:4:1:1:2:2
+          yabai -m window --grid 6:6:1:1:4:4
 
 # toggle sticky
 alt - s : yabai -m window --toggle sticky
