@@ -226,16 +226,16 @@ alt + shift - y : yabai -m window --display next; yabai -m display --focus next
 # shift + alt + cmd - 3  : yabai -m window --display 3; yabai -m display --focus 3
 
 # increase region size
-alt + cmd - a : yabai -m window --use-temporary-ratio 0.05 --adjust-window-edge west
-alt + cmd - r : yabai -m window --use-temporary-ratio 0.05 --adjust-window-edge south
-alt + cmd - w : yabai -m window --use-temporary-ratio 0.05 --adjust-window-edge north
-alt + cmd - s : yabai -m window --use-temporary-ratio 0.05 --adjust-window-edge east
+alt + cmd - a : yabai -m window --resize left:-80:0
+alt + cmd - r : yabai -m window --resize bottom:0:-80
+alt + cmd - w : yabai -m window --resize top:0:80
+alt + cmd - s : yabai -m window --resize right:80:0
 
 # decrease region size
-alt + cmd + ctrl - a : yabai -m window --use-temporary-ratio -0.05 --adjust-window-edge west
-alt + cmd + ctrl - r : yabai -m window --use-temporary-ratio -0.05 --adjust-window-edge south
-alt + cmd + ctrl - w : yabai -m window --use-temporary-ratio -0.05 --adjust-window-edge north
-alt + cmd + ctrl - s : yabai -m window --use-temporary-ratio -0.05 --adjust-window-edge east
+alt + cmd + ctrl - a : yabai -m window --resize left:80:0
+alt + cmd + ctrl - r : yabai -m window --resize bottom:0:80
+alt + cmd + ctrl - w : yabai -m window --resize top:0:-80
+alt + cmd + ctrl - s : yabai -m window --resize right:-80:0
 
 # set insertion point for focused container
 ctrl + alt - f : yabai -m window --use-insertion-point cancel
