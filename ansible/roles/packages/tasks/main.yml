@@ -6,6 +6,10 @@
   tags:
     - cask
 
+- import_tasks: cask_upgrade.yml
+  tags:
+    - cask_upgrade
+
 - import_tasks: mas.yml
   tags:
     - mas

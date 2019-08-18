@@ -1,0 +1,5 @@
+- name: Add brew-cask-upgrade tap
+  homebrew_tap: tap=buo/cask-upgrade state=present
+
+- name: Run brew-cask-upgrade `brew cu`
+  command: brew cu -acy

@@ -4,6 +4,7 @@ ANSIBLE_OPTS="$@"
 ANSIBLE_TAGS=()
 SETUP_BREW=
 SETUP_CASK=
+SETUP_CASK_UPGRADE=
 SETUP_MAS=
 SETUP_ZSH=
 SETUP_MPD=
@@ -14,7 +15,7 @@ SETUP_NAS=
 SETUP_DOCKER=
 SETUP_RUBY=
 SETUP_LOCAL=
-STEPS=12
+STEPS=13
 
 _q() {
   local QUESTION=$1
@@ -47,6 +48,7 @@ setup_ask() {
     STEP=1
     SETUP_BREW=$(_q "[$STEP/$STEPS] Install Homebrew packages ?") ; echo $SETUP_BREW ; STEP=$((STEP+1))
     SETUP_CASK=$(_q "[$STEP/$STEPS] Install Homebrew Cask packages ?") ; echo $SETUP_CASK ; STEP=$((STEP+1))
+    SETUP_CASK_UPGRADE=$(_q "[$STEP/$STEPS] Upgrade Homebrew Cask packages ?") ; echo $SETUP_CASK_UPGRADE ; STEP=$((STEP+1))
     SETUP_MAS=$(_q "[$STEP/$STEPS] Install Mas packages?") ; echo $SETUP_MAS ; STEP=$((STEP+1))
     SETUP_ZSH=$(_q "[$STEP/$STEPS] Install Zsh with Zplug ?") ; echo $SETUP_ZSH ; STEP=$((STEP+1))
     SETUP_MPD=$(_q "[$STEP/$STEPS] Configure mpd ?") ; echo $SETUP_MPD ; STEP=$((STEP+1))
@@ -60,6 +62,7 @@ setup_ask() {
 
     if [[ $SETUP_BREW == "y" ]]; then ANSIBLE_TAGS+=('homebrew'); fi
     if [[ $SETUP_CASK == "y" ]]; then ANSIBLE_TAGS+=('cask'); fi
+    if [[ $SETUP_CASK_UPGRADE == "y" ]]; then ANSIBLE_TAGS+=('cask_upgrade'); fi
     if [[ $SETUP_MAS == "y" ]]; then ANSIBLE_TAGS+=('mas'); fi
     if [[ $SETUP_ZSH == "y" ]]; then ANSIBLE_TAGS+=('zsh'); fi
     if [[ $SETUP_MPD == "y" ]]; then ANSIBLE_TAGS+=('mpd'); fi
