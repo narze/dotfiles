@@ -9,10 +9,3 @@ macOS setup script for development
 
 ## TODO
 - macOS preferences script (eg. non-natural scrollbar, Colemak & Pattachote layouts)
-- Fonts
-  - FontAwesome
-  - FiraCode Nerdfont
-- Non-dotfiles app settings
-  - iTerm2
-  - VSCode
-  - Übersicht
