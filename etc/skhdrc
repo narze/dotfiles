@@ -99,6 +99,7 @@
 # 0x23 = Colemak semicolon / Qwerty P
 # 0x2B = Comma / <
 # 0x2F = Fullstop / >
+# 0x2C = Slash
 
 # close focused window
 alt - w : osascript -e 'tell application "System Events" to perform action "AXPress" of (first button whose subrole is "AXCloseButton") of (first window whose subrole is "AXStandardWindow") of (first process whose frontmost is true)'
@@ -311,3 +312,6 @@ ctrl + alt + cmd - x : yabai -m window --resize top_right:-1:-1 && \
                        yabai -m window --resize top_right:1:1 && \
                        yabai -m window --resize bottom_left:-1:-1 && \
                        yabai -m window --resize bottom_left:1:1
+
+# Banance windows
+alt - 0x2C : yabai -m space --balance
