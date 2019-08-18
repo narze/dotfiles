@@ -5,11 +5,15 @@
 - name: Install mas apps
   command: mas install "{{ item.id }}"
   with_items:
-    - { id: 979047768, name: "Browserism" }
-    - { id: 1278508951, name: "Trello" }
-    - { id: 1176895641, name: "Spark" }
-    - { id: 937984704, name: "Amphetamine" }
-    - { id: 409183694, name: "Keynote" }
-    - { id: 409203825, name: "Numbers" }
-    - { id: 409201541, name: "Pages" }
-    - { id: 557168941, name: "Tweetbot" }
+    - { name: "Amphetamine", id: 937984704 }
+    - { name: "Browserism", id: 979047768 }
+    - { name: "Fantastical", id: 975937182 }
+    - { name: "Helium", id: 1054607607 }
+    - { name: "Keynote", id: 409183694 }
+    - { name: "Numbers", id: 409203825 }
+    - { name: "Pages", id: 409201541 }
+    - { name: "Pocket", id: 568494494 }
+    - { name: "SnippetsLab", id: 1006087419 }
+    - { name: "Spark", id: 1176895641 }
+    - { name: "Trello", id: 1278508951 }
+    - { name: "Tweetbot", id: 557168941 }
