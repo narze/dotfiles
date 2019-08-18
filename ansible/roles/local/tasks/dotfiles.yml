@@ -96,6 +96,13 @@
     state: link
     force: yes
 
+- name: Link editorconfig
+  file:
+    src: ~/.dotfiles/etc/editorconfig
+    path: ~/.editorconfig
+    state: link
+    force: yes
+
 - name: Ensure .config directory
   file: path=~/.config state=directory recurse=yes
 
