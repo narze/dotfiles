@@ -1,0 +1,27 @@
+- name: Ensure laptop_local directory on Google Drive
+  file: path="~/Google Drive/laptop_local" state=directory recurse=yes
+
+- name: Ensure tmuxinator config directory
+  file: path="~/Google Drive/laptop_local/tmuxinator" state=directory recurse=yes
+
+- name: Ensure local tmuxinator config directory
+  file: path="~/.config/tmuxinator" state=directory recurse=yes
+
+- name: Backup local tmuxinator config
+  copy:
+    src: ~/.config/tmuxinator/
+    dest: "~/Google Drive/laptop_local/tmuxinator/"
+    directory_mode: yes
+    backup: yes
+
+- name: Remove old tmuxinator config
+  file:
+    path: ~/.config/tmuxinator
+    state: absent
+
+- name: Link tmuxinator config
+  file:
+    src: "~/Google Drive/laptop_local/tmuxinator"
+    path: ~/.config/tmuxinator
+    state: link
+    force: yes

@@ -32,3 +32,7 @@
 - import_tasks: ruby.yml
   tags:
     - ruby
+
+- import_tasks: local_sync.yml
+  tags:
+    - local_sync
