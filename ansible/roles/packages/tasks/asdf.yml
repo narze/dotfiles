@@ -15,12 +15,11 @@
   tags:
     - asdf
 
-- name: Install asdf
-  git:
-    repo: https://github.com/asdf-vm/asdf.git
-    dest: ~/.asdf
-  tags:
-    - asdf
+- name: Install/Upgrade asdf
+  homebrew:
+    name: asdf
+    state: present
+    upgrade_all: yes
 
 - name: Install asdf-nodejs
   command: ~/.asdf/bin/asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
