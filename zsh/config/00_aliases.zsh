@@ -77,7 +77,6 @@ f() {
 }
 alias finder="cd \"$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')\""
 alias fixappleeventsbug='sudo killall -KILL appleeventsd'
-alias fuck='eval $(thefuck $(fc -ln -1))'
 alias gowd='cd "`pbpaste`"'
 alias h='helm'
 alias ip='curl ifconfig.me'
@@ -86,21 +85,15 @@ alias sand='cd ~/Sandbox && ls'
 alias k='kubectl'
 alias l='ls -la'
 alias lt='cd ~/laptop'
-alias mc='maid clean -n'
-alias mcf='maid clean'
 alias mk='minikube'
 alias mux='tmuxinator'
 alias o.="open ."
 alias o="open"
-alias ox="open *.xcworkspace || open *.xcodeproj"
-alias p='cd ~/Projects && ls'
 alias please='sudo bash -c "$(fc -l -1 | cut -d " " -f 4-)"'
-alias r="rails"
-alias rc="rails console"
-alias rg="rails generate"
-alias rs="rails server"
-alias rk="rake"
-alias rkdm="rake db:migrate"
+alias r="bundle exec rails"
+alias rc="bundle exec rails console"
+alias rg="bundle exec rails generate"
+alias rs="bundle exec rails server"
 alias redo='sudo !!'
 alias reload='exec $SHELL -l'
 alias serve='python -m SimpleHTTPServer 8000'
@@ -108,11 +101,9 @@ alias v="nvim"
 alias vim="nvim"
 alias wa="watch "
 alias watch="watch "
-alias wk="cd ~/Workspaces && ls"
 
 # Docker
 alias d='docker'
 alias dx='docker exec'
 alias ds='docker ps'
 alias dc='docker-compose'
-alias dm='docker-machine'
