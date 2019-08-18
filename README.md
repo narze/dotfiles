@@ -19,8 +19,5 @@ Setup packages, dotfiles, and bootstrap environment via Ansible playbook, you ca
 - [tmux](https://github.com/tmux/tmux/)
 - [Docker for macOS](https://docs.docker.com/docker-for-mac/), with [prebuilt images](./ansible/roles/packages/tasks/docker.yml)
 - [macOS defaults](./etc/macos)
-- My [dotfiles](./etc)
+- Actual [dotfiles](./etc), [symlinked to home folder](./ansible/roles/local/tasks/dotfiles.yml)
 - etc.
-
-## TODO
-- macOS preferences script (eg. non-natural scrollbar, Colemak & Pattachote layouts)
