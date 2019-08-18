@@ -18,6 +18,7 @@
     state: present
     upgrade_all: yes
   with_items:
+    - ansible
     - asdf
     - awsebcli
     - dfu-programmer
