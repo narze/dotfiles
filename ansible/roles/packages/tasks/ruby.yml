@@ -3,22 +3,22 @@
   args:
     creates: ~/.asdf/plugins/ruby
 
-- name: Uninstall Ruby 2.5.3
-  command: ~/.asdf/bin/asdf uninstall ruby 2.5.3
+- name: Uninstall Ruby 2.5.5
+  command: ~/.asdf/bin/asdf uninstall ruby 2.5.5
   ignore_errors: yes
   args:
-    creates: ~/.asdf/installs/ruby/2.5.3
+    creates: ~/.asdf/installs/ruby/2.5.5
 
 - name: Update Ruby plugin
   command: ~/.asdf/bin/asdf plugin-update ruby
 
-- name: Install Ruby 2.5.5
-  command: ~/.asdf/bin/asdf install ruby 2.5.5
+- name: Install Ruby 2.6.3
+  command: ~/.asdf/bin/asdf install ruby 2.6.3
   args:
-    creates: ~/.asdf/installs/ruby/2.5.5
+    creates: ~/.asdf/installs/ruby/2.6.3
 
-- name: Set Ruby global version to 2.5.5
-  command: ~/.asdf/bin/asdf global ruby 2.5.5
+- name: Set Ruby global version to 2.6.3
+  command: ~/.asdf/bin/asdf global ruby 2.6.3
 
 - name: Install gems
   gem:
@@ -30,4 +30,4 @@
     - tmuxinator
 
 - name: Reshim Ruby
-  command: ~/.asdf/bin/asdf reshim ruby 2.5.5
+  command: ~/.asdf/bin/asdf reshim ruby 2.6.3
