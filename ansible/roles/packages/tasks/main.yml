@@ -1,6 +1,3 @@
-- name: Remove Java
-  homebrew_cask: name=java state=absent
-
 - import_tasks: homebrew.yml
   tags:
     - homebrew
