@@ -1,0 +1,28 @@
+---
+# The paths in which to look for gems
+# :gempath:
+
+# Force specification of gem server host on push
+# disable_default_gem_server:
+
+# A YAML array of remote gem repositories to install gems from
+# :sources:
+
+# Self explanatory :-)
+benchmark: false
+
+# Verbosity of the gem command. false, true, and :really are the levels
+verbose: false
+
+# Enable/disable automatic updating of repository metadata
+update_sources: true
+
+# Print backtrace when RubyGems encounters an error
+backtrace: true
+
+# <gem_command>: A string containing arguments for the specified gem command
+# -N, --no-document - Disable documentation generation
+# --[no-]document [TYPES] - Generate documentation for installed gems List the
+# documentation types you wish to generate. For example: rdoc,ri
+# --[no-]suggestions - Suggest alternates when gems are not found
+gem: --no-ri --no-rdoc --no-document --suggestions
