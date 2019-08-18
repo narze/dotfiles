@@ -15,7 +15,8 @@ SETUP_NAS=
 SETUP_DOCKER=
 SETUP_RUBY=
 SETUP_LOCAL=
-STEPS=13
+SETUP_MACOS=
+STEPS=14
 
 _q() {
   local QUESTION=$1
@@ -59,6 +60,7 @@ setup_ask() {
     SETUP_DOCKER=$(_q "[$STEP/$STEPS] Pull Docker images ?") ; echo $SETUP_DOCKER ; STEP=$((STEP+1))
     SETUP_RUBY=$(_q "[$STEP/$STEPS] Setup Ruby ?") ; echo $SETUP_RUBY ; STEP=$((STEP+1))
     SETUP_LOCAL=$(_q "[$STEP/$STEPS] Sync local config on Google Drive ?") ; echo $SETUP_LOCAL ; STEP=$((STEP+1))
+    SETUP_MACOS=$(_q "[$STEP/$STEPS] Setup Sensible macOS defaults ?") ; echo $SETUP_MACOS ; STEP=$((STEP+1))
 
     if [[ $SETUP_BREW == "y" ]]; then ANSIBLE_TAGS+=('homebrew'); fi
     if [[ $SETUP_CASK == "y" ]]; then ANSIBLE_TAGS+=('cask'); fi
@@ -73,6 +75,7 @@ setup_ask() {
     if [[ $SETUP_DOCKER == "y" ]]; then ANSIBLE_TAGS+=('docker'); fi
     if [[ $SETUP_RUBY == "y" ]]; then ANSIBLE_TAGS+=('ruby'); fi
     if [[ $SETUP_LOCAL == "y" ]]; then ANSIBLE_TAGS+=('local_sync'); fi
+    if [[ $SETUP_MACOS == "y" ]]; then ANSIBLE_TAGS+=('macos'); fi
   fi
 }
 
