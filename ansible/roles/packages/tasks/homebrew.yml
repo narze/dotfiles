@@ -5,11 +5,18 @@
   with_items:
     - koekeishiya/formulae
 
-- name: Install Homebrew packages
+- name: Update homebrew
+  when: brew_update is not defined
+  register: brew_update
+  homebrew:
+    update_homebrew: yes
+
+- name: Install/Upgrade Homebrew packages
   homebrew:
     name: "{{ item.name | default(item) }}"
     install_options: "{{ item.install_options | default(omit) }}"
     state: present
+    upgrade_all: yes
   with_items:
     - asdf
     - awsebcli

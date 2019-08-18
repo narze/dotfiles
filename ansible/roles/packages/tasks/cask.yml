@@ -1,9 +1,17 @@
 - name: Add Cask tap
   homebrew_tap: tap=homebrew/cask-fonts state=present
 
-- name: Install Cask packages
+- name: Update homebrew
+  when: brew_update is not defined
+  register: brew_update
+  homebrew:
+    update_homebrew: yes
+
+- name: Install/Upgrade Cask packages
   ignore_errors: yes
   homebrew_cask:
+    sudo_password: "{{ ansible_become_pass }}"
+    upgrade_all: yes
     name:
       - 1password
       - alfred
