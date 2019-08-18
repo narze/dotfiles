@@ -7,7 +7,7 @@
   command: ~/.asdf/bin/asdf uninstall ruby 2.5.5
   ignore_errors: yes
   args:
-    creates: ~/.asdf/installs/ruby/2.5.5
+    removes: ~/.asdf/installs/ruby/2.5.5
 
 - name: Update Ruby plugin
   command: ~/.asdf/bin/asdf plugin-update ruby
