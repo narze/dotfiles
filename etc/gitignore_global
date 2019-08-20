@@ -41,3 +41,6 @@ dump.rdb
 
 .vscode
 .elixir_ls
+
+.githooks
+.local
