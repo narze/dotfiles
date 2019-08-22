@@ -148,19 +148,18 @@ ctrl + alt + cmd - n : yabai -m window --grid 2:1:0:1:1:1
 # float fill top half
 ctrl + alt + cmd - e : yabai -m window --grid 2:1:0:0:1:1
 
+# create desktop
+ctrl + cmd + alt - m : yabai -m space --create;
+
 # create desktop, move window and follow focus
 ctrl + alt + cmd - k : yabai -m space --create; \
-                       yabai -m window --space last;\
-                       yabai -m space --focus last;\
+                       yabai -m window --space last; \
+                       yabai -m space --focus last; \
                        yabai -m window --grid 1:1:0:0:1:1
 
-# create desktop and follow focus
-# cmd + alt - n : yabai -m space --create;\
-#                id=$(chunkc tiling::query --desktops-for-monitor $(chunkc tiling::query --monitor-for-desktop $(chunkc tiling::query --desktop id)));\
-#                yabai -m space --focus $(echo ${id##* })
-
 # destroy desktop
-ctrl + cmd + alt - w : yabai -m space --destroy
+ctrl + cmd + alt - w : yabai -m space --focus prev; \
+                       yabai -m space next --destroy
 
 # fast focus desktop
 alt + ctrl - 0x2B : yabai -m space --focus recent
