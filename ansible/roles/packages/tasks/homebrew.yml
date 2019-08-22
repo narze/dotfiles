@@ -32,6 +32,7 @@
     - git-flow
     - hub
     - imagemagick
+    - jq
     - koekeishiya/formulae/skhd
     - mas
     - most
