@@ -121,9 +121,6 @@ alt + ctrl - h  : yabai -m display --focus prev
 alt - y : yabai -m display --focus next # ;
 alt + ctrl - i  : yabai -m display --focus next
 
-# equalize size of windows
-shift + alt - 0 : yabai -m space --equalize
-
 # move window
 alt + cmd + shift - h : yabai -m window --warp west
 alt + cmd + shift - n : yabai -m window --warp south
