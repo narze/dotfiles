@@ -1,31 +1,38 @@
 #!/bin/bash
 
-yabai -m rule --add app="^1Password 7" manage=off
-yabai -m rule --add app="^Chrome" manage=off
-yabai -m rule --add app="^Chromium" manage=off
-yabai -m rule --add app="^Dash$" manage=off
-yabai -m rule --add app="^Fantastical" manage=off
-yabai -m rule --add app="^Finder" manage=off
-yabai -m rule --add app="^Preview$" manage=off
-yabai -m rule --add app="^System Preferences$" manage=off
-yabai -m rule --add app="^Time Out$" manage=off
-# yabai -m rule --add app="^Firefox$" manage=off
+space_coding=1
+space_browsing=2
 
-# yabai -m signal --add app="^Firefox$" event=window_focused action="~/.yabai_wiggle.sh"
+yabai -m rule --add label="iTerm2" app="^iTerm2$" grid=1:2:1:0:1:1 manage=on space="$space_coding"
+yabai -m rule --add label="VSCode" app="^Code$" grid=1:2:0:0:1:1 manage=on space="$space_coding"
 
-# # Monitor/desktop 2
-# if [[ $(seq $(chunkc tiling::query --monitor count) | tail -n 1) == 1 ]]; then
-#   chunkc tiling::rule --owner Slack --state tile --desktop 2 &
-#   chunkc tiling::rule --owner Spotify --state tile --desktop 2 &
-#   chunkc tiling::rule --owner Safari --except "^$" --state tile --desktop 2 &
-#   chunkc tiling::rule --owner Firefox --except "^$" --state tile --desktop 2 &
-# else
-#   chunkc tiling::rule --owner Slack --state tile --monitor 2 &
-#   chunkc tiling::rule --owner Spotify --state tile --monitor 2 &
-#   chunkc tiling::rule --owner Safari --except "^$" --state tile --monitor 2 &
-#   chunkc tiling::rule --owner Firefox --except "^$" --state tile --monitor 2 &
-# fi
+center='32:32:4:4:24:24'
 
-# chunkc tiling::rule --owner \"Code - Insiders\" --role AXWindow --subrole AXStandardWindow --state tile --monitor 1 --desktop 1 --grid-layout 1:2:0:0:1:1 &
-# chunkc tiling::rule --owner "iTerm2" --state tile --role AXWindow --subrole AXStandardWindow --monitor 1 --desktop 1 --grid-layout 1:2:1:0:1:1 &
-# chunkc tiling::rule --owner "iTerm2" --state float --role AXWindow --subrole AXSystemDialog &
+yabai -m rule --add label="1Password 7" app="^1Password 7$" manage=off grid="$center"
+yabai -m rule --add label="Activity Monitor" app="^Activity Monitor$" manage=off grid="$center"
+yabai -m rule --add label="Alfred Preferences" app="^Alfred Preferences$" manage=off grid="$center"
+yabai -m rule --add label="App Store" app="^App Store$" manage=off grid="$center"
+yabai -m rule --add label="Calculator" app="^Calculator$" manage=off grid="$center"
+yabai -m rule --add label="Chrome" app="^Google Chrome$" manage=off grid="$center" space="$space_browsing"
+yabai -m rule --add label="Dash" app="Dash" manage=off grid="$center"
+yabai -m rule --add label="Dictionary" app="^Dictionary$" manage=off grid="$center"
+yabai -m rule --add label="Fantastical" app="Fantastical" manage=off grid="$center"
+yabai -m rule --add label="Finder Main" app="^Finder$" manage=off grid="$center"
+yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off grid="$center"
+yabai -m rule --add label="Firefox" app="Firefox" manage=off grid="$center"
+yabai -m rule --add label="Preview" app="Preview" manage=off grid="$center"
+yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off grid="$center"
+yabai -m rule --add label="System Preferences" app="^System Preferences$" manage=off grid="$center"
+yabai -m rule --add label="The Unarchiver" app="^The Unarchiver$" manage=off grid="$center"
+yabai -m rule --add label="Time Out" app="Time Out" manage=off grid="$center"
+yabai -m rule --add label="Transmission" app="^Transmission$" manage=off grid="$center"
+yabai -m rule --add label="VirtualBox" app="^VirtualBox$" manage=off grid="$center"
+
+if [[ $(yabai -m query --displays | jq length) == 1 ]]; then
+  if [[ $(yabai -m query --spaces | jq length) == 1 ]]; then
+    yabai -m space --create
+  fi
+fi
+
+yabai -m space 2 --balance
+
