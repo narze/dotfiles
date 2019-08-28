@@ -27,6 +27,7 @@
     - { name: emacs, options: "with-cocoa,with-gnutls" }
     - entr
     - exercism
+    - fzf
     - fzy
     - git
     - git-flow
@@ -47,3 +48,6 @@
     - yarn
     - yabai
     - yqrashawn/goku/goku
+
+- name: Setup fzf
+  command: /usr/local/opt/fzf/install --all
