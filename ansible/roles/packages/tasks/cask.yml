@@ -1,6 +1,9 @@
 - name: Add Cask tap
   homebrew_tap: tap=homebrew/cask-fonts state=present
 
+- name: Add Cask tap for alfred-numi
+  homebrew_tap: tap=danielbayley/alfred state=present
+
 - name: Update homebrew
   when: brew_update is not defined
   register: brew_update
@@ -15,6 +18,7 @@
     name:
       - 1password
       - alfred
+      - alfred-numi
       - android-file-transfer
       - arq
       - bartender
