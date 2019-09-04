@@ -5,7 +5,8 @@
             :alone   100
             :held    50}}
  :templates {:alfred "osascript -e 'tell application \"Alfred 3\" to run trigger \"%s\" in workflow \"%s\" with argument \"\"'"
-             :km "osascript -e 'tell application \"Keyboard Maestro Engine\" to do script \"%s\"'"}
+             :km "osascript -e 'tell application \"Keyboard Maestro Engine\" to do script \"%s\"'"
+             :beep "osascript -e 'beep'"}
  :simlayers {
   :f-mode {:key :f}
   :o-mode {:key :o}
@@ -22,6 +23,8 @@
                                                                  [:##left_option :left_command [:filco-bt] {:alone :!Shyphen}]]}
         {:des "Caps -> Hyper / Esc" :rules [[:##caps_lock :!CTOleft_shift nil {:alone :escape}]]}
         {:des "Cmd -> Cmd / Underscore" :rules [[:##left_command :left_command nil {:alone :!Shyphen}]]}
+        {:des "RCmd -> Delete" :rules [[:##right_command :delete_or_backspace]]}
+        {:des "Unbind Delete (with beep)" :rules [[:##delete_or_backspace [:beep]]]}
         {:des "LShift -> Shift / (" :rules [[:##left_shift :right_shift nil {:held :left_shift :alone :!S9}]]}
         {:des "RShift -> Shift / )" :rules [[:##right_shift :left_shift nil {:held :right_shift :alone :!S0}]]}
 
