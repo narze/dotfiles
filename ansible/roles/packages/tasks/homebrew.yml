@@ -35,6 +35,7 @@
     - imagemagick
     - jq
     - koekeishiya/formulae/skhd
+    - kubernetes-helm
     - mas
     - most
     - multitail
