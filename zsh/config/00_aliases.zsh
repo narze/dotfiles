@@ -69,7 +69,8 @@ alias brs="brew search"
 alias be="bundle exec"
 alias cl="clear"
 alias c='cd ~/Code && ls'
-alias c.="code ."
+alias c.="RUBYOPT=--jit code ."
+alias co="RUBYOPT=--jit code"
 alias cwd='pwd | pbcopy'
 f() {
 	local dir
