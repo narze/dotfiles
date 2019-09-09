@@ -45,7 +45,7 @@ yabai -m config --space 3 layout             float
 # signals
 yabai -m signal --add event=window_destroyed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
 yabai -m signal --add event=application_terminated action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
-yabai -m signal --add event=window_created action="~/.yabai_axunknown_float"
+# yabai -m signal --add event=window_created action="~/.yabai_axunknown_float"
 
 sh ~/.yabai_rules
 
