@@ -88,6 +88,7 @@ alias l='ls -la'
 alias lt='cd ~/laptop'
 alias mk='minikube'
 alias mux='tmuxinator'
+alias nz='cd ~/Code/narze && ls'
 alias o.="open ."
 alias o="open"
 alias please='sudo bash -c "$(fc -l -1 | cut -d " " -f 4-)"'
