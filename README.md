@@ -20,4 +20,5 @@ Setup packages, dotfiles, and bootstrap environment via Ansible playbook, you ca
 - [Docker for macOS](https://docs.docker.com/docker-for-mac/), with [prebuilt images](./ansible/roles/packages/tasks/docker.yml)
 - [macOS defaults](./etc/macos)
 - Actual [dotfiles](./etc), [symlinked to home folder](./ansible/roles/local/tasks/dotfiles.yml)
+- ~/Code for workspace with [public repos](./ansible/roles/local/tasks/code.yml)
 - etc.
