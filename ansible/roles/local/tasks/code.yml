@@ -3,7 +3,7 @@
 
 - name: Clone Github Public Repos
   git:
-    repo: "https://github.com/{{ item }}"
+    repo: "git@github.com:{{ item }}.git"
     dest: "~/Code/{{ item }}"
   with_items:
     - narze/baht
@@ -13,3 +13,12 @@
     - narze/resume
     - narze/switcheroo
     - narze/userscripts
+
+- name: Add upstream remote for forks
+  git_config:
+    name: remote.upstream.url
+    value: "{{ item.upstream }}"
+    scope: local
+    repo: "~/Code/{{ item.project }}"
+  with_items:
+    - { project: "narze/qmk_firmware", upstream: "git@github.com:qmk/qmk_firmware.git" }
