@@ -16,7 +16,8 @@ SETUP_DOCKER=
 SETUP_RUBY=
 SETUP_LOCAL=
 SETUP_MACOS=
-STEPS=14
+SETUP_CODE=
+STEPS=15
 
 _q() {
   local QUESTION=$1
@@ -61,6 +62,7 @@ setup_ask() {
     SETUP_RUBY=$(_q "[$STEP/$STEPS] Setup Ruby ?") ; echo $SETUP_RUBY ; STEP=$((STEP+1))
     SETUP_LOCAL=$(_q "[$STEP/$STEPS] Sync local config on Google Drive ?") ; echo $SETUP_LOCAL ; STEP=$((STEP+1))
     SETUP_MACOS=$(_q "[$STEP/$STEPS] Setup Sensible macOS defaults ?") ; echo $SETUP_MACOS ; STEP=$((STEP+1))
+    SETUP_CODE=$(_q "[$STEP/$STEPS] Setup Code folder ?") ; echo $SETUP_CODE ; STEP=$((STEP+1))
 
     if [[ $SETUP_BREW == "y" ]]; then ANSIBLE_TAGS+=('homebrew'); fi
     if [[ $SETUP_CASK == "y" ]]; then ANSIBLE_TAGS+=('cask'); fi
@@ -76,6 +78,7 @@ setup_ask() {
     if [[ $SETUP_RUBY == "y" ]]; then ANSIBLE_TAGS+=('ruby'); fi
     if [[ $SETUP_LOCAL == "y" ]]; then ANSIBLE_TAGS+=('local_sync'); fi
     if [[ $SETUP_MACOS == "y" ]]; then ANSIBLE_TAGS+=('macos'); fi
+    if [[ $SETUP_CODE == "y" ]]; then ANSIBLE_TAGS+=('code'); fi
   fi
 }
 

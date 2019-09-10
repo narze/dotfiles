@@ -1,0 +1,15 @@
+- name: Ensure Code Directory
+  file: path=~/Code state=directory
+
+- name: Clone Github Public Repos
+  git:
+    repo: "https://github.com/{{ item }}"
+    dest: "~/Code/{{ item }}"
+  with_items:
+    - narze/baht
+    - narze/mong
+    - narze/puncome
+    - narze/qmk_firmware
+    - narze/resume
+    - narze/switcheroo
+    - narze/userscripts

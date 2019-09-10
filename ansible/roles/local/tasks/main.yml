@@ -17,3 +17,7 @@
   when: secret.mpd_music_dir is not defined
   tags:
     - mpd
+
+- import_tasks: code.yml
+  tags:
+    - code
