@@ -28,13 +28,14 @@
       - cyberduck
       - default-folder-x
       - dash
-      - disk-inventory-x
+      # - disk-inventory-x
       - docker
       - dropbox
       - evernote
       - firefox
       - flux
       - font-firacode-nerd-font
+      - google-backup-and-sync
       - google-chrome
       - growlnotify
       - iterm2
