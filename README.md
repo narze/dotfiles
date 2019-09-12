@@ -25,3 +25,11 @@ Setup packages, dotfiles, and bootstrap environment via Ansible playbook, you ca
 
 ### Known Issues
 Some packages needs reloading shell (eg. `asdf`) On a fresh macOS you may have to run setup command once, and run again in a new tab which has $PATH reloaded.
+
+### TODOs
+- [ ] Modify system preferences
+  - Keyboard shortcuts
+  - Keyboard layouts
+- [ ] Open all apps which needs configuration, one by one in order.
+  - eg. Google drive -> Alfred -> 1Password -> Mackup restore
+- [ ] Add folders to Favorites in Finder
