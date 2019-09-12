@@ -16,10 +16,10 @@
     - asdf
 
 - name: Install/Upgrade asdf
-  homebrew:
-    name: asdf
-    state: present
-    upgrade_all: yes
+  git:
+    repo: https://github.com/asdf-vm/asdf.git
+    dest: ~/.asdf
+    version: v0.7.4
 
 - name: Install asdf-nodejs
   command: ~/.asdf/bin/asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
@@ -36,7 +36,7 @@
     - nodejs
 
 - name: Install nodejs via asdf
-  command: ~/.asdf/bin/asdf install nodejs 8.9.1
+  shell: "~/.asdf/bin/asdf install nodejs 8.9.1"
   tags:
     - asdf
     - nodejs

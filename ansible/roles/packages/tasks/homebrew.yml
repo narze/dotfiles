@@ -19,7 +19,6 @@
     upgrade_all: yes
   with_items:
     - ansible
-    - asdf
     - awsebcli
     - dfu-programmer
     - dfu-util
