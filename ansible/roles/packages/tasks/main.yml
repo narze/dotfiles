@@ -22,18 +22,6 @@
   tags:
     - mpd
 
-- import_tasks: asdf.yml
-  tags:
-    - asdf
-
-- import_tasks: docker.yml
-  tags:
-    - docker
-
-- import_tasks: ruby.yml
-  tags:
-    - ruby
-
 - import_tasks: local_sync.yml
   tags:
     - local_sync
@@ -41,3 +29,15 @@
 - import_tasks: macos.yml
   tags:
     - macos
+
+- import_tasks: asdf.yml
+  tags:
+    - asdf
+
+- import_tasks: ruby.yml
+  tags:
+    - ruby
+
+- import_tasks: docker.yml
+  tags:
+    - docker
