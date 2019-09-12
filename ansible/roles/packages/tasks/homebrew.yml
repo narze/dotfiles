@@ -35,6 +35,7 @@
     - jq
     - koekeishiya/formulae/skhd
     - kubernetes-helm
+    - mackup
     - mas
     - most
     - multitail
