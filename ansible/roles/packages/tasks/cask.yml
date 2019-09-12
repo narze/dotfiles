@@ -14,7 +14,6 @@
   ignore_errors: yes
   homebrew_cask:
     sudo_password: "{{ ansible_become_pass }}"
-    upgrade_all: yes
     name:
       - 1password
       - alfred
