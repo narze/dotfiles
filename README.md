@@ -22,3 +22,6 @@ Setup packages, dotfiles, and bootstrap environment via Ansible playbook, you ca
 - Actual [dotfiles](./etc), [symlinked to home folder](./ansible/roles/local/tasks/dotfiles.yml)
 - ~/Code for workspace with [public repos](./ansible/roles/local/tasks/code.yml)
 - etc.
+
+### Known Issues
+Some packages needs reloading shell (eg. `asdf`) On a fresh macOS you may have to run setup command once, and run again in a new tab which has $PATH reloaded.
