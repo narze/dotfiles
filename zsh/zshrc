@@ -30,6 +30,7 @@ zplug "zsh-users/zsh-syntax-highlighting", defer:3
 zplug "romkatv/powerlevel10k", use:powerlevel10k.zsh-theme
 zplug "docker/compose", use:contrib/completion/zsh
 zplug "docker/cli", use:contrib/completion/zsh
+zplug "wulfgarpro/history-sync"
 
 if zplug check zsh-users/zsh-history-substring-search; then
   bindkey '^[[A' history-substring-search-up
