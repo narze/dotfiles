@@ -12,6 +12,7 @@ yabai -m rule --add label="1Password 7" app="^1Password 7$" manage=off grid="$ce
 yabai -m rule --add label="Activity Monitor" app="^Activity Monitor$" manage=off grid="$center"
 yabai -m rule --add label="Alfred Preferences" app="^Alfred Preferences$" manage=off grid="$center"
 yabai -m rule --add label="App Store" app="^App Store$" manage=off grid="$center"
+yabai -m rule --add label="Boom 3D" app="^Boom 3D$" manage=off grid="$center"
 yabai -m rule --add label="Calculator" app="^Calculator$" manage=off grid="$center"
 yabai -m rule --add label="Dash" app="Dash" manage=off grid="$center"
 yabai -m rule --add label="Dictionary" app="^Dictionary$" manage=off grid="$center"
@@ -33,5 +34,5 @@ if [[ $(yabai -m query --displays | jq length) == 1 ]]; then
   fi
 fi
 
-yabai -m space 2 --balance
+# yabai -m space 2 --balance
 
