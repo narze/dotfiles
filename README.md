@@ -33,3 +33,4 @@ Some packages needs reloading shell (eg. `asdf`) On a fresh macOS you may have t
 - [ ] Open all apps which needs configuration, one by one in order.
   - eg. Google drive -> Alfred -> 1Password -> Mackup restore
 - [ ] Add folders to Favorites in Finder
+- [ ] "Minimal" setup script, good & fast for bootstrapping new machines
