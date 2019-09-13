@@ -61,6 +61,7 @@ alias ss="bundle exec spring stop"
 alias -- -='cd -'
 alias arst="asdf"
 alias b="bundle exec"
+alias bf="bh | fzy"
 alias br="brew"
 alias brc="brew cask"
 alias brci="brew cask install"
