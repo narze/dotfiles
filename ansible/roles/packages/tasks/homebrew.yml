@@ -20,12 +20,14 @@
   with_items:
     - ansible
     - awsebcli
+    - bat
     - dfu-programmer
     - dfu-util
     - diff-so-fancy
     - { name: emacs, options: "with-cocoa,with-gnutls" }
     - entr
     - exercism
+    - fd
     - fzf
     - fzy
     - git
