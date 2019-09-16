@@ -37,6 +37,7 @@
       - font-firacode-nerd-font
       - google-backup-and-sync
       - google-chrome
+      - google-cloud-sdk
       - growlnotify
       - iterm2
       - xquartz
