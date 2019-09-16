@@ -6,7 +6,6 @@
   command: mas install "{{ item.id }}"
   with_items:
     - { name: "Amphetamine", id: 937984704 }
-    - { name: "Browserism", id: 979047768 }
     - { name: "Fantastical", id: 975937182 }
     - { name: "Helium", id: 1054607607 }
     - { name: "Keynote", id: 409183694 }
@@ -17,3 +16,10 @@
     - { name: "Spark", id: 1176895641 }
     - { name: "Trello", id: 1278508951 }
     - { name: "Tweetbot", id: 557168941 }
+
+- name: Uninstall mas apps
+  command: mas uninstall "{{ item.id }}"
+  become: yes
+  ignore_errors: yes
+  with_items:
+    - { name: "Browserism", id: 979047768 }
