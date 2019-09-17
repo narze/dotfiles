@@ -25,7 +25,7 @@ before_install:
   - source .venv/bin/activate
   - pip install ansible
   - python -c "import ssl; print(ssl.OPENSSL_VERSION)"
-  - ansible-galaxy install -r tests/requirements.yml -p ./roles
+  # - ansible-galaxy install -r tests/requirements.yml -p ./roles
   - deactivate
 
   # Uninstall existing brew installation.
