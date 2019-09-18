@@ -6,6 +6,7 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export PATH="/usr/local/sbin:$HOME/.dotfiles/etc/bin:$PATH"
 export PATH="/Applications/Postgres.app/Contents/Versions/9.6/bin:$PATH"
+export ZSH_CACHE_DIR="${TMPDIR:-/tmp}"
 
 # POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(user dir vcs rbenv rspec_stats newline)
 # POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator ip background_jobs history time)
@@ -21,8 +22,6 @@ zplugin light zsh-users/zsh-completions
 zplugin ice wait"1" atload'_history_substring_search_bind_keys' lucid
 zplugin light zsh-users/zsh-history-substring-search
 
-zplugin ice wait"0" atinit"zpcompinit" lucid
-zplugin light zdharma/fast-syntax-highlighting
 zplugin light zdharma/history-search-multi-word
 
 zplugin ice wait"!0" atload'_zsh_autosuggest_start' lucid
@@ -50,6 +49,23 @@ files=( {00_aliases,10_options,20_functions}.zsh )
 zplugin ice multisrc"\$files" pick"/dev/null"
 zplugin light %HOME/.dotfiles/zsh/config
 
+zplugin ice wait"0" atinit"zpcompinit" lucid
+zplugin light zdharma/fast-syntax-highlighting
+
+zplugin ice svn wait"0" atload"zpcdreplay" lucid
+zplugin snippet OMZ::plugins/kubectl
+
+# Compinit : After zplugins, before cdreplay
+# https://carlosbecker.com/posts/speeding-up-zsh/
+autoload -Uz compinit
+if [ $(date +'%j') != $(stat -f '%Sm' -t '%j' ~/.zcompdump) ]; then
+  compinit;
+else
+  compinit -C;
+fi
+
+zplugin cdreplay -q
+
 # Key bindings for zsh-history-substring-search
 _history_substring_search_bind_keys() {
   bindkey '^[[A' history-substring-search-up
@@ -59,14 +75,6 @@ _history_substring_search_bind_keys() {
   bindkey -M vicmd 'k' history-substring-search-up
   bindkey -M vicmd 'j' history-substring-search-down
 }
-
-# https://carlosbecker.com/posts/speeding-up-zsh/
-autoload -Uz compinit
-if [ $(date +'%j') != $(stat -f '%Sm' -t '%j' ~/.zcompdump) ]; then
-  compinit;
-else
-  compinit -C;
-fi;
 
 if [ -d "$HOME/.asdf" ]; then
   . "$HOME/.asdf/asdf.sh"
