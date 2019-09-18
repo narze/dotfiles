@@ -15,40 +15,50 @@ bindkey -e
 
 source ~/.zplugin/bin/zplugin.zsh
 
+zplugin ice wait"0" lucid
 zplugin light zsh-users/zsh-completions
+
+zplugin ice wait"1" atload'_history_substring_search_bind_keys' lucid
 zplugin light zsh-users/zsh-history-substring-search
+
+zplugin ice wait"0" atinit"zpcompinit" lucid
 zplugin light zdharma/fast-syntax-highlighting
 zplugin light zdharma/history-search-multi-word
 
-zplugin ice wait"!0" atload'_zsh_autosuggest_start'
+zplugin ice wait"!0" atload'_zsh_autosuggest_start' lucid
 zplugin light zsh-users/zsh-autosuggestions
 
 zplugin ice from"gh-r" as"program"
 zplugin light junegunn/fzf-bin
 
-zplugin light romkatv/powerlevel10k
+PS1=$(dirs)$'\n'"❯ "
+zplugin ice wait'0' lucid # This saves 20ms
+# zplugin ice wait'0' atload"p9k_refresh_prompt_inplace" lucid reset-prompt # This does not work just yet
+zplugin load romkatv/powerlevel10k
 
-zplugin ice "rupa/z" pick"z.sh"; zplugin light "rupa/z"
+zplugin ice svn "rupa/z" pick"z.sh"; zplugin light "rupa/z"
 zplugin snippet OMZ::lib/history.zsh
 
-zplugin ice as"completion"
+zplugin ice wait"1" as"completion" lucid
 zplugin snippet https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker
 
-zplugin ice as"completion"
+zplugin ice wait"1" as"completion" lucid
 zplugin snippet https://github.com/docker/compose/blob/master/contrib/completion/zsh/_docker-compose
 
 # Load my zsh dotfiles, aliases
 files=( {00_aliases,10_options,20_functions}.zsh )
-zplugin ice svn multisrc"\$files" pick"/dev/null"
+zplugin ice multisrc"\$files" pick"/dev/null"
 zplugin light %HOME/.dotfiles/zsh/config
 
 # Key bindings for zsh-history-substring-search
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
-bindkey -M emacs '^P' history-substring-search-up
-bindkey -M emacs '^N' history-substring-search-down
-bindkey -M vicmd 'k' history-substring-search-up
-bindkey -M vicmd 'j' history-substring-search-down
+_history_substring_search_bind_keys() {
+  bindkey '^[[A' history-substring-search-up
+  bindkey '^[[B' history-substring-search-down
+  bindkey -M emacs '^P' history-substring-search-up
+  bindkey -M emacs '^N' history-substring-search-down
+  bindkey -M vicmd 'k' history-substring-search-up
+  bindkey -M vicmd 'j' history-substring-search-down
+}
 
 # https://carlosbecker.com/posts/speeding-up-zsh/
 autoload -Uz compinit
