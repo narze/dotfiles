@@ -85,7 +85,6 @@ alias ip='curl ifconfig.me'
 alias jsc='/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc'
 alias sand='cd ~/Sandbox && ls'
 alias k='kubectl'
-(( ${+commands[kubectl]} )) && alias kubectl='test -z $C_KUBE && C_KUBE=1 && source <(command kubectl completion zsh); command kubectl'
 alias l='ls -la'
 alias lt='cd ~/laptop'
 alias mk='minikube'
@@ -111,3 +110,17 @@ alias d='docker'
 alias dx='docker exec'
 alias ds='docker ps'
 alias dc='docker-compose'
+
+# Commands
+if [ $commands[kubectl] ]; then
+  # Placeholder 'kubectl' shell function:
+  # Will only be executed on the first call to 'kubectl'
+  kubectl() {
+    # Remove this function, subsequent calls will execute 'kubectl' directly
+    unfunction "$0"
+    # Load auto-completion
+    source <(kubectl completion zsh)
+    # Execute 'kubectl' binary
+    $0 "$@"
+  }
+fi
