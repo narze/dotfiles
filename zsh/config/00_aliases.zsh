@@ -77,7 +77,8 @@ f() {
 	local dir
 	dir=$(find ${1:-.} -path '*/\.*' -prune -o -type d -print 2> /dev/null | fzy) && cd "$dir"
 }
-alias finder="cd \"$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')\""
+# This command is slow! (100ms)
+# alias finder="cd \"$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')\""
 alias fixappleeventsbug='sudo killall -KILL appleeventsd'
 alias gowd='cd "`pbpaste`"'
 alias h='helm'
