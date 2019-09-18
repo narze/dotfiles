@@ -14,7 +14,7 @@ Setup packages, dotfiles, and bootstrap environment via Ansible playbook, you ca
 - [Homebrew](https://brew.sh), with [apps](./ansible/roles/packages/tasks/homebrew.yml)
 - [Homebrew Cask](https://github.com/Homebrew/homebrew-cask), with [apps](./ansible/roles/packages/tasks/cask.yml)
 - [Mas](https://github.com/mas-cli/mas), with [apps](./ansible/roles/packages/tasks/mas.yml)
-- [zsh](http://zsh.org/) with [zplug](https://github.com/zplug/zplug)
+- [zsh](http://zsh.org/) with [zplugin](https://github.com/zdharma/zplugin)
 - [asdf](https://asdf-vm.com) with Ruby & Node.js
 - [tmux](https://github.com/tmux/tmux/)
 - [Docker for macOS](https://docs.docker.com/docker-for-mac/), with [prebuilt images](./ansible/roles/packages/tasks/docker.yml)

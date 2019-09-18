@@ -4,7 +4,6 @@ export EDITOR=nvim
 export TERM=xterm-256color
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
-export ZPLUG_HOME=/usr/local/opt/zplug
 export PATH="/usr/local/sbin:$HOME/.dotfiles/etc/bin:$PATH"
 export PATH="/Applications/Postgres.app/Contents/Versions/9.6/bin:$PATH"
 
@@ -14,40 +13,41 @@ export PATH="/Applications/Postgres.app/Contents/Versions/9.6/bin:$PATH"
 # Prefer using emacs mode for zsh
 bindkey -e
 
-source $ZPLUG_HOME/init.zsh
+source ~/.zplugin/bin/zplugin.zsh
 
-# Manage zplug itself
-zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+zplugin light zsh-users/zsh-completions
+zplugin light zsh-users/zsh-history-substring-search
+zplugin light zdharma/fast-syntax-highlighting
+zplugin light zdharma/history-search-multi-word
 
-# Add plugins
-zplug "~/.dotfiles/zsh/config", from:local
-zplug "lib/history", from:oh-my-zsh
-zplug "rupa/z", use:z.sh
-zplug "zsh-users/zsh-completions"
-zplug "zsh-users/zsh-autosuggestions", defer:2
-zplug "zsh-users/zsh-history-substring-search", defer:2
-zplug "zsh-users/zsh-syntax-highlighting", defer:3
-zplug "romkatv/powerlevel10k", use:powerlevel10k.zsh-theme
-zplug "docker/compose", use:contrib/completion/zsh
-zplug "docker/cli", use:contrib/completion/zsh
+zplugin ice wait"!0" atload'_zsh_autosuggest_start'
+zplugin light zsh-users/zsh-autosuggestions
 
-if zplug check zsh-users/zsh-history-substring-search; then
-  bindkey '^[[A' history-substring-search-up
-  bindkey '^[[B' history-substring-search-down
-  bindkey -M emacs '^P' history-substring-search-up
-  bindkey -M emacs '^N' history-substring-search-down
-  bindkey -M vicmd 'k' history-substring-search-up
-  bindkey -M vicmd 'j' history-substring-search-down
-fi
+zplugin ice from"gh-r" as"program"
+zplugin light junegunn/fzf-bin
 
-if ! zplug check --verbose; then
-  printf "Install? [y/N]: "
-  if read -q; then
-    echo; zplug install
-  fi
-fi
+zplugin light romkatv/powerlevel10k
 
-zplug load
+zplugin ice "rupa/z" pick"z.sh"; zplugin light "rupa/z"
+zplugin snippet OMZ::lib/history.zsh
+
+zplugin ice as"completion"
+zplugin snippet https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker
+
+zplugin ice as"completion"
+zplugin snippet https://github.com/docker/compose/blob/master/contrib/completion/zsh/_docker-compose
+
+# Load my zsh dotfiles, aliases
+zplugin light %HOME/.dotfiles/zsh/config
+
+# Key bindings for zsh-history-substring-search
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+bindkey -M emacs '^P' history-substring-search-up
+bindkey -M emacs '^N' history-substring-search-down
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
+
 
 if [ -d "$HOME/.asdf" ]; then
   . "$HOME/.asdf/asdf.sh"

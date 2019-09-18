@@ -52,7 +52,7 @@ setup_ask() {
     SETUP_CASK=$(_q "[$STEP/$STEPS] Install Homebrew Cask packages ?") ; echo $SETUP_CASK ; STEP=$((STEP+1))
     SETUP_CASK_UPGRADE=$(_q "[$STEP/$STEPS] Upgrade Homebrew Cask packages ?") ; echo $SETUP_CASK_UPGRADE ; STEP=$((STEP+1))
     SETUP_MAS=$(_q "[$STEP/$STEPS] Install Mas packages?") ; echo $SETUP_MAS ; STEP=$((STEP+1))
-    SETUP_ZSH=$(_q "[$STEP/$STEPS] Install Zsh with Zplug ?") ; echo $SETUP_ZSH ; STEP=$((STEP+1))
+    SETUP_ZSH=$(_q "[$STEP/$STEPS] Install Zsh with Zplugin ?") ; echo $SETUP_ZSH ; STEP=$((STEP+1))
     SETUP_MPD=$(_q "[$STEP/$STEPS] Configure mpd ?") ; echo $SETUP_MPD ; STEP=$((STEP+1))
     SETUP_TMUX=$(_q "[$STEP/$STEPS] Configure tmux ?") ; echo $SETUP_TMUX ; STEP=$((STEP+1))
     SETUP_DOTFILES=$(_q "[$STEP/$STEPS] Softlink dotfiles ?") ; echo $SETUP_DOTFILES ; STEP=$((STEP+1))

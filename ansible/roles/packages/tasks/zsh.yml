@@ -4,8 +4,16 @@
       - zsh
     state: present
 
-- name: Install zplug
-  homebrew: name=zplug state=present
+- name: Uninstall zplug
+  homebrew: name=zplug state=absent
+
+- name: Ensure ~/.zplugin path
+  file: path=~/.zplugin state=directory
+
+- name: Install zplugin
+  git:
+    repo: "https://github.com/zdharma/zplugin.git"
+    dest: "~/.zplugin/bin"
 
 - name: Set default shell to installed zsh
   become: yes
