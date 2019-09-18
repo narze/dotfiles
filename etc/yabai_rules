@@ -3,8 +3,8 @@
 space_coding=1
 space_browsing=2
 
-yabai -m rule --add label="iTerm2" app="^iTerm2$" grid=1:2:1:0:1:1 manage=on space="$space_coding"
-yabai -m rule --add label="VSCode" app="^Code$" grid=1:2:0:0:1:1 manage=on space="$space_coding"
+# yabai -m rule --add label="iTerm2" app="^iTerm2$" grid=1:2:1:0:1:1 manage=on space="$space_coding"
+# yabai -m rule --add label="VSCode" app="^Code$" grid=1:2:0:0:1:1 manage=on space="$space_coding"
 
 center='32:32:4:4:24:24'
 
