@@ -63,3 +63,5 @@ yabai -m query --windows | jq -r '.[] | [.id, .space, .floating] | @tsv' |
   while IFS=$'\t' read -r id space floating; do
     [[ "$space" != "1" ]] && [[ "$floating" -eq "1" ]] && yabai -m window "$id" --toggle float
   done
+
+terminal-notifier -title Yabai -message "Rules loaded"
