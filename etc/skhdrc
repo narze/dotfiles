@@ -109,11 +109,13 @@ alt - h : yabai -m window --focus west
 alt - n : yabai -m window --focus south
 alt - e : yabai -m window --focus north
 alt - i : yabai -m window --focus east
-
-# focus prev/next window
-alt - 0x2B : yabai -m window --focus prev
-alt - 0x2F : yabai -m window --focus next
 alt - m : yabai -m window --focus recent
+
+# focus prev/next window by id in space (works with float)
+alt - 0x2B : prev=$(yabai -m query --windows --space | jq 'sort_by(.id) | (map(.focused==1) | index(true)) as $i | .[($i - 1) % length].id'); \
+             yabai -m window --focus $prev
+alt - 0x2F : next=$(yabai -m query --windows --space | jq 'sort_by(.id) | (map(.focused==1) | index(true)) as $i | .[($i + 1) % length].id'); \
+             yabai -m window --focus $next
 
 # focus monitor
 alt - u  : yabai -m display --focus prev
