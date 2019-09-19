@@ -282,15 +282,18 @@ alt - p : yabai -m window --toggle sticky;\
           yabai -m window --grid 5:5:3:0:2:2
 
 # float next window to be tiled
-shift + alt - t : chunkc set window_float_next 1
+# shift + alt - t : chunkc set window_float_next 1
 
 # change layout of desktop
-ctrl + alt - a : yabai -m space --layout bsp
-ctrl + alt - s : yabai -m space --layout float
-ctrl + alt - r : ~/.yabai_monocle
+ctrl + alt - a : yabai -m space --layout bsp; \
+                 terminal-notifier -title Yabai -message "Bsp mode activated"
+ctrl + alt - r: yabai -m space --layout float; \
+                 terminal-notifier -title Yabai -message "Float mode activated"
+ctrl + alt - s : ~/.yabai_monocle; \
+                 terminal-notifier -title Yabai -message "Monocle mode activated"
 
-ctrl + alt - l : yabai -m space --deserialize ~/.chunkwm_layout
-ctrl + alt + cmd - l : yabai -m space --serialize ~/.chunkwm_layout
+# ctrl + alt - l : yabai -m space --deserialize ~/.chunkwm_layout
+# ctrl + alt + cmd - l : yabai -m space --serialize ~/.chunkwm_layout
 
 # Fix screenshot taking in app mode
 # cmd + shift - 4 -> : chunkc border::clear
