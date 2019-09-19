@@ -285,17 +285,16 @@ alt - p : yabai -m window --toggle sticky;\
 shift + alt - t : chunkc set window_float_next 1
 
 # change layout of desktop
-
 ctrl + alt - a : yabai -m space --layout bsp
-# ctrl + alt - r : yabai -m space --layout monocle # Yabai does not have monocle mode
 ctrl + alt - s : yabai -m space --layout float
+ctrl + alt - r : ~/.yabai_monocle
 
 ctrl + alt - l : yabai -m space --deserialize ~/.chunkwm_layout
 ctrl + alt + cmd - l : yabai -m space --serialize ~/.chunkwm_layout
 
 # Fix screenshot taking in app mode
-cmd + shift - 4 -> : chunkc border::clear
-ctrl + cmd + shift - 4 -> : chunkc border::clear
+# cmd + shift - 4 -> : chunkc border::clear
+# ctrl + cmd + shift - 4 -> : chunkc border::clear
 
 # MPC commands
 ctrl + alt + cmd + shift - 0x23 : mpc toggle

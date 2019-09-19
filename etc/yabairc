@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 # bar settings
-yabai -m config status_bar                   on
+yabai -m config status_bar                   off
 yabai -m config status_bar_text_font         "Helvetica Neue:Bold:12.0"
 yabai -m config status_bar_icon_font         "FuraCode Nerd Font:Regular:12.0"
 yabai -m config status_bar_background_color  0xff202020
@@ -14,13 +14,13 @@ yabai -m config status_bar_clock_icon        
 # global settings
 yabai -m config mouse_follows_focus          on
 yabai -m config focus_follows_mouse          off
-yabai -m config window_placement             second_child
+yabai -m config window_placement             first_child
 yabai -m config window_topmost               off
 yabai -m config window_opacity               on
 yabai -m config window_shadow                off
 yabai -m config window_border                on
-yabai -m config window_border_width          3
-yabai -m config active_window_border_color   0xccffff44
+yabai -m config window_border_width          5
+yabai -m config active_window_border_color   0xffffc56e
 yabai -m config normal_window_border_color   0xcc505050
 yabai -m config insert_window_border_color   0xccd75f5f
 yabai -m config active_window_opacity        1.0
@@ -34,13 +34,13 @@ yabai -m config mouse_action2                resize
 # general space settings
 yabai -m config layout                       bsp
 yabai -m config top_padding                  10
-yabai -m config bottom_padding               10
+yabai -m config bottom_padding               32
 yabai -m config left_padding                 10
 yabai -m config right_padding                10
 yabai -m config window_gap                   10
 
 # specific space settings
-yabai -m config --space 3 layout             float
+yabai -m space 1 --layout                    float
 
 # signals
 yabai -m signal --add event=window_destroyed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
