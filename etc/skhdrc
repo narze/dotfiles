@@ -261,8 +261,8 @@ alt - f : yabai -m window --toggle fullscreen
 # toggle window native fullscreen
 shift + alt - f : yabai -m window --toggle native-fullscreen
 
-# toggle window parent zoom
-alt - z : yabai -m window --toggle zoom-parent
+# toggle window zoom
+alt - z : yabai -m window --toggle zoom-fullscreen
 
 # toggle window split type
 alt - c : yabai -m window --toggle split
