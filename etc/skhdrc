@@ -102,7 +102,7 @@
 # 0x2C = Slash
 
 # close focused window
-alt - w : osascript -e 'tell application "System Events" to perform action "AXPress" of (first button whose subrole is "AXCloseButton") of (first window whose subrole is "AXStandardWindow") of (first process whose frontmost is true)'
+alt - w : yabai -m window --close
 
 # focus window
 alt - h : yabai -m window --focus west
