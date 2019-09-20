@@ -31,9 +31,9 @@ zplugin ice from"gh-r" as"program"
 zplugin light junegunn/fzf-bin
 
 PS1=$(dirs)$'\n'"❯ "
-zplugin ice wait'0' lucid # This saves 20ms
+# zplugin ice wait'0' lucid # This saves 20ms
 # zplugin ice wait'0' atload"p9k_refresh_prompt_inplace" lucid reset-prompt # This does not work just yet
-zplugin load romkatv/powerlevel10k
+zplugin light romkatv/powerlevel10k
 
 zplugin ice svn "rupa/z" pick"z.sh"; zplugin light "rupa/z"
 zplugin snippet OMZ::lib/history.zsh
