@@ -11,6 +11,7 @@
   :f-mode {:key :f}
   :o-mode {:key :o}
   :h-mode {:key :h}
+  :z-mode {:key :z}
   :delete-mode {:key :f21} ; Bind an unused key
   :superduper-mode {:key :f20} ; Bind an unused key
 }
@@ -84,6 +85,31 @@
                                     [:x :!!x]
                                     [:y :!!y]
                                     [:z :!!z]
+                                    ]}
+
+          ; Z for Dev Mode
+          ; ,-----------------------------------------------------------------------------------.
+          ; |                                         |      |   -  |   +  |   (  |   )  |      |
+          ; |------+------+------+------+------+-------------+------+------+------+------+------|
+          ; |                   N/A                   |   _  |   [  |   ]  |   {  |   }  |      |
+          ; |------+------+------+------+------+------|------+------+------+------+------+------|
+          ; |                                         |   =  |   |  |   <  |   >  |   ?  |      |
+          ; |------+------+------+------+------+------+------+------+------+------+------+------
+          {:des "Z Dev Mode" :rules [:z-mode
+                                    [:u :hyphen]
+                                    [:i :!Sequal_sign] ; +
+                                    [:o :!S9] ; (
+                                    [:p :!S0] ; )
+                                    [:h :!Shyphen] ; _
+                                    [:j :open_bracket]
+                                    [:k :close_bracket]
+                                    [:l :!Sopen_bracket] ; {
+                                    [:semicolon :!Sclose_bracket] ; }
+                                    [:n :equal_sign]
+                                    [:m :!Sbackslash] ; |
+                                    [:comma :!Scomma] ; <
+                                    [:period :!Speriod] ; >
+                                    [:slash :!Sslash] ; ?
                                     ]}
         ]
  ;; code won't read cheatsheet section
