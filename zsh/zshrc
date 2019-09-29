@@ -61,6 +61,9 @@ zplugin light zdharma/fast-syntax-highlighting
 zplugin ice svn wait"1" atload"zpcdreplay"
 zplugin snippet OMZ::plugins/kubectl
 
+# zplugin ice wait"1" svn atload'your_command_here'
+# zplugin light zdharma/null
+
 # Compinit : After zplugins, before cdreplay
 # https://carlosbecker.com/posts/speeding-up-zsh/
 autoload -Uz compinit
