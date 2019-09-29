@@ -57,7 +57,8 @@ zplugin light %HOME/.dotfiles/zsh/config
 zplugin ice wait"0" atinit"zpcompinit" lucid
 zplugin light zdharma/fast-syntax-highlighting
 
-zplugin ice svn wait"0" atload"zpcdreplay" lucid
+# Note: Use wait 1 second works
+zplugin ice svn wait"1" atload"zpcdreplay"
 zplugin snippet OMZ::plugins/kubectl
 
 # Compinit : After zplugins, before cdreplay
