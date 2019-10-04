@@ -63,7 +63,7 @@
       - time-out
       - timing
       - visual-studio-code
-      - whatpulse
+      # - whatpulse # Error on install
       - whichspace
       - xld
     state: present
