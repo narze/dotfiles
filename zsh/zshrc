@@ -58,7 +58,7 @@ zplugin ice wait"0" atinit"zpcompinit" lucid
 zplugin light zdharma/fast-syntax-highlighting
 
 # Note: Use wait 1 second works
-zplugin ice svn wait"1" atload"zpcdreplay"
+zplugin ice svn wait"1" atload"zpcdreplay" lucid
 zplugin snippet OMZ::plugins/kubectl
 
 # zplugin ice wait"1" svn atload'your_command_here'
