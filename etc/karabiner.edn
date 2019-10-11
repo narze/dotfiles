@@ -90,8 +90,8 @@
                                     ]}
 
         ; Swap ; with : (Colemak ; is P in Qwerty)
-        {:des "[Colemak] Swap ; with :" :rules [:colemak [:p :!Sp]
-                                      [:!Sp :p]]}
+       ;  {:des "[Colemak] Swap ; with :" :rules [:colemak [:p :!Sp]
+       ;                                [:!Sp :p]]}
 
           ; Z for Dev Mode
           ; ,-----------------------------------------------------------------------------------.
