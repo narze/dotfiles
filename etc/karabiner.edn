@@ -19,6 +19,8 @@
            :planck [{:vendor_id 65261 :product_id 24672}]
            :planck-light [{:vendor_id 65261 :product_id 24677}]
            :ergodox-infinity [{:vendor_id 65261 :product_id 25700}]}
+ :input-sources {:colemak {:input_source_id "com.apple.keylayout.Colemak"
+                           :language "en"}}
  :main [{:des "Swap Option / Command on certain devices" :rules [
                                                                  [:##left_command :left_option [:filco-bt]]
                                                                  [:##left_option :left_command [:filco-bt] {:alone :!Shyphen}]]}
@@ -86,6 +88,10 @@
                                     [:y :!!y]
                                     [:z :!!z]
                                     ]}
+
+        ; Swap ; with : (Colemak ; is P in Qwerty)
+        {:des "[Colemak] Swap ; with :" :rules [:colemak [:p :!Sp]
+                                      [:!Sp :p]]}
 
           ; Z for Dev Mode
           ; ,-----------------------------------------------------------------------------------.
