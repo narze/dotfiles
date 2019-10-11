@@ -30,8 +30,7 @@
         {:des "Unbind Delete (with beep)" :rules [[:##delete_or_backspace [:beep]]]}
         {:des "LShift -> Shift / (" :rules [[:##left_shift :right_shift nil {:held :left_shift :alone :!S9}]]}
         {:des "RShift -> Shift / )" :rules [[:##right_shift :left_shift nil {:held :right_shift :alone :!S0}]]}
-        {:des "ROption -> Option / : (Colemak)" :rules [:colemak [:##right_option :right_option nil {:held :right_option :alone [:p]}]]}
-
+        {:des "ROption -> Option / : (Colemak)" :rules [:colemak [:##right_option :right_option nil {:held :right_option :alone :!Sp}]]}
         {:des "F-L -> Delete Word" :rules [:f-mode [:l :!Odelete_or_backspace]]}
         {:des "F-; -> Delete Line" :rules [:f-mode [:semicolon :!Cdelete_or_backspace]]}
 
