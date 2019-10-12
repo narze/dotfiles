@@ -133,3 +133,13 @@
     path: ~/.config/karabiner.edn
     state: link
     force: yes
+
+- name: Ensure .bundle directory
+  file: path=~/.bundle state=directory recurse=yes
+
+- name: Link bundle config
+  file:
+    src: ~/.dotfiles/etc/bundle_config
+    path: ~/.bundle/config
+    state: link
+    force: yes
