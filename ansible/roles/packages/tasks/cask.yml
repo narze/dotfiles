@@ -66,4 +66,5 @@
       # - whatpulse # Error on install
       - whichspace
       - xld
+      - zerotier-one
     state: present

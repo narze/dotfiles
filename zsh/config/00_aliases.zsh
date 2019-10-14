@@ -107,6 +107,7 @@ alias v="nvim"
 alias vim="nvim"
 alias wa="watch "
 alias watch="watch "
+alias zt="zerotier-cli"
 
 # Docker
 alias d='docker'
