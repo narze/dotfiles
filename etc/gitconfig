@@ -5,3 +5,5 @@
 	excludesfile = ~/.gitignore_global
 [alias]
 	conflicts = "diff --name-only --diff-filter=U"
+[ghq]
+	root = ~/Code
