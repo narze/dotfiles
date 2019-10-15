@@ -30,6 +30,7 @@
     - fd
     - fzf
     - fzy
+    - ghq
     - git
     - git-flow
     - hub
