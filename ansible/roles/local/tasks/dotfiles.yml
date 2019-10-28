@@ -143,3 +143,10 @@
     path: ~/.bundle/config
     state: link
     force: yes
+
+- name: Link synthwave84.css
+  file:
+    src: ~/.dotfiles/etc/synthwave84.css
+    path: ~/.config/synthwave84.css
+    state: link
+    force: yes
