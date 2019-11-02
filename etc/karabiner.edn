@@ -116,6 +116,19 @@
                                     [:period :!Speriod] ; >
                                     [:slash :!Sslash] ; ?
                                     ]}
+
+          ; ThumbSense (rev 3) https://pqrs.org/osx/karabiner/complex_modifications/#thumbsense
+          {:des "ThumbSense Mode" :rules [[:c :!Cc ["multitouch_extension_finger_count_total" 1]]
+                                          [:v :!Cv ["multitouch_extension_finger_count_total" 1]]
+                                          [:f {:pkey :button1} ["multitouch_extension_finger_count_total" 1]]
+                                          [:j {:pkey :button1} ["multitouch_extension_finger_count_total" 1]]
+                                          [:spacebar {:pkey :button1} ["multitouch_extension_finger_count_total" 1]]
+                                          [:d {:pkey :button2} ["multitouch_extension_finger_count_total" 1]]
+                                          [:k {:pkey :button2} ["multitouch_extension_finger_count_total" 1]]
+                                          [:g :!Copen_bracket ["multitouch_extension_finger_count_total" 1]]
+                                          [:h :!Cclose_bracket ["multitouch_extension_finger_count_total" 1]]
+                                          [:w :!Cw ["multitouch_extension_finger_count_total" 1]]
+                                         ]}
         ]
  ;; code won't read cheatsheet section
  ;; ! stand for mandatory
