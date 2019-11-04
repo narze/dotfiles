@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+echo "Installing gems for Ruby $(ruby -e 'print "#{ RUBY_VERSION }p#{ RUBY_PATCHLEVEL }"'
+)..."
+
+gem install bundler \
+            htmlbeautifier \
+            pry \
+            rubocop \
+            solargraph \
+            tmuxinator
