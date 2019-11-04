@@ -40,7 +40,9 @@ zplugin light romkatv/powerlevel10k
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 
-zplugin ice svn "rupa/z" pick"z.sh"; zplugin light "rupa/z"
+zplugin ice "rupa/z" pick"z.sh"
+zplugin light "rupa/z"
+
 zplugin snippet OMZ::lib/history.zsh
 
 zplugin ice wait"1" as"completion" lucid
