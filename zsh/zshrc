@@ -88,11 +88,8 @@ _history_substring_search_bind_keys() {
 }
 
 if [ -d "$HOME/.asdf" ]; then
-  zplugin ice wait"0" pick"asdf.sh" lucid
-  zplugin light %HOME/.asdf
-
-  zplugin ice wait"0" pick"asdf.bash" lucid
-  zplugin light %HOME/.asdf/completions
+  . $HOME/.asdf/asdf.sh
+  . $HOME/.asdf/completions/asdf.bash
 fi
 
 if [ -d "$HOME/.rbenv" ]; then
