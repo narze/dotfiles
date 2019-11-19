@@ -1,3 +1,12 @@
+- import_tasks: minimum.yml
+  tags:
+    - minimum
+
+- import_tasks: zsh.yml
+  tags:
+    - zsh
+    - minimum
+
 - import_tasks: homebrew.yml
   tags:
     - homebrew
@@ -13,10 +22,6 @@
 - import_tasks: mas.yml
   tags:
     - mas
-
-- import_tasks: zsh.yml
-  tags:
-    - zsh
 
 - import_tasks: mpd.yml
   tags:

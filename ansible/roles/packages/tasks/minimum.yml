@@ -1,0 +1,27 @@
+- name: Install/Upgrade Homebrew packages (Minimum)
+  homebrew:
+    name: 
+      - mackup
+      - mas
+      - reattach-to-user-namespace
+    install_options: "{{ item.install_options | default(omit) }}"
+    state: present
+
+- name: Install/Upgrade Cask packages (Minimum)
+  ignore_errors: yes
+  homebrew_cask:
+    sudo_password: "{{ ansible_become_pass }}"
+    name:
+      - 1password
+      - dropbox
+      - google-backup-and-sync
+    state: present
+
+- name: Open 1Password for setup
+  shell: open "/Applications/1Password 7.app"
+
+- name: Open Dropbox for setup
+  shell: open "/Applications/Dropbox.app"
+
+- name: Open Google Backup and Sync for setup
+  shell: open "/Applications/Backup and Sync.app"

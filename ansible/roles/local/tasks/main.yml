@@ -1,10 +1,11 @@
-- import_tasks: tmux.yml
-  tags:
-    - tmux
-
 - import_tasks: dotfiles.yml
   tags:
     - dotfiles
+    - minimum
+
+- import_tasks: tmux.yml
+  tags:
+    - tmux
 
 - import_tasks: services.yml
 

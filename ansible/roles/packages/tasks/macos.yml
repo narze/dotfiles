@@ -1,3 +1,5 @@
 - name: Setup Sensible macOS defaults (mathiasbynens/dotfiles)
   become: yes
   command: "{{ playbook_dir | dirname }}/etc/macos"
+  tags:
+    - minimum

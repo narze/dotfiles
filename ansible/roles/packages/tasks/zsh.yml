@@ -4,9 +4,6 @@
       - zsh
     state: present
 
-- name: Uninstall zplug
-  homebrew: name=zplug state=absent
-
 - name: Ensure ~/.zplugin path
   file: path=~/.zplugin state=directory
 
