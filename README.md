@@ -30,7 +30,12 @@ Some packages needs reloading shell (eg. `asdf`) On a fresh macOS you may have t
 - [ ] Modify system preferences
   - Keyboard shortcuts
   - Keyboard layouts
-- [ ] Open all apps which needs configuration, one by one in order.
+- [x] Open all apps which needs configuration, one by one in order.
   - eg. Google drive -> Alfred -> 1Password -> Mackup restore
 - [ ] Add folders to Favorites in Finder
-- [ ] "Minimal" setup script, good & fast for bootstrapping new machines
+- [x] "Minimal" setup script, good & fast for bootstrapping new machines
+- [ ] Redesign setup script
+  - Separate bootstrap script (first run on vanilla) from update script
+  - Print readme when bootstrap script is done, eg. login & sync Dropbox & Google Drive & 1Password & Restore mackup
+  - Remember & retry on failed step
+- [ ] Replace homebrew, cask, mas install script with [brew bundle](https://github.com/Homebrew/homebrew-bundle)
