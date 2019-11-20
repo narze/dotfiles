@@ -3,6 +3,7 @@
 	email = manassarn@gmail.com
 [core]
 	excludesfile = ~/.gitignore_global
+	pager = diff-so-fancy | less --tabs=4 -RFX
 [alias]
 	conflicts = "diff --name-only --diff-filter=U"
 [ghq]
