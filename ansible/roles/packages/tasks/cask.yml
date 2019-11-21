@@ -20,8 +20,8 @@
       - alfred-numi
       - android-file-transfer
       - arq
-      - bartender
-      - bettertouchtool
+      # - bartender
+      # - bettertouchtool
       - beardedspice
       - bitbar
       - browserosaurus
