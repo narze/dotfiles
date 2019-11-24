@@ -29,6 +29,7 @@ zplugin light zdharma/history-search-multi-word
 zplugin ice wait"!0" atload'_zsh_autosuggest_start' lucid
 zplugin light zsh-users/zsh-autosuggestions
 
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 zplugin ice from"gh-r" as"program"
 zplugin light junegunn/fzf-bin
 
@@ -114,6 +115,7 @@ if [ -f "$HOME/.zshrc.local" ]; then
   source "$HOME/.zshrc.local"
 fi
 
+# source ~/.bashhub/bashhub.zsh
 if [ -f ~/.bashhub/bashhub.zsh ]; then
   zplugin ice wait"0" pick".bashhub/bashhub.zsh" lucid
   zplugin light %HOME
