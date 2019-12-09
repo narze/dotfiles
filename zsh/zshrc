@@ -95,6 +95,11 @@ if [ -d "$HOME/.asdf" ]; then
   . $HOME/.asdf/completions/asdf.bash
 fi
 
+if [ -d "$HOME/.asdf/plugins/java" ]; then
+  zplugin ice wait"0" pick".asdf/plugins/java/set-java-home.sh" lucid
+  zplugin light %HOME
+fi
+
 if [ -d "$HOME/.rbenv" ]; then
   eval "$(rbenv init - --no-rehash)"
 fi
