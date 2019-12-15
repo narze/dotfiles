@@ -10,6 +10,8 @@ export PATH="/usr/local/sbin:$HOME/.dotfiles/etc/bin:$PATH"
 export PATH="/Applications/Postgres.app/Contents/Versions/9.6/bin:$PATH"
 export ZSH_CACHE_DIR="${TMPDIR:-/tmp}"
 
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
 ulimit -n 8192
 
 # POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(user dir vcs rbenv rspec_stats newline)
