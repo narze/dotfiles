@@ -13,22 +13,30 @@
   :h-mode {:key :h}
   :z-mode {:key :z}
 }
- :devices {:filco-bt [{:vendor_id 2652 :product_id 34050}]
-           :planck [{:vendor_id 65261 :product_id 24672}]
-           :planck-light [{:vendor_id 65261 :product_id 24677}]
-           :ergodox-infinity [{:vendor_id 65261 :product_id 25700}]}
+ :devices {:apple-internal [{:vendor_id 1452 :product_id 635}]
+           :filco-bt [{:vendor_id 2652 :product_id 34050}]
+           ; All QMK keyboards I own
+           :qmk [{:vendor_id 65261 :product_id 24672} ; Planck Rev3
+                 {:vendor_id 65261 :product_id 24677} ; Planck Light
+                 {:vendor_id 65261 :product_id 25700} ; Ergodox Infinity
+                 {:vendor_id 64593 :product_id 88}]} ; Lily 58 Pro
  :input-sources {:colemak {:input_source_id "com.apple.keylayout.Colemak"
                            :language "en"}}
- :main [{:des "Swap Option / Command on certain devices" :rules [
+ :main [
+        ; Non QMK Rules (Avoid modifier keys collide with QMK keebs)
+        {:des "Cmd -> Cmd / Underscore" :rules [:!qmk [:##left_command :left_command nil {:alone :!Shyphen}]]}
+        {:des "Unbind Delete (with beep)" :rules [:!qmk [:##delete_or_backspace [:beep]]]}
+        {:des "ROption -> Option / : (Colemak)" :rules [:colemak :!qmk [:##right_option :right_option nil {:held :right_option :alone :!Sp}]]}
+
+        ; General
+        {:des "; <-> : (Colemak)" :rules [:colemak [:p :!Sp] [:!Sp :p]]}
+        {:des "Swap Option / Command on certain devices" :rules [
                                                                  [:##left_command :left_option [:filco-bt]]
                                                                  [:##left_option :left_command [:filco-bt] {:alone :!Shyphen}]]}
         {:des "Caps -> Hyper / Esc" :rules [[:##caps_lock :!CTOleft_shift nil {:alone :escape}]]}
-        {:des "Cmd -> Cmd / Underscore" :rules [[:##left_command :left_command nil {:alone :!Shyphen}]]}
         {:des "RCmd -> Delete" :rules [[:##right_command :delete_or_backspace]]}
-        {:des "Unbind Delete (with beep)" :rules [[:##delete_or_backspace [:beep]]]}
         {:des "LShift -> Shift / (" :rules [[:##left_shift :right_shift nil {:held :left_shift :alone :!S9}]]}
         {:des "RShift -> Shift / )" :rules [[:##right_shift :left_shift nil {:held :right_shift :alone :!S0}]]}
-        {:des "ROption -> Option / : (Colemak)" :rules [:colemak [:##right_option :right_option nil {:held :right_option :alone :!Sp}]]}
         {:des "LOption -> Option / Cmb+Tab" :rules [[:##left_option :left_option nil {:held :left_option :alone :!Ctab}]]}
         {:des "F-L -> Delete Word" :rules [:f-mode [:l :!Odelete_or_backspace]]}
         {:des "F-; -> Delete Line" :rules [:f-mode [:semicolon :!Cdelete_or_backspace]]}
@@ -41,8 +49,8 @@
                                             :afterup {:set ["delete-mode" 0]}}} [:delete_or_backspace {:set ["delete-mode" 1]}]]]}
         {:des "Delmode F/J/K -> Delete" :rules [:delete-mode [:f :delete_or_backspace] [:j :delete_or_backspace] [:k :delete_or_backspace]]}
 
-        ; SuperDuper Mode with S+D
-        {:des "SuperDuper <- S+D" :rules [[{:sim [:s :d]
+        ; SuperDuper Mode with S+D (Non-QMK)
+        {:des "SuperDuper <- S+D" :rules [:!qmk [{:sim [:s :d]
                                      :simo {:interrupt true
                                             :dorder :insensitive
                                             :uorder :insensitive
