@@ -152,4 +152,9 @@
               :!Cspacebar "command space"
               :!Fa "fn a"
               :##a "keycode a optional any"
-              :!!a "mandatory hyper(control command option shift) a "}}
+              :!!a "mandatory hyper(control command option shift) a "
+              :sample-configurations [
+                     {:des "Caps lock mode / Esc" :rules [[:##caps_lock {:set ["caps-lock-mode" 1]} nil {:alone :escape :afterup {:set ["caps-lock-mode" 0]}}]]}
+                     {:des "Caps vim navigation" :rules [:caps-lock-mode [:h :left_arrow] [:j :down_arrow] [:k :up_arrow] [:l :right_arrow]]}
+              ]
+              }}
