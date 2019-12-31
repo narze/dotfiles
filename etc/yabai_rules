@@ -25,8 +25,10 @@ while [[ $(yabai -m query --spaces | jq length) < 4 ]]; do
   yabai -m space --create
 done
 
+# yabai -m rule --add label="Unmanage all" app=".*" manage=off
+
 # Note: Rules is manage=on is buggy since it captures every AXWindow
-# Please unfloat them manuallu
+# Please unfloat them manually
 yabai -m rule --add label="VSCode" app="^Code$" space="$space_coding"
 yabai -m rule --add label="iTerm2" app="^iTerm2$" space="$space_coding"
 
@@ -37,26 +39,26 @@ yabai -m rule --add label="Franz" app="^Franz$" space="$space_messaging"
 yabai -m rule --add label="Slack" app="^Slack$" space="$space_messaging"
 yabai -m rule --add label="Telegram" app="^Telegram$" space="$space_messaging"
 
-yabai -m rule --add label="1Password 7" app="^1Password 7$" manage=off grid="$center"
-yabai -m rule --add label="Browserosaurus" app="^Browserosaurus$" manage=off grid="$center"
-yabai -m rule --add label="Activity Monitor" app="^Activity Monitor$" manage=off grid="$center"
-yabai -m rule --add label="Alfred Preferences" app="^Alfred Preferences$" manage=off grid="$center"
-yabai -m rule --add label="App Store" app="^App Store$" manage=off grid="$center"
-yabai -m rule --add label="Boom 3D" app="^Boom 3D$" manage=off grid="$center"
-yabai -m rule --add label="Calculator" app="^Calculator$" manage=off grid="$center"
-yabai -m rule --add label="Dash" app="Dash" manage=off grid="$center"
-yabai -m rule --add label="Dictionary" app="^Dictionary$" manage=off grid="$center"
-yabai -m rule --add label="Fantastical" app="Fantastical" manage=off grid="$center"
-yabai -m rule --add label="Finder Main" app="^Finder$" manage=off grid="$center"
-yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off grid="$center"
-yabai -m rule --add label="Firefox" app="Firefox" manage=off grid="$center"
-yabai -m rule --add label="Preview" app="Preview" manage=off grid="$center"
-yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off grid="$center"
-yabai -m rule --add label="System Preferences" app="^System Preferences$" manage=off grid="$center"
-yabai -m rule --add label="The Unarchiver" app="^The Unarchiver$" manage=off grid="$center"
-yabai -m rule --add label="Time Out" app="Time Out" manage=off grid="$center"
-yabai -m rule --add label="Transmission" app="^Transmission$" manage=off grid="$center"
-yabai -m rule --add label="VirtualBox" app="^VirtualBox$" manage=off grid="$center"
+yabai -m rule --add label="1Password 7" app="^1Password 7$" manage=off
+yabai -m rule --add label="Browserosaurus" app="^Browserosaurus$" manage=off
+yabai -m rule --add label="Activity Monitor" app="^Activity Monitor$" manage=off
+yabai -m rule --add label="Alfred Preferences" app="^Alfred Preferences$" manage=off
+yabai -m rule --add label="App Store" app="^App Store$" manage=off
+yabai -m rule --add label="Boom 3D" app="^Boom 3D$" manage=off
+yabai -m rule --add label="Calculator" app="^Calculator$" manage=off
+yabai -m rule --add label="Dash" app="Dash" manage=off
+yabai -m rule --add label="Dictionary" app="^Dictionary$" manage=off
+yabai -m rule --add label="Fantastical" app="Fantastical" manage=off
+yabai -m rule --add label="Finder Main" app="^Finder$" manage=off
+yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off
+yabai -m rule --add label="Firefox" app="Firefox" manage=off
+yabai -m rule --add label="Preview" app="Preview" manage=off
+yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
+yabai -m rule --add label="System Preferences" app="^System Preferences$" manage=off
+yabai -m rule --add label="The Unarchiver" app="^The Unarchiver$" manage=off
+yabai -m rule --add label="Time Out" app="Time Out" manage=off
+yabai -m rule --add label="Transmission" app="^Transmission$" manage=off
+yabai -m rule --add label="VirtualBox" app="^VirtualBox$" manage=off
 
 # Unfloat all windows except on first space
 yabai -m query --windows | jq -r '.[] | [.id, .space, .floating] | @tsv' |
