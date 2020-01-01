@@ -4,3 +4,4 @@ BUNDLE_GEM__MIT: "true"
 BUNDLE_GEM__COC: "true"
 BUNDLE_BUILD__LIBV8: "--with-system-v8"
 BUNDLE_BUILD__PUMA: "--with-opt-include=/usr/local/opt/openssl/include/"
+BUNDLE_BUILD__PG: '--with-pg-include=/Applications/Postgres.app/Contents/Versions/latest/include'
