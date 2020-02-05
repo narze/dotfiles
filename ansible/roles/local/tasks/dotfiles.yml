@@ -157,3 +157,10 @@
     path: ~/.config/synthwave84.css
     state: link
     force: yes
+
+- name: Link .default-gems for asdf
+  file:
+    src: ~/.dotfiles/etc/default-gems
+    path: ~/.default-gems
+    state: link
+    force: yes
