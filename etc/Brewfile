@@ -26,7 +26,6 @@ brew "cmake"
 brew "dfu-programmer"
 brew "dfu-util"
 brew "diff-so-fancy"
-brew "elasticsearch@2.4", link: true
 brew "entr"
 brew "exercism"
 brew "fd"
