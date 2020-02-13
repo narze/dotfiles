@@ -1,0 +1,58 @@
+- defaults:
+    link:
+      relink: true
+
+- clean: ['~']
+
+- create:
+  - ~/.bundle
+  - ~/.config
+
+- link:
+    ~/.dotfiles:
+      force: true
+      path: ''
+    ~/.asdfrc:
+      path: ~/.dotfiles/etc/asdfrc
+    ~/.Brewfile:
+      path: ~/.dotfiles/etc/Brewfile
+    ~/.bundle/config:
+      path: ~/.dotfiles/etc/bundle_config
+    ~/.config/karabiner.edn:
+      path: ~/.dotfiles/etc/karabiner.edn
+    ~/.config/synthwave84.css:
+      path: ~/.dotfiles/etc/synthwave84.css
+    ~/.default-gems:
+      path: ~/.dotfiles/etc/default-gems
+    ~/.editorconfig:
+      path: ~/.dotfiles/etc/editorconfig
+    ~/.gemrc:
+      path: ~/.dotfiles/etc/gemrc
+    ~/.gitconfig:
+      path: ~/.dotfiles/etc/gitconfig
+    ~/.gitignore_global:
+      path: ~/.dotfiles/etc/gitignore_global
+    ~/.mackup:
+      path: ~/.dotfiles/etc/mackup
+    ~/.mackup.cfg:
+      path: ~/.dotfiles/etc/mackup.cfg
+    ~/.p10k.zsh:
+      path: ~/.dotfiles/zsh/p10k.zsh
+    ~/.pryrc:
+      path: ~/.dotfiles/etc/pryrc
+    ~/.skhdrc:
+      path: ~/.dotfiles/etc/skhdrc
+    ~/.tmux.conf:
+      path: ~/.dotfiles/etc/tmux/.tmux.conf
+    ~/.tmux.conf.local:
+      path: ~/.dotfiles/etc/tmux/.tmux.conf.local
+    ~/.yabai_axunknown_float:
+      path: ~/.dotfiles/etc/yabai_axunknown_float
+    ~/.yabai_monocle:
+      path: ~/.dotfiles/etc/yabai_monocle
+    ~/.yabai_rules:
+      path: ~/.dotfiles/etc/yabai_rules
+    ~/.yabairc:
+      path: ~/.dotfiles/etc/yabairc
+    ~/.zshrc:
+      path: ~/.dotfiles/zsh/zshrc
