@@ -1,5 +1,5 @@
-# Laptop
-macOS setup script for development
+# Laptop [![Build Status](https://travis-ci.com/narze/laptop.svg?branch=master)](https://travis-ci.com/narze/laptop)
+Bootstrap my macOS machines, for fun & profit.
 
 ## From Ansible to Dotbot
 I decided to migrate all Ansible playbooks to [Dotbot](https://github.com/anishathalye/dotbot) and plain shell scripts. Switch to [ansible branch](https://github.com/narze/laptop/tree/ansible) if you still want to use Ansible.
