@@ -1,7 +1,3 @@
-- import_tasks: dotbot.yml
-  tags:
-    - dotbot
-
 - import_tasks: tmux.yml
   tags:
     - tmux

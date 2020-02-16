@@ -1,23 +1,6 @@
-- import_tasks: zsh.yml
-  tags:
-    - zsh
-    - minimum
-
-- import_tasks: homebrew.yml
-  tags:
-    - homebrew
-
-- import_tasks: cask.yml
-  tags:
-    - cask
-
 - import_tasks: cask_upgrade.yml
   tags:
     - cask_upgrade
-
-- import_tasks: mas.yml
-  tags:
-    - mas
 
 - import_tasks: mpd.yml
   tags:
