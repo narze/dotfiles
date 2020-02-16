@@ -2,6 +2,7 @@ tap "homebrew/cask"
 tap "homebrew/cask-fonts"
 tap "github/gh"
 tap "koekeishiya/formulae"
+tap "narze/taps"
 tap "yqrashawn/goku"
 
 brew "awscli"
