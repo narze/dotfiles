@@ -2,3 +2,6 @@
 	path = dotbot
 	url = https://github.com/anishathalye/dotbot
 	ignore = dirty
+[submodule "dotbot-ghq"]
+	path = dotbot-ghq
+	url = https://github.com/klane/dotbot-ghq.git

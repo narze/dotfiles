@@ -1,18 +1,8 @@
 - name: Ensure Code Directory
   file: path=~/Code state=directory
 
-- name: Clone Github Public Repos
-  git:
-    repo: "git@github.com:{{ item }}.git"
-    dest: "~/Code/{{ item }}"
-  with_items:
-    - narze/baht
-    - narze/mong
-    - narze/puncome
-    - narze/qmk_firmware
-    - narze/resume
-    - narze/switcheroo
-    - narze/userscripts
+- name: Link dotfiles
+  command: "{{ playbook_dir | dirname }}/install -c code.conf.yml"
 
 - name: Add upstream remote for forks
   git_config:

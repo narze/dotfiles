@@ -1,0 +1,23 @@
+- defaults:
+    link:
+      relink: true
+
+- create:
+  - ~/Code
+
+- ghq:
+  - eventpop/challenges
+  - narze/baht
+  - narze/mong
+  - narze/narze.github.io
+  - narze/puncome
+  - narze/qmk_firmware
+  - narze/resume
+  - narze/switcheroo
+  - narze/userscripts
+
+- link:
+    ~/Code/eventpop:
+      path: ~/Code/github.com/eventpop
+    ~/Code/narze:
+      path: ~/Code/github.com/narze
