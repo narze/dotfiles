@@ -1,5 +1,5 @@
-- name: Ensure Code Directory
-  file: path=~/Code state=directory
-
 - name: Link dotfiles
+  command: "{{ playbook_dir | dirname }}/install"
+
+- name: Install code.conf.yml
   command: "{{ playbook_dir | dirname }}/install -c code.conf.yml"

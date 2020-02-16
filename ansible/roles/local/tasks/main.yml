@@ -1,7 +1,6 @@
-- import_tasks: dotfiles.yml
+- import_tasks: dotbot.yml
   tags:
-    - dotfiles
-    - minimum
+    - dotbot
 
 - import_tasks: tmux.yml
   tags:
@@ -18,7 +17,3 @@
   when: secret.mpd_music_dir is not defined
   tags:
     - mpd
-
-- import_tasks: code.yml
-  tags:
-    - code

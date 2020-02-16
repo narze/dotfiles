@@ -1,2 +1,0 @@
-- name: Link dotfiles
-  command: "{{ playbook_dir | dirname }}/install"

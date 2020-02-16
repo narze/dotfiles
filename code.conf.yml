@@ -1,3 +1,5 @@
+# Dependenties brew & ghq
+
 - defaults:
     link:
       relink: true

@@ -43,6 +43,13 @@ _q() {
 }
 
 setup_ask() {
+  local DOTBOT=$(_q "Run Dotbot Script ?") ; echo $DOTBOT
+
+  if [[ $DOTBOT == "y" ]]; then
+    ANSIBLE_TAGS+=('dotbot')
+    return
+  fi
+
   local FULL_SETUP=$(_q "Full Setup ?") ; echo $FULL_SETUP
 
   if [[ $FULL_SETUP == "y" ]]; then
