@@ -18,7 +18,8 @@ script:
   - echo 'brew "zsh"' > etc/Brewfile
   - echo 'brew "zsh"' > etc/Brewfile-essentials
 
-  - ./install
-  - ./install -c bootstrap.conf.yml
-  - ./install -c code.conf.yml
-  - ./install -c packages.conf.yml
+  - make
+  - make setup
+  - make dotfiles
+  - make code
+  - make brew
