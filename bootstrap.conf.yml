@@ -1,0 +1,10 @@
+- brew:
+  - mackup
+  - mas
+  - reattach-to-user-namespace
+  - zsh
+
+- cask:
+  - 1password
+  - dropbox
+  - google-backup-and-sync
