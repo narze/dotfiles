@@ -20,58 +20,58 @@ ulimit -n 8192
 # Prefer using emacs mode for zsh
 bindkey -e
 
-source ~/.zplugin/bin/zplugin.zsh
+source ~/.zinit/bin/zinit.zsh
 
-zplugin ice wait"0" lucid
-zplugin light zsh-users/zsh-completions
+zinit ice wait"0" lucid
+zinit light zsh-users/zsh-completions
 
-zplugin ice wait"1" atload'_history_substring_search_bind_keys' lucid
-zplugin light zsh-users/zsh-history-substring-search
+zinit ice wait"1" atload'_history_substring_search_bind_keys' lucid
+zinit light zsh-users/zsh-history-substring-search
 
-zplugin light zdharma/history-search-multi-word
+zinit light zdharma/history-search-multi-word
 
-zplugin ice wait"!0" atload'_zsh_autosuggest_start' lucid
-zplugin light zsh-users/zsh-autosuggestions
+zinit ice wait"!0" atload'_zsh_autosuggest_start' lucid
+zinit light zsh-users/zsh-autosuggestions
 
 # [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-zplugin ice from"gh-r" as"program"
-zplugin light junegunn/fzf-bin
+zinit ice from"gh-r" as"program"
+zinit light junegunn/fzf-bin
 
 PS1=$(dirs)$'\n'"❯ "
-# zplugin ice wait'0' lucid # This saves 20ms
-# zplugin ice wait'0' atload"p9k_refresh_prompt_inplace" lucid reset-prompt # This does not work just yet
-zplugin light romkatv/powerlevel10k
+# zinit ice wait'0' lucid # This saves 20ms
+# zinit ice wait'0' atload"p9k_refresh_prompt_inplace" lucid reset-prompt # This does not work just yet
+zinit light romkatv/powerlevel10k
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 
-zplugin ice "rupa/z" pick"z.sh"
-zplugin light "rupa/z"
+zinit ice "rupa/z" pick"z.sh"
+zinit light "rupa/z"
 
-zplugin snippet OMZ::lib/history.zsh
+zinit snippet OMZ::lib/history.zsh
 
-zplugin ice wait"1" as"completion" lucid
-zplugin snippet https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker
+zinit ice wait"1" as"completion" lucid
+zinit snippet https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker
 
-zplugin ice wait"1" as"completion" lucid
-zplugin snippet https://github.com/docker/compose/blob/master/contrib/completion/zsh/_docker-compose
+zinit ice wait"1" as"completion" lucid
+zinit snippet https://github.com/docker/compose/blob/master/contrib/completion/zsh/_docker-compose
 
 # Load my zsh dotfiles, aliases
 files=( {00_aliases,10_options,20_functions}.zsh )
-zplugin ice multisrc"\$files" pick"/dev/null"
-zplugin light %HOME/.dotfiles/zsh/config
+zinit ice multisrc"\$files" pick"/dev/null"
+zinit light %HOME/.dotfiles/zsh/config
 
-zplugin ice wait"0" atinit"zpcompinit" lucid
-zplugin light zdharma/fast-syntax-highlighting
+zinit ice wait"0" atinit"zpcompinit" lucid
+zinit light zdharma/fast-syntax-highlighting
 
 # Note: Use wait 1 second works
-zplugin ice svn wait"1" atload"zpcdreplay" lucid
-zplugin snippet OMZ::plugins/kubectl
+zinit ice svn wait"1" atload"zpcdreplay" lucid
+zinit snippet OMZ::plugins/kubectl
 
-# zplugin ice wait"1" svn atload'your_command_here'
-# zplugin light zdharma/null
+# zinit ice wait"1" svn atload'your_command_here'
+# zinit light zdharma/null
 
-# Compinit : After zplugins, before cdreplay
+# Compinit : After zinits, before cdreplay
 # https://carlosbecker.com/posts/speeding-up-zsh/
 autoload -Uz compinit
 if [ $(date +'%j') != $(stat -f '%Sm' -t '%j' ~/.zcompdump) ]; then
@@ -80,7 +80,7 @@ else
   compinit -C;
 fi
 
-zplugin cdreplay -q
+zinit cdreplay -q
 
 # Key bindings for zsh-history-substring-search
 _history_substring_search_bind_keys() {
@@ -98,8 +98,8 @@ if [ -d "$HOME/.asdf" ]; then
 fi
 
 if [ -d "$HOME/.asdf/plugins/java" ]; then
-  zplugin ice wait"0" pick".asdf/plugins/java/set-java-home.sh" lucid
-  zplugin light %HOME
+  zinit ice wait"0" pick".asdf/plugins/java/set-java-home.sh" lucid
+  zinit light %HOME
 fi
 
 if [ -d "$HOME/.rbenv" ]; then
@@ -127,6 +127,6 @@ fi
 
 # source ~/.bashhub/bashhub.zsh
 if [ -f ~/.bashhub/bashhub.zsh ]; then
-  zplugin ice wait"0" pick".bashhub/bashhub.zsh" lucid
-  zplugin light %HOME
+  zinit ice wait"0" pick".bashhub/bashhub.zsh" lucid
+  zinit light %HOME
 fi

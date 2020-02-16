@@ -4,13 +4,13 @@
       - zsh
     state: present
 
-- name: Ensure ~/.zplugin path
-  file: path=~/.zplugin state=directory
+- name: Ensure ~/.zinit path
+  file: path=~/.zinit state=directory
 
-- name: Install zplugin
+- name: Install zinit
   git:
-    repo: "https://github.com/zdharma/zplugin.git"
-    dest: "~/.zplugin/bin"
+    repo: "https://github.com/zdharma/zinit.git"
+    dest: "~/.zinit/bin"
 
 - name: Set default shell to installed zsh
   become: yes
