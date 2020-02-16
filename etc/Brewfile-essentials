@@ -1,3 +1,9 @@
+tap "homebrew/cask"
+tap "homebrew/cask-fonts"
+tap "github/gh"
+tap "koekeishiya/formulae"
+tap "yqrashawn/goku"
+
 brew "awscli"
 brew "bat"
 brew "diff-so-fancy"
