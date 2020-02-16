@@ -1,9 +1,0 @@
-- name: Clone tmux config
-  git:
-    repo: https://github.com/narze/.tmux
-    dest: "{{ playbook_dir | dirname }}/etc/tmux"
-
-- name: Clone tmux plugin manager
-  git:
-    repo: https://github.com/tmux-plugins/tpm
-    dest: ~/.tmux/plugins/tpm

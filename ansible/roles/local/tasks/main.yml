@@ -1,7 +1,3 @@
-- import_tasks: tmux.yml
-  tags:
-    - tmux
-
 - import_tasks: services.yml
 
 - import_tasks: mpd.yml

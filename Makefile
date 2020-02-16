@@ -24,4 +24,7 @@ code: ## Clone Repositories with ghq
 brew: ## Install brew & cask packages
 	@./install -c packages.conf.yml
 
-all: dotfiles bootstrap code brew ## Run all tasks at once
+tools: ## Install non-brew tools eg. tmux package manager
+	@./install -c tmux.conf.yml
+
+all: dotfiles bootstrap code brew tools ## Run all tasks at once

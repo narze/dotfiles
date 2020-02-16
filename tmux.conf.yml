@@ -1,0 +1,15 @@
+- brew:
+  - tmux
+
+# Setup tpm : tmux plugin manager
+- create:
+  - ~/.tmux/plugins
+
+- shell:
+  - description: Clone tpm
+    quiet: true
+    command: |
+      if cd ~/.tmux/plugins/tpm;
+      then git pull;
+      else git clone https://github.com/tmux-plugins/tpm.git ~/.tmux/plugins/tpm;
+      fi
