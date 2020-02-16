@@ -1,5 +1,8 @@
 - name: Link dotfiles
   command: "{{ playbook_dir | dirname }}/install"
 
+- name: Install bootstrap.conf.yml
+  command: "{{ playbook_dir | dirname }}/install -c bootstrap.conf.yml"
+
 - name: Install code.conf.yml
   command: "{{ playbook_dir | dirname }}/install -c code.conf.yml"

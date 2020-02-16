@@ -1,7 +1,3 @@
-- import_tasks: minimum.yml
-  tags:
-    - minimum
-
 - import_tasks: zsh.yml
   tags:
     - zsh

@@ -2,7 +2,6 @@
 
 ANSIBLE_OPTS="$@"
 ANSIBLE_TAGS=()
-SETUP_MIN=
 SETUP_BREW=
 SETUP_CASK=
 SETUP_CASK_UPGRADE=
@@ -56,7 +55,6 @@ setup_ask() {
     ANSIBLE_TAGS+=('all')
   else
     STEP=1
-    SETUP_MIN=$(_q "[$STEP/$STEPS] Install minimum packages ? (Recommended for newly installed mac)") ; echo $SETUP_MIN ; STEP=$((STEP+1))
     SETUP_BREW=$(_q "[$STEP/$STEPS] Install Homebrew packages ?") ; echo $SETUP_BREW ; STEP=$((STEP+1))
     SETUP_CASK=$(_q "[$STEP/$STEPS] Install Homebrew Cask packages ?") ; echo $SETUP_CASK ; STEP=$((STEP+1))
     SETUP_CASK_UPGRADE=$(_q "[$STEP/$STEPS] Upgrade Homebrew Cask packages ?") ; echo $SETUP_CASK_UPGRADE ; STEP=$((STEP+1))
@@ -73,7 +71,6 @@ setup_ask() {
     SETUP_RUBY=$(_q "[$STEP/$STEPS] Setup Ruby ?") ; echo $SETUP_RUBY ; STEP=$((STEP+1))
     SETUP_DOCKER=$(_q "[$STEP/$STEPS] Pull Docker images ?") ; echo $SETUP_DOCKER ; STEP=$((STEP+1))
 
-    if [[ $SETUP_MIN == "y" ]]; then ANSIBLE_TAGS+=('minimum'); fi
     if [[ $SETUP_BREW == "y" ]]; then ANSIBLE_TAGS+=('homebrew'); fi
     if [[ $SETUP_CASK == "y" ]]; then ANSIBLE_TAGS+=('cask'); fi
     if [[ $SETUP_CASK_UPGRADE == "y" ]]; then ANSIBLE_TAGS+=('cask_upgrade'); fi
