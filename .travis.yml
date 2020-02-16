@@ -12,4 +12,4 @@ matrix:
 
 script:
   - ./install
-  - ./install -c code.conf.yml
+  - GHQ_ROOT=~/Code ./install -c code.conf.yml
