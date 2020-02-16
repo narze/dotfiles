@@ -18,5 +18,5 @@ script:
   - rm ~/.gemrc ~/.gitconfig || true
 
   - ./install
-  - ./install -c bootstrap:.conf.yml
+  - ./install -c bootstrap.conf.yml
   - ./install -c code.conf.yml
