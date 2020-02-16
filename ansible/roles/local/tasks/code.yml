@@ -3,12 +3,3 @@
 
 - name: Link dotfiles
   command: "{{ playbook_dir | dirname }}/install -c code.conf.yml"
-
-- name: Add upstream remote for forks
-  git_config:
-    name: remote.upstream.url
-    value: "{{ item.upstream }}"
-    scope: local
-    repo: "~/Code/{{ item.project }}"
-  with_items:
-    - { project: "narze/qmk_firmware", upstream: "git@github.com:qmk/qmk_firmware.git" }

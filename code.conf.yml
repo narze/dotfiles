@@ -21,3 +21,6 @@
       path: ~/Code/github.com/eventpop
     ~/Code/narze:
       path: ~/Code/github.com/narze
+
+- shell:
+  - cd ~/Code/narze/qmk_firmware && git config remote.upstream.url git@github.com:qmk/qmk_firmware.git
