@@ -20,3 +20,4 @@ script:
   - ./install
   - ./install -c bootstrap.conf.yml
   - ./install -c code.conf.yml
+  - ./install -c packages.conf.yml
