@@ -5,6 +5,7 @@
 [submodule "dotbot-ghq"]
 	path = dotbot-ghq
 	url = https://github.com/klane/dotbot-ghq.git
+	ignore = dirty
 [submodule ".tmux"]
 	path = etc/tmux
 	url = https://github.com/narze/.tmux
