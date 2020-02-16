@@ -5,6 +5,9 @@
 - create:
   - ~/Code
 
+- shell:
+  - brew list ghq &>/dev/null || brew install ghq
+
 - ghq:
   - eventpop/challenges
   - narze/baht
