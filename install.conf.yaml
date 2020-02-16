@@ -12,6 +12,8 @@
     ~/.dotfiles:
       force: true
       path: ''
+
+- link:
     ~/.asdfrc:
       path: ~/.dotfiles/etc/asdfrc
     ~/.Brewfile:
