@@ -16,13 +16,14 @@ cd ~/laptop && make bootstrap
 
 ## Features
 ```
-❯ make
+$ make
 help                           Print command list
 bootstrap                      Bootstrap new machine
 dotfiles                       Update dotfiles
 code                           Clone Repositories with ghq
 brew                           Install brew & cask packages
 tools                          Install non-brew tools eg. tmux package manager
+asdf                           Install asdf-vm
 all                            Run all tasks at once
 ```
 
