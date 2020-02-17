@@ -14,7 +14,5 @@ git submodule update --init --recursive "${DOTBOT_DIR}"
 
 "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" \
   --verbose \
-  --plugin-dir dotbot-asdf \
   --plugin-dir dotbot-brew \
-  --plugin-dir dotbot-ghq \
   -c "${CONFIG}" "${@}"

@@ -15,7 +15,7 @@ dotfiles: ## Update dotfiles
 	@./install
 
 code: ## Clone Repositories with ghq
-	@./install -c config/code.conf.yml
+	@./install -c config/code.conf.yml --plugin-dir dotbot-ghq
 
 brew: ## Install brew & cask packages
 	@./install -c config/packages.conf.yml
@@ -24,6 +24,6 @@ tools: ## Install non-brew tools eg. tmux package manager
 	@./install -c config/tmux.conf.yml
 
 asdf: ## Install asdf-vm
-	@./install -c config/asdf.conf.yml
+	@./install -c config/asdf.conf.yml --plugin-dir dotbot-asdf
 
-all: dotfiles bootstrap code brew tools asdf ## Run all tasks at once
+all: _prepare dotfiles _bootstrap code brew tools asdf ## Run all tasks at once
