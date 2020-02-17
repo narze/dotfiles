@@ -3,19 +3,12 @@
 help: ## Print command list
 	@perl -nle'print $& if m{^[a-zA-Z_-]+:.*?## .*$$}' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-_sudo:
-# Ask for the administrator password upfront
-	@sudo -n true || sudo -v
-
-# Keep-alive: update existing `sudo` time stamp until `.macos` has finished
-	@while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
-
 _prepare:
 	@git submodule update --init --recursive
 
 bootstrap: _prepare dotfiles _bootstrap ## Bootstrap new machine
 
-_bootstrap: _sudo
+_bootstrap:
 	@./install -c config/bootstrap.conf.yml
 
 dotfiles: ## Update dotfiles
