@@ -15,7 +15,8 @@ script:
   - rm ~/.gemrc ~/.gitconfig || true
 
   # Mock packages to save time
-  - echo 'cask "whatpulse"\ncask "setapp"' > etc/Brewfile
+  - echo 'cask "whatpulse"' > etc/Brewfile
+  - echo 'cask "setapp"' >> etc/Brewfile
   - echo 'brew "zsh"' > etc/Brewfile-essentials
 
   - make
