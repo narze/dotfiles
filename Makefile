@@ -23,4 +23,7 @@ brew: ## Install brew & cask packages
 tools: ## Install non-brew tools eg. tmux package manager
 	@./install -c config/tmux.conf.yml
 
-all: dotfiles bootstrap code brew tools ## Run all tasks at once
+asdf: ## Install asdf-vm
+	@./install -c config/asdf.conf.yml
+
+all: dotfiles bootstrap code brew tools asdf ## Run all tasks at once

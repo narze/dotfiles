@@ -24,3 +24,4 @@ script:
   - make code
   - make brew
   - make tools
+  - make asdf
