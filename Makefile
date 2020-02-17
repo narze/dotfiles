@@ -24,6 +24,7 @@ tools: ## Install non-brew tools eg. tmux package manager
 	@./install -c config/tmux.conf.yml
 
 asdf: ## Install asdf-vm
+	@./install -c config/asdf-install.conf.yml
 	@./install -c config/asdf.conf.yml --plugin-dir dotbot-asdf
 
 all: _prepare dotfiles _bootstrap code brew tools asdf ## Run all tasks at once
