@@ -1,3 +1,12 @@
 - brewfile:
   - ~/.Brewfile-essentials
   - ~/.Brewfile
+
+- shell:
+  - command: brew cask info setapp whatpulse
+    quiet: true
+    stdout: true
+    description: |
+      For Whatpulse & SetApp, please continue to install it manually
+      - brew cask info setapp
+      - brew cask info whatpulse
