@@ -10,7 +10,10 @@ _sudo:
 # Keep-alive: update existing `sudo` time stamp until `.macos` has finished
 	@while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-bootstrap: dotfiles _bootstrap ## Bootstrap new machine
+_prepare:
+	@git submodule update --init --recursive
+
+bootstrap: _prepare dotfiles _bootstrap ## Bootstrap new machine
 
 _bootstrap: _sudo
 	@./install -c config/bootstrap.conf.yml
