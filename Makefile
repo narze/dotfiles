@@ -13,18 +13,18 @@ _sudo:
 bootstrap: dotfiles _bootstrap ## Bootstrap new machine
 
 _bootstrap: _sudo
-	@./install -c bootstrap.conf.yml
+	@./install -c config/bootstrap.conf.yml
 
 dotfiles: ## Update dotfiles
 	@./install
 
 code: ## Clone Repositories with ghq
-	@./install -c code.conf.yml
+	@./install -c config/code.conf.yml
 
 brew: ## Install brew & cask packages
-	@./install -c packages.conf.yml
+	@./install -c config/packages.conf.yml
 
 tools: ## Install non-brew tools eg. tmux package manager
-	@./install -c tmux.conf.yml
+	@./install -c config/tmux.conf.yml
 
 all: dotfiles bootstrap code brew tools ## Run all tasks at once
