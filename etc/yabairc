@@ -24,7 +24,7 @@ yabai -m config window_border_radius         0
 yabai -m config active_window_border_color   0xccffc56e
 yabai -m config normal_window_border_color   0x22505050
 yabai -m config insert_window_border_color   0xccd75f5f
-yabai -m config window_border_placement      interior
+yabai -m config window_border_placement      inset
 yabai -m config active_window_opacity        1.0
 yabai -m config normal_window_opacity        0.8
 yabai -m config split_ratio                  0.6
