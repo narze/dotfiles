@@ -29,6 +29,7 @@ brew "fd"
 brew "fontforge"
 brew "git-hooks"
 brew "hub"
+brew "hugo"
 brew "imagemagick", link: false
 brew "imagemagick@6", link: true
 brew "kubernetes-helm"
