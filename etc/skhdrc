@@ -305,7 +305,8 @@ ctrl + alt + cmd - 0x2B : mpc prev
 ctrl + alt + cmd - 0x2F : mpc next
 
 # Reload yabai
-ctrl + alt + cmd - z : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
+ctrl + alt + cmd - z : osascript -e 'tell application "Keyboard Maestro Engine" to do script "Hide All Windows"' && \
+                       launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
 
 # Wiggle window
 ctrl + alt + cmd - x : yabai -m window --resize top_right:-1:-1 && \
