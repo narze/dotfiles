@@ -13,7 +13,7 @@ yabai -m config status_bar_clock_icon        
 
 # global settings
 yabai -m config mouse_follows_focus          on
-yabai -m config focus_follows_mouse          off
+yabai -m config focus_follows_mouse          on
 yabai -m config window_placement             first_child
 yabai -m config window_topmost               off
 yabai -m config window_opacity               off # Crashes catalina to the login screen
@@ -28,7 +28,7 @@ yabai -m config window_border_placement      inset
 yabai -m config active_window_opacity        1.0
 yabai -m config normal_window_opacity        0.8
 yabai -m config split_ratio                  0.6
-yabai -m config auto_balance                 on
+yabai -m config auto_balance                 off
 yabai -m config mouse_modifier               alt
 yabai -m config mouse_action1                move
 yabai -m config mouse_action2                resize
@@ -39,14 +39,15 @@ yabai -m config top_padding                  8
 yabai -m config bottom_padding               16
 yabai -m config left_padding                 8
 yabai -m config right_padding                8
-yabai -m config window_gap                   0
+yabai -m config window_gap                   8
 
 # specific space settings
 # yabai -m space 1 --layout                    float
 
 # signals
-# yabai -m signal --add event=window_destroyed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
-# yabai -m signal --add event=application_terminated action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
+yabai -m signal --add event=window_destroyed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
+yabai -m signal --add event=window_minimized action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
+yabai -m signal --add event=application_terminated action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
 # yabai -m signal --add event=window_created action="~/.yabai_axunknown_float"
 
 # sh ~/.yabai_rules

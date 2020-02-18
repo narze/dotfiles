@@ -316,3 +316,9 @@ ctrl + alt + cmd - x : yabai -m window --resize top_right:-1:-1 && \
 
 # Banance windows
 alt - 0x2C : yabai -m space --balance
+
+# Toggle space windows gap
+alt - d : yabai -m space --toggle gap
+
+# Toggle space windows padding
+alt - g : yabai -m space --toggle padding
