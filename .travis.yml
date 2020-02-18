@@ -10,7 +10,7 @@ matrix:
     - os: osx
       osx_image: xcode11.3
 
-script:
+before_script:
   # Clean up
   - rm ~/.gemrc ~/.gitconfig || true
 
@@ -20,6 +20,9 @@ script:
   - echo 'cask "setapp"' >> etc/Brewfile
   - echo 'brew "zsh"' > etc/Brewfile-essentials
 
+  - mkdir -p "~/Google Drive/laptop_local/tmuxinator"
+
+script:
   - make
   - make bootstrap
   - make dotfiles
@@ -27,3 +30,4 @@ script:
   - make brew
   - make tools
   - make asdf
+  - make sync

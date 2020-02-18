@@ -1,0 +1,6 @@
+- create:
+  - ~/.config/tmuxinator
+
+- link:
+    ~/.config/tmuxinator:
+      path: "~/Google Drive/laptop_local/tmuxinator"

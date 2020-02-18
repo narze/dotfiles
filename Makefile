@@ -27,4 +27,7 @@ asdf: ## Install asdf-vm
 	@./install -c config/asdf-install.conf.yml
 	@./install -c config/asdf.conf.yml --plugin-dir dotbot-asdf
 
-all: _prepare dotfiles _bootstrap code brew tools asdf ## Run all tasks at once
+sync: ## Sync local configuration from Google Drive, Dropbox, etc.
+	@./install -c config/sync.conf.yml
+
+all: _prepare dotfiles _bootstrap code brew tools asdf sync ## Run all tasks at once
