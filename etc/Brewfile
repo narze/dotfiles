@@ -18,6 +18,7 @@ tap "wtfutil/wtfutil"
 
 brew "ansible"
 brew "avrdude"
+brew "awsebcli"
 brew "certbot"
 brew "cmake"
 brew "dfu-programmer"
