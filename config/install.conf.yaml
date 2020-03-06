@@ -7,6 +7,7 @@
 - create:
   - ~/.bundle
   - ~/.config
+  - ~/.config/kitty
 
 - link:
     ~/.dotfiles:
@@ -24,6 +25,8 @@
       path: ~/.dotfiles/etc/bundle_config
     ~/.config/karabiner.edn:
       path: ~/.dotfiles/etc/karabiner.edn
+    ~/.config/kitty/kitty.conf:
+      path: ~/.dotfiles/etc/kitty.conf
     ~/.config/synthwave84.css:
       path: ~/.dotfiles/etc/synthwave84.css
     ~/.default-gems:
