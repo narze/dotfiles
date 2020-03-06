@@ -29,7 +29,7 @@ yabai -m config active_window_opacity        1.0
 yabai -m config normal_window_opacity        0.8
 yabai -m config split_ratio                  0.6
 yabai -m config auto_balance                 off
-yabai -m config mouse_modifier               alt
+yabai -m config mouse_modifier               cmd
 yabai -m config mouse_action1                move
 yabai -m config mouse_action2                resize
 
