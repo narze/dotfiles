@@ -277,9 +277,18 @@ alt - t : yabai -m window --toggle float;\
 # toggle sticky
 alt - s : yabai -m window --toggle sticky
 
-# toggle sticky, float and resize to picture-in-picture size
-alt - p : yabai -m window --toggle sticky;\
+
+# classic pip
+alt - p : yabai -m window --toggle float;\
+          yabai -m window --toggle sticky;\
+          yabai -m window --toggle topmost;\
           yabai -m window --grid 5:5:3:0:2:2
+
+# toggle sticky, float and resize to picture-in-picture size
+alt + shift - p : yabai -m window --toggle sticky;\
+                  yabai -m window --toggle topmost;\
+                  yabai -m window --toggle border;\
+                  yabai -m window --toggle pip
 
 # float next window to be tiled
 # shift + alt - t : chunkc set window_float_next 1
