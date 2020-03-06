@@ -71,6 +71,9 @@ zinit snippet OMZ::plugins/kubectl
 # zinit ice wait"1" svn atload'your_command_here'
 # zinit light zdharma/null
 
+zinit ice wait"0"
+zinit light romkatv/zsh-prompt-benchmark
+
 # Compinit : After zinits, before cdreplay
 # https://carlosbecker.com/posts/speeding-up-zsh/
 autoload -Uz compinit
