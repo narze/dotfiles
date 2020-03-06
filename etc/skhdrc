@@ -160,8 +160,8 @@ ctrl + alt + cmd - k : yabai -m space --create; \
                        yabai -m window --grid 1:1:0:0:1:1
 
 # destroy desktop
-ctrl + cmd + alt - w : yabai -m space --focus prev; \
-                       yabai -m space next --destroy
+ctrl + cmd + alt + shift - w : yabai -m space --focus prev; \
+                               yabai -m space next --destroy
 
 # fast focus desktop
 alt + ctrl - 0x2B : yabai -m space --focus recent
@@ -226,14 +226,14 @@ alt + shift - y : yabai -m window --display next; yabai -m display --focus next
 
 # increase region size
 alt + cmd - a : yabai -m window --resize left:-80:0
-alt + cmd - r : yabai -m window --resize bottom:0:-80
-alt + cmd - w : yabai -m window --resize top:0:80
+alt + cmd - r : yabai -m window --resize bottom:0:80
+alt + cmd - w : yabai -m window --resize top:0:-80
 alt + cmd - s : yabai -m window --resize right:80:0
 
 # decrease region size
 alt + cmd + ctrl - a : yabai -m window --resize left:80:0
-alt + cmd + ctrl - r : yabai -m window --resize bottom:0:80
-alt + cmd + ctrl - w : yabai -m window --resize top:0:-80
+alt + cmd + ctrl - r : yabai -m window --resize bottom:0:-80
+alt + cmd + ctrl - w : yabai -m window --resize top:0:80
 alt + cmd + ctrl - s : yabai -m window --resize right:-80:0
 
 # set insertion point for focused container
