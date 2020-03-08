@@ -85,6 +85,9 @@ fi
 
 zinit cdreplay -q
 
+# Kitty autocompletion (Place after compinit)
+kitty + complete setup zsh | source /dev/stdin
+
 # Key bindings for zsh-history-substring-search
 _history_substring_search_bind_keys() {
   bindkey '^[[A' history-substring-search-up
