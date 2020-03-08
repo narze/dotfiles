@@ -63,3 +63,7 @@
       path: ~/.dotfiles/etc/yabairc
     ~/.zshrc:
       path: ~/.dotfiles/zsh/zshrc
+    ~/Library/Scripts/:
+      glob: true
+      path: ~/.dotfiles/etc/applescripts/*
+      relink: true
