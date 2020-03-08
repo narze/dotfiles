@@ -331,3 +331,6 @@ alt - d : yabai -m space --toggle gap
 
 # Toggle space windows padding
 alt - g : yabai -m space --toggle padding
+
+# Task randomizer
+ctrl + alt + cmd + shift - d : osascript ~/Library/Scripts/omnifocus-task-randomizer.applescript
