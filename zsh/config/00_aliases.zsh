@@ -105,6 +105,7 @@ alias tn='terminal-notifier'
 alias tnm='terminal-notifier -message'
 alias v="nvim"
 alias vim="nvim"
+alias va="vagrant"
 alias wa="watch "
 alias watch="watch "
 alias zt="zerotier-cli"
