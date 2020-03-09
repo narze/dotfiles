@@ -47,6 +47,8 @@ zinit light romkatv/powerlevel10k
 
 zinit ice "rupa/z" pick"z.sh"
 zinit light "rupa/z"
+
+zinit ice wait"0" lucid
 zinit light ajeetdsouza/zoxide
 
 zinit snippet OMZ::lib/history.zsh
