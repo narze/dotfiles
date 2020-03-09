@@ -60,14 +60,15 @@ alias ss="bundle exec spring stop"
 # Misc
 alias -- -='cd -'
 alias arst="asdf"
-alias b="bundle exec"
+alias b="bundle"
+alias be="bundle exec"
+alias bi="bundle install"
 alias bf="bh | fzy"
 alias br="brew"
 alias brc="brew cask"
 alias brci="brew cask install"
 alias bri="brew install"
 alias brs="brew search"
-alias be="bundle exec"
 alias cl="clear"
 alias c='cd ~/Code && ls'
 alias c.="RUBYOPT=--jit code ."
