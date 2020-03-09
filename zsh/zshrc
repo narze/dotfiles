@@ -45,8 +45,9 @@ zinit light romkatv/powerlevel10k
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 
-zinit ice "rupa/z" pick"z.sh"
-zinit light "rupa/z"
+# zinit ice "rupa/z" pick"z.sh"
+# zinit light "rupa/z"
+zinit light ajeetdsouza/zoxide
 
 zinit snippet OMZ::lib/history.zsh
 
@@ -135,4 +136,10 @@ fi
 if [ -f ~/.bashhub/bashhub.zsh ]; then
   zinit ice wait"0" pick".bashhub/bashhub.zsh" lucid
   zinit light %HOME
+fi
+
+# Install zoxide (rust)
+if ! command -v zoxide &> /dev/null; then
+  echo "zoxide not exist, downloading..."
+  curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/ajeetdsouza/zoxide/master/install.sh | sh
 fi
