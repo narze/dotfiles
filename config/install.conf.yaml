@@ -8,6 +8,7 @@
   - ~/.bundle
   - ~/.config
   - ~/.config/kitty
+  - ~/Library/Scripts
 
 - link:
     ~/.dotfiles:
