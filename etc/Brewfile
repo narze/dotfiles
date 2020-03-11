@@ -39,6 +39,7 @@ brew "mkcert"
 brew "most"
 brew "multitail"
 brew "nativefier"
+brew "ripgrep"
 brew "wtfutil"
 
 brew "osx-cross/avr/avr-gcc@8", link: true
