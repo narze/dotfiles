@@ -44,6 +44,7 @@
       path: ~/.dotfiles/etc/gitignore_global
     ~/.hyper.js:
       path: ~/.dotfiles/etc/hyper.js
+      force: true
     ~/.mackup:
       path: ~/.dotfiles/etc/mackup
     ~/.mackup.cfg:
