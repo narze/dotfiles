@@ -41,7 +41,7 @@ alias gds="git diff --staged"
 alias gff="git flow feature"
 alias gfo="git fetch origin"
 alias gp="git push"
-alias gpc="git pr checkout"
+alias gpc="gh pr checkout"
 alias gpr="git pr"
 gpuo() { git push -u origin $(git rev-parse --abbrev-ref HEAD) }
 alias gmd="git merge develop"
