@@ -47,6 +47,7 @@ zinit light junegunn/fzf-bin
 PS1=$(dirs)$'\n'"❯ "
 # zinit ice wait'0' lucid # This saves 20ms
 # zinit ice wait'0' atload"p9k_refresh_prompt_inplace" lucid reset-prompt # This does not work just yet
+zinit ice depth=1
 zinit light romkatv/powerlevel10k
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
