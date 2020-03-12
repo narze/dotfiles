@@ -52,10 +52,9 @@ zinit light romkatv/powerlevel10k
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 
-zinit ice "rupa/z" pick"z.sh"
-zinit light "rupa/z"
+# zinit ice "rupa/z" pick"z.sh"
+# zinit light "rupa/z"
 
-zinit ice wait"0" lucid
 zinit light ajeetdsouza/zoxide
 
 zinit snippet OMZ::lib/history.zsh
