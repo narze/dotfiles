@@ -1,0 +1,26 @@
+# bundle id | UTI/ext/MIME type | role
+
+com.microsoft.VSCode .applescript all
+com.microsoft.VSCode .c all
+com.microsoft.VSCode .clj all
+com.microsoft.VSCode .cpp all
+com.microsoft.VSCode .cs all
+com.microsoft.VSCode .css all
+com.microsoft.VSCode .csv all
+com.microsoft.VSCode .h all
+com.microsoft.VSCode .ics all
+com.microsoft.VSCode .java all
+com.microsoft.VSCode .js all
+com.microsoft.VSCode .json all
+com.microsoft.VSCode .m all
+com.microsoft.VSCode .md all
+com.microsoft.VSCode .php all
+com.microsoft.VSCode .pl all
+com.microsoft.VSCode .py all
+com.microsoft.VSCode .r all
+com.microsoft.VSCode .rb all
+com.microsoft.VSCode .scpt all
+com.microsoft.VSCode .sh all
+com.microsoft.VSCode .sql all
+com.microsoft.VSCode .ts all
+com.microsoft.VSCode .txt all
