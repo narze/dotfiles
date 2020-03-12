@@ -66,6 +66,8 @@
         {:des "SuperDuper O -> Next Tab" :rules [:superduper-mode [:##o :!CSclose_bracket]]}
         {:des "SuperDuper A -> Option" :rules [:superduper-mode [:##a :left_option]]}
         {:des "SuperDuper V -> Shift" :rules [:superduper-mode [:##v :left_shift]]}
+        {:des "SuperDuper B -> Ctrl+B (Tmux prefix)" :rules [:superduper-mode [:##b :!Tb]]}
+        {:des "SuperDuper Z -> Undo" :rules [:superduper-mode [:##z :!Cz]]}
 
         ; H for Hyper
         {:des "H for Hyper" :rules [:h-mode
