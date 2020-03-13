@@ -12,23 +12,27 @@ alias aliases='$EDITOR ~/laptop/zsh/config/00_aliases.zsh ; source ~/laptop/zsh/
 
 # Git
 alias g='git'
+alias p="git add -A -N && git add -p"
+alias s="git status -sb"
+alias m="git commit -m"
+alias gp="git push"
+alias gl="git pull"
+alias gr="git reset"
+alias gff="git flow feature"
+
 alias gfr='git fetch && git rebase'
 alias glog="git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
-alias gp='git push origin HEAD'
 alias gd='git diff'
 alias gc='git commit'
 alias gca='git commit --amend'
 alias gco='git checkout'
 alias gcb='git rev-parse --abbrev-ref HEAD | tr -d "\n" | pbcopy'
 alias gb='git branch'
-alias s="git status -sb"
 alias ga="git add"
 alias ga.="git add ."
 alias gaa="git add --all"
 alias gai="git add -i"
-alias p="git add -A -N && git add -p"
 alias gcam="git add --all && git commit -m"
-alias m="git commit -m"
 alias gcaa="git commit -a --amend"
 alias gco-="git checkout -"
 alias gcob="git checkout -b"
@@ -38,18 +42,14 @@ alias gcl="git clone"
 alias gcln="git clean"
 alias gdc="git diff --name-only --diff-filter=U"
 alias gds="git diff --staged"
-alias gff="git flow feature"
 alias gfo="git fetch origin"
-alias gp="git push"
 alias gpc="gh pr checkout"
 alias gpr="git pr"
 gpuo() { git push -u origin $(git rev-parse --abbrev-ref HEAD) }
 alias gmd="git merge develop"
 alias grm="git rebase master"
-alias gr="git reset"
 alias grh="git reset HEAD"
 alias grp="git rebase -p"
-alias gl="git pull"
 alias gli="git ls-files -o -i --exclude-standard --directory | grep -v '\.DS_Store'"
 
 # Ruby/Rails
