@@ -19,6 +19,8 @@ alias gp="git push"
 alias gl="git pull"
 alias gr="git reset"
 alias gff="git flow feature"
+alias gps="gh pr status"
+alias gpc="gh pr checkout"
 
 alias gfr='git fetch && git rebase'
 alias glog="git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
@@ -43,7 +45,6 @@ alias gcln="git clean"
 alias gdc="git diff --name-only --diff-filter=U"
 alias gds="git diff --staged"
 alias gfo="git fetch origin"
-alias gpc="gh pr checkout"
 alias gpr="git pr"
 gpuo() { git push -u origin $(git rev-parse --abbrev-ref HEAD) }
 alias gmd="git merge develop"
