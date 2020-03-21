@@ -14,7 +14,6 @@ alias aliases='$EDITOR ~/laptop/zsh/config/00_aliases.zsh ; source ~/laptop/zsh/
 alias g='git'
 alias p="git add -A -N && git add -p"
 alias s="git status -sb"
-# alias m="git commit -m"
 m() {
   git commit -m "$*"
 }
