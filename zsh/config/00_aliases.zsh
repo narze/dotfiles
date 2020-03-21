@@ -121,3 +121,12 @@ alias d='docker'
 alias dx='docker exec'
 alias ds='docker ps'
 alias dc='docker-compose'
+
+# Unused aliases
+ua() {
+  one_alphabet_aliases=$(alias | gsed -E 's/=.*//g' | gsed -E '/^.{1}$/!d' | sort)
+  alphas=$(echo "qwfpgjluy:[]arstdhneio'zxcvbkm,./" | grep -o . | sort)
+  unused_aliases=$(comm -23 <(echo $alphas) <(echo $one_alphabet_aliases))
+  echo "Unused aliases $(echo $unused_aliases | wc -l): "
+  echo $unused_aliases | paste -s -d " " -
+}
