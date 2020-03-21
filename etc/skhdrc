@@ -118,10 +118,10 @@ alt - 0x2F : next=$(yabai -m query --windows --space | jq 'sort_by(.id) | (map(.
              yabai -m window --focus $next
 
 # focus monitor
-alt - u  : yabai -m display --focus prev
-alt + ctrl - h  : yabai -m display --focus prev
-alt - y : yabai -m display --focus next # ;
-alt + ctrl - i  : yabai -m display --focus next
+alt - u  : ~/.yabai_focus_display prev
+alt + ctrl - h  : ~/.yabai_focus_display prev
+alt - y : ~/.yabai_focus_display next
+alt + ctrl - i  : ~/.yabai_focus_display next
 
 # move window
 alt + cmd + shift - h : yabai -m window --warp west

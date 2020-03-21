@@ -61,6 +61,8 @@
       path: ~/.dotfiles/etc/tmux/.tmux.conf.local
     ~/.yabai_axunknown_float:
       path: ~/.dotfiles/etc/yabai_axunknown_float
+    ~/.yabai_focus_display:
+      path: ~/.dotfiles/etc/yabai_focus_display
     ~/.yabai_monocle:
       path: ~/.dotfiles/etc/yabai_monocle
     ~/.yabai_rules:
