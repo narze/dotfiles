@@ -26,7 +26,7 @@
         ; Non QMK Rules (Avoid modifier keys collide with QMK keebs)
         {:des "Cmd -> Cmd / Underscore" :rules [:!qmk [:##left_command :left_command nil {:alone :!Shyphen}]]}
         {:des "Unbind Delete (with beep)" :rules [:!qmk [:##delete_or_backspace [:beep]]]}
-        {:des "ROption -> Option / : (Colemak)" :rules [:colemak :!qmk :!filco-bt [:##right_option :right_option nil {:held :right_option :alone :!Sp}]]}
+        {:des "ROption -> Option / - (Colemak)" :rules [:colemak :!qmk :!filco-bt [:##right_option :right_option nil {:held :right_option :alone :hyphen}]]}
         {:des "ROption -> Option / Delete (Filco)" :rules [:colemak :filco-bt [:##right_option :right_option nil {:held :right_option :alone :delete_or_backspace}]]}
 
         ; General
