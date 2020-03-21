@@ -36,7 +36,9 @@ alias ga="git add"
 alias ga.="git add ."
 alias gaa="git add --all"
 alias gai="git add -i"
-alias gcam="git add --all && git commit -m"
+gcam() {
+  git add --all && git commit -m "$*"
+}
 alias gcaa="git commit -a --amend"
 alias gco-="git checkout -"
 alias gcob="git checkout -b"
