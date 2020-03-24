@@ -7,8 +7,9 @@ then
   alias git=$hub_path
 fi
 
-# Edit & reload aliases
+# Editing
 alias aliases='$EDITOR ~/laptop/zsh/config/00_aliases.zsh ; source ~/laptop/zsh/config/00_aliases.zsh ; echo "Aliases reloaded"'
+alias ke='$EDITOR ~/laptop/etc/karabiner.edn'
 
 # Git
 alias g='git'
@@ -85,6 +86,7 @@ f() {
 }
 # This command is slow! (100ms)
 # alias finder="cd \"$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')\""
+alias ex='exercism'
 alias fixappleeventsbug='sudo killall -KILL appleeventsd'
 alias gowd='cd "`pbpaste`"'
 alias h='helm'
