@@ -30,11 +30,15 @@
         {:des "ROption -> Option / - (Colemak)" :rules [:colemak :!qmk :!filco-bt [:##right_option :right_option nil {:held :right_option :alone :hyphen}]]}
         {:des "ROption -> Option / Delete (Filco)" :rules [:colemak :filco-bt [:##right_option :right_option nil {:held :right_option :alone :delete_or_backspace}]]}
 
-        ; General
-        {:des "; <-> : (Colemak)" :rules [:colemak [:p :!Sp] [:!Sp :p]]}
-        {:des "' <-> \" (Colemak)" :rules [:colemak :!disable-swap-quote [:quote :!Squote] [:!Squote :quote]]}
+        ; Swap Quotes
         {:des "Disable Swap Quote" :rules [:!disable-swap-quote [:!CTOquote [{:set ["disable-swap-quote" 1]} [:beep]]]]}
         {:des "Enable Swap Quote" :rules [:disable-swap-quote [:!CTOquote [{:set ["disable-swap-quote" 0]} [:beep2]]]]}
+        {:des "Disable swapping quote" :rules [:colemak :disable-swap-quote [:##quote :quote]]}
+        {:des "' <-> \" (Colemak)" :rules [:colemak [:quote :!Squote] [:!Squote :quote]]}
+
+        ; General
+        {:des "; <-> : (Colemak)" :rules [:colemak [:p :!Sp] [:!Sp :p]]}
+
         {:des "Swap Option / Command on certain devices" :rules [
                                                                  [:##left_command :left_option [:filco-bt]]
                                                                  [:##left_option :left_command [:filco-bt] {:alone :!Shyphen}]]}
