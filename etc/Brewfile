@@ -29,6 +29,7 @@ brew "exercism"
 brew "fd"
 brew "fontforge"
 brew "git-hooks"
+brew "gnu-sed"
 brew "hub"
 brew "hugo"
 brew "imagemagick", link: false
