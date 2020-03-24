@@ -64,6 +64,11 @@
                                             :dorder :insensitive
                                             :uorder :insensitive
                                             :afterup {:set ["superduper-mode" 0]}}} {:set ["superduper-mode" 1]}]]}
+        {:des "A+S+D -> SD+Option" :rules [:!qmk [{:sim [:a :s :d]
+                                     :simo {:interrupt true
+                                            :dorder :insensitive
+                                            :uorder :insensitive
+                                            :afterup {:set ["superduper-mode" 0]}}} [{:set ["superduper-mode" 1]} [:left_option]]]]} 
         {:des "SuperDuper H -> Left" :rules [:superduper-mode [:##h :left_arrow]]}
         {:des "SuperDuper J -> Down" :rules [:superduper-mode [:##j :down_arrow]]}
         {:des "SuperDuper K -> Up" :rules [:superduper-mode [:##k :up_arrow]]}
