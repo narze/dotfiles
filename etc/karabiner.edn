@@ -6,7 +6,8 @@
             :held    50}}
  :templates {:alfred "osascript -e 'tell application \"Alfred 3\" to run trigger \"%s\" in workflow \"%s\" with argument \"\"'"
              :km "osascript -e 'tell application \"Keyboard Maestro Engine\" to do script \"%s\"'"
-             :beep "osascript -e 'beep'"}
+             :beep "osascript -e 'beep 1'"
+             :beep2 "osascript -e 'beep 2'" }
  :simlayers {
   :f-mode {:key :f}
   :o-mode {:key :o}
@@ -31,7 +32,9 @@
 
         ; General
         {:des "; <-> : (Colemak)" :rules [:colemak [:p :!Sp] [:!Sp :p]]}
-        {:des "' <-> \" (Colemak)" :rules [:colemak [:quote :!Squote] [:!Squote :quote]]}
+        {:des "' <-> \" (Colemak)" :rules [:colemak :!disable-swap-quote [:quote :!Squote] [:!Squote :quote]]}
+        {:des "Disable Swap Quote" :rules [:!disable-swap-quote [:!CTOquote [{:set ["disable-swap-quote" 1]} [:beep]]]]}
+        {:des "Enable Swap Quote" :rules [:disable-swap-quote [:!CTOquote [{:set ["disable-swap-quote" 0]} [:beep2]]]]}
         {:des "Swap Option / Command on certain devices" :rules [
                                                                  [:##left_command :left_option [:filco-bt]]
                                                                  [:##left_option :left_command [:filco-bt] {:alone :!Shyphen}]]}
