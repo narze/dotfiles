@@ -129,11 +129,11 @@ fi
 # Timing App Terminal Support
 if [ $ITERM_SESSION_ID ]; then
   DISABLE_AUTO_TITLE="true"
-  echo -ne "\033]0; ${USER} @ ${HOST%%.*} : ${PWD/# $HOME/ ~} \007"
+  echo -ne "\033]0; @ ${HOST%%.*} : ${PWD/#$HOME/~} \007"
 fi
 
 precmd() {
-  echo -ne "\033]0; ${USER} @ ${HOST%%.*} : ${PWD/# $HOME/ ~} \007"
+  echo -ne "\033]0; @ ${HOST%%.*} : ${PWD/#$HOME/~} \007"
 }
 
 if [ -f "$HOME/.zshrc.local" ]; then
