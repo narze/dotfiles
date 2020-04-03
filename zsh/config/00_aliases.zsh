@@ -58,6 +58,7 @@ alias grm="git rebase master"
 alias grh="git reset HEAD"
 alias grp="git rebase -p"
 alias gli="git ls-files -o -i --exclude-standard --directory | grep -v '\.DS_Store'"
+alias glr="git pull --rebase"
 
 # Ruby/Rails
 alias rdm="bundle exec rake db:migrate"
@@ -87,6 +88,7 @@ f() {
 }
 # This command is slow! (100ms)
 # alias finder="cd \"$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')\""
+alias bss='bin/spring stop'
 alias ex='exercism'
 alias fixappleeventsbug='sudo killall -KILL appleeventsd'
 alias gowd='cd "`pbpaste`"'
