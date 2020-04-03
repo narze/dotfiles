@@ -11,6 +11,7 @@ fi
 alias aliases='$EDITOR ~/laptop/zsh/config/00_aliases.zsh ; source ~/laptop/zsh/config/00_aliases.zsh ; echo "Aliases reloaded"'
 alias ke='$EDITOR ~/laptop/etc/karabiner.edn'
 alias zshrc='$EDITOR ~/.zshrc ; reload'
+alias .tmux='$EDITOR ~/.tmux.conf.local'
 
 # Git
 alias g='git'
