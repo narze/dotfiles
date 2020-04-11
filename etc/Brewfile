@@ -50,6 +50,7 @@ brew "osx-cross/avr/avr-gcc@8", link: true
 brew "puma/puma/puma-dev"
 brew "px4/px4/gcc-arm-none-eabi"
 brew "wagoodman/dive/dive"
+brew "ajeetdsouza/zoxide/zoxide"
 
 cask "android-file-transfer"
 cask "arduino"
