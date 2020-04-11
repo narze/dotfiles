@@ -102,6 +102,7 @@ alias l='ls -la'
 alias lt='cd ~/laptop'
 alias mk='minikube'
 alias mux='tmuxinator'
+alias n='npm'
 alias nz='cd ~/Code/narze && ls'
 alias o.="open ."
 alias o="open"
@@ -120,6 +121,7 @@ alias vim="nvim"
 alias va="vagrant"
 alias wa="watch "
 alias watch="watch "
+alias y='yarn'
 alias zt="zerotier-cli"
 
 # Docker
