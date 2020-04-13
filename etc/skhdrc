@@ -317,11 +317,21 @@ ctrl + alt + cmd - 0x2F : mpc next
 ctrl + alt + cmd - z : osascript -e 'tell application "Keyboard Maestro Engine" to do script "Hide All Windows"' && \
                        launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
 
-# Wiggle window
-ctrl + alt + cmd - x : yabai -m window --resize top_right:-1:-1 && \
-                       yabai -m window --resize top_right:1:1 && \
-                       yabai -m window --resize bottom_left:-1:-1 && \
-                       yabai -m window --resize bottom_left:1:1
+# Float everything in screen except current window
+ctrl + alt + cmd - x : ids=$(yabai -m query --windows --space | jq -r ".[] | select(.floating == 0) | .id") && \
+                        while IFS= read -r id; do \
+                          yabai -m window $id --toggle float; \
+                        done <<< "$ids" && \
+                        ids=$(yabai -m query --windows --space | jq -r ".[] | select(.floating == 1) | .id") && \
+                        while IFS= read -r id; do \
+                          yabai -m window $id --grid 6:6:1:1:4:4; \
+                        done <<< "$ids" && \
+
+# Unfloat
+ctrl + alt + cmd - c : ids=$(yabai -m query --windows --space | jq -r ".[] | select(.floating == 1) | .id") && \
+                        while IFS= read -r id; do \
+                          yabai -m window $id --toggle float ; \
+                        done <<< "$ids"
 
 # Banance windows
 alt - 0x2C : yabai -m space --balance
