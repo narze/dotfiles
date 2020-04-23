@@ -27,7 +27,7 @@
         ; Non QMK Rules (Avoid modifier keys collide with QMK keebs)
         {:des "Cmd -> Cmd / Underscore" :rules [:!qmk [:##left_command :left_command nil {:alone :!Shyphen}]]}
         {:des "Unbind Delete (with beep)" :rules [:!qmk [:##delete_or_backspace [:beep]]]}
-        {:des "ROption -> Option / - (Colemak)" :rules [:colemak :!qmk :!filco-bt [:##right_option :right_option nil {:held :right_option :alone :hyphen}]]}
+        {:des "ROption -> Option / Cmb+Tab (Colemak)" :rules [:colemak :!qmk :!filco-bt [:##right_option :right_option nil {:held :right_option :alone :!Ctab}]]}
         {:des "ROption -> Option / Delete (Filco)" :rules [:colemak :filco-bt [:##right_option :right_option nil {:held :right_option :alone :delete_or_backspace}]]}
 
         ; Swap Quotes
@@ -46,7 +46,7 @@
         {:des "RCmd -> Delete" :rules [[:##right_command :delete_or_backspace]]}
         {:des "LShift -> Shift / (" :rules [[:##left_shift :right_shift nil {:held :left_shift :alone :!S9}]]}
         {:des "RShift -> Shift / )" :rules [[:##right_shift :left_shift nil {:held :right_shift :alone :!S0}]]}
-        {:des "LOption -> Option / Cmb+Tab" :rules [[:##left_option :left_option nil {:held :left_option :alone :!Ctab}]]}
+        {:des "LOption -> Option / -" :rules [[:##left_option :left_option nil {:held :left_option :alone :hyphen}]]}
         {:des "F-L -> Delete Word" :rules [:f-mode [:l :!Odelete_or_backspace]]}
         {:des "F-; -> Delete Line" :rules [:f-mode [:semicolon :!Cdelete_or_backspace]]}
 
