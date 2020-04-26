@@ -142,3 +142,9 @@ if [ -f ~/.bashhub/bashhub.zsh ]; then
   zinit ice wait"0" pick".bashhub/bashhub.zsh" lucid
   zinit light %HOME
 fi
+
+# Override zinit m() function
+# Ref: https://github.com/zdharma/zinit/commit/7ed6ab9dc535a079275a721bf3e7b4713900430c
+m() {
+  git commit -m "$*"
+}
