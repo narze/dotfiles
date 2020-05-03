@@ -26,7 +26,7 @@
  :main [
         ; Non QMK Rules (Avoid modifier keys collide with QMK keebs)
         {:des "Cmd -> Cmd / Underscore" :rules [:!qmk [:##left_command :left_command nil {:alone :!Shyphen}]]}
-        {:des "Delete -> F13" :rules [[:##delete_or_backspace [:f13]]]}
+        {:des "Delete -> F19" :rules [[:##delete_or_backspace [:f19]]]}
         {:des "ROption -> Option / Cmb+Tab (Colemak)" :rules [:colemak :!qmk :!filco-bt [:##right_option :right_option nil {:held :right_option :alone :!Ctab}]]}
         {:des "ROption -> Option / Delete (Filco)" :rules [:colemak :filco-bt [:##right_option :right_option nil {:held :right_option :alone :delete_or_backspace}]]}
 
