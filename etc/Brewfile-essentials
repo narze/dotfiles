@@ -37,7 +37,7 @@ brew "yqrashawn/goku/goku"
 
 cask "1password"
 cask "alfred"
-cask "arq"
+# cask "arq" # Wait for v5 compatability
 cask "beardedspice"
 cask "bitbar"
 cask "dash"
