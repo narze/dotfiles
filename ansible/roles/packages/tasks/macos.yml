@@ -5,9 +5,3 @@
 
 - name: Load limit maxfiles service
   command: launchctl load -w ~/Library/LaunchAgents/limit.maxfiles.plist
-
-- name: Setup Sensible macOS defaults (mathiasbynens/dotfiles)
-  become: yes
-  command: "{{ playbook_dir | dirname }}/etc/macos"
-  tags:
-    - minimum

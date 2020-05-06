@@ -6,13 +6,16 @@ help: ## Print command list
 _prepare:
 	@git submodule update --init --recursive
 
-bootstrap: _prepare dotfiles _bootstrap ## Bootstrap new machine
+bootstrap: _prepare dotfiles _bootstrap macos ## Bootstrap new machine
 
 _bootstrap:
 	@./install -c config/bootstrap.conf.yml
 
 dotfiles: ## Update dotfiles
 	@./install
+
+macos: ## Run macos script
+	@./etc/macos
 
 code: ## Clone Repositories with ghq
 	@./install -c config/code.conf.yml --plugin-dir dotbot-ghq

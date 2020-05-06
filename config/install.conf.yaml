@@ -9,6 +9,7 @@
   - ~/.config
   - ~/.config/kitty
   - ~/Library/Scripts
+  - ~/mnt
 
 - link:
     ~/.dotfiles:

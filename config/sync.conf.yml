@@ -1,7 +1,11 @@
 - create:
   - ~/.config
+  - ~/.local
 
 - link:
     ~/.config/tmuxinator:
       force: true
       path: "~/Google Drive/laptop_local/tmuxinator"
+    ~/.local/mpd:
+      force: true
+      path: "~/Google Drive/laptop_local/mpd"
