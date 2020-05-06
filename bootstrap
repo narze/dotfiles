@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-curl -L -o /tmp/laptop.zip https://github.com/narze/laptop/archive/master.zip
-unzip -j /tmp/laptop.zip -d ~/laptop
-sh ~/laptop/setup.sh

@@ -17,7 +17,6 @@ tap "wagoodman/dive"
 tap "wtfutil/wtfutil"
 tap "jakehilborn/jakehilborn"
 
-brew "ansible"
 brew "avrdude"
 brew "awsebcli"
 brew "certbot"

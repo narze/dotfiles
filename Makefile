@@ -34,6 +34,7 @@ sync: ## Sync local configuration from Google Drive, Dropbox, etc.
 	@./install -c config/sync.conf.yml
 
 update: ## Update everything
+	@make _prepare
 	@brew update
 	@brew cu -acy
 

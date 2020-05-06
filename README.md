@@ -20,10 +20,13 @@ $ make
 help                           Print command list
 bootstrap                      Bootstrap new machine
 dotfiles                       Update dotfiles
+macos                          Run macos script
 code                           Clone Repositories with ghq
 brew                           Install brew & cask packages
 tools                          Install non-brew tools eg. tmux package manager
 asdf                           Install asdf-vm
+sync                           Sync local configuration from Google Drive, Dropbox, etc.
+update                         Update everything
 all                            Run all tasks at once
 ```
 
@@ -46,9 +49,9 @@ Some packages needs reloading shell (eg. `asdf`) On a fresh macOS you may have t
 - [ ] Modify system preferences
   - Keyboard shortcuts
   - Keyboard layouts
-- [ ] Migrate Ansible Playbooks to Dotbot config
+- [x] Migrate Ansible Playbooks to Dotbot config
 - [ ] Add folders to Favorites in Finder
-- [ ] Redesign setup script
+- [x] Redesign setup script
   - Separate bootstrap script (first run on vanilla) from update script
   - Print readme when bootstrap script is done, eg. login & sync Dropbox & Google Drive & 1Password & Restore mackup
   - Remember & retry on failed step
