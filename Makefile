@@ -30,4 +30,8 @@ asdf: ## Install asdf-vm
 sync: ## Sync local configuration from Google Drive, Dropbox, etc.
 	@./install -c config/sync.conf.yml
 
+update: ## Update everything
+	@brew update
+	@brew cu -acy
+
 all: _prepare dotfiles _bootstrap code brew tools asdf sync ## Run all tasks at once

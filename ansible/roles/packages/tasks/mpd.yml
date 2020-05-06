@@ -1,7 +1,0 @@
-- name: Install mpd & ncmpcpp
-  homebrew:
-    name:
-      - mpd
-      - mpc
-      - ncmpcpp
-    state: present
