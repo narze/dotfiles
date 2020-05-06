@@ -11,10 +11,12 @@
   - ~/Library/Scripts
   - ~/mnt
 
-- link:
+- link: # /dotfiles == /.dotfiles == /laptop
     ~/.dotfiles:
       force: true
       path: ''
+    ~/laptop:
+      path: ~/dotfiles
 
 - link:
     ~/.asdfrc:

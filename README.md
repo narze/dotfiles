@@ -1,8 +1,8 @@
-# Laptop [![Build Status](https://travis-ci.com/narze/laptop.svg?branch=master)](https://travis-ci.com/narze/laptop)
-Bootstrap my macOS machines, for fun & profit.
+# Dotfiles [![Build Status](https://travis-ci.com/narze/dotfiles.svg?branch=master)](https://travis-ci.com/narze/dotfiles)
+(Formerly named `laptop`) Bootstrap my macOS machines, for fun & profit.
 
 ## From Ansible to Dotbot
-I decided to migrate all Ansible playbooks to [Dotbot](https://github.com/anishathalye/dotbot) and plain shell scripts. Switch to [ansible branch](https://github.com/narze/laptop/tree/ansible) if you still want to use Ansible.
+I decided to migrate all Ansible playbooks to [Dotbot](https://github.com/anishathalye/dotbot) and plain shell scripts. Switch to [ansible branch](https://github.com/narze/dotfiles/tree/ansible) if you still want to use Ansible.
 
 Ansible has served me well for years, but the Playbooks grew over time into multiple long-running scripts. Moreover, I think I messed up the configuration and the dependencies between the playbooks as well. Now to add just a new symlink I have to edit multiple files and my `setup.sh` file is badly designed too.
 
@@ -10,8 +10,8 @@ Some Ansible playbooks will still be here until I moved all scripts to `Makefile
 
 ## Usage
 ```shell
-git clone git@github.com:narze/laptop.git ~/laptop
-cd ~/laptop && make bootstrap
+git clone git@github.com:narze/dotfiles.git ~/dotfiles
+cd ~/dotfiles && make bootstrap
 ```
 
 ## Features
