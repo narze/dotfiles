@@ -1,8 +1,0 @@
----
-- hosts: localhost
-  connection: local
-  roles:
-    - packages
-    - local
-  vars_files:
-    - secrets.yml

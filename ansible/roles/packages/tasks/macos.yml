@@ -1,7 +1,0 @@
-- name: Add limit maxfiles service plist
-  template:
-    src: templates/LaunchAgents/limit.maxfiles.plist.j2
-    dest: ~/Library/LaunchAgents/limit.maxfiles.plist
-
-- name: Load limit maxfiles service
-  command: launchctl load -w ~/Library/LaunchAgents/limit.maxfiles.plist
