@@ -20,6 +20,7 @@
            :qmk [{:vendor_id 65261 :product_id 24672} ; Planck Rev3
                  {:vendor_id 65261 :product_id 24677} ; Planck Light
                  {:vendor_id 65261 :product_id 25700} ; Ergodox Infinity
+                 {:vendor_id 7185 :product_id 45133} ; Ergodox Infinity (Macbook)
                  {:vendor_id 64593 :product_id 88}]} ; Lily 58 Pro
  :input-sources {:colemak {:input_source_id "com.apple.keylayout.Colemak"
                            :language "en"}}
