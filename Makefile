@@ -35,7 +35,6 @@ sync: ## Sync local configuration from Google Drive, Dropbox, etc.
 
 update: ## Update everything
 	@make _prepare
-	@brew update
-	@brew cu -acy
+	@./install -c config/update.conf.yml
 
 all: _prepare dotfiles _bootstrap code brew tools asdf sync ## Run all tasks at once
