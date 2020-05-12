@@ -29,6 +29,8 @@ bindkey -e
 
 source ~/.zinit/bin/zinit.zsh
 
+zinit light zinit-zsh/z-a-bin-gem-node
+
 zinit ice wait"0" lucid
 zinit light zsh-users/zsh-completions
 
@@ -40,10 +42,11 @@ zinit light zdharma/history-search-multi-word
 zinit ice wait"!0" atload'_zsh_autosuggest_start' lucid
 zinit light zsh-users/zsh-autosuggestions
 
-zplugin pack for fzf
+zinit pack"bgn-binary" for fzf
+zinit pack"bgn" for fzy
 
 zinit ice atload'!source ~/.p10k.zsh' lucid nocd
-zinit load romkatv/powerlevel10k
+zinit light romkatv/powerlevel10k
 
 zinit light ajeetdsouza/zoxide
 
