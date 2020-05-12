@@ -42,6 +42,7 @@ brew "mkcert"
 brew "most"
 brew "multitail"
 brew "nativefier"
+brew "nnn"
 brew "ripgrep"
 brew "wtfutil"
 
