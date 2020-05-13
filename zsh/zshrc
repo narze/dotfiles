@@ -65,6 +65,9 @@ zinit pack"bgn" for fzy
 zinit ice atload'!source ~/.p10k.zsh' lucid nocd
 zinit light romkatv/powerlevel10k
 
+zinit ice as"program" from"gh-r" mv"exa* -> exa" pick"exa/exa" lucid atload"alias ls='exa --icons'"
+zinit light ogham/exa
+
 # Load my zsh dotfiles, aliases
 zinit light-mode is-snippet lucid for \
   $HOME/.dotfiles/zsh/config/00_aliases.zsh \
