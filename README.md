@@ -39,7 +39,7 @@ all                            Run all tasks at once
 - [tmux](https://github.com/tmux/tmux/)
 - [macOS defaults](./etc/macos)
 - Actual [dotfiles](./etc)
-- ~/Code for workspace with [public repos](./code.conf.yml)
+- ~/Code for workspace with [public repos](./config/code.conf.yml)
 - etc.
 
 ### Known Issues
