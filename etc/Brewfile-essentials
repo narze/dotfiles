@@ -25,6 +25,7 @@ brew "reattach-to-user-namespace"
 brew "terminal-notifier"
 brew "tldr"
 brew "tmux"
+brew "tree"
 brew "watch"
 brew "zsh"
 
