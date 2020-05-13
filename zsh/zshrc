@@ -59,6 +59,16 @@ zinit wait lucid for \
     https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker \
     https://github.com/docker/compose/blob/master/contrib/completion/zsh/_docker-compose
 
+# ASDF
+if [ -d "$HOME/.asdf" ]; then
+#   zinit ice wait lucid
+#   zinit light asdf-vm/asdf
+# OR
+  zinit light-mode wait lucid for \
+    atload'source $HOME/.asdf/asdf.sh' \
+      zdharma/null
+fi
+
 zinit pack"bgn-binary" for fzf
 zinit pack"bgn" for fzy
 
@@ -70,9 +80,12 @@ zinit light ogham/exa
 
 # Load my zsh dotfiles, aliases
 zinit light-mode is-snippet lucid for \
-  $HOME/.dotfiles/zsh/config/00_aliases.zsh \
-  $HOME/.dotfiles/zsh/config/10_options.zsh \
-  $HOME/.dotfiles/zsh/config/20_functions.zsh
+  id-as"aliases" \
+    $HOME/.dotfiles/zsh/config/00_aliases.zsh \
+  id-as"options" \
+    $HOME/.dotfiles/zsh/config/10_options.zsh \
+  id-as"functions" \
+    $HOME/.dotfiles/zsh/config/20_functions.zsh
 
 # Oh-My-Zsh Plugins (Stress test!)
 # zinit wait lucid for \
@@ -136,7 +149,9 @@ fi
 zinit cdreplay -q
 
 # Kitty autocompletion (Place after compinit)
-kitty + complete setup zsh | source /dev/stdin
+zinit light-mode wait lucid for \
+  atload'kitty + complete setup zsh | source /dev/stdin' \
+    zdharma/null
 
 # Key bindings for zsh-history-substring-search
 _history_substring_search_bind_keys() {
@@ -148,22 +163,24 @@ _history_substring_search_bind_keys() {
   bindkey -M vicmd 'j' history-substring-search-down
 }
 
-if [ -d "$HOME/.asdf" ]; then
-  . $HOME/.asdf/asdf.sh
-fi
-
 if [ -d "$HOME/.asdf/plugins/java" ]; then
-  zinit ice wait"0" pick".asdf/plugins/java/set-java-home.sh" lucid
-  zinit light %HOME
+  zinit light-mode wait lucid for \
+    atload='source $HOME/.asdf/plugins/java/set-java-home.sh' \
+      zdharma/null
 fi
 
 if [ -d "$HOME/.rbenv" ]; then
-  eval "$(rbenv init - --no-rehash)"
+  zinit light-mode wait lucid for \
+    atload'eval "$(rbenv init - --no-rehash)"' \
+      zdharma/null
 fi
 
 if [ -d "$HOME/.jenv" ]; then
   export PATH="$HOME/.jenv/bin:$PATH"
-  eval "$(jenv init -)"
+
+  zinit light-mode wait lucid for \
+    atload'eval "$(jenv init -)"' \
+      zdharma/null
 fi
 
 # Timing App Terminal Support
@@ -182,8 +199,9 @@ fi
 
 # source ~/.bashhub/bashhub.zsh
 if [ -f ~/.bashhub/bashhub.zsh ]; then
-  zinit ice wait"0" pick".bashhub/bashhub.zsh" lucid
-  zinit light %HOME
+  zinit light-mode wait lucid for \
+    atload='source $HOME/.bashhub/bashhub.zsh' \
+      zdharma/null
 fi
 
 # Override zinit m() function
