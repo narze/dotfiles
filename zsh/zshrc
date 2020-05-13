@@ -74,6 +74,56 @@ zinit light-mode is-snippet lucid for \
   $HOME/.dotfiles/zsh/config/10_options.zsh \
   $HOME/.dotfiles/zsh/config/20_functions.zsh
 
+# Oh-My-Zsh Plugins (Stress test!)
+# zinit wait lucid for \
+#   OMZP::iterm2 \
+#   OMZP::nmap \
+#   OMZP::repo \
+#   OMZP::node \
+#   OMZP::cp \
+#   OMZP::ruby \
+#   OMZP::timer \
+#   OMZP::dash \
+#   OMZP::tmux \
+#   OMZP::gcloud \
+#   OMZP::tmuxinator \
+#   OMZP::gem \
+#   OMZP::git \
+#   OMZP::aws \
+#   OMZP::battery \
+#   OMZP::git-flow \
+#   OMZP::docker-compose \
+#   OMZP::kubectl \
+#   OMZP::brew \
+#   OMZP::git-remote-branch \
+#   OMZP::vi-mode \
+#   OMZP::bundler \
+#   OMZP::dotenv \
+#   OMZP::pip \
+#   OMZP::github \
+#   OMZP::gitignore \
+#   OMZP::vscode \
+#   OMZP::emacs \
+#   OMZP::gnu-utils \
+#   OMZP::lol \
+#   OMZP::postgres \
+#   OMZP::sudo \
+#   OMZP::wd \
+#   OMZP::man \
+#   OMZP::xcode \
+#   OMZP::yarn \
+#   OMZP::python \
+#   OMZP::minikube \
+#   OMZP::rails \
+#   OMZP::coffee \
+#   OMZP::helm \
+#   OMZP::rake \
+#   OMZP::heroku \
+#   OMZP::rake-fast \
+#   OMZP::history \
+#   OMZP::rbenv \
+#   OMZP::ruby
+
 # Compinit : After zinits, before cdreplay
 # https://carlosbecker.com/posts/speeding-up-zsh/
 autoload -Uz compinit

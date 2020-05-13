@@ -74,6 +74,10 @@
       path: ~/.dotfiles/etc/yabairc
     ~/.zshrc:
       path: ~/.dotfiles/zsh/zshrc
+    ~/.zinit_rc:
+      path: ~/.dotfiles/zsh/zshrc
+    ~/.omz_rc:
+      path: ~/.dotfiles/zsh/omz
     ~/Library/Scripts/:
       glob: true
       path: ~/.dotfiles/etc/applescripts/*
