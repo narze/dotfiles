@@ -59,9 +59,10 @@ zinit ice wait"1" as"completion" lucid
 zinit snippet https://github.com/docker/compose/blob/master/contrib/completion/zsh/_docker-compose
 
 # Load my zsh dotfiles, aliases
-files=( {00_aliases,10_options,20_functions}.zsh )
-zinit ice multisrc"\$files" pick"/dev/null"
-zinit light %HOME/.dotfiles/zsh/config
+zinit light-mode is-snippet lucid for \
+  $HOME/.dotfiles/zsh/config/00_aliases.zsh \
+  $HOME/.dotfiles/zsh/config/10_options.zsh \
+  $HOME/.dotfiles/zsh/config/20_functions.zsh
 
 zinit ice wait"0" atinit"zpcompinit" lucid
 zinit light zdharma/fast-syntax-highlighting
