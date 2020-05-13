@@ -15,7 +15,9 @@ export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
 export PATH="/usr/local/sbin:$HOME/.dotfiles/etc/bin:$PATH"
 export PATH="/Applications/Postgres.app/Contents/Versions/9.6/bin:$PATH"
-export ZSH_CACHE_DIR="${TMPDIR:-/tmp}"
+
+# force zsh-you-should-use
+export YSU_HARDCORE=1
 
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
@@ -29,18 +31,33 @@ bindkey -e
 
 source ~/.zinit/bin/zinit.zsh
 
-zinit light zinit-zsh/z-a-bin-gem-node
-
-zinit ice wait"0" lucid
-zinit light zsh-users/zsh-completions
+# Turbo mode with "wait"
+zinit light-mode lucid wait for \
+  is-snippet OMZ::lib/history.zsh \
+  MichaelAquilina/zsh-you-should-use \
+  romkatv/zsh-prompt-benchmark \
+  zdharma/history-search-multi-word \
+  zinit-zsh/z-a-bin-gem-node \
+  atload"unalias zi; alias zi='zinit'" \
+    ajeetdsouza/zoxide
 
 zinit ice wait"1" atload'_history_substring_search_bind_keys' lucid
 zinit light zsh-users/zsh-history-substring-search
 
-zinit light zdharma/history-search-multi-word
-
-zinit ice wait"!0" atload'_zsh_autosuggest_start' lucid
-zinit light zsh-users/zsh-autosuggestions
+# Ref: zdharma/fast-syntax-highlighting
+# Note: Use wait 1 second works for kubectl
+zinit wait lucid for \
+  atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
+    zdharma/fast-syntax-highlighting \
+  atload"zpcdreplay" wait"1" \
+    OMZP::kubectl \
+  blockf \
+    zsh-users/zsh-completions \
+  atload"!_zsh_autosuggest_start" \
+    zsh-users/zsh-autosuggestions \
+  as"completion" is-snippet \
+    https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker \
+    https://github.com/docker/compose/blob/master/contrib/completion/zsh/_docker-compose
 
 zinit pack"bgn-binary" for fzf
 zinit pack"bgn" for fzy
@@ -48,34 +65,11 @@ zinit pack"bgn" for fzy
 zinit ice atload'!source ~/.p10k.zsh' lucid nocd
 zinit light romkatv/powerlevel10k
 
-zinit light ajeetdsouza/zoxide
-
-zinit snippet OMZ::lib/history.zsh
-
-zinit ice wait"1" as"completion" lucid
-zinit snippet https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker
-
-zinit ice wait"1" as"completion" lucid
-zinit snippet https://github.com/docker/compose/blob/master/contrib/completion/zsh/_docker-compose
-
 # Load my zsh dotfiles, aliases
 zinit light-mode is-snippet lucid for \
   $HOME/.dotfiles/zsh/config/00_aliases.zsh \
   $HOME/.dotfiles/zsh/config/10_options.zsh \
   $HOME/.dotfiles/zsh/config/20_functions.zsh
-
-zinit ice wait"0" atinit"zpcompinit" lucid
-zinit light zdharma/fast-syntax-highlighting
-
-# Note: Use wait 1 second works
-zinit ice svn wait"1" atload"zpcdreplay" lucid
-zinit snippet OMZ::plugins/kubectl
-
-# zinit ice wait"1" svn atload'your_command_here'
-# zinit light zdharma/null
-
-zinit ice wait"0" lucid
-zinit light romkatv/zsh-prompt-benchmark
 
 # Compinit : After zinits, before cdreplay
 # https://carlosbecker.com/posts/speeding-up-zsh/
