@@ -343,3 +343,6 @@ alt - g : yabai -m space --toggle padding
 
 # Task randomizer
 ctrl + alt + cmd + shift - d : osascript ~/Library/Scripts/omnifocus-task-randomizer.applescript
+
+# Hyper 1-0
+ctrl + alt + cmd + shift - 1 : /Applications/Microsoft\ Edge.app/Contents/MacOS/Microsoft\ Edge
