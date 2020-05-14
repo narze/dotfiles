@@ -11,7 +11,7 @@ yabai -m config window_shadow                off
 yabai -m config insert_feedback_color        0xaad75f5f
 yabai -m config active_window_opacity        1.0
 yabai -m config normal_window_opacity        0.85
-yabai -m config split_ratio                  0.6
+yabai -m config split_ratio                  0.618
 yabai -m config auto_balance                 off
 yabai -m config mouse_modifier               fn
 yabai -m config mouse_action1                move
