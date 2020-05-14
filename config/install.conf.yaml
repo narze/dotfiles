@@ -10,6 +10,9 @@
   - ~/.config/kitty
   - ~/Library/Scripts
   - ~/mnt
+  # Alfred workflows fix
+  - ~/Library/Caches/com.runningwithcrayons.Alfred-2
+  - ~/Library/Application Support/Alfred 2
 
 - link: # /dotfiles == /.dotfiles == /laptop
     ~/.dotfiles:
