@@ -26,7 +26,7 @@ yabai -m config right_padding                8
 yabai -m config window_gap                   8
 
 # specific space settings
-yabai -m space 1 --layout                    float
+# yabai -m space 1 --layout                    float
 
 # signals
 # focus mouse hovered window when a window is closed, minimized or terminated
