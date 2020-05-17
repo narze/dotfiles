@@ -3,8 +3,6 @@
     command: zsh -i -c "zinit self-update"
   - description: Zinit update
     command: zsh -i -c "zinit update"
-  - description: Zinit clean
-    command: zsh -i -c "zinit delete --clean -y"
 
   - description: Brew update
     command: brew update
