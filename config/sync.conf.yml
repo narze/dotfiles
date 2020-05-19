@@ -5,7 +5,7 @@
 - link:
     ~/.config/tmuxinator:
       force: true
-      path: "~/Google Drive/laptop_local/tmuxinator"
+      path: "~/Sync/laptop_local/tmuxinator"
     ~/.local/mpd:
       force: true
-      path: "~/Google Drive/laptop_local/mpd"
+      path: "~/Sync/laptop_local/mpd"

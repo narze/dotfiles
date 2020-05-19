@@ -20,7 +20,7 @@ before_script:
   - echo 'cask "setapp"' >> etc/Brewfile
   - echo 'brew "zsh"' > etc/Brewfile-essentials
 
-  - mkdir -p ~/Google\ Drive/laptop_local/tmuxinator
+  - mkdir -p ~/Sync/laptop_local/tmuxinator
 
 script:
   - make

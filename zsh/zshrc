@@ -64,8 +64,12 @@ if [ -d "$HOME/.asdf" ]; then
 #   zinit ice wait lucid
 #   zinit light asdf-vm/asdf
 # OR
+  load_asdf() {
+    source $HOME/.asdf/asdf.sh
+  }
+
   zinit light-mode wait lucid for \
-    atload'source $HOME/.asdf/asdf.sh' \
+    atload'load_asdf' \
       zdharma/null
 fi
 
