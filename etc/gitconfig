@@ -3,7 +3,9 @@
 	email = manassarn@gmail.com
 [core]
 	excludesfile = ~/.gitignore_global
-	pager = diff-so-fancy | less --tabs=4 -RFX
+	pager = delta --plus-color="#012800" --minus-color="#340001" --theme='Monokai Extended'
+[interactive]
+	diffFilter = delta --color-only
 [alias]
 	conflicts = "diff --name-only --diff-filter=U"
 [ghq]
