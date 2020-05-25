@@ -135,8 +135,10 @@ alt + shift - n : yabai -m window --swap south
 alt + shift - e : yabai -m window --swap north
 alt + shift - i : yabai -m window --swap east
 
-# make floating window fill screen
-ctrl + alt + cmd - t : yabai -m window --grid 1:1:0:0:1:1
+# make floating window fill screen, make it float if not already floating
+ctrl + alt + cmd - t : yabai -m window --toggle float; \
+                       floating=$(yabai -m query --windows --window | jq .floating); \
+                       [ $floating -eq 1 ] && yabai -m window --grid 1:1:0:0:1:1
 
 # float fill left half
 ctrl + alt + cmd - h : yabai -m window --grid 1:2:0:0:1:1
