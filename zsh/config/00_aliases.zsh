@@ -18,6 +18,7 @@ alias g='git'
 alias p="git add -A -N && git add -p"
 alias s="git status -sb"
 # alias m="git commit -m" # Use function
+alias gam="git commit --amend --no-edit"
 alias gp="git push"
 alias gl="git pull"
 alias gr="git reset"
