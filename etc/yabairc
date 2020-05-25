@@ -57,6 +57,7 @@ yabai -m rule --add label="Dash" app="Dash" manage=off
 # yabai -m rule --add label="Finder Main" app="^Finder$" manage=off
 yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off
 # yabai -m rule --add label="Firefox" app="Firefox" manage=off
+yabai -m rule --add label="Notion" app="Notion" manage=off
 yabai -m rule --add label="Preview" app="Preview" manage=off
 # yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
 yabai -m rule --add label="System Preferences" app="^System Preferences$" manage=off
