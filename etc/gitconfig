@@ -10,3 +10,5 @@
 	conflicts = "diff --name-only --diff-filter=U"
 [ghq]
 	root = ~/Code
+[rerere]
+	enabled = 1
