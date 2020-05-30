@@ -8,6 +8,7 @@
   - ~/.bundle
   - ~/.config
   - ~/.config/kitty
+  - ~/.hushlogin
   - ~/Library/Scripts
   - ~/mnt
   # Alfred workflows fix
