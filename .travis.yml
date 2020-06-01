@@ -21,6 +21,7 @@ before_script:
   - echo 'brew "zsh"' > etc/Brewfile-essentials
 
   - mkdir -p ~/Sync/laptop_local/tmuxinator
+  - mkdir -p ~/Sync/laptop_local/mpd
 
 script:
   - make
@@ -31,3 +32,4 @@ script:
   - make tools
   - make asdf
   - make sync
+  - make update

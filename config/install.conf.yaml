@@ -20,7 +20,7 @@
       force: true
       path: ''
     ~/laptop:
-      path: ~/dotfiles
+      path: ''
 
 - link:
     ~/.asdfrc:
