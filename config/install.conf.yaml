@@ -88,3 +88,4 @@
       glob: true
       path: ~/.dotfiles/etc/applescripts/*
       relink: true
+      force: true
