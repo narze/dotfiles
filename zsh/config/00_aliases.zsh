@@ -122,7 +122,7 @@ alias vim="nvim"
 alias va="vagrant"
 alias wa="watch "
 alias watch="watch "
-alias y='yarn'
+alias ya='yarn'
 alias zt="zerotier-cli"
 
 # Docker
