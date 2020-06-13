@@ -60,6 +60,9 @@
       path: ~/.dotfiles/etc/mackup.cfg
     ~/.p10k.zsh:
       path: ~/.dotfiles/zsh/p10k.zsh
+    ~/.phoenix.js:
+      path: ~/.dotfiles/etc/phoenix.js
+      force: true
     ~/.pryrc:
       path: ~/.dotfiles/etc/pryrc
     ~/.skhdrc:
