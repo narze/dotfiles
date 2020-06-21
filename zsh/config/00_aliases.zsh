@@ -81,6 +81,7 @@ alias cl="clear"
 alias c='cd ~/Code && ls'
 alias c.="code ."
 # alias c.="RUBYOPT=--jit code ."
+alias cn='cd ~/Code/narze && ls'
 alias co="RUBYOPT=--jit code"
 alias cwd='pwd | pbcopy'
 f() {
