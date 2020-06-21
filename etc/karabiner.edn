@@ -12,7 +12,7 @@
   :f-mode {:key :f}
   :o-mode {:key :o}
   :h-mode {:key :h}
-  :z-mode {:key :z}
+  :q-mode {:key :q}
 }
  :devices {:apple-internal [{:vendor_id 1452 :product_id 635}]
            :filco-bt [{:vendor_id 2652 :product_id 34050}]
@@ -129,7 +129,7 @@
           ; |------+------+------+------+------+------|------+------+------+------+------+------|
           ; |                                         |   =  |   |  |   <  |   >  |   ?  |      |
           ; |------+------+------+------+------+------+------+------+------+------+------+------
-          {:des "Z Dev Mode" :rules [:z-mode
+          {:des "Q Dev Mode" :rules [:q-mode
                                     [:u :hyphen]
                                     [:i :!Sequal_sign] ; +
                                     [:o :!S9] ; (
