@@ -25,11 +25,11 @@ yabai -m config normal_window_border_color   0xaa319795
 
 # general space settings
 yabai -m config layout                       bsp
-yabai -m config top_padding                  8
+yabai -m config top_padding                  16
 yabai -m config bottom_padding               16
-yabai -m config left_padding                 8
-yabai -m config right_padding                8
-yabai -m config window_gap                   8
+yabai -m config left_padding                 16
+yabai -m config right_padding                16
+yabai -m config window_gap                   12
 
 # specific space settings
 yabai -m space 1 --layout                    float
