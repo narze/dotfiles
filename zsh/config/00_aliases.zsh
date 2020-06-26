@@ -99,8 +99,6 @@ alias hdi='howdoi'
 alias ip='curl ifconfig.me'
 alias jsc='/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc'
 alias sand='cd ~/Sandbox && ls'
-alias k='kubectl'
-alias kcc='kubectl config current-context'
 alias l='ls -la'
 alias lt='cd ~/laptop'
 alias mk='minikube'
@@ -127,11 +125,15 @@ alias watch="watch "
 alias ya='yarn'
 alias zt="zerotier-cli"
 
-# Docker
+# Docker & Kubernetes
 alias d='docker'
 alias dx='docker exec'
 alias ds='docker ps'
 alias dc='docker-compose'
+alias k='kubectl'
+alias kc='kubectx'
+alias kcc='kubectl config current-context'
+alias kn='kubens'
 
 # Unused aliases
 ua() {
