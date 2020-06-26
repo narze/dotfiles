@@ -49,6 +49,7 @@ brew "multitail"
 brew "nativefier"
 brew "nnn"
 brew "ripgrep"
+brew "stern" # Tail multiple k8s pods
 brew "wtfutil"
 
 brew "osx-cross/avr/avr-gcc@8", link: true
