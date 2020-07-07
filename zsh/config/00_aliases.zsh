@@ -94,6 +94,7 @@ alias bss='bin/spring stop'
 alias ex='exercism'
 alias fixappleeventsbug='sudo killall -KILL appleeventsd'
 alias gowd='cd "`pbpaste`"'
+alias gs="gatsby"
 alias h='helm'
 alias hdi='howdoi'
 alias ip='curl ifconfig.me'
