@@ -23,6 +23,8 @@ alias gp="git push"
 alias gl="git pull"
 alias gr="git reset"
 alias gff="git flow feature"
+alias gm="git merge"
+alias gmm="git merge master"
 alias gps="gh pr status"
 alias gpc="gh pr checkout"
 
