@@ -9,9 +9,9 @@
              :beep "osascript -e 'beep 1'"
              :beep2 "osascript -e 'beep 2'" }
  :simlayers {
-  :f-mode {:key :f}
-  :o-mode {:key :o}
-  :h-mode {:key :h}
+  ; :f-mode {:key :f}
+  ; :o-mode {:key :o}
+  ; :h-mode {:key :h}
   :q-mode {:key :q}
 }
  :devices {:apple-internal [{:vendor_id 1452 :product_id 635}]
@@ -31,7 +31,7 @@
         {:des "ROption -> Option / Cmb+Tab (Colemak)" :rules [:colemak :!qmk :!filco-bt [:##right_option :right_option nil {:held :right_option :alone :!Ctab}]]}
         {:des "ROption -> Option / Delete (Filco)" :rules [:colemak :filco-bt [:##right_option :right_option nil {:held :right_option :alone :delete_or_backspace}]]}
 
-        ; Swap Quotes
+        ; Swap Quotes with Ctrl-Option-Command + '
         {:des "Disable Swap Quote" :rules [:!disable-swap-quote [:!CTOquote [{:set ["disable-swap-quote" 1]} [:beep]]]]}
         {:des "Enable Swap Quote" :rules [:disable-swap-quote [:!CTOquote [{:set ["disable-swap-quote" 0]} [:beep2]]]]}
         {:des "Disable swapping quote" :rules [:colemak :disable-swap-quote [:##quote :quote]]}
@@ -48,16 +48,16 @@
         {:des "LShift -> Shift / (" :rules [[:##left_shift :right_shift nil {:held :left_shift :alone :!S9}]]}
         {:des "RShift -> Shift / )" :rules [[:##right_shift :left_shift nil {:held :right_shift :alone :!S0}]]}
         {:des "LOption -> Option / -" :rules [[:##left_option :left_option nil {:held :left_option :alone :hyphen}]]}
-        {:des "F-L -> Delete Word" :rules [:f-mode [:l :!Odelete_or_backspace]]}
-        {:des "F-; -> Delete Line" :rules [:f-mode [:semicolon :!Cdelete_or_backspace]]}
+        ; {:des "F-L -> Delete Word" :rules [:f-mode [:l :!Odelete_or_backspace]]}
+        ; {:des "F-; -> Delete Line" :rules [:f-mode [:semicolon :!Cdelete_or_backspace]]}
 
         ; Delete mode with F+J
-        {:des "Delete <- F+J" :rules [[{:sim [:f :j]
-                                     :simo {:interrupt true
-                                            :dorder :insensitive
-                                            :uorder :insensitive
-                                            :afterup {:set ["delete-mode" 0]}}} [:delete_or_backspace {:set ["delete-mode" 1]}]]]}
-        {:des "Delmode F/J/K -> Delete" :rules [:delete-mode [:f :delete_or_backspace] [:j :delete_or_backspace] [:k :delete_or_backspace]]}
+        ; {:des "Delete <- F+J" :rules [[{:sim [:f :j]
+        ;                              :simo {:interrupt true
+        ;                                     :dorder :insensitive
+        ;                                     :uorder :insensitive
+        ;                                     :afterup {:set ["delete-mode" 0]}}} [:delete_or_backspace {:set ["delete-mode" 1]}]]]}
+        ; {:des "Delmode F/J/K -> Delete" :rules [:delete-mode [:f :delete_or_backspace] [:j :delete_or_backspace] [:k :delete_or_backspace]]}
 
         ; SuperDuper Mode with S+D (Non-QMK)
         {:des "SuperDuper <- S+D" :rules [:!qmk [{:sim [:s :d]
@@ -117,47 +117,43 @@
         ;                             [:z :!!z]
         ;                             ]}
 
-        ; Swap ; with : (Colemak ; is P in Qwerty)
-       ;  {:des "[Colemak] Swap ; with :" :rules [:colemak [:p :!Sp]
-       ;                                [:!Sp :p]]}
+        ; Z for Dev Mode
+        ; ,-----------------------------------------------------------------------------------.
+        ; |                                         |      |   -  |   +  |   (  |   )  |      |
+        ; |------+------+------+------+------+-------------+------+------+------+------+------|
+        ; |                   N/A                   |   _  |   [  |   ]  |   {  |   }  |      |
+        ; |------+------+------+------+------+------|------+------+------+------+------+------|
+        ; |                                         |   =  |   |  |   <  |   >  |   ?  |      |
+        ; |------+------+------+------+------+------+------+------+------+------+------+------
+        {:des "Q Dev Mode" :rules [:q-mode
+                                  [:u :hyphen]
+                                  [:i :!Sequal_sign] ; +
+                                  [:o :!S9] ; (
+                                  [:p :!S0] ; )
+                                  [:h :!Shyphen] ; _
+                                  [:j :open_bracket]
+                                  [:k :close_bracket]
+                                  [:l :!Sopen_bracket] ; {
+                                  [:semicolon :!Sclose_bracket] ; }
+                                  [:n :equal_sign]
+                                  [:m :!Sbackslash] ; |
+                                  [:comma :!Scomma] ; <
+                                  [:period :!Speriod] ; >
+                                  [:slash :!Sslash] ; ?
+                                  ]}
 
-          ; Z for Dev Mode
-          ; ,-----------------------------------------------------------------------------------.
-          ; |                                         |      |   -  |   +  |   (  |   )  |      |
-          ; |------+------+------+------+------+-------------+------+------+------+------+------|
-          ; |                   N/A                   |   _  |   [  |   ]  |   {  |   }  |      |
-          ; |------+------+------+------+------+------|------+------+------+------+------+------|
-          ; |                                         |   =  |   |  |   <  |   >  |   ?  |      |
-          ; |------+------+------+------+------+------+------+------+------+------+------+------
-          {:des "Q Dev Mode" :rules [:q-mode
-                                    [:u :hyphen]
-                                    [:i :!Sequal_sign] ; +
-                                    [:o :!S9] ; (
-                                    [:p :!S0] ; )
-                                    [:h :!Shyphen] ; _
-                                    [:j :open_bracket]
-                                    [:k :close_bracket]
-                                    [:l :!Sopen_bracket] ; {
-                                    [:semicolon :!Sclose_bracket] ; }
-                                    [:n :equal_sign]
-                                    [:m :!Sbackslash] ; |
-                                    [:comma :!Scomma] ; <
-                                    [:period :!Speriod] ; >
-                                    [:slash :!Sslash] ; ?
-                                    ]}
-
-          ; ThumbSense (rev 3) https://pqrs.org/osx/karabiner/complex_modifications/#thumbsense
-          {:des "ThumbSense Mode" :rules [[:c :!Cc ["multitouch_extension_finger_count_total" 1]]
-                                          [:v :!Cv ["multitouch_extension_finger_count_total" 1]]
-                                          [:f {:pkey :button1} ["multitouch_extension_finger_count_total" 1]]
-                                          [:j {:pkey :button1} ["multitouch_extension_finger_count_total" 1]]
-                                          [:spacebar {:pkey :button1} ["multitouch_extension_finger_count_total" 1]]
-                                          [:d {:pkey :button2} ["multitouch_extension_finger_count_total" 1]]
-                                          [:k {:pkey :button2} ["multitouch_extension_finger_count_total" 1]]
-                                          [:g :!Copen_bracket ["multitouch_extension_finger_count_total" 1]]
-                                          [:h :!Cclose_bracket ["multitouch_extension_finger_count_total" 1]]
-                                          [:w :!Cw ["multitouch_extension_finger_count_total" 1]]
-                                         ]}
+        ; ThumbSense (rev 3) https://pqrs.org/osx/karabiner/complex_modifications/#thumbsense
+        {:des "ThumbSense Mode" :rules [[:c :!Cc ["multitouch_extension_finger_count_total" 1]]
+                                        [:v :!Cv ["multitouch_extension_finger_count_total" 1]]
+                                        [:f {:pkey :button1} ["multitouch_extension_finger_count_total" 1]]
+                                        [:j {:pkey :button1} ["multitouch_extension_finger_count_total" 1]]
+                                        [:spacebar {:pkey :button1} ["multitouch_extension_finger_count_total" 1]]
+                                        [:d {:pkey :button2} ["multitouch_extension_finger_count_total" 1]]
+                                        [:k {:pkey :button2} ["multitouch_extension_finger_count_total" 1]]
+                                        [:g :!Copen_bracket ["multitouch_extension_finger_count_total" 1]]
+                                        [:h :!Cclose_bracket ["multitouch_extension_finger_count_total" 1]]
+                                        [:w :!Cw ["multitouch_extension_finger_count_total" 1]]
+                                        ]}
         ]
  ;; code won't read cheatsheet section
  ;; ! stand for mandatory
