@@ -45,3 +45,14 @@ use_omz() {
   cp ~/.omz_rc ~/.zshrc
   exec $SHELL -l
 }
+
+touch-safe() {
+  for f in "$@"; do
+    [ -d $f:h ] || mkdir -p $f:h && command touch $f
+  done
+}
+
+touch-editor() {
+  touch-safe $@
+  $EDITOR $@
+}
