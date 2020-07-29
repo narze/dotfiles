@@ -40,4 +40,7 @@ update: ## Update everything
 	@make _prepare
 	@./install -c config/update.conf.yml
 
+vim: ## Setup vim
+	@./install -c config/vim.conf.yml
+
 all: _prepare dotfiles _bootstrap code brew tools asdf sync ## Run all tasks at once

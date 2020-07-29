@@ -1,0 +1,20 @@
+- shell:
+  - description: Setup amix/vimrc
+    command: |
+      if [ -d ~/.vim_runtime ]; then
+        cd ~/.vim_runtime
+        git pull --rebase
+        python3 update_plugins.py
+      else
+        git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
+      fi
+      sh ~/.vim_runtime/install_awesome_vimrc.sh
+
+- create:
+  - ~/.config/nvim
+
+- link:
+    ~/.config/nvim/init.vim:
+      path: ~/.vimrc
+    ~/.vim_runtime/my_configs.vim:
+      ~/.dotfiles/etc/vimrc
