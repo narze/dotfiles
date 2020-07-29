@@ -32,13 +32,14 @@ bindkey -e
 
 source ~/.zinit/bin/zinit.zsh
 
+zinit light zinit-zsh/z-a-bin-gem-node
+
 # Turbo mode with "wait"
 zinit light-mode lucid wait for \
   is-snippet OMZ::lib/history.zsh \
   MichaelAquilina/zsh-you-should-use \
   romkatv/zsh-prompt-benchmark \
   zdharma/history-search-multi-word \
-  zinit-zsh/z-a-bin-gem-node \
   atload"unalias zi; alias zi='zinit'" \
     ajeetdsouza/zoxide
 
