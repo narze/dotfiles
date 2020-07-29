@@ -4,3 +4,6 @@ set gfn=FantasqueSansMono\ Nerd\ Font\ Mono:h14,FiraCode\ Nerd\ Font:h14,Source\
 
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
+
+vmap <C-c> y:call system("pbcopy", getreg("\""))<CR>
+nmap <C-v> :call setreg("\"",system("pbpaste"))<CR>p
