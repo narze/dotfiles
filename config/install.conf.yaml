@@ -29,6 +29,8 @@
       path: ~/.dotfiles/etc/Brewfile
     ~/.Brewfile-essentials:
       path: ~/.dotfiles/etc/Brewfile-essentials
+    ~/.Brewfile-light:
+      path: ~/.dotfiles/etc/Brewfile-light
     ~/.bundle/config:
       path: ~/.dotfiles/etc/bundle_config
     ~/.config/karabiner.edn:
