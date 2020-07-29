@@ -23,6 +23,9 @@ code: ## Clone Repositories with ghq
 brew: ## Install brew & cask packages
 	@./install -c config/packages.conf.yml
 
+brew-light: ## Install light version of brewfile (Minimal)
+	@./install -c config/packages-light.yml
+
 tools: ## Install non-brew tools eg. tmux package manager
 	@./install -c config/tmux.conf.yml
 
