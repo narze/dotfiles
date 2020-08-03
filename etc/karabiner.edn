@@ -31,6 +31,19 @@
         {:des "ROption -> Option / Cmb+Tab (Colemak)" :rules [:colemak :!qmk :!filco-bt [:##right_option :right_option nil {:held :right_option :alone :!Ctab}]]}
         {:des "ROption -> Option / Delete (Filco)" :rules [:colemak :filco-bt [:##right_option :right_option nil {:held :right_option :alone :delete_or_backspace}]]}
 
+        ; Colemak Mod-DH in standard Colemak
+        {:des "Enable Mod-DH" :rules [:!enable-mod-dh [:!CTOq [{:set ["enable-mod-dh" 1]} [:beep2]]]]}
+        {:des "Disable Mod-DH" :rules [:enable-mod-dh [:!CTOq [{:set ["enable-mod-dh" 0]} [:beep]]]]}
+        {:des "Colemak Mod-DH" :rules [:colemak :enable-mod-dh
+                                                [:##t :b] ; G -> B
+                                                [:##g :t] ; D -> G
+                                                [:##v :g] ; V -> D
+                                                [:##b :v] ; B -> V
+                                                [:##h :n] ; H -> K
+                                                [:##n :m] ; K -> M
+                                                [:##m :h] ; M -> H
+                                                ]}
+
         ; Swap Quotes with Ctrl-Option-Command + '
         {:des "Disable Swap Quote" :rules [:!disable-swap-quote [:!CTOquote [{:set ["disable-swap-quote" 1]} [:beep]]]]}
         {:des "Enable Swap Quote" :rules [:disable-swap-quote [:!CTOquote [{:set ["disable-swap-quote" 0]} [:beep2]]]]}
