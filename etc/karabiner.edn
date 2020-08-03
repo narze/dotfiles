@@ -31,16 +31,23 @@
         {:des "ROption -> Option / Cmb+Tab (Colemak)" :rules [:colemak :!qmk :!filco-bt [:##right_option :right_option nil {:held :right_option :alone :!Ctab}]]}
         {:des "ROption -> Option / Delete (Filco)" :rules [:colemak :filco-bt [:##right_option :right_option nil {:held :right_option :alone :delete_or_backspace}]]}
 
-        ; Colemak Mod-DH in standard Colemak
-        {:des "Enable Mod-DH" :rules [:!enable-mod-dh [:!CTOq [{:set ["enable-mod-dh" 1]} [:beep2]]]]}
-        {:des "Disable Mod-DH" :rules [:enable-mod-dh [:!CTOq [{:set ["enable-mod-dh" 0]} [:beep]]]]}
-        {:des "Colemak Mod-DH" :rules [:colemak :enable-mod-dh
+        ; Colemak Mod-DH(m) in standard Colemak
+        {:des "Enable Mod-DHm" :rules [:!enable-mod-dh [:!CTOq [{:set ["enable-mod-dh" 1]} [:beep2]]]]}
+        {:des "Disable Mod-DHm" :rules [:enable-mod-dh [:!CTOq [{:set ["enable-mod-dh" 0]} [:beep]]]]}
+        {:des "Colemak Mod-DHm Disabled passthrough" :rules [:colemak :!enable-mod-dh
+                                                                     [:##t :t]
+                                                                     [:##g :g]
+                                                                     [:##v :v]
+                                                                     [:##b :b]
+                                                                     [:##h :h]
+                                                                     [:##m :m]
+                                                                     ]}
+        {:des "Colemak Mod-DHm" :rules [:colemak :enable-mod-dh
                                                 [:##t :b] ; G -> B
                                                 [:##g :t] ; D -> G
                                                 [:##v :g] ; V -> D
                                                 [:##b :v] ; B -> V
-                                                [:##h :n] ; H -> K
-                                                [:##n :m] ; K -> M
+                                                [:##h :m] ; H -> M
                                                 [:##m :h] ; M -> H
                                                 ]}
 
