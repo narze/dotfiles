@@ -45,7 +45,9 @@
         {:des "Colemak Mod-DHm" :rules [:colemak :enable-mod-dh
                                                 [:##t :b] ; G -> B
                                                 [:##g :t] ; D -> G
+                                                [:!Cv :!Cv] ; Keep Cmd + V
                                                 [:##v :g] ; V -> D
+                                                [:!Cb :!Cg] ; Cmd+B -> Cmd+D
                                                 [:##b :v] ; B -> V
                                                 [:##h :m] ; H -> M
                                                 [:##m :h] ; M -> H
