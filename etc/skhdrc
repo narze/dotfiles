@@ -105,8 +105,9 @@
 alt - w : yabai -m window --close
 
 # focus window
-alt - h : yabai -m window --focus west
 alt - n : yabai -m window --focus south
+alt - h : yabai -m window --focus west
+alt - k : yabai -m window --focus west
 alt - e : yabai -m window --focus north
 alt - i : yabai -m window --focus east
 alt - m : yabai -m window --focus recent
@@ -124,13 +125,15 @@ alt - y : ~/.yabai_focus_display next
 # alt + ctrl - i  : ~/.yabai_focus_display next
 
 # move window
-alt + cmd + shift - h : yabai -m window --warp west
 alt + cmd + shift - n : yabai -m window --warp south
+alt + cmd + shift - h : yabai -m window --warp west
+alt + cmd + shift - k : yabai -m window --warp west
 alt + cmd + shift - e : yabai -m window --warp north
 alt + cmd + shift - i : yabai -m window --warp east
 
 # swap window
 alt + shift - h : yabai -m window --swap west
+alt + shift - k : yabai -m window --swap west
 alt + shift - n : yabai -m window --swap south
 alt + shift - e : yabai -m window --swap north
 alt + shift - i : yabai -m window --swap east
@@ -142,6 +145,7 @@ ctrl + alt + cmd - t : yabai -m window --toggle float; \
 
 # float fill left half
 ctrl + alt + cmd - h : yabai -m window --grid 1:2:0:0:1:1
+ctrl + alt + cmd - k : yabai -m window --grid 1:2:0:0:1:1
 
 # float fill right half
 ctrl + alt + cmd - i : yabai -m window --grid 1:2:1:0:1:1
@@ -184,6 +188,7 @@ alt - 8 : yabai -m space --focus 8
 alt + ctrl + shift - 0x2B : yabai -m window --space recent
 alt + shift - l : yabai -m window --space prev
 alt + ctrl + shift - h  : yabai -m window --space prev
+alt + ctrl + shift - k  : yabai -m window --space prev
 alt + shift - 0x23 : yabai -m window --space next
 alt + ctrl + shift - i  : yabai -m window --space next
 shift + alt - 1 : yabai -m window --space 1
@@ -240,6 +245,7 @@ alt + cmd + ctrl - s : yabai -m window --resize right:-80:0
 
 # set insertion point for focused container
 ctrl + alt - h : yabai -m window --insert west
+ctrl + alt - k : yabai -m window --insert west
 ctrl + alt - n : yabai -m window --insert south
 ctrl + alt - e : yabai -m window --insert north
 ctrl + alt - i : yabai -m window --insert east
