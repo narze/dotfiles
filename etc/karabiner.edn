@@ -31,27 +31,6 @@
         {:des "ROption -> Option / Cmb+Tab (Colemak)" :rules [:colemak :!qmk :!filco-bt [:##right_option :right_option nil {:held :right_option :alone :!Ctab}]]}
         {:des "ROption -> Option / Delete (Filco)" :rules [:colemak :filco-bt [:##right_option :right_option nil {:held :right_option :alone :delete_or_backspace}]]}
 
-        ; Colemak Mod-DH(m) in standard Colemak
-        {:des "Disable Mod-DHm" :rules [:!disable-mod-dh [:!CTOq [{:set ["disable-mod-dh" 1]} [:beep]]]]}
-        {:des "Enable Mod-DHm" :rules [:disable-mod-dh [:!CTOq [{:set ["disable-mod-dh" 0]} [:beep2]]]]}
-        {:des "Colemak Mod-DHm Disabled passthrough" :rules [:colemak :disable-mod-dh
-                                                                     [:##t :t]
-                                                                     [:##g :g]
-                                                                     [:##v :v]
-                                                                     [:##b :b]
-                                                                     [:##h :h]
-                                                                     [:##m :m]
-                                                                     ]}
-        {:des "Colemak Mod-DHm" :rules [:colemak [:##t :b] ; G -> B
-                                                [:##g :t] ; D -> G
-                                                [:!Cv :!Cv] ; Keep Cmd + V
-                                                [:##v :g] ; V -> D
-                                                [:!Cb :!Cg] ; Cmd+B -> Cmd+D
-                                                [:##b :v] ; B -> V
-                                                [:##h :m] ; H -> M
-                                                [:##m :h] ; M -> H
-                                                ]}
-
         ; Swap Quotes with Ctrl-Option-Command + '
         {:des "Disable Swap Quote" :rules [:!disable-swap-quote [:!CTOquote [{:set ["disable-swap-quote" 1]} [:beep]]]]}
         {:des "Enable Swap Quote" :rules [:disable-swap-quote [:!CTOquote [{:set ["disable-swap-quote" 0]} [:beep2]]]]}
@@ -108,6 +87,37 @@
         {:des "SuperDuper V -> Shift" :rules [:superduper-mode [:##v :left_shift]]}
         {:des "SuperDuper B -> Ctrl+B (Tmux prefix)" :rules [:superduper-mode [:##b :!Tb]]}
         {:des "SuperDuper Z -> Undo" :rules [:superduper-mode [:##z :!Cz]]}
+
+        ; Colemak Mod-DH(m) in standard Colemak
+        {:des "Disable Mod-DHm" :rules [:!disable-mod-dh [:!CTOq [{:set ["disable-mod-dh" 1]} [:beep]]]]}
+        {:des "Enable Mod-DHm" :rules [:disable-mod-dh [:!CTOq [{:set ["disable-mod-dh" 0]} [:beep2]]]]}
+        {:des "Colemak Mod-DHm Disabled passthrough" :rules [:colemak :disable-mod-dh 
+                                                                     [:##t :t]
+                                                                     [:##g :g]
+                                                                     [:##v :v]
+                                                                     [:##b :b]
+                                                                     [:##h :h]
+                                                                     [:##m :m]
+                                                                     ]}
+        {:des "Colemak Mod-DHm SuperDuper passthrough" :rules [:colemak :superduper-mode 
+                                                                      [:##t :t]
+                                                                      [:##g :g]
+                                                                      [:##v :v]
+                                                                      [:##b :b]
+                                                                      [:##h :h]
+                                                                      [:##m :m]
+                                                                      ]}
+
+        {:des "Colemak Mod-DHm" :rules [:colemak 
+                                                [:##t :b] ; G -> B
+                                                [:##g :t] ; D -> G
+                                                [:!Cv :!Cv] ; Keep Cmd + V
+                                                [:##v :g] ; V -> D
+                                                [:!Cb :!Cg] ; Cmd+B -> Cmd+D
+                                                [:##b :v] ; B -> V
+                                                [:##h :m] ; H -> M
+                                                [:##m :h] ; M -> H
+                                                ]}
 
         ; H for Hyper
         ; {:des "H for Hyper" :rules [:h-mode
