@@ -284,6 +284,8 @@ alt - t : yabai -m window --toggle float;\
 # toggle sticky
 alt - s : yabai -m window --toggle sticky
 
+# toggle border
+alt - b : yabai -m window --toggle border
 
 # classic pip
 alt - p : yabai -m window --toggle float;\
@@ -312,8 +314,8 @@ ctrl + alt - s : ~/.yabai_monocle; \
 # ctrl + alt + cmd - l : yabai -m space --serialize ~/.chunkwm_layout
 
 # Fix screenshot taking in app mode
-# cmd + shift - 4 -> : chunkc border::clear
-# ctrl + cmd + shift - 4 -> : chunkc border::clear
+cmd + shift - 4 -> : yabai -m window --toggle border; sleep 3; yabai -m window --toggle border;
+ctrl + cmd + shift - 4 -> : yabai -m window --toggle border; sleep 3; yabai -m window --toggle border;
 
 # MPC commands
 ctrl + alt + cmd + shift - 0x23 : mpc toggle
