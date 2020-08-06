@@ -92,6 +92,16 @@ cask "xld"
 cask "xquartz"
 cask "zerotier-one"
 
+# Quicklook plugins
+cask "qlcolorcode" 
+cask "qlstephen" 
+cask "qlmarkdown" 
+cask "quicklook-json"
+cask "qlimagesize"
+cask "suspicious-package"
+cask "quicklookase"
+cask "qlvideo"
+
 mas "Amphetamine", id: 937984704
 mas "Blackmagic Disk Speed Test", id: 425264550
 mas "Browserism", id: 979047768
