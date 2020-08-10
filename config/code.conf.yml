@@ -11,14 +11,10 @@
   - brew list ghq &>/dev/null || brew install ghq
 
 - ghq:
-  - eventpop/challenges
-  - narze/baht
-  - narze/mong
-  - narze/narze.github.io-hugo
-  - narze/puncome
+  - narze/100daysofcode
+  - narze/narze.github.io
   - narze/qmk_firmware
   - narze/resume
-  - narze/switcheroo
   - narze/userscripts
 
 - link:
