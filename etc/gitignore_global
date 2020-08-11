@@ -45,3 +45,5 @@ dump.rdb
 .githooks
 .local
 .history
+
+*.gitignored.*
