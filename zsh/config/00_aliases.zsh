@@ -8,7 +8,7 @@ then
 fi
 
 # Editing
-alias aliases='$EDITOR ~/dotfiles/zsh/config/00_aliases.zsh ; source ~/dotfiles/zsh/config/00_aliases.zsh ; echo "Aliases reloaded"'
+alias aliases='$EDITOR ~/dotfiles/zsh/config/00_aliases.zsh ; zi update aliases ; reload ; echo "Aliases reloaded"'
 alias ke='$EDITOR ~/dotfiles/etc/karabiner.edn'
 alias zshrc='$EDITOR ~/.zshrc ; reload'
 alias .tmux='$EDITOR ~/.tmux.conf.local'
@@ -53,6 +53,7 @@ alias gcln="git clean"
 alias gdc="git diff --name-only --diff-filter=U"
 alias gds="git diff --staged"
 alias gfo="git fetch origin"
+alias gh="ghq get -l -p"
 alias gpr="git pr"
 gpuo() { git push -u origin $(git rev-parse --abbrev-ref HEAD) }
 alias gmd="git merge develop"
