@@ -141,7 +141,6 @@ alias ds='docker ps'
 alias dc='docker-compose'
 alias k='kubectl'
 alias kc='kubectx'
-alias kcc='kubectl config current-context'
 alias kn='kubens'
 
 # Unused aliases
