@@ -94,3 +94,6 @@
       path: ~/.dotfiles/etc/applescripts/*
       relink: true
       force: true
+
+- shell:
+  - command: sudo ln -s ~/.dotfiles/etc/colemak-dhm/ColemakDHm.bundle /Library/Keyboard\ Layouts/ColemakDHm.bundle
