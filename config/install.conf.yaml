@@ -96,4 +96,4 @@
       force: true
 
 - shell:
-  - command: sudo ln -s ~/.dotfiles/etc/colemak-dhm/ColemakDHm.bundle /Library/Keyboard\ Layouts/ColemakDHm.bundle
+  - command: sudo ln -sf ~/.dotfiles/etc/colemak-dhm/ColemakDHm.bundle /Library/Keyboard\ Layouts/ColemakDHm.bundle
