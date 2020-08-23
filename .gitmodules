@@ -15,3 +15,6 @@
 [submodule "dotbot-asdf"]
 	path = dotbot-asdf
 	url = https://github.com/sobolevn/dotbot-asdf.git
+[submodule "colemak-dhm"]
+	path = etc/colemak-dhm
+	url = https://github.com/narze/Colemak-DHm.git
