@@ -12,3 +12,5 @@
 	root = ~/Code
 [rerere]
 	enabled = 1
+[pull]
+	rebase = true
