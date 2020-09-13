@@ -56,3 +56,7 @@ touch-editor() {
   touch-safe $@
   $EDITOR $@
 }
+
+take() {
+  mkdir -p $@ && cd ${@:$#}
+}
