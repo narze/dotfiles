@@ -39,8 +39,6 @@
       path: ~/.dotfiles/etc/kitty.conf
     ~/.config/kitty/theme.conf:
       path: ~/.dotfiles/etc/Molokai.conf
-    ~/.config/synthwave84.css:
-      path: ~/.dotfiles/etc/synthwave84.css
     ~/.default-gems:
       path: ~/.dotfiles/etc/default-gems
     ~/.duti:
