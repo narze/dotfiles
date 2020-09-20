@@ -51,6 +51,10 @@
       path: ~/.dotfiles/etc/gitconfig
     ~/.gitignore_global:
       path: ~/.dotfiles/etc/gitignore_global
+    ~/.hammerspoon:
+      if: '[ `uname` = Darwin ]'
+      path: ~/.dotfiles/etc/hammerspoon
+      force: true
     ~/.hyper.js:
       path: ~/.dotfiles/etc/hyper.js
       force: true
