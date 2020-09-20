@@ -18,3 +18,6 @@
 [submodule "colemak-dhm"]
 	path = etc/colemak-dhm
 	url = https://github.com/narze/Colemak-DHm.git
+[submodule "stackline"]
+	path = etc/hammerspoon/stackline
+	url = https://github.com/AdamWagner/stackline.git
