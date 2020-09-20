@@ -75,8 +75,6 @@
       path: ~/.dotfiles/etc/yabai_axunknown_float
     ~/.yabai_focus_display:
       path: ~/.dotfiles/etc/yabai_focus_display
-    ~/.yabai_monocle:
-      path: ~/.dotfiles/etc/yabai_monocle
     ~/.yabai_rules:
       path: ~/.dotfiles/etc/yabai_rules
     ~/.yabairc:
