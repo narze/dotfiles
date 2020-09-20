@@ -16,6 +16,7 @@ yabai -m config auto_balance                 off
 yabai -m config mouse_modifier               fn
 yabai -m config mouse_action1                move
 yabai -m config mouse_action2                resize
+yabai -m config mouse_drop_action            stack
 
 # borders
 yabai -m config window_border                on
@@ -32,7 +33,7 @@ yabai -m config right_padding                16
 yabai -m config window_gap                   12
 
 # specific space settings
-yabai -m space 1 --layout                    float
+yabai -m space 1 --layout                    stack
 
 # signals
 # focus mouse hovered window when a window is closed, minimized or terminated

@@ -112,11 +112,10 @@ alt - e : yabai -m window --focus north
 alt - i : yabai -m window --focus east
 # alt - m : yabai -m window --focus recent
 
-# focus prev/next window by id in space (works with float)
-alt - 0x2B : prev=$(yabai -m query --windows --space | jq 'sort_by(.id) | (map(.focused==1) | index(true)) as $i | .[($i - 1) % length].id'); \
-             yabai -m window --focus $prev
-alt - 0x2F : next=$(yabai -m query --windows --space | jq 'sort_by(.id) | (map(.focused==1) | index(true)) as $i | .[($i + 1) % length].id'); \
-             yabai -m window --focus $next
+# focus window in stack
+alt - 0x2B : yabai -m window --focus stack.prev
+alt - 0x2F : yabai -m window --focus stack.next
+alt - 0x2C : yabai -m window --focus stack.recent
 
 # focus monitor
 alt - u  : ~/.yabai_focus_display prev
@@ -132,11 +131,16 @@ alt + cmd + shift - e : yabai -m window --warp north
 alt + cmd + shift - i : yabai -m window --warp east
 
 # swap window
-alt + shift - h : yabai -m window --swap west
 alt + shift - m : yabai -m window --swap west
 alt + shift - n : yabai -m window --swap south
 alt + shift - e : yabai -m window --swap north
 alt + shift - i : yabai -m window --swap east
+
+# stack window
+alt + ctrl + shift - m  : yabai -m window --stack west
+alt + ctrl + shift - n  : yabai -m window --stack south
+alt + ctrl + shift - e  : yabai -m window --stack north
+alt + ctrl + shift - i  : yabai -m window --stack east
 
 # make floating window fill screen, make it float if not already floating
 ctrl + alt + cmd - t : yabai -m window --toggle float; \
@@ -188,9 +192,7 @@ alt - 8 : yabai -m space --focus 8
 alt + ctrl + shift - 0x2B : yabai -m window --space recent
 alt + shift - l : yabai -m window --space prev
 alt + ctrl + shift - h  : yabai -m window --space prev
-alt + ctrl + shift - m  : yabai -m window --space prev
 alt + shift - 0x23 : yabai -m window --space next
-alt + ctrl + shift - i  : yabai -m window --space next
 shift + alt - 1 : yabai -m window --space 1
 shift + alt - 2 : yabai -m window --space 2
 shift + alt - 3 : yabai -m window --space 3
@@ -307,8 +309,8 @@ ctrl + alt - a : yabai -m space --layout bsp; \
                  terminal-notifier -title Yabai -message "Bsp mode activated"
 ctrl + alt - r: yabai -m space --layout float; \
                  terminal-notifier -title Yabai -message "Float mode activated"
-ctrl + alt - s : ~/.yabai_monocle; \
-                 terminal-notifier -title Yabai -message "Monocle mode activated"
+ctrl + alt - s : yabai -m space --layout stack; \
+                 terminal-notifier -title Yabai -message "Stack mode activated"
 
 # ctrl + alt - l : yabai -m space --deserialize ~/.chunkwm_layout
 # ctrl + alt + cmd - l : yabai -m space --serialize ~/.chunkwm_layout
@@ -342,7 +344,7 @@ ctrl + alt + cmd - c : ids=$(yabai -m query --windows --space | jq -r ".[] | sel
                           yabai -m window $id --toggle float ; \
                         done <<< "$ids"
 
-# Banance windows
+# Balance windows
 alt - 0x2C : yabai -m space --balance
 
 # Toggle space windows gap
