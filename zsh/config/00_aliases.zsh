@@ -109,7 +109,6 @@ alias l='ls -la'
 alias lt='cd ~/laptop'
 alias mk='minikube'
 alias mux='tmuxinator'
-alias n='npm'
 alias nf='neofetch'
 alias o.="open ."
 alias o="open"

@@ -60,3 +60,16 @@ touch-editor() {
 take() {
   mkdir -p $@ && cd ${@:$#}
 }
+
+n() {
+  if [[ -f "$(pwd)/yarn.lock" ]]; then
+    echo "Found yarn.lock, using Yarn"
+    yarn $@
+  elif [[ -f "$(pwd)/package-lock.json" ]]; then
+    echo "Found package-lock.json, using Npm"
+    npm $@
+  else
+    echo "Yarn & Npm lockfile not found"
+    return 1
+  fi
+}
