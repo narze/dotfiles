@@ -9,6 +9,7 @@ fi
 
 # Editing
 alias aliases='$EDITOR ~/dotfiles/zsh/config/00_aliases.zsh ; zi update aliases ; reload ; echo "Aliases reloaded"'
+alias funcs='$EDITOR ~/dotfiles/zsh/config/20_functions.zsh ; zi update functions ; reload ; echo "Aliases reloaded"'
 alias ke='$EDITOR ~/dotfiles/etc/karabiner.edn'
 alias zshrc='$EDITOR ~/.zshrc ; reload'
 alias .tmux='$EDITOR ~/.tmux.conf.local'
