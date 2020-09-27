@@ -61,6 +61,12 @@ zinit wait lucid for \
     https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker \
     https://github.com/docker/compose/blob/master/contrib/completion/zsh/_docker-compose
 
+# LS_COLORS
+zinit ice atclone"dircolors -b LS_COLORS > clrs.zsh" \
+    atpull'%atclone' pick"clrs.zsh" nocompile'!' \
+    atload'zstyle ":completion:*" list-colors “${(s.:.)LS_COLORS}”'
+zinit light trapd00r/LS_COLORS
+
 # ASDF
 if [ -d "$HOME/.asdf" ]; then
 #   zinit ice wait lucid
