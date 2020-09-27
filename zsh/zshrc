@@ -149,6 +149,9 @@ zinit light-mode is-snippet lucid for \
 #   OMZP::rbenv \
 #   OMZP::ruby
 
+# Highlight selection in tab completion
+zstyle ':completion:*' menu select
+
 # Compinit : After zinits, before cdreplay
 # https://carlosbecker.com/posts/speeding-up-zsh/
 autoload -Uz compinit
