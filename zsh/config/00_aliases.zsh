@@ -61,6 +61,7 @@ alias gmd="git merge develop"
 alias grm="if git show-ref -q --heads main; then; git rebase main; else; git rebase master; fi"
 alias grh="git reset HEAD"
 alias grp="git rebase -p"
+alias gsub="git submodule update --init --recursive --remote"
 alias gli="git ls-files -o -i --exclude-standard --directory | grep -v '\.DS_Store'"
 alias glr="git pull --rebase"
 
