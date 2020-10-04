@@ -1,6 +1,5 @@
 tap "homebrew/cask-fonts"
 
-brew "neovim"
 brew "ghq"
 brew "git-delta"
 brew "github/gh/gh"
