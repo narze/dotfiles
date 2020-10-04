@@ -9,3 +9,8 @@
     global: 2.6.5
     versions:
       - 2.6.5
+  - plugin: neovim
+    url: https://github.com/richin13/asdf-neovim.git
+    global: nightly
+    versions:
+      - nightly
