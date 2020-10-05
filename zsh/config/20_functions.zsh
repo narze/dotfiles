@@ -68,6 +68,9 @@ n() {
   elif [[ -f "$(pwd)/package-lock.json" ]]; then
     echo "Found package-lock.json, using Npm"
     npm $@
+  elif [[ -f "$(pwd)/package.json" ]]; then
+    echo "Yarn & Npm lockfile not found, but found package.json, using Yarn"
+    yarn $@
   else
     echo "Yarn & Npm lockfile not found"
     return 1
