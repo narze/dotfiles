@@ -70,6 +70,11 @@ alias rdm="bundle exec rake db:migrate"
 alias rdt="bundle exec rake db:test:load"
 alias ss="bundle exec spring stop"
 
+# Rust
+alias cg="cargo"
+alias ct="cargo test"
+alias ctw="cargo watch -x test"
+
 # Misc
 alias -- -='cd -'
 alias arst="asdf"
