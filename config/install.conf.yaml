@@ -33,6 +33,9 @@
       path: ~/.dotfiles/etc/Brewfile-light
     ~/.bundle/config:
       path: ~/.dotfiles/etc/bundle_config
+    ~/.config/direnv/direnvrc:
+      path: ~/.dotfiles/etc/direnvrc
+      force: true
     ~/.config/karabiner.edn:
       path: ~/.dotfiles/etc/karabiner.edn
     ~/.config/kitty/kitty.conf:

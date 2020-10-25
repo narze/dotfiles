@@ -74,6 +74,8 @@ if [ -d "$HOME/.asdf" ]; then
 # OR
   load_asdf() {
     source $HOME/.asdf/asdf.sh
+    eval "$(asdf exec direnv hook zsh)"
+    direnv() { asdf exec direnv "$@"; }
   }
 
   zinit light-mode wait lucid for \

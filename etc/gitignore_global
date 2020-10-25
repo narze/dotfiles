@@ -47,3 +47,6 @@ dump.rdb
 .history
 
 *.gitignored.*
+
+# Direnv
+.envrc
