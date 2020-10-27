@@ -138,6 +138,7 @@ alias va="vagrant"
 alias wa="watch "
 alias watch="watch "
 alias ya='yarn'
+alias yd='yarn dev'
 alias zt="zerotier-cli"
 alias zs='zsh_stats'
 
