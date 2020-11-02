@@ -82,6 +82,7 @@ alias b="bundle"
 alias be="bundle exec"
 alias bi="bundle install"
 alias bf="bh | fzy"
+alias blog='ghq get -l -p narze/narze.github.io'
 alias br="brew"
 alias brc="brew cask"
 alias brci="brew cask install"
