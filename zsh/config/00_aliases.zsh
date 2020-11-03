@@ -139,6 +139,7 @@ alias vim="nvim"
 alias va="vagrant"
 alias wa="watch "
 alias watch="watch "
+alias wh="which "
 alias ya='yarn'
 alias yd='yarn dev'
 alias yt='yarn test'
