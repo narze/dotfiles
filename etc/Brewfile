@@ -56,7 +56,7 @@ brew "osx-cross/avr/avr-gcc@8", link: true
 brew "puma/puma/puma-dev"
 brew "px4/px4/gcc-arm-none-eabi"
 brew "wagoodman/dive/dive"
-brew "ajeetdsouza/zoxide/zoxide"
+brew "zoxide"
 
 cask "android-file-transfer"
 cask "arduino"
@@ -93,9 +93,9 @@ cask "xquartz"
 cask "zerotier-one"
 
 # Quicklook plugins
-cask "qlcolorcode" 
-cask "qlstephen" 
-cask "qlmarkdown" 
+cask "qlcolorcode"
+cask "qlstephen"
+cask "qlmarkdown"
 cask "quicklook-json"
 cask "qlimagesize"
 cask "suspicious-package"
