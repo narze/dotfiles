@@ -180,9 +180,9 @@ _history_substring_search_bind_keys() {
   bindkey -M vicmd 'j' history-substring-search-down
 }
 
-if [ -d "$HOME/.asdf/plugins/java" ]; then
+if [ ! "$(command ls -A $HOME/.asdf/plugins/java)" ]; then
   zinit light-mode wait lucid for \
-    atload='source $HOME/.asdf/plugins/java/set-java-home.sh' \
+    atload='source $HOME/.asdf/plugins/java/set-java-home.zsh' \
       zdharma/null
 fi
 
