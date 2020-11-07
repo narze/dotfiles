@@ -1,6 +1,5 @@
 tap "buo/cask-upgrade"
 tap "candid82/brew"
-tap "danielbayley/alfred"
 tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/cask-drivers"
