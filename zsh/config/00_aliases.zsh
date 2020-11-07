@@ -141,6 +141,7 @@ alias va="vagrant"
 alias wa="watch "
 alias watch="watch "
 alias wh="which "
+alias wiki="gq narze/knowledge"
 alias ya='yarn'
 alias yd='yarn dev'
 alias yt='yarn test'
