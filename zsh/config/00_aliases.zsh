@@ -145,6 +145,7 @@ alias wiki="gq narze/knowledge"
 alias ya='yarn'
 alias yd='yarn dev'
 alias yt='yarn test'
+alias ytw='yarn test --watch'
 alias zt="zerotier-cli"
 alias zs='zsh_stats'
 
