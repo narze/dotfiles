@@ -86,8 +86,13 @@ fi
 zinit pack"bgn-binary" for fzf
 zinit pack"bgn" for fzy
 
-zinit ice atload'!source ~/.p10k.zsh' lucid nocd
-zinit light romkatv/powerlevel10k
+# if command -v starship &> /dev/null
+# then
+#   eval "$(starship init zsh)"
+# else
+  zinit ice atload'!source ~/.p10k.zsh' lucid nocd
+  zinit light romkatv/powerlevel10k
+# fi
 
 zinit ice as"program" from"gh-r" mv"exa* -> exa" pick"exa/exa" lucid atload"alias ls='exa --icons'"
 zinit light ogham/exa
