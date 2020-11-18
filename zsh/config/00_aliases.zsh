@@ -135,6 +135,7 @@ alias te=touch-editor
 alias tm=tmux
 alias tn='terminal-notifier'
 alias tnm='terminal-notifier -message'
+alias uuid='uuidgen | tr "[:upper:]" "[:lower:]"'
 alias v="nvim"
 alias vim="nvim"
 alias va="vagrant"
