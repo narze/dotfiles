@@ -158,6 +158,8 @@ alias dc='docker-compose'
 alias k='kubectl'
 alias kc='kubectx'
 alias kn='kubens'
+alias kg='kubectl get'
+alias kd='kubectl describe'
 
 # Unused aliases
 ua() {
