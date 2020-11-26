@@ -20,9 +20,9 @@ yabai -m config mouse_drop_action            stack
 
 # borders
 yabai -m config window_border                on
-yabai -m config window_border_width          6
-yabai -m config active_window_border_color   0xee4fd1c5
-yabai -m config normal_window_border_color   0xaa319795
+yabai -m config window_border_width          8
+yabai -m config active_window_border_color   0xF006B6D4
+yabai -m config normal_window_border_color   0x8006B6D4
 
 # general space settings
 yabai -m config layout                       bsp
