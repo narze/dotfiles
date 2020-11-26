@@ -1,12 +1,3 @@
-# Git
-# Use `hub` as our git wrapper:
-#   http://defunkt.github.com/hub/
-hub_path=$(which hub)
-if (( $+commands[hub] ))
-then
-  alias git=$hub_path
-fi
-
 # Editing
 alias aliases='$EDITOR ~/dotfiles/zsh/config/00_aliases.zsh ; zi update aliases ; reload ; echo "Aliases reloaded"'
 alias funcs='$EDITOR ~/dotfiles/zsh/config/20_functions.zsh ; zi update functions ; reload ; echo "Aliases reloaded"'
