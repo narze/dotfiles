@@ -79,6 +79,7 @@ alias brc="brew cask"
 alias brci="brew cask install"
 alias bri="brew install"
 alias brs="brew search"
+alias bz="blitz"
 alias cl="clear"
 alias c='cd ~/Code && ls'
 alias c.="code ."
