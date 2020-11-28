@@ -5,7 +5,7 @@ yabai -m config mouse_follows_focus          on
 yabai -m config focus_follows_mouse          off # autofocus|autoraise|off
 yabai -m config window_placement             first_child
 yabai -m config window_topmost               off
-yabai -m config window_opacity               off
+yabai -m config window_opacity               on
 yabai -m config window_opacity_duration      0.0
 yabai -m config window_shadow                off
 yabai -m config insert_feedback_color        0xaad75f5f
