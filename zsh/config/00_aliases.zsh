@@ -137,6 +137,7 @@ alias wh="which "
 alias wiki="gq narze/knowledge"
 alias ya='yarn'
 alias yd='yarn dev'
+alias yr='yarn run'
 alias yt='yarn test'
 alias ytw='yarn test --watch'
 alias zt="zerotier-cli"
