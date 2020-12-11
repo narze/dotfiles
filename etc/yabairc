@@ -2,7 +2,7 @@
 
 # global settings
 yabai -m config mouse_follows_focus          on
-yabai -m config focus_follows_mouse          off # autofocus|autoraise|off
+yabai -m config focus_follows_mouse          autoraise # autofocus|autoraise|off
 yabai -m config window_placement             first_child
 yabai -m config window_topmost               off
 yabai -m config window_opacity               off # turning it on reduces overall performance!
@@ -17,7 +17,7 @@ yabai -m config mouse_modifier               fn
 yabai -m config mouse_action1                move
 yabai -m config mouse_action2                resize
 yabai -m config mouse_drop_action            stack
-yabai -m config external_bar                 all:24:0
+yabai -m config external_bar                 all:20:0
 
 # borders
 yabai -m config window_border                on
