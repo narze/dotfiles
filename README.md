@@ -10,8 +10,11 @@ Some Ansible playbooks will still be here until I moved all scripts to `Makefile
 
 ## Usage
 ```shell
-git clone git@github.com:narze/dotfiles.git ~/dotfiles
+git clone https://github.com/narze/dotfiles ~/dotfiles 
 cd ~/dotfiles && make bootstrap
+
+# Optional : Change to SSH url for pushing updates
+git remote set-url origin git@github.com:narze/dotfiles.git  
 ```
 
 ## Features
