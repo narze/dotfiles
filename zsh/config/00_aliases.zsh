@@ -45,7 +45,7 @@ alias gcln="git clean"
 alias gdc="git diff --name-only --diff-filter=U"
 alias gds="git diff --staged"
 alias gfo="git fetch origin"
-alias gpr="git pr"
+alias gpr="gh pr"
 alias gq="ghq get -l -p"
 gpuo() { git push -u origin $(git rev-parse --abbrev-ref HEAD) }
 alias gmd="git merge develop"
