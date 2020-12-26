@@ -8,6 +8,7 @@
   - ~/.bundle
   - ~/.config
   - ~/.config/kitty
+  - ~/.config/direnv
   - ~/.hushlogin
   - ~/Library/Scripts
   - ~/mnt
