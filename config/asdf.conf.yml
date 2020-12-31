@@ -1,14 +1,15 @@
 - asdf:
     - plugin: nodejs
       url: https://github.com/asdf-vm/asdf-nodejs.git
-      global: 12.16.0
+      global: 14.15.3
       versions:
-        - 12.16.0
+        - 14.15.3
     - plugin: ruby
       url: https://github.com/asdf-vm/asdf-ruby.git
-      global: 2.6.5
+      global: 3.0.0
       versions:
         - 2.6.5
+        - 3.0.0
     - plugin: neovim
       url: https://github.com/richin13/asdf-neovim.git
       global: nightly
@@ -31,6 +32,6 @@
         - 1.15.4
     - plugin: python
       url: https://github.com/danhper/asdf-python.git
-      global: 3.9.0
+      global: 3.9.1
       versions:
-        - 3.9.0
+        - 3.9.1
