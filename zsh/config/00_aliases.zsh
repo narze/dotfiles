@@ -47,6 +47,8 @@ alias gds="git diff --staged"
 alias gfo="git fetch origin"
 alias gpr="gh pr"
 alias gq="ghq get -l -p"
+gqe() { ghq get -l -p eventpop/$* }
+gqn() { ghq get -l -p narze/$* }
 gpuo() { git push -u origin $(git rev-parse --abbrev-ref HEAD) }
 alias gmd="git merge develop"
 alias grm="if git show-ref -q --heads main; then; git rebase main; else; git rebase master; fi"
