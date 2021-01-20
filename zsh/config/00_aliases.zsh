@@ -9,7 +9,10 @@ alias .tmux='$EDITOR ~/.tmux.conf.local'
 alias g='git'
 alias p="git add -A -N && git add -p"
 alias s="git status -sb"
-# alias m="git commit -m" # Use function
+# Skips husky hooks
+mn() {
+  git commit -m "$*" --no-verify
+}
 alias gam="git commit --amend --no-edit"
 alias gp="git push"
 alias gl="git pull"
