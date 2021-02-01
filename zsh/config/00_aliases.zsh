@@ -89,6 +89,7 @@ alias bz="blitz"
 alias cl="clear"
 alias c='cd ~/Code && ls'
 alias c.="code ."
+alias cd.="code --user-data-dir /tmp/code-data/ --disable-extensions ."
 # alias c.="RUBYOPT=--jit code ."
 alias ce='cd ~/Code/e*/ && ls'
 alias cn='cd ~/Code/narze && ls'
