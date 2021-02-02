@@ -5,6 +5,10 @@ alias ke='$EDITOR ~/dotfiles/etc/karabiner.edn'
 alias zshrc='$EDITOR ~/.zshrc ; reload'
 alias .tmux='$EDITOR ~/.tmux.conf.local'
 
+# M1
+alias aa='arch -arm64 '
+alias ax='arch -x86_64 '
+
 # Git
 alias g='git'
 alias p="git add -A -N && git add -p"
