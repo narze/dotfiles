@@ -1,6 +1,16 @@
 # Dotfiles [![Build Status](https://travis-ci.com/narze/dotfiles.svg?branch=master)](https://travis-ci.com/narze/dotfiles)
 (Formerly named `laptop`) Bootstrap my macOS machines, for fun & profit.
 
+## Issues with Apple Silicon (M1)
+
+Here are the list of issues I've found on running the script on M1 Macbooks
+
+- dotbot/brew fails silently : Now they need XCode to be installed first (via App Store), rather than just XCode CLT
+- Kitty.app installing binaries from Homebrew does get you x86, now you have to [Build from source](https://sw.kovidgoyal.net/kitty/build.html)
+- Neovim cannot be installed
+- Docker for Mac : Replace with [Tech Preview version](https://docs.docker.com/docker-for-mac/apple-m1)
+- TBA.
+
 ## From Ansible to Dotbot
 I decided to migrate all Ansible playbooks to [Dotbot](https://github.com/anishathalye/dotbot) and plain shell scripts. Switch to [ansible branch](https://github.com/narze/dotfiles/tree/ansible) if you still want to use Ansible.
 
