@@ -1,4 +1,5 @@
 # Dotfiles [![Build Status](https://travis-ci.com/narze/dotfiles.svg?branch=master)](https://travis-ci.com/narze/dotfiles)
+
 (Formerly named `laptop`) Bootstrap my macOS machines, for fun & profit.
 
 ## Issues with Apple Silicon (M1)
@@ -7,11 +8,13 @@ Here are the list of issues I've found on running the script on M1 Macbooks
 
 - dotbot/brew fails silently : Now they need XCode to be installed first (via App Store), rather than just XCode CLT
 - Kitty.app installing binaries from Homebrew does get you x86, now you have to [Build from source](https://sw.kovidgoyal.net/kitty/build.html)
-- Neovim cannot be installed
 - Docker for Mac : Replace with [Tech Preview version](https://docs.docker.com/docker-for-mac/apple-m1)
-- TBA.
+- Some brew/asdf packages are broken on arm64, use x86 Homebrew (Installed separately using `arch -x86_64`)
+  - `asdf-direnv`
+  - `neovim`
 
 ## From Ansible to Dotbot
+
 I decided to migrate all Ansible playbooks to [Dotbot](https://github.com/anishathalye/dotbot) and plain shell scripts. Switch to [ansible branch](https://github.com/narze/dotfiles/tree/ansible) if you still want to use Ansible.
 
 Ansible has served me well for years, but the Playbooks grew over time into multiple long-running scripts. Moreover, I think I messed up the configuration and the dependencies between the playbooks as well. Now to add just a new symlink I have to edit multiple files and my `setup.sh` file is badly designed too.
@@ -19,15 +22,17 @@ Ansible has served me well for years, but the Playbooks grew over time into mult
 Some Ansible playbooks will still be here until I moved all scripts to `Makefile` and Dotbot config files.
 
 ## Usage
+
 ```shell
-git clone https://github.com/narze/dotfiles ~/dotfiles 
+git clone https://github.com/narze/dotfiles ~/dotfiles
 cd ~/dotfiles && make bootstrap
 
 # Optional : Change to SSH url for pushing updates
-git remote set-url origin git@github.com:narze/dotfiles.git  
+git remote set-url origin git@github.com:narze/dotfiles.git
 ```
 
 ## Features
+
 ```
 $ make
 help                           Print command list
@@ -44,6 +49,7 @@ all                            Run all tasks at once
 ```
 
 ### Installed Applications & Tools
+
 - [Homebrew](https://brew.sh)
 - [Homebrew Cask](https://github.com/Homebrew/homebrew-cask)
 - [Mas](https://github.com/mas-cli/mas)
@@ -56,9 +62,11 @@ all                            Run all tasks at once
 - etc.
 
 ### Known Issues
+
 Some packages needs reloading shell (eg. `asdf`) On a fresh macOS you may have to run setup command once, and run again in a new tab which has $PATH reloaded.
 
 ### TODOs
+
 - [ ] Modify system preferences
   - Keyboard shortcuts
   - Keyboard layouts
