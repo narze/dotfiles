@@ -80,3 +80,12 @@ n() {
 y() {
   n $@
 }
+
+function prompt_my_arch_check() {
+  local arch=`uname -m`
+  if [[ "$arch" == "arm64" ]] then
+    p10k segment -t "arm" -b 232 -f 7
+  elif [[ "$arch" == "x86_64" ]] then
+    p10k segment -t "x86" -b 232 -f 7
+  fi
+}
