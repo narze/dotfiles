@@ -8,7 +8,7 @@ alias .tmux='$EDITOR ~/.tmux.conf.local'
 # M1
 alias aa='arch -arm64 '
 alias ax='arch -x86_64 '
-alias brewx='ax /usr/local/brew'
+alias brewx='ax /usr/local/bin/brew'
 
 # Git
 alias g='git'
