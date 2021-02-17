@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# DEPRECATED since the issues is resolved
+
 # https://github.com/koekeishiya/yabai/issues/225
 
 case "${1}" in

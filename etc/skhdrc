@@ -118,9 +118,9 @@ alt - 0x2F : yabai -m window --focus stack.next
 alt - 0x2C : yabai -m window --focus stack.recent
 
 # focus monitor
-alt - u  : ~/.yabai_focus_display prev
+alt - u  : yabai -m display --focus west
 # alt + ctrl - h  : ~/.yabai_focus_display prev
-alt - y : ~/.yabai_focus_display next
+alt - y : yabai -m display --focus east
 # alt + ctrl - i  : ~/.yabai_focus_display next
 
 # move window
