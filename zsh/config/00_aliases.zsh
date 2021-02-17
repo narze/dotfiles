@@ -127,6 +127,7 @@ alias nf='neofetch'
 alias o.="open ."
 alias o="open"
 alias please='sudo bash -c "$(fc -l -1 | cut -d " " -f 4-)"'
+alias postmaster='rm ~/Library/Application\ Support/Postgres/var-12/postmaster.pid'
 alias r="bundle exec rails"
 alias rc="bundle exec rails console"
 alias rge="bundle exec rails generate"
@@ -165,6 +166,7 @@ alias kc='kubectx'
 alias kn='kubens'
 alias kg='kubectl get'
 alias kd='kubectl describe'
+alias kx='kubectl exec'
 
 # Unused aliases
 ua() {
