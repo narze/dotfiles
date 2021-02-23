@@ -137,6 +137,7 @@ alias reload='exec $SHELL -l'
 # alias serve='python -m SimpleHTTPServer 8000'
 alias t=touch-safe
 alias te=touch-editor
+alias tf=terraform
 alias tm=tmux
 alias tn='terminal-notifier'
 alias tnm='terminal-notifier -message'
