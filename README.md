@@ -8,10 +8,30 @@ Here are the list of issues I've found on running the script on M1 Macbooks
 
 - dotbot/brew fails silently : Now they need XCode to be installed first (via App Store), rather than just XCode CLT
 - Kitty.app installing binaries from Homebrew does get you x86, now you have to [Build from source](https://sw.kovidgoyal.net/kitty/build.html)
+  - If you want both versions, download the executable and rename it (`kitty_x86.app`)
 - Docker for Mac : Replace with [Tech Preview version](https://docs.docker.com/docker-for-mac/apple-m1)
 - Some brew/asdf packages are broken on arm64, use x86 Homebrew (Installed separately using `arch -x86_64`)
   - `asdf-direnv`
   - `neovim`
+- Setup both versions of Homebrew, then use shell script to point to the correct `brew`
+
+  ```shell
+  if [ "$(uname -m)" == "arm64" ]; then
+    # Use arm64 brew, with fallback to x86 brew
+    if [ -f /opt/homebrew/bin/brew ]; then
+      export PATH="/usr/local/bin${PATH+:$PATH}";
+      eval $(/opt/homebrew/bin/brew shellenv)
+    fi
+  else
+    # Use x86 brew, with fallback to arm64 brew
+    if [ -f /usr/local/bin/brew ]; then
+      export PATH="/opt/homebrew/bin${PATH+:$PATH}";
+      eval $(/usr/local/bin/brew shellenv)
+    fi
+  fi
+  ```
+
+- Rubygems : Specific bundler config is needed (See `bundle config`)
 
 ## From Ansible to Dotbot
 

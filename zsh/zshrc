@@ -14,7 +14,7 @@ export LANG=en_US.UTF-8
 export GOPATH=$HOME/go
 export AWS_PROFILE=default
 export PATH=$PATH:$GOPATH/bin
-export PATH="/usr/local/sbin:$HOME/.dotfiles/etc/bin:$PATH"
+export PATH="$HOME/.dotfiles/etc/bin:$PATH"
 export PATH="/Applications/Postgres.app/Contents/Versions/9.6/bin:$PATH"
 export PATH="$PATH:${HOME}/.krew/bin"
 
@@ -239,6 +239,17 @@ m() {
   git commit -m "$*"
 }
 
-if [ -f /opt/homebrew/bin/brew ]; then
-  eval $(/opt/homebrew/bin/brew shellenv)
+# Apple Silicon
+if [ "$(uname -m)" == "arm64" ]; then
+  # Use arm64 brew, with fallback to x86 brew
+  if [ -f /opt/homebrew/bin/brew ]; then
+    export PATH="/usr/local/bin${PATH+:$PATH}";
+    eval $(/opt/homebrew/bin/brew shellenv)
+  fi
+else
+  # Use x86 brew, with fallback to arm64 brew
+  if [ -f /usr/local/bin/brew ]; then
+    export PATH="/opt/homebrew/bin${PATH+:$PATH}";
+    eval $(/usr/local/bin/brew shellenv)
+  fi
 fi
