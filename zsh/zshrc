@@ -222,10 +222,6 @@ precmd() {
   echo -ne "\033]0; @ ${HOST%%.*} : ${PWD/#$HOME/~} \007"
 }
 
-if [ -f "$HOME/.zshrc.local" ]; then
-  source "$HOME/.zshrc.local"
-fi
-
 # source ~/.bashhub/bashhub.zsh
 if [ -f ~/.bashhub/bashhub.zsh ]; then
   zinit light-mode wait lucid for \
@@ -252,4 +248,8 @@ else
     export PATH="/opt/homebrew/bin${PATH+:$PATH}";
     eval $(/usr/local/bin/brew shellenv)
   fi
+fi
+
+if [ -f "$HOME/.zshrc.local" ]; then
+  source "$HOME/.zshrc.local"
 fi
