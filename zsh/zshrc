@@ -236,7 +236,7 @@ m() {
 }
 
 # Apple Silicon
-if [ "$(uname -m)" == "arm64" ]; then
+if [[ "$(uname -m)" == "arm64" ]]; then
   # Use arm64 brew, with fallback to x86 brew
   if [ -f /opt/homebrew/bin/brew ]; then
     export PATH="/usr/local/bin${PATH+:$PATH}";
