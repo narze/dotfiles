@@ -246,11 +246,11 @@ alt + cmd + ctrl - w : yabai -m window --resize top:0:80
 alt + cmd + ctrl - s : yabai -m window --resize right:-80:0
 
 # set insertion point for focused container
-ctrl + alt - h : yabai -m window --insert west
-ctrl + alt - m : yabai -m window --insert west
-ctrl + alt - n : yabai -m window --insert south
-ctrl + alt - e : yabai -m window --insert north
-ctrl + alt - i : yabai -m window --insert east
+# ctrl + alt - h : yabai -m window --insert west
+# ctrl + alt - m : yabai -m window --insert west
+# ctrl + alt - n : yabai -m window --insert south
+# ctrl + alt - e : yabai -m window --insert north
+# ctrl + alt - i : yabai -m window --insert east
 
 # rotate tree
 alt - r : yabai -m space --rotate 90
