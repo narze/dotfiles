@@ -2,26 +2,26 @@
     link:
       relink: true
 
-- clean: ['~']
+- clean: ["~"]
 
 - create:
-  - ~/.bundle
-  - ~/.config
-  - ~/.config/kitty
-  - ~/.config/direnv
-  - ~/.hushlogin
-  - ~/Library/Scripts
-  - ~/mnt
-  # Alfred workflows fix
-  - ~/Library/Caches/com.runningwithcrayons.Alfred-2
-  - ~/Library/Application Support/Alfred 2
+    - ~/.bundle
+    - ~/.config
+    - ~/.config/kitty
+    - ~/.config/direnv
+    - ~/.hushlogin
+    - ~/Library/Scripts
+    - ~/mnt
+    # Alfred workflows fix
+    - ~/Library/Caches/com.runningwithcrayons.Alfred-2
+    - ~/Library/Application Support/Alfred 2
 
 - link: # /dotfiles == /.dotfiles == /laptop
     ~/.dotfiles:
       force: true
-      path: ''
+      path: ""
     ~/laptop:
-      path: ''
+      path: ""
 
 - link:
     ~/.asdfrc:
@@ -56,7 +56,7 @@
     ~/.gitignore_global:
       path: ~/.dotfiles/etc/gitignore_global
     ~/.hammerspoon:
-      if: '[ `uname` = Darwin ]'
+      if: "[ `uname` = Darwin ]"
       path: ~/.dotfiles/etc/hammerspoon
       force: true
     ~/.hyper.js:
@@ -66,6 +66,8 @@
       path: ~/.dotfiles/etc/mackup
     ~/.mackup.cfg:
       path: ~/.dotfiles/etc/mackup.cfg
+    ~/.ncmpcpp/config:
+      path: ~/.dotfiles/etc/ncmpcpp/config
     ~/.p10k.zsh:
       path: ~/.dotfiles/zsh/p10k.zsh
     ~/.phoenix.js:
@@ -100,4 +102,4 @@
       force: true
 
 - shell:
-  - command: sudo ln -sf ~/.dotfiles/etc/colemak-dhm/ColemakDHm.bundle /Library/Keyboard\ Layouts/ColemakDHm.bundle
+    - command: sudo ln -sf ~/.dotfiles/etc/colemak-dhm/ColemakDHm.bundle /Library/Keyboard\ Layouts/ColemakDHm.bundle
