@@ -89,3 +89,7 @@ function prompt_my_arch_check() {
     p10k segment -t "x86" -b 232 -f 7
   fi
 }
+
+music() {
+  sh -c "nohup sh -c 'kitty --single-instance --session ~/dotfiles/etc/kitty/sessions/mpd' > /tmp/mpd_nohup.out 2>&1 &"
+}
