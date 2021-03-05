@@ -177,9 +177,10 @@ zinit cdreplay -q
 # Kitty autocompletion (Place after compinit)
 if command -v kitty &> /dev/null
 then
-  zinit light-mode wait lucid for \
-    atload'kitty + complete setup zsh | source /dev/stdin' \
-      zdharma/null
+  # Note: Use wait 1 second works for kitty completion
+  zinit light-mode wait"1" lucid for \
+      atload='source <(kitty + complete setup zsh) ; zpcdreplay' \
+        zdharma/null
 fi
 
 # Key bindings for zsh-history-substring-search
