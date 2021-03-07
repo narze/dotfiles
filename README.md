@@ -10,12 +10,17 @@ Here are the list of issues I've found on running the script on M1 Macbooks
 - Kitty.app installing binaries from Homebrew does get you x86, now you have to [Build from source](https://sw.kovidgoyal.net/kitty/build.html)
   - If you want both versions, download the executable and rename it (`kitty_x86.app`)
 - Docker for Mac : Replace with [Tech Preview version](https://docs.docker.com/docker-for-mac/apple-m1)
-- Some brew/asdf packages are broken on arm64, use x86 Homebrew (Installed separately using `arch -x86_64`)
+- Some brew/asdf packages cannot be installed on arm64
   - `asdf-direnv`
   - `neovim`
 - Setup both versions of Homebrew, then use shell script to point to the correct `brew`
 
   ```shell
+  # Install both versions
+  arch -arm64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  
+  # .zshrc
   if [ "$(uname -m)" == "arm64" ]; then
     # Use arm64 brew, with fallback to x86 brew
     if [ -f /opt/homebrew/bin/brew ]; then
