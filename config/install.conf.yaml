@@ -10,6 +10,7 @@
     - ~/.config/kitty
     - ~/.config/direnv
     - ~/.hushlogin
+    - ~/.ncmpcpp
     - ~/Library/Scripts
     - ~/mnt
     # Alfred workflows fix
