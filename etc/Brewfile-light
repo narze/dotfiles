@@ -2,7 +2,7 @@ tap "homebrew/cask-fonts"
 
 brew "ghq"
 brew "git-delta"
-brew "github/gh/gh"
+brew "gh"
 brew "yqrashawn/goku/goku"
 brew "zoxide"
 
