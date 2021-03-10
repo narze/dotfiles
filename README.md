@@ -2,9 +2,19 @@
 
 (Formerly named `laptop`) Bootstrap my macOS machines, for fun & profit.
 
-## Issues with Apple Silicon (M1)
+## Usage
 
-Here are the list of issues I've found on running the script on M1 Macbooks
+```shell
+git clone https://github.com/narze/dotfiles ~/dotfiles
+cd ~/dotfiles && make bootstrap
+
+# Optional : Change to SSH url for pushing updates
+git remote set-url origin git@github.com:narze/dotfiles.git
+```
+
+## Apple Silicon
+
+Here are the list of issues I've found on running the script on M1 Macbooks (Tested on both Macbook Air & Macbook Pro)
 
 - ~~dotbot/brew fails silently : Now they need XCode to be installed first (via App Store), rather than just XCode CLT~~ Seems to be fixed now
 - Kitty.app installing binaries from Homebrew does get you x86, now you have to [Build from source](https://sw.kovidgoyal.net/kitty/build.html)
@@ -19,9 +29,7 @@ Here are the list of issues I've found on running the script on M1 Macbooks
     ```
   - If you want both versions, download the executable and rename it (`kitty_x86.app`)
 - Docker for Mac : Replace with [Tech Preview version](https://docs.docker.com/docker-for-mac/apple-m1)
-- Some brew/asdf packages cannot be installed on arm64
-  - `asdf-direnv`
-  - `neovim`
+- ~~Some brew/asdf packages cannot be installed on arm64~~ See "Apple Silicon specific commands"
 - Setup both versions of Homebrew, then use shell script to point to the correct `brew`
 
   ```shell
@@ -47,33 +55,15 @@ Here are the list of issues I've found on running the script on M1 Macbooks
 
 - Rubygems : Specific bundler config is needed (See `bundle config`)
 
-## Apple Silicon specific commands
+### Apple Silicon specific commands
 
 - `make brew-x86` : Install packages which cannot be instaled with `arm64` arch right now (eg. `kubectl`, `kubectx`)
 
-## Manual tasks
-
-Some cannot be automated right now
+## Manual tasks (One-time per machine)
 
 - Preferences -> Change input source switch to CMD+Space, and Spotlight search to Option+Space
-
-## From Ansible to Dotbot
-
-I decided to migrate all Ansible playbooks to [Dotbot](https://github.com/anishathalye/dotbot) and plain shell scripts. Switch to [ansible branch](https://github.com/narze/dotfiles/tree/ansible) if you still want to use Ansible.
-
-Ansible has served me well for years, but the Playbooks grew over time into multiple long-running scripts. Moreover, I think I messed up the configuration and the dependencies between the playbooks as well. Now to add just a new symlink I have to edit multiple files and my `setup.sh` file is badly designed too.
-
-Some Ansible playbooks will still be here until I moved all scripts to `Makefile` and Dotbot config files.
-
-## Usage
-
-```shell
-git clone https://github.com/narze/dotfiles ~/dotfiles
-cd ~/dotfiles && make bootstrap
-
-# Optional : Change to SSH url for pushing updates
-git remote set-url origin git@github.com:narze/dotfiles.git
-```
+- `asdf` needs shell reloading once after installation. Run setup command `make asdf` once, open a new terminal, then run `make asdf` again.
+- `mackup restore` : Run once after Syncthing is installed and `~/Sync/Mackup` is synced.
 
 ## Features
 
@@ -85,10 +75,13 @@ dotfiles                       Update dotfiles
 macos                          Run macos script
 code                           Clone Repositories with ghq
 brew                           Install brew & cask packages
+brew-light                     Install light version of brewfile (Minimal)
+brew-x86                       Install x86-compatible Homebrew packages (Expected to Apple Silicon Macs)
 tools                          Install non-brew tools eg. tmux package manager
 asdf                           Install asdf-vm
 sync                           Sync local configuration from Google Drive, Dropbox, etc.
 update                         Update everything
+vim                            Setup vim
 all                            Run all tasks at once
 ```
 
@@ -104,19 +97,3 @@ all                            Run all tasks at once
 - Actual [dotfiles](./etc)
 - ~/Code for workspace with [public repos](./config/code.conf.yml)
 - etc.
-
-### Known Issues
-
-Some packages needs reloading shell (eg. `asdf`) On a fresh macOS you may have to run setup command once, and run again in a new tab which has $PATH reloaded.
-
-### TODOs
-
-- [ ] Modify system preferences
-  - Keyboard shortcuts
-  - Keyboard layouts
-- [x] Migrate Ansible Playbooks to Dotbot config
-- [ ] Add folders to Favorites in Finder
-- [x] Redesign setup script
-  - Separate bootstrap script (first run on vanilla) from update script
-  - Print readme when bootstrap script is done, eg. login & sync Dropbox & Google Drive & 1Password & Restore mackup
-  - Remember & retry on failed step
