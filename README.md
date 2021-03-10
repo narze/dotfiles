@@ -1,6 +1,8 @@
-# Dotfiles [![Build Status](https://travis-ci.com/narze/dotfiles.svg?branch=master)](https://travis-ci.com/narze/dotfiles)
+# Dotfiles
 
-(Formerly named `laptop`) Bootstrap my macOS machines, for fun & profit.
+Bootstrap my macOS machines, for fun & profit.
+
+[Dotfiles are meant to be forked,](https://zachholman.com/2010/08/dotfiles-are-meant-to-be-forked) but mine isn't. This script installs many things you won't use.
 
 ## Usage
 
@@ -61,9 +63,10 @@ Here are the list of issues I've found on running the script on M1 Macbooks (Tes
 
 ## Manual tasks (One-time per machine)
 
+- Login to App Store before running `make brew` (It runs `mas` which needs App Store permission.)
 - Preferences -> Change input source switch to CMD+Space, and Spotlight search to Option+Space
 - `asdf` needs shell reloading once after installation. Run setup command `make asdf` once, open a new terminal, then run `make asdf` again.
-- `mackup restore` : Run once after Syncthing is installed and `~/Sync/Mackup` is synced.
+- Run `mackup restore` once after Syncthing is installed and `~/Sync/Mackup` is synced.
 
 ## Features
 
