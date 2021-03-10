@@ -6,8 +6,17 @@
 
 Here are the list of issues I've found on running the script on M1 Macbooks
 
-- dotbot/brew fails silently : Now they need XCode to be installed first (via App Store), rather than just XCode CLT
+- ~~dotbot/brew fails silently : Now they need XCode to be installed first (via App Store), rather than just XCode CLT~~ Seems to be fixed now
 - Kitty.app installing binaries from Homebrew does get you x86, now you have to [Build from source](https://sw.kovidgoyal.net/kitty/build.html)
+  - ```shell
+    ghq get -l kovidgoyal/kitty
+    /opt/homebrew/bin/python3 setup.py kitty.app # Needs python3 from brew
+    cp -r kitty.app /Applications/kitty.app
+
+    # Replace CLI
+    rm /opt/homebrew/bin/kitty
+    ln -s $PWD/kitty/launcher/kitty /opt/homebrew/bin/kitty
+    ```
   - If you want both versions, download the executable and rename it (`kitty_x86.app`)
 - Docker for Mac : Replace with [Tech Preview version](https://docs.docker.com/docker-for-mac/apple-m1)
 - Some brew/asdf packages cannot be installed on arm64

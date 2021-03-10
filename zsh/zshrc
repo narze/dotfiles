@@ -175,13 +175,14 @@ fi
 zinit cdreplay -q
 
 # Kitty autocompletion (Place after compinit)
-if command -v kitty &> /dev/null
-then
-  # Note: Use wait 1 second works for kitty completion
-  zinit light-mode wait"1" lucid for \
-      atload='source <(kitty + complete setup zsh) ; zpcdreplay' \
-        zdharma/null
-fi
+# Commented out since `kitty + complete zsh` hangs on Apple Silicon build
+# if command -v kitty &> /dev/null
+# then
+#   # Note: Use wait 1 second works for kitty completion
+#   zinit light-mode wait"1" lucid for \
+#       atload='source <(kitty + complete setup zsh) ; zpcdreplay' \
+#         zdharma/null
+# fi
 
 # Key bindings for zsh-history-substring-search
 _history_substring_search_bind_keys() {
