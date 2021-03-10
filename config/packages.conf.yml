@@ -3,10 +3,13 @@
   - ~/.Brewfile
 
 - shell:
-  - command: brew cask info setapp whatpulse
+  - command: brew info setapp whatpulse
     quiet: true
     stdout: true
     description: |
       For Whatpulse & SetApp, please continue to install it manually
-      - brew cask info setapp
-      - brew cask info whatpulse
+      - brew info setapp
+      - brew info whatpulse
+
+  - command: echo "Please run `make brew-x86` in Rosetta 2 terminal to install remaining x86 specific packages"
+    if: '[ "$(uname -v)" =~ "RELEASE_ARM64" ]'

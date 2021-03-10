@@ -1,7 +1,7 @@
 .PHONY: help
 
 help: ## Print command list
-	@perl -nle'print $& if m{^[a-zA-Z_-]+:.*?## .*$$}' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+	@perl -nle'print $& if m{^[a-zA-Z0-9_-]+:.*?## .*$$}' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 _prepare:
 	@git submodule update --init --recursive
@@ -25,6 +25,9 @@ brew: ## Install brew & cask packages
 
 brew-light: ## Install light version of brewfile (Minimal)
 	@./install -c config/packages-light.yml
+
+brew-x86: ## Install x86-compatible Homebrew packages (Expected to Apple Silicon Macs)
+	@./install -c config/packages-x86.yml
 
 tools: ## Install non-brew tools eg. tmux package manager
 	@./install -c config/tmux.conf.yml

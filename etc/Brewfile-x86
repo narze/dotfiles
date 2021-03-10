@@ -1,0 +1,11 @@
+is_silicon_mac = `uname -v`.include? "RELEASE_ARM64"
+is_arm64 = `arch`.include? "arm64"
+
+if is_silicon_mac
+  if is_arm64
+    raise "Please run within Rosetta 2 terminals!"
+  else
+    brew "kubectl"
+    brew "kubectx"
+  end
+end

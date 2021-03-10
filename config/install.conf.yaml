@@ -33,6 +33,8 @@
       path: ~/.dotfiles/etc/Brewfile-essentials
     ~/.Brewfile-light:
       path: ~/.dotfiles/etc/Brewfile-light
+    ~/.Brewfile-x86:
+      path: ~/.dotfiles/etc/Brewfile-x86
     ~/.bundle/config:
       path: ~/.dotfiles/etc/bundle_config
     ~/.config/direnv/direnvrc:
