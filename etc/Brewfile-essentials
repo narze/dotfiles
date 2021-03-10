@@ -1,3 +1,9 @@
+if `uname -v`.include? "RELEASE_ARM64"
+  unless `arch`.include? "arm64"
+    raise "Please run brew bundle within arm64 arch!"
+  end
+end
+
 tap "homebrew/cask"
 tap "homebrew/cask-fonts"
 tap "koekeishiya/formulae"
