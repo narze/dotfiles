@@ -38,6 +38,10 @@ Here are the list of issues I've found on running the script on M1 Macbooks
 
 - Rubygems : Specific bundler config is needed (See `bundle config`)
 
+## Apple Silicon specific commands
+
+- `make brew-x86` : Install packages which cannot be instaled with `arm64` arch right now (eg. `kubectl`, `kubectx`)
+
 ## From Ansible to Dotbot
 
 I decided to migrate all Ansible playbooks to [Dotbot](https://github.com/anishathalye/dotbot) and plain shell scripts. Switch to [ansible branch](https://github.com/narze/dotfiles/tree/ansible) if you still want to use Ansible.
