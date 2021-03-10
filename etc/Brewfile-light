@@ -14,7 +14,7 @@ brew "zoxide"
 
 cask "1password"
 cask "alfred"
-cask "dash"
+# cask "dash"
 cask "font-fantasque-sans-mono-nerd-font"
 cask "kitty"
 cask "karabiner-elements"

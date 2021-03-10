@@ -44,7 +44,7 @@ cask "alfred"
 # cask "arq" # Wait for v5 compatability
 cask "beardedspice"
 cask "bitbar"
-cask "dash"
+# cask "dash"
 cask "docker"
 cask "dropbox"
 cask "firefox"
