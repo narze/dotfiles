@@ -35,6 +35,7 @@ alias gc='git commit'
 alias gca='git commit --amend'
 alias gco='git checkout'
 alias gcb='git rev-parse --abbrev-ref HEAD | tr -d "\n" | pbcopy'
+alias gcos='git checkout staging'
 alias gb='git branch'
 alias ga="git add"
 alias ga.="git add ."
