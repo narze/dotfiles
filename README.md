@@ -20,6 +20,7 @@ Here are the list of issues I've found on running the script on M1 Macbooks (Tes
 
 - ~~dotbot/brew fails silently : Now they need XCode to be installed first (via App Store), rather than just XCode CLT~~ Seems to be fixed now
 - Kitty.app installing binaries from Homebrew does get you x86, now you have to [Build from source](https://sw.kovidgoyal.net/kitty/build.html)
+
   - ```shell
     ghq get -l kovidgoyal/kitty
     /opt/homebrew/bin/python3 setup.py kitty.app # Needs python3 from brew
@@ -29,7 +30,9 @@ Here are the list of issues I've found on running the script on M1 Macbooks (Tes
     rm /opt/homebrew/bin/kitty
     ln -s $PWD/kitty/launcher/kitty /opt/homebrew/bin/kitty
     ```
+
   - If you want both versions, download the executable and rename it (`kitty_x86.app`)
+
 - Docker for Mac : Replace with [Tech Preview version](https://docs.docker.com/docker-for-mac/apple-m1)
 - ~~Some brew/asdf packages cannot be installed on arm64~~ See "Apple Silicon specific commands"
 - Setup both versions of Homebrew, then use shell script to point to the correct `brew`
@@ -38,7 +41,7 @@ Here are the list of issues I've found on running the script on M1 Macbooks (Tes
   # Install both versions
   arch -arm64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  
+
   # .zshrc
   if [ "$(uname -m)" == "arm64" ]; then
     # Use arm64 brew, with fallback to x86 brew
@@ -67,10 +70,14 @@ Here are the list of issues I've found on running the script on M1 Macbooks (Tes
 - Preferences -> Change input source switch to CMD+Space, and Spotlight search to Option+Space
 - `asdf` needs shell reloading once after installation. Run setup command `make asdf` once, open a new terminal, then run `make asdf` again.
 - Run `mackup restore` once after Syncthing is installed and `~/Sync/Mackup` is synced.
+- Connect to Zerotier private network to mount NAS
+- Setup Arq for backup
+- Disable Boom 3D Keyboard Shortcuts
+- Disable Timing Shortcut
 
 ## Features
 
-```
+```shell
 $ make
 help                           Print command list
 bootstrap                      Bootstrap new machine
