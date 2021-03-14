@@ -45,7 +45,7 @@ brew "hugo"
 brew "httpie"
 brew "imagemagick", link: false
 brew "imagemagick@6", link: true
-brew "kubectl" unless is_arm64 
+brew "kubectl" unless is_arm64
 brew "kubectx" unless is_arm64
 brew "lazygit"
 brew "memcached"
@@ -94,6 +94,7 @@ cask "shortcat"
 cask "steam"
 cask "synergy"
 cask "teamviewer"
+cask "tweetbot"
 cask "virtualbox"
 cask "xld"
 cask "xquartz"
@@ -123,4 +124,3 @@ mas "Pocket", id: 568494494
 mas "SnippetsLab", id: 1006087419
 mas "Spark", id: 1176895641
 mas "Trello", id: 1278508951
-mas "Tweetbot", id: 557168941
