@@ -59,6 +59,9 @@ Here are the list of issues I've found on running the script on M1 Macbooks (Tes
   ```
 
 - Rubygems : Specific bundler config is needed (See `bundle config`)
+- Yabai : Cannot use space switch commands (eg. `yabai -m space --focus 1`) even if SIP is disabled
+  - Workaround : Setup native shortcut keys manually and use non-consuming shortcut settings (`->`) in `skhd`
+    ![image](https://user-images.githubusercontent.com/248741/111079897-a77e6380-852e-11eb-92d5-42f743dc3060.png)
 
 ### Apple Silicon specific commands
 
