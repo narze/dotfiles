@@ -155,6 +155,7 @@ alias yd='yarn dev'
 alias yr='yarn run'
 alias yt='yarn test'
 alias ytw='yarn test --watch'
+alias zd='cd $(zq -i)'
 alias zt="zerotier-cli"
 alias zs='zsh_stats'
 
