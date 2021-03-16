@@ -16,6 +16,9 @@
     # Alfred workflows fix
     - ~/Library/Caches/com.runningwithcrayons.Alfred-2
     - ~/Library/Application Support/Alfred 2
+    - ~/Code
+    - ~/Code/github.com/eventpop
+    - ~/Code/github.com/narze
 
 - link: # /dotfiles == /.dotfiles == /laptop
     ~/.dotfiles:
@@ -103,6 +106,10 @@
       path: ~/.dotfiles/etc/applescripts/*
       relink: true
       force: true
+    ~/Code/eventpop:
+      path: ~/Code/github.com/eventpop
+    ~/Code/narze:
+      path: ~/Code/github.com/narze
 
 - shell:
     - command: sudo ln -sf ~/.dotfiles/etc/colemak-dhm/ColemakDHm.bundle /Library/Keyboard\ Layouts/ColemakDHm.bundle
