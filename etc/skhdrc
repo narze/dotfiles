@@ -287,6 +287,9 @@ alt - t : yabai -m window --toggle float;\
 # toggle sticky
 alt - s : yabai -m window --toggle sticky
 
+# toggle topmost
+alt - j : yabai -m window --toggle topmost
+
 # toggle border
 alt - b : yabai -m window --toggle border
 
