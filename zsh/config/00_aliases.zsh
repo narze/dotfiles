@@ -146,6 +146,7 @@ alias uuid='uuidgen | tr "[:upper:]" "[:lower:]"'
 alias v="nvim"
 alias vim="nvim"
 alias va="vagrant"
+alias vl="vault"
 alias wa="watch "
 alias watch="watch "
 alias wh="which "
