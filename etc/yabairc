@@ -87,6 +87,7 @@ yabai -m rule --add label="Notion" app="Notion" manage=off
 yabai -m rule --add label="NotionQuickAdd" app="NotionQuickAdd" manage=off
 yabai -m rule --add label="Preview" app="Preview" manage=off
 # yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
+yabai -m rule --add label="Session" app="^Session$" manage=off border=off
 yabai -m rule --add label="Stickies" app="Stickies" manage=off border=off
 yabai -m rule --add label="System Preferences" app="^System Preferences$" manage=off
 # yabai -m rule --add label="The Unarchiver" app="^The Unarchiver$" manage=off
