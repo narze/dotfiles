@@ -139,6 +139,7 @@ alias reload='exec $SHELL -l'
 # alias serve='python -m SimpleHTTPServer 8000'
 alias t=touch-safe
 alias te=touch-editor
+alias tg=terragrunt
 alias tf=terraform
 alias tm=tmux
 alias tn='terminal-notifier'
@@ -170,6 +171,7 @@ alias k='kubectl'
 alias kc='kubectx'
 alias kn='kubens'
 alias kg='kubectl get'
+alias kgn='kubectl get node'
 alias kd='kubectl describe'
 alias kx='kubectl exec'
 
