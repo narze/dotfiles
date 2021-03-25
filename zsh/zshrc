@@ -40,6 +40,7 @@ zinit light-mode lucid wait for \
   MichaelAquilina/zsh-you-should-use \
   romkatv/zsh-prompt-benchmark \
   zdharma/history-search-multi-word \
+  mollifier/cd-gitroot \
   atload"alias zi='zinit'" \
     ajeetdsouza/zoxide
 
