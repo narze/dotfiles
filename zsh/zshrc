@@ -184,6 +184,10 @@ zinit cdreplay -q
 #         zdharma/null
 # fi
 
+zinit light-mode wait"0" lucid for \
+  atload='source <(flux completion zsh) && compdef _flux flux' \
+    zdharma/null
+
 # Key bindings for zsh-history-substring-search
 _history_substring_search_bind_keys() {
   bindkey '^[[A' history-substring-search-up
