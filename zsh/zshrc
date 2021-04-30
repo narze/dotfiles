@@ -16,6 +16,7 @@ export PATH=$PATH:$GOPATH/bin
 export PATH="$HOME/.dotfiles/etc/bin:$PATH"
 export PATH="/Applications/Postgres.app/Contents/Versions/9.6/bin:$PATH"
 export PATH="$PATH:${HOME}/.krew/bin"
+export PATH="$PATH:${HOME}/.local/bin"
 
 # force zsh-you-should-use
 # export YSU_HARDCORE=1
