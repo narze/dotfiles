@@ -112,4 +112,4 @@
       path: ~/Code/github.com/narze
 
 - shell:
-    - command: sudo ln -sf ~/.dotfiles/etc/colemak-dhm/ColemakDHm.bundle /Library/Keyboard\ Layouts/ColemakDHm.bundle
+    - command: cp -r ~/.dotfiles/etc/colemak-dhm/ColemakDHm.bundle ~/Library/Keyboard\ Layouts
