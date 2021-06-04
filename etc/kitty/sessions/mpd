@@ -5,4 +5,4 @@ new_tab mount
 launch sh -c "mkdir -p $NAS_PATH && /sbin/mount -t smbfs -o noatime,automounted smb://$NAS_USER:$NAS_PASS@$NAS_HOST/home $NAS_PATH; echo "Press any key to exit..."; read"
 
 new_tab mpd
-launch sh -c "sleep 1 ; wait_for_nas ; kill -9 $(lsof -ti tcp:6600) ; mpd ~/.local/mpd/mpd.conf --no-daemon"
+launch sh -c "sleep 5 ; wait_for_nas ; kill -9 $(lsof -ti tcp:6600) ; mpd ~/.local/mpd/mpd.conf --no-daemon"
