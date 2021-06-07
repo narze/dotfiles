@@ -83,6 +83,7 @@ yabai -m rule --add label="Dash" app="Dash" manage=off
 # yabai -m rule --add label="Finder Main" app="^Finder$" manage=off
 yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off
 # yabai -m rule --add label="Firefox" app="Firefox" manage=off
+yabai -m rule --add label="Gather" app="^Gather$" manage=off
 yabai -m rule --add label="Notion" app="Notion" manage=off
 yabai -m rule --add label="NotionQuickAdd" app="NotionQuickAdd" manage=off
 yabai -m rule --add label="Preview" app="Preview" manage=off
