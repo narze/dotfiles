@@ -60,9 +60,9 @@ zinit light-mode lucid wait for \
   MichaelAquilina/zsh-you-should-use \
   romkatv/zsh-prompt-benchmark \
   zdharma/history-search-multi-word \
-  mollifier/cd-gitroot \
-  atload"alias zi='zinit'" \
-    ajeetdsouza/zoxide
+  mollifier/cd-gitroot
+  # atload"alias zi='zinit'" \
+  #   ajeetdsouza/zoxide
 
 zinit ice wait"1" atload'_history_substring_search_bind_keys' lucid
 zinit light zsh-users/zsh-history-substring-search
@@ -286,3 +286,6 @@ fi
 if [ -e ~/.nix-profile/etc/profile.d/nix.sh ]; then
   . ~/.nix-profile/etc/profile.d/nix.sh;
 fi
+
+# Zoxide : prompt hook mode
+eval "$(zoxide init zsh --hook prompt)"
