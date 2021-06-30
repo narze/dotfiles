@@ -13,3 +13,6 @@ local config = {
 }
 
 stackline:init(config)
+
+hs.loadSpoon("FocusHighlight")
+spoon.FocusHighlight:start()
