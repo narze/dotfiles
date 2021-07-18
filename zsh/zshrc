@@ -266,12 +266,16 @@ m() {
 
 # Apple Silicon
 if [[ "$(uname -m)" == "arm64" ]]; then
+  export SHELL="/opt/homebrew/bin/zsh"
+
   # Use arm64 brew, with fallback to x86 brew
   if [ -f /opt/homebrew/bin/brew ]; then
     export PATH="/usr/local/bin${PATH+:$PATH}";
     eval $(/opt/homebrew/bin/brew shellenv)
   fi
 else
+  export SHELL="/usr/local/bin/zsh"
+
   # Use x86 brew, with fallback to arm64 brew
   if [ -f /usr/local/bin/brew ]; then
     export PATH="/opt/homebrew/bin${PATH+:$PATH}";
