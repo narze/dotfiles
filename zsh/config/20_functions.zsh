@@ -90,7 +90,8 @@ function prompt_my_arch_check() {
   fi
 }
 
-music() {
+# Disable for now
+_music() {
   sh -c "nohup sh -c 'kitty --single-instance --session ~/dotfiles/etc/kitty/sessions/mpd' > /tmp/mpd_nohup.out 2>&1 &"
 }
 
