@@ -32,12 +32,7 @@ yabai -m config mouse_drop_action            stack
 yabai -m config external_bar                 all:20:0
 
 # borders
-if [ `arch` = "arm64" ]; then
-  yabai -m config window_border                off
-else
-  yabai -m config window_border                on
-fi
-
+yabai -m config window_border                off
 yabai -m config window_border_width          8
 yabai -m config active_window_border_color   0xF006B6D4
 yabai -m config normal_window_border_color   0x8006B6D4
