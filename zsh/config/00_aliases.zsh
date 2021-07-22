@@ -111,6 +111,7 @@ f() {
 # This command is slow! (100ms)
 # alias finder="cd \"$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')\""
 alias bss='bin/spring stop'
+alias da='direnv allow'
 alias ex='exercism'
 alias fixappleeventsbug='sudo killall -KILL appleeventsd'
 alias gowd='cd "`pbpaste`"'
