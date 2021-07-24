@@ -21,3 +21,6 @@
 [submodule "stackline"]
 	path = etc/hammerspoon/stackline
 	url = https://github.com/AdamWagner/stackline.git
+[submodule "focus-highlight"]
+	path = etc/hammerspoon/Spoons/FocusHighlight.spoon
+	url = https://github.com/dtinth/FocusHighlight.spoon.git
