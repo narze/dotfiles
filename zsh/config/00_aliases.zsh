@@ -176,6 +176,7 @@ alias kn='kubens'
 alias kg='kubectl get'
 alias kgj='kubectl get job'
 alias kgn='kubectl get node'
+alias kgz='kubectl get secret'
 alias kd='kubectl describe'
 alias kx='kubectl exec'
 
