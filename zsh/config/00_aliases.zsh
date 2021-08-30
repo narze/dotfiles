@@ -84,6 +84,7 @@ alias ctw="cargo watch -x test"
 
 # Misc
 alias -- -='cd -'
+alias a="asdf"
 alias arst="asdf"
 alias b="bundle"
 alias be="bundle exec"
