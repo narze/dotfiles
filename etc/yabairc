@@ -14,7 +14,7 @@ yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 
 # global settings
 yabai -m config mouse_follows_focus          on
-yabai -m config focus_follows_mouse          autofocus # autofocus|autoraise|off
+yabai -m config focus_follows_mouse          off # autofocus|autoraise|off
 yabai -m config window_placement             first_child
 yabai -m config window_topmost               off
 yabai -m config window_opacity               off # turning it on reduces overall performance!
