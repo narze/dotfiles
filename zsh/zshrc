@@ -264,24 +264,38 @@ m() {
   git commit -m "$*"
 }
 
-# Apple Silicon
+# Supports Apple Silicon Macs with multiple users
+# User install brew bin (if exists) -> Brew bin (same arch) -> Brew bin (another arch)
+# Since running shellenv adds the PATH to the front, the order of running will be reversed
 if [[ "$(uname -m)" == "arm64" ]]; then
-  export SHELL="/opt/homebrew/bin/zsh"
+  # 3. x86 brew bin
+  if [ -f /usr/local/bin/brew ]; then
+    eval $(/usr/local/bin/brew shellenv)
+  fi
 
-  # Use arm64 brew, with fallback to x86 brew
+  # 2. arm64 brew
   if [ -f /opt/homebrew/bin/brew ]; then
-    export PATH="/usr/local/bin${PATH+:$PATH}";
     eval $(/opt/homebrew/bin/brew shellenv)
   fi
 else
-  export SHELL="/usr/local/bin/zsh"
+  # 3. arm64 brew
+  if [ -f /opt/homebrew/bin/brew ]; then
+    eval $(/opt/homebrew/bin/brew shellenv)
+  fi
 
-  # Use x86 brew, with fallback to arm64 brew
+  # 2. x86 brew bin
   if [ -f /usr/local/bin/brew ]; then
-    export PATH="/opt/homebrew/bin${PATH+:$PATH}";
     eval $(/usr/local/bin/brew shellenv)
   fi
 fi
+
+# 1. user brew
+if [ -f ~/homebrew/bin/brew ]; then
+  eval $(~/homebrew/bin/brew shellenv)
+fi
+
+# Cleanup duplicated PATHs (mostly from shellenv evals above)
+PATH="$(perl -e 'print join(":", grep { not $seen{$_}++ } split(/:/, $ENV{PATH}))')"
 
 if [ -f "$HOME/.zshrc.local" ]; then
   source "$HOME/.zshrc.local"
