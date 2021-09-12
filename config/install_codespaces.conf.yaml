@@ -142,6 +142,7 @@
     ~/Code/narze:
       path: ~/Code/github.com/narze
 
+# TODO: Install with binaries or don't use them
 - shell:
   - description: Install Rust crates
     command: |
