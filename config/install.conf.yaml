@@ -102,11 +102,11 @@
       path: ~/.dotfiles/zsh/zshrc
     ~/.omz_rc:
       path: ~/.dotfiles/zsh/omz
-    ~/Library/Scripts/:
-      glob: true
-      path: ~/.dotfiles/etc/applescripts/*
-      relink: true
-      force: true
+    # ~/Library/Scripts/:
+    #   glob: true
+    #   path: ~/.dotfiles/etc/applescripts/*
+    #   relink: true
+    #   force: true
     ~/Code/eventpop:
       path: ~/Code/github.com/eventpop
     ~/Code/narze:
