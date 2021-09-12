@@ -1,6 +1,6 @@
 # Dotfiles
 
-Bootstrap my macOS machines, for fun & profit.
+Bootstrap my macOS machines, for fun & profit. Now supports [Github Codespaces!](https://github.com/features/codespaces)
 
 [Dotfiles are meant to be forked,](https://zachholman.com/2010/08/dotfiles-are-meant-to-be-forked) but mine isn't. This script installs many things you won't use.
 
