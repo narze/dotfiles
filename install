@@ -2,7 +2,11 @@
 
 set -e
 
-CONFIG="config/install.conf.yaml"
+if [[ -z "${GITHUB_CODESPACE_TOKEN}" ]]; then
+  CONFIG="config/install.conf.yaml"
+else
+  CONFIG="config/install_codespaces.conf.yaml"
+fi
 DOTBOT_DIR="dotbot"
 
 DOTBOT_BIN="bin/dotbot"

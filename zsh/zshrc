@@ -7,6 +7,10 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+if [[ -n "${GITHUB_CODESPACE_TOKEN}" ]]; then
+  typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+fi
+
 export EDITOR=nvim
 export TERM=xterm-256color
 export LC_ALL=en_US.UTF-8
@@ -187,7 +191,9 @@ zstyle ':completion:*' menu select
 # Compinit : After zinits, before cdreplay
 # https://carlosbecker.com/posts/speeding-up-zsh/
 autoload -Uz compinit
-if [ $(date +'%j') != $(stat -f '%Sm' -t '%j' ~/.zcompdump) ]; then
+if [[ -n "${GITHUB_CODESPACE_TOKEN}" ]]; then
+  compinit;
+elif [[ $(date +'%j') != $(stat -f '%Sm' -t '%j' ~/.zcompdump) ]]; then
   compinit;
 else
   compinit -C;
@@ -307,4 +313,6 @@ if [ -e ~/.nix-profile/etc/profile.d/nix.sh ]; then
 fi
 
 # Zoxide : prompt hook mode
-eval "$(zoxide init zsh --hook prompt)"
+if command -v zoxide &> /dev/null; then
+  eval "$(zoxide init zsh --hook prompt)"
+fi

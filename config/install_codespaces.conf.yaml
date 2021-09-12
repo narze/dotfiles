@@ -1,0 +1,150 @@
+- defaults:
+    link:
+      relink: true
+
+- clean: ["~"]
+
+# - brew:
+#   - git
+#   - mackup
+#   - mas
+#   - reattach-to-user-namespace
+#   - zsh
+
+# Setup zinit
+- create:
+  - ~/.zinit
+
+- shell:
+  - description: Clone zinit
+    quiet: true
+    command: |
+      if cd ~/.zinit/bin;
+      then git pull;
+      else git clone https://github.com/zdharma/zinit.git ~/.zinit/bin; fi
+
+# Change default shell to zsh
+- shell:
+  - description: Change default shell to zsh
+    quiet: true
+    command: |
+      update_shell() {
+        local shell_path;
+        shell_path="$(command -v zsh)"
+
+        fancy_echo "Changing your shell to zsh ..."
+        if ! grep "$shell_path" /etc/shells > /dev/null 2>&1 ; then
+          fancy_echo "Adding '$shell_path' to /etc/shells"
+          sudo sh -c "echo $shell_path >> /etc/shells"
+        fi
+        sudo chsh -s "$shell_path" "$USER"
+      }
+
+      update_shell
+
+- create:
+    - ~/.bundle
+    - ~/.config
+    - ~/.config/direnv
+    - ~/Code
+    - ~/Code/github.com/narze
+
+- link: # /dotfiles == /.dotfiles == /laptop
+    ~/.dotfiles:
+      force: true
+      path: ""
+    ~/laptop:
+      path: ""
+
+- link:
+    ~/.asdfrc:
+      path: ~/.dotfiles/etc/asdfrc
+    # ~/.Brewfile:
+    #   path: ~/.dotfiles/etc/Brewfile
+    # ~/.Brewfile-essentials:
+    #   path: ~/.dotfiles/etc/Brewfile-essentials
+    # ~/.Brewfile-light:
+    #   path: ~/.dotfiles/etc/Brewfile-light
+    # ~/.Brewfile-x86:
+    #   path: ~/.dotfiles/etc/Brewfile-x86
+    # ~/.bundle/config:
+    #   path: ~/.dotfiles/etc/bundle_config
+    ~/.config/direnv/direnvrc:
+      path: ~/.dotfiles/etc/direnvrc
+      force: true
+    # ~/.config/karabiner.edn:
+    #   path: ~/.dotfiles/etc/karabiner.edn
+    # ~/.config/kitty/kitty.conf:
+    #   path: ~/.dotfiles/etc/kitty.conf
+    # ~/.config/kitty/theme.conf:
+    #   path: ~/.dotfiles/etc/Molokai.conf
+    ~/.default-gems:
+      path: ~/.dotfiles/etc/default-gems
+    # ~/.duti:
+    #   path: ~/.dotfiles/etc/duti
+    ~/.editorconfig:
+      path: ~/.dotfiles/etc/editorconfig
+    # ~/.gemrc:
+    #   path: ~/.dotfiles/etc/gemrc
+    ~/.gitconfig:
+      path: ~/.dotfiles/etc/gitconfig
+    ~/.gitignore_global:
+      path: ~/.dotfiles/etc/gitignore_global
+    # ~/.hammerspoon:
+    #   if: "[ `uname` = Darwin ]"
+    #   path: ~/.dotfiles/etc/hammerspoon
+    #   force: true
+    # ~/.hyper.js:
+    #   path: ~/.dotfiles/etc/hyper.js
+    #   force: true
+    # ~/.mackup:
+    #   path: ~/.dotfiles/etc/mackup
+    # ~/.mackup.cfg:
+    #   path: ~/.dotfiles/etc/mackup.cfg
+    # ~/.ncmpcpp/config:
+    #   path: ~/.dotfiles/etc/ncmpcpp/config
+    ~/.p10k.zsh:
+      path: ~/.dotfiles/zsh/p10k.zsh
+    # ~/.phoenix.js:
+    #   path: ~/.dotfiles/etc/phoenix.js
+    #   force: true
+    # ~/.pryrc:
+    #   path: ~/.dotfiles/etc/pryrc
+    # ~/.skhdrc:
+    #   path: ~/.dotfiles/etc/skhdrc
+
+    # TODO: Fix tmux
+    # ~/.tmux.conf:
+    #   path: ~/.dotfiles/etc/tmux/.tmux.conf
+    # ~/.tmux.conf.local:
+    #   path: ~/.dotfiles/etc/tmux/.tmux.conf.local
+
+    # ~/.yabai_axunknown_float:
+    #   path: ~/.dotfiles/etc/yabai_axunknown_float
+    # ~/.yabai_focus_display:
+    #   path: ~/.dotfiles/etc/yabai_focus_display
+    # ~/.yabai_rules:
+    #   path: ~/.dotfiles/etc/yabai_rules
+    # ~/.yabairc:
+    #   path: ~/.dotfiles/etc/yabairc
+    ~/.zshrc:
+      path: ~/.dotfiles/zsh/zshrc
+      force: true
+    ~/.zinit_rc:
+      path: ~/.dotfiles/zsh/zshrc
+    ~/.omz_rc:
+      path: ~/.dotfiles/zsh/omz
+    # ~/Library/Scripts/:
+    #   glob: true
+    #   path: ~/.dotfiles/etc/applescripts/*
+    #   relink: true
+    #   force: true
+    ~/Code/narze:
+      path: ~/Code/github.com/narze
+
+- shell:
+  - description: Install Rust crates
+    command: |
+      cargo install git-delta
+      cargo install exa
+      cargo install zoxide

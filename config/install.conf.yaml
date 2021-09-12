@@ -97,6 +97,7 @@
       path: ~/.dotfiles/etc/yabairc
     ~/.zshrc:
       path: ~/.dotfiles/zsh/zshrc
+      force: true
     ~/.zinit_rc:
       path: ~/.dotfiles/zsh/zshrc
     ~/.omz_rc:
