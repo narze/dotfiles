@@ -123,8 +123,13 @@ zinit pack"bgn" for fzy
   zinit light romkatv/powerlevel10k
 # fi
 
+# exa
 zinit ice as"program" from"gh-r" mv"exa* -> exa" pick"exa/exa" lucid atload"alias ls='exa --icons'"
 zinit light ogham/exa
+
+# zsh-abbr
+zinit ice wait lucid
+zinit light olets/zsh-abbr
 
 # Load my zsh dotfiles, aliases
 zinit light-mode is-snippet lucid for \
