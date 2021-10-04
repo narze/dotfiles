@@ -271,9 +271,9 @@ fi
 
 # Override zinit m() function
 # Ref: https://github.com/zdharma/zinit/commit/7ed6ab9dc535a079275a721bf3e7b4713900430c
-m() {
-  git commit -m "$*"
-}
+# m() {
+#   git commit -m "$*"
+# }
 
 # Supports Apple Silicon Macs with multiple users
 # User install brew bin (if exists) -> Brew bin (same arch) -> Brew bin (another arch)

@@ -9,6 +9,7 @@
     - ~/.config
     - ~/.config/kitty
     - ~/.config/direnv
+    - ~/.config/zsh
     - ~/.hushlogin
     - ~/.ncmpcpp
     - ~/Library/Scripts
@@ -49,6 +50,8 @@
       path: ~/.dotfiles/etc/kitty.conf
     ~/.config/kitty/theme.conf:
       path: ~/.dotfiles/etc/Molokai.conf
+    ~/.config/zsh/abbreviations:
+      path: ~/.dotfiles/zsh/abbreviations
     ~/.default-gems:
       path: ~/.dotfiles/etc/default-gems
     ~/.duti:
@@ -111,6 +114,8 @@
       path: ~/Code/github.com/eventpop
     ~/Code/narze:
       path: ~/Code/github.com/narze
+    ~/Code/opn-ooo:
+      path: ~/Code/github.com/opn-ooo
 
 - shell:
     - command: cp -r ~/.dotfiles/etc/colemak-dhm/ColemakDHm.bundle ~/Library/Keyboard\ Layouts
