@@ -62,10 +62,10 @@ zinit light zinit-zsh/z-a-bin-gem-node
 # Turbo mode with "wait"
 zinit light-mode lucid wait for \
   is-snippet OMZ::lib/history.zsh \
-  # MichaelAquilina/zsh-you-should-use \
   romkatv/zsh-prompt-benchmark \
   zdharma/history-search-multi-word \
   mollifier/cd-gitroot
+  # MichaelAquilina/zsh-you-should-use \
   # atload"alias zi='zinit'" \
   #   ajeetdsouza/zoxide
 
