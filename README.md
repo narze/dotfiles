@@ -69,7 +69,7 @@ Here are the list of issues I've found on running the script on M1 Macbooks (Tes
 
 ### Apple Silicon specific commands
 
-- `make brew-x86` : Install packages which cannot be instaled with `arm64` arch right now (eg. `kubectl`, `kubectx`)
+- `make brew-x86` : Install packages which cannot be instaled with `arm64` arch right now (eg. ~~`kubectl`, `kubectx`~~ Both are now supported!)
 
 ## Manual tasks (One-time per machine)
 
