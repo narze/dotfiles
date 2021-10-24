@@ -90,6 +90,7 @@ yabai -m rule --add label="System Preferences" app="^System Preferences$" manage
 # yabai -m rule --add label="Time Out" app="Time Out" manage=off
 # yabai -m rule --add label="Transmission" app="^Transmission$" manage=off
 yabai -m rule --add label="VirtualBox" app="^VirtualBox$" manage=off
+yabai -m rule --add label="Electron" app="^Electron$" manage=off
 
 # Simple-bar signals
 # # Refresh spaces widget on space change
