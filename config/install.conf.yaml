@@ -116,6 +116,8 @@
       path: ~/Code/github.com/narze
     ~/Code/opn-ooo:
       path: ~/Code/github.com/opn-ooo
+    ~/.config/fish:
+      path: ~/.dotfiles/fish
 
 - shell:
     - command: cp -r ~/.dotfiles/etc/colemak-dhm/ColemakDHm.bundle ~/Library/Keyboard\ Layouts
