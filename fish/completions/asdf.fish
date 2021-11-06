@@ -1,0 +1,1 @@
+/Users/noom/.asdf/completions/asdf.fish
