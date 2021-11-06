@@ -6,4 +6,4 @@
     - description: Setup Fisher
       command: |
         curl -sL https://git.io/fisher > /tmp/fisher.fish;
-        fish -c 'source /tmp/fisher.fish && fisher install jorgebucaran/fisher';
+        fish -c 'source /tmp/fisher.fish && fisher update';
