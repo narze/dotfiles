@@ -2,3 +2,6 @@
 secrets.yml
 .DS_Store
 /zsh/config/local.zsh
+fish/completions/fisher.fish
+fish/fish_variables
+fish/functions/fisher.fish
