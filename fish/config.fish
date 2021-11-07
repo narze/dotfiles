@@ -4,3 +4,5 @@ if status is-interactive
     echo ~~~  Hello  ~~~
   end
 end
+
+set -Ux EDITOR nvim
