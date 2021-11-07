@@ -7,27 +7,25 @@ fish_add_path $GOPATH/bin
 fish_add_path $HOME/.local/bin
 
 # Homebrew
-set -l arch (uname -m)
-
-if test $arch = "arm64"
-  if test -e /usr/local/bin/brew
+if [ (arch) = arm64 ]
+  if [ -e /usr/local/bin/brew ]
     eval (/usr/local/bin/brew shellenv)
   end
 
-  if test -e /opt/homebrew/bin/brew
+  if [ -e /opt/homebrew/bin/brew ]
     eval (/opt/homebrew/bin/brew shellenv)
   end
 else
-  if test -e /opt/homebrew/bin/brew
+  if [ -e /opt/homebrew/bin/brew ]
     eval (/opt/homebrew/bin/brew shellenv)
   end
 
-  if test -e /usr/local/bin/brew
+  if [ -e /usr/local/bin/brew ]
     eval (/usr/local/bin/brew shellenv)
   end
 end
 
-if test -e ~/homebrew/bin/brew
+if [ -e ~/homebrew/bin/brew ]
   eval (~/homebrew/bin/brew shellenv)
 end
 
@@ -39,7 +37,7 @@ end
 
 # asdf
 source ~/.asdf/asdf.fish
-if ! test -e ~/.config/fish/completions/asdf.fish
+if ! [ -e ~/.config/fish/completions/asdf.fish ]
   mkdir -p ~/.config/fish/completions; and ln -s ~/.asdf/completions/asdf.fish ~/.config/fish/completions
 end
 
