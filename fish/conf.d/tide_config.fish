@@ -1,6 +1,18 @@
 
 # Prompt
+# Left default: os pwd git newline character
 set -U tide_left_prompt_items fish arch pwd git newline character
+
+# Right default: status cmd_duration context jobs node virtual_env rustc php go kubectl time
+set -U tide_right_prompt_items status cmd_duration context jobs node virtual_env rustc php go kube time
+
+# Kube
+function _tide_item_kube
+  set -l context (kubectl config view --minify --output 'jsonpath={.current-context}/{..namespace}' 2>/dev/null) &&
+      _tide_print_item kube $tide_kubectl_icon' ' (string replace --regex '.*:(cluster/)?' '' $context)
+end
+set -U tide_kube_color black
+set -U tide_kube_bg_color 326CE5
 
 # Arch
 function _tide_item_arch
