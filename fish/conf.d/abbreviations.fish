@@ -52,7 +52,7 @@ abbr gco "git checkout"
 abbr gco- "git checkout -"
 abbr gcob "git checkout -b"
 abbr gcod "git checkout develop"
-abbr gcom 'if git show-ref -q --heads main; then; git checkout main; else; git checkout master; fi'
+abbr gcom 'if git show-ref -q --heads main; git checkout main; else; git checkout master; end'
 abbr gcos "git checkout staging"
 abbr gd "git diff"
 abbr gdc "git diff --name-only --diff-filter=U"
@@ -67,7 +67,7 @@ abbr glog "git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(
 abbr glr "git pull --rebase"
 abbr gm "git merge"
 abbr gmd "git merge develop"
-abbr gmm 'if git show-ref -q --heads main; then; git merge main; else; git merge master; fi'
+abbr gmm 'if git show-ref -q --heads main; git merge main; else; git merge master; end'
 abbr gowd "cd \"\`pbpaste\`\""
 abbr gp "git push"
 abbr gpc "gh pr checkout"
@@ -78,7 +78,7 @@ abbr gpw "gh pr view -w"
 abbr gq "ghq get -l -p"
 abbr gr "git reset"
 abbr grh "git reset HEAD"
-abbr grm 'if git show-ref -q --heads main; then; git rebase main; else; git rebase master; fi'
+abbr grm 'if git show-ref -q --heads main; git rebase main; else; git rebase master; end'
 abbr grp "git rebase -p"
 abbr grw "gh repo view -w"
 abbr gs "gatsby"
