@@ -18,3 +18,5 @@ stackline:init()
 
 hs.loadSpoon("FocusHighlight")
 spoon.FocusHighlight:start()
+
+require "wm"

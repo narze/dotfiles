@@ -104,12 +104,12 @@
 # close focused window
 alt - w : yabai -m window --close
 
-# focus window
-alt - n : yabai -m window --focus south
-alt - h : yabai -m window --focus west
-alt - m : yabai -m window --focus west
-alt - e : yabai -m window --focus north
-alt - i : yabai -m window --focus east
+# focus window (migrated to Hammerspoon since it's faster)
+# alt - n : yabai -m window --focus south
+# alt - h : yabai -m window --focus west
+# alt - m : yabai -m window --focus west
+# alt - e : yabai -m window --focus north
+# alt - i : yabai -m window --focus east
 # alt - m : yabai -m window --focus recent
 
 # focus window in stack
@@ -142,36 +142,37 @@ alt + ctrl + shift - n  : yabai -m window --stack south
 alt + ctrl + shift - e  : yabai -m window --stack north
 alt + ctrl + shift - i  : yabai -m window --stack east
 
+# Float (migrated to Hammerspoon)
 # make floating window fill screen, make it float if not already floating
-ctrl + alt + cmd - t : yabai -m window --toggle float; \
-                       floating=$(yabai -m query --windows --window | jq .floating); \
-                       [ $floating -eq 1 ] && yabai -m window --grid 1:1:0:0:1:1
+# ctrl + alt + cmd - t : yabai -m window --toggle float; \
+#                        floating=$(yabai -m query --windows --window | jq .floating); \
+#                        [ $floating -eq 1 ] && yabai -m window --grid 1:1:0:0:1:1
 
-# float fill left half, force float if not floating
-ctrl + alt + cmd - h : floating=$(yabai -m query --windows --window | jq .floating); \
-                       [ $floating -eq 0 ] && yabai -m window --toggle float; \
-                       yabai -m window --grid 1:2:0:0:1:1
-ctrl + alt + cmd - m : floating=$(yabai -m query --windows --window | jq .floating); \
-                       [ $floating -eq 0 ] && yabai -m window --toggle float; \
-                       yabai -m window --grid 1:2:0:0:1:1
+# # float fill left half, force float if not floating
+# ctrl + alt + cmd - h : floating=$(yabai -m query --windows --window | jq .floating); \
+#                        [ $floating -eq 0 ] && yabai -m window --toggle float; \
+#                        yabai -m window --grid 1:2:0:0:1:1
+# ctrl + alt + cmd - m : floating=$(yabai -m query --windows --window | jq .floating); \
+#                        [ $floating -eq 0 ] && yabai -m window --toggle float; \
+#                        yabai -m window --grid 1:2:0:0:1:1
 
-# float fill right half, force float if not floating
-ctrl + alt + cmd - i : floating=$(yabai -m query --windows --window | jq .floating); \
-                       [ $floating -eq 0 ] && yabai -m window --toggle float; \
-                       yabai -m window --grid 1:2:1:0:1:1
+# # float fill right half, force float if not floating
+# ctrl + alt + cmd - i : floating=$(yabai -m query --windows --window | jq .floating); \
+#                        [ $floating -eq 0 ] && yabai -m window --toggle float; \
+#                        yabai -m window --grid 1:2:1:0:1:1
 
-# float fill bottom half, force float if not floating
-ctrl + alt + cmd - n : floating=$(yabai -m query --windows --window | jq .floating); \
-                       [ $floating -eq 0 ] && yabai -m window --toggle float; \
-                       yabai -m window --grid 2:1:0:1:1:1
+# # float fill bottom half, force float if not floating
+# ctrl + alt + cmd - n : floating=$(yabai -m query --windows --window | jq .floating); \
+#                        [ $floating -eq 0 ] && yabai -m window --toggle float; \
+#                        yabai -m window --grid 2:1:0:1:1:1
 
-# float fill top half, force float if not floating
-ctrl + alt + cmd - e : floating=$(yabai -m query --windows --window | jq .floating); \
-                       [ $floating -eq 0 ] && yabai -m window --toggle float; \
-                       yabai -m window --grid 2:1:0:0:1:1
+# # float fill top half, force float if not floating
+# ctrl + alt + cmd - e : floating=$(yabai -m query --windows --window | jq .floating); \
+#                        [ $floating -eq 0 ] && yabai -m window --toggle float; \
+#                        yabai -m window --grid 2:1:0:0:1:1
 
 # create desktop
-ctrl + cmd + alt - m : yabai -m space --create;
+# ctrl + cmd + alt - m : yabai -m space --create;
 
 # create desktop, move window and follow focus
 ctrl + alt + cmd - k : yabai -m space --create; \
