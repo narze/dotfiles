@@ -1,8 +1,9 @@
-#!/usr/bin/env zsh
+# Personal Zsh configuration file. It is strongly recommended to keep all
+# shell customization and configuration (including exported environment
+# variables such as PATH) in this file or in files source by it.
+#
+# Documentation: https://github.com/romkatv/zsh4humans/blob/v5/README.md.
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
@@ -55,229 +56,107 @@ ulimit -n 8192
 # Prefer using emacs mode for zsh
 bindkey -e
 
-source ~/.zinit/bin/zinit.zsh
+# Periodic auto-update on Zsh startup: 'ask' or 'no'.
+# You can manually run `z4h update` to update everything.
+zstyle ':z4h:' auto-update      'no'
+# Ask whether to auto-update this often; has no effect if auto-update is 'no'.
+zstyle ':z4h:' auto-update-days '28'
 
-zinit light zinit-zsh/z-a-bin-gem-node
+# Start tmux if not already in tmux.
+# zstyle ':z4h:' start-tmux       command tmux -u new -A -D -t z4h
 
-# Turbo mode with "wait"
-zinit light-mode lucid wait for \
-  is-snippet OMZ::lib/history.zsh \
-  romkatv/zsh-prompt-benchmark \
-  zdharma/history-search-multi-word \
-  mollifier/cd-gitroot
-  # MichaelAquilina/zsh-you-should-use \
-  # atload"alias zi='zinit'" \
-  #   ajeetdsouza/zoxide
+# Move prompt to the bottom when zsh starts and on Ctrl+L.
+zstyle ':z4h:' prompt-at-bottom 'yes'
 
-zinit ice wait"1" atload'_history_substring_search_bind_keys' lucid
-zinit light zsh-users/zsh-history-substring-search
+# Keyboard type: 'mac' or 'pc'.
+zstyle ':z4h:bindkey' keyboard  'mac'
 
-# Ref: zdharma/fast-syntax-highlighting
-# Note: Use wait 1 second works for kubectl
-zinit wait lucid for \
-  atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
-    zdharma/fast-syntax-highlighting \
-  atload"zpcdreplay" wait"1" \
-    OMZP::kubectl \
-  blockf \
-    zsh-users/zsh-completions \
-  atload"!_zsh_autosuggest_start" \
-    zsh-users/zsh-autosuggestions \
-  as"completion" is-snippet \
-    https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker \
-    https://github.com/docker/compose/blob/master/contrib/completion/zsh/_docker-compose
+# Right-arrow key accepts one character ('partial-accept') from
+# command autosuggestions or the whole thing ('accept')?
+zstyle ':z4h:autosuggestions' forward-char 'accept'
 
-# LS_COLORS
-zinit ice atclone"dircolors -b LS_COLORS > clrs.zsh" \
-    atpull'%atclone' pick"clrs.zsh" nocompile'!' \
-    atload'zstyle ":completion:*" list-colors “${(s.:.)LS_COLORS}”'
-zinit light trapd00r/LS_COLORS
+# Recursively traverse directories when TAB-completing files.
+zstyle ':z4h:fzf-complete' recurse-dirs 'yes'
 
-# ASDF
-if [ -d "$HOME/.asdf" ]; then
-#   zinit ice wait lucid
-#   zinit light asdf-vm/asdf
-# OR
-  load_asdf() {
-    source $HOME/.asdf/asdf.sh
+# Enable direnv to automatically source .envrc files.
+zstyle ':z4h:direnv'         enable 'yes'
+# Show "loading" and "unloading" notifications from direnv.
+zstyle ':z4h:direnv:success' notify 'yes'
 
-    if [ -d "$HOME/.asdf/plugins/direnv" ]; then
-      eval "$(asdf exec direnv hook zsh)"
-      direnv() { asdf exec direnv "$@"; }
-    fi
-  }
+# Enable ('yes') or disable ('no') automatic teleportation of z4h over
+# ssh when connecting to these hosts.
+zstyle ':z4h:ssh:example-hostname1'   enable 'yes'
+zstyle ':z4h:ssh:*.example-hostname2' enable 'no'
+# The default value if none of the overrides above match the hostname.
+zstyle ':z4h:ssh:*'                   enable 'no'
 
-  zinit light-mode wait lucid for \
-    atload'load_asdf' \
-      zdharma/null
-fi
+# Send these files over to the remote host when connecting over ssh to the
+# enabled hosts.
+zstyle ':z4h:ssh:*' send-extra-files '~/.nanorc' '~/.env.zsh'
 
-zinit pack"bgn-binary" for fzf
-zinit pack"bgn" for fzy
+# Clone additional Git repositories from GitHub.
+#
+# This doesn't do anything apart from cloning the repository and keeping it
+# up-to-date. Cloned files can be used after `z4h init`. This is just an
+# example. If you don't plan to use Oh My Zsh, delete this line.
+z4h install ohmyzsh/ohmyzsh || return
+z4h install romkatv/zsh-prompt-benchmark || return
+z4h install mollifier/cd-gitroot || return
+z4h install olets/zsh-abbr || return
 
-# if command -v starship &> /dev/null
-# then
-#   eval "$(starship init zsh)"
-# else
-  zinit ice atload'!source ~/.p10k.zsh' lucid nocd
-  zinit light romkatv/powerlevel10k
-# fi
+# Install or update core components (fzf, zsh-autosuggestions, etc.) and
+# initialize Zsh. After this point console I/O is unavailable until Zsh
+# is fully initialized. Everything that requires user interaction or can
+# perform network I/O must be done above. Everything else is best done below.
+z4h init || return
 
-# exa
-zinit ice as"program" from"gh-r" mv"exa* -> exa" pick"exa/exa" lucid atload"alias ls='exa --icons'"
-zinit light ogham/exa
+# Extend PATH.
+path=(~/bin $path)
 
-# zsh-abbr
-zinit ice wait lucid
-zinit light olets/zsh-abbr
+# Export environment variables.
+export GPG_TTY=$TTY
 
-# Load my zsh dotfiles, aliases
-zinit light-mode is-snippet lucid for \
-  id-as"aliases" \
-    $HOME/.dotfiles/zsh/config/00_aliases.zsh \
-  id-as"options" \
-    $HOME/.dotfiles/zsh/config/10_options.zsh \
-  id-as"functions" \
-    $HOME/.dotfiles/zsh/config/20_functions.zsh
+# Source additional local files if they exist.
+z4h source ~/.env.zsh
 
-# Oh-My-Zsh Plugins (Stress test!)
-# zinit wait lucid for \
-#   OMZP::iterm2 \
-#   OMZP::nmap \
-#   OMZP::repo \
-#   OMZP::node \
-#   OMZP::cp \
-#   OMZP::ruby \
-#   OMZP::timer \
-#   OMZP::dash \
-#   OMZP::tmux \
-#   OMZP::gcloud \
-#   OMZP::tmuxinator \
-#   OMZP::gem \
-#   OMZP::git \
-#   OMZP::aws \
-#   OMZP::battery \
-#   OMZP::git-flow \
-#   OMZP::docker-compose \
-#   OMZP::kubectl \
-#   OMZP::brew \
-#   OMZP::git-remote-branch \
-#   OMZP::vi-mode \
-#   OMZP::bundler \
-#   OMZP::dotenv \
-#   OMZP::pip \
-#   OMZP::github \
-#   OMZP::gitignore \
-#   OMZP::vscode \
-#   OMZP::emacs \
-#   OMZP::gnu-utils \
-#   OMZP::lol \
-#   OMZP::postgres \
-#   OMZP::sudo \
-#   OMZP::wd \
-#   OMZP::man \
-#   OMZP::xcode \
-#   OMZP::yarn \
-#   OMZP::python \
-#   OMZP::minikube \
-#   OMZP::rails \
-#   OMZP::coffee \
-#   OMZP::helm \
-#   OMZP::rake \
-#   OMZP::heroku \
-#   OMZP::rake-fast \
-#   OMZP::history \
-#   OMZP::rbenv \
-#   OMZP::ruby
+# Use additional Git repositories pulled in with `z4h install`.
+#
+# This is just an example that you should delete. It does nothing useful.
+z4h source ohmyzsh/ohmyzsh/lib/diagnostics.zsh  # source an individual file
+z4h load   ohmyzsh/ohmyzsh/plugins/emoji-clock  # load a plugin
+z4h load   romkatv/zsh-prompt-benchmark  # load a plugin
+z4h load   mollifier/cd-gitroot
+z4h load   olets/zsh-abbr
 
-# Highlight selection in tab completion
-zstyle ':completion:*' menu select
+# Define key bindings.
+z4h bindkey undo Ctrl+/  # undo the last command line change
+z4h bindkey redo Alt+/   # redo the last undone command line change
 
-# Compinit : After zinits, before cdreplay
-# https://carlosbecker.com/posts/speeding-up-zsh/
-autoload -Uz compinit
-if [[ -n "${GITHUB_CODESPACE_TOKEN}" ]]; then
-  compinit;
-elif [[ $(date +'%j') != $(stat -f '%Sm' -t '%j' ~/.zcompdump) ]]; then
-  compinit;
-else
-  compinit -C;
-fi
+z4h bindkey z4h-cd-back    Shift+Left   # cd into the previous directory
+z4h bindkey z4h-cd-forward Shift+Right  # cd into the next directory
+z4h bindkey z4h-cd-up      Shift+Up     # cd into the parent directory
+z4h bindkey z4h-cd-down    Shift+Down   # cd into a child directory
 
-zinit cdreplay -q
+# Autoload functions.
+autoload -Uz zmv
 
-# Kitty autocompletion (Place after compinit)
-# Commented out since `kitty + complete zsh` hangs on Apple Silicon build
-# if command -v kitty &> /dev/null
-# then
-#   # Note: Use wait 1 second works for kitty completion
-#   zinit light-mode wait"1" lucid for \
-#       atload='source <(kitty + complete setup zsh) ; zpcdreplay' \
-#         zdharma/null
-# fi
+# Define functions and completions.
+function md() { [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" }
+compdef _directories md
 
-if command -v starship &> /dev/null; then
-  zinit light-mode wait"0" lucid for \
-    atload='source <(flux completion zsh) && compdef _flux flux' \
-     zdharma/null
-fi
+# Define named directories: ~w <=> Windows home directory on WSL.
+[[ -z $z4h_win_home ]] || hash -d w=$z4h_win_home
 
-# Key bindings for zsh-history-substring-search
-_history_substring_search_bind_keys() {
-  bindkey '^[[A' history-substring-search-up
-  bindkey '^[[B' history-substring-search-down
-  bindkey -M emacs '^P' history-substring-search-up
-  bindkey -M emacs '^N' history-substring-search-down
-  bindkey -M vicmd 'k' history-substring-search-up
-  bindkey -M vicmd 'j' history-substring-search-down
-}
+# Define aliases.
+alias tree='tree -a -I .git'
 
-if [ -d "$HOME/.asdf/plugins/java" ]; then
-  zinit light-mode wait lucid for \
-    atload='source $HOME/.asdf/plugins/java/set-java-home.zsh' \
-      zdharma/null
-fi
+# Add flags to existing aliases.
+alias ls="${aliases[ls]:-ls} -A"
 
-if [ -d "$HOME/.rbenv" ]; then
-  zinit light-mode wait lucid for \
-    atload'eval "$(rbenv init - --no-rehash)"' \
-      zdharma/null
-fi
+# Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
+setopt glob_dots     # no special treatment for file names with a leading dot
+setopt no_auto_menu  # require an extra TAB press to open the completion menu
 
-if [ -d "$HOME/.jenv" ]; then
-  export PATH="$HOME/.jenv/bin:$PATH"
-
-  zinit light-mode wait lucid for \
-    atload'eval "$(jenv init -)"' \
-      zdharma/null
-fi
-
-# Timing App Terminal Support
-if [ $ITERM_SESSION_ID ]; then
-  DISABLE_AUTO_TITLE="true"
-  echo -ne "\033]0; @ ${HOST%%.*} : ${PWD/#$HOME/~} \007"
-fi
-
-precmd() {
-  echo -ne "\033]0; @ ${HOST%%.*} : ${PWD/#$HOME/~} \007"
-}
-
-# source ~/.bashhub/bashhub.zsh
-if [ -f ~/.bashhub/bashhub.zsh ]; then
-  zinit light-mode wait lucid for \
-    atload='source $HOME/.bashhub/bashhub.zsh' \
-      zdharma/null
-fi
-
-# Override zinit m() function
-# Ref: https://github.com/zdharma/zinit/commit/7ed6ab9dc535a079275a721bf3e7b4713900430c
-# m() {
-#   git commit -m "$*"
-# }
-
-# Supports Apple Silicon Macs with multiple users
-# User install brew bin (if exists) -> Brew bin (same arch) -> Brew bin (another arch)
-# Since running shellenv adds the PATH to the front, the order of running will be reversed
 if [[ "$(uname -m)" == "arm64" ]]; then
   # 3. x86 brew bin
   if [ -f /usr/local/bin/brew ]; then
@@ -321,3 +200,24 @@ fi
 if command -v zoxide &> /dev/null; then
   eval "$(zoxide init zsh --hook prompt)"
 fi
+
+z4h source $HOME/.dotfiles/zsh/config/00_aliases.zsh
+z4h source $HOME/.dotfiles/zsh/config/10_options.zsh
+z4h source $HOME/.dotfiles/zsh/config/20_functions.zsh
+
+z4h source $HOME/.asdf/asdf.sh
+
+if [ -d "$HOME/.asdf/plugins/direnv" ]; then
+  eval "$(asdf exec direnv hook zsh)"
+  direnv() { asdf exec direnv "$@"; }
+fi
+
+# Timing App Terminal Support
+if [ $ITERM_SESSION_ID ]; then
+  DISABLE_AUTO_TITLE="true"
+  echo -ne "\033]0; @ ${HOST%%.*} : ${PWD/#$HOME/~} \007"
+fi
+
+precmd() {
+  echo -ne "\033]0; @ ${HOST%%.*} : ${PWD/#$HOME/~} \007"
+}

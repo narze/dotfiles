@@ -52,6 +52,7 @@
       path: ~/.dotfiles/etc/Molokai.conf
     ~/.config/zsh/abbreviations:
       path: ~/.dotfiles/zsh/abbreviations
+      force: true
     ~/.default-gems:
       path: ~/.dotfiles/etc/default-gems
     ~/.duti:
@@ -101,8 +102,9 @@
     ~/.zshrc:
       path: ~/.dotfiles/zsh/zshrc
       force: true
-    ~/.zinit_rc:
-      path: ~/.dotfiles/zsh/zshrc
+    ~/.zshenv:
+      path: ~/.dotfiles/zsh/zshenv_z4h
+      force: true
     ~/.omz_rc:
       path: ~/.dotfiles/zsh/omz
     # ~/Library/Scripts/:

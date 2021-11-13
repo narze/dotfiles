@@ -11,36 +11,24 @@
 #   - reattach-to-user-namespace
 #   - zsh
 
-# Setup zinit
-- create:
-  - ~/.zinit
-
-- shell:
-  - description: Clone zinit
-    quiet: true
-    command: |
-      if cd ~/.zinit/bin;
-      then git pull;
-      else git clone https://github.com/zdharma/zinit.git ~/.zinit/bin; fi
-
 # Change default shell to zsh
 - shell:
-  - description: Change default shell to zsh
-    quiet: true
-    command: |
-      update_shell() {
-        local shell_path;
-        shell_path="$(command -v zsh)"
+    - description: Change default shell to zsh
+      quiet: true
+      command: |
+        update_shell() {
+          local shell_path;
+          shell_path="$(command -v zsh)"
 
-        fancy_echo "Changing your shell to zsh ..."
-        if ! grep "$shell_path" /etc/shells > /dev/null 2>&1 ; then
-          fancy_echo "Adding '$shell_path' to /etc/shells"
-          sudo sh -c "echo $shell_path >> /etc/shells"
-        fi
-        sudo chsh -s "$shell_path" "$USER"
-      }
+          fancy_echo "Changing your shell to zsh ..."
+          if ! grep "$shell_path" /etc/shells > /dev/null 2>&1 ; then
+            fancy_echo "Adding '$shell_path' to /etc/shells"
+            sudo sh -c "echo $shell_path >> /etc/shells"
+          fi
+          sudo chsh -s "$shell_path" "$USER"
+        }
 
-      update_shell
+        update_shell
 
 - create:
     - ~/.bundle
@@ -130,8 +118,8 @@
     ~/.zshrc:
       path: ~/.dotfiles/zsh/zshrc
       force: true
-    ~/.zinit_rc:
-      path: ~/.dotfiles/zsh/zshrc
+    ~/.zshenv:
+      path: ~/.dotfiles/zsh/zshenv_z4h
     ~/.omz_rc:
       path: ~/.dotfiles/zsh/omz
     # ~/Library/Scripts/:
@@ -144,8 +132,8 @@
 
 # TODO: Install with binaries or don't use them
 - shell:
-  - description: Install Rust crates
-    command: |
-      cargo install git-delta
-      cargo install exa
-      cargo install zoxide
+    - description: Install Rust crates
+      command: |
+        cargo install git-delta
+        cargo install exa
+        cargo install zoxide
