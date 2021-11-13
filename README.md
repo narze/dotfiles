@@ -107,7 +107,7 @@ all                            Run all tasks at once
 - [Homebrew](https://brew.sh)
 - [Homebrew Cask](https://github.com/Homebrew/homebrew-cask)
 - [Mas](https://github.com/mas-cli/mas)
-- [zsh](http://zsh.org/) with [zinit](https://github.com/zdharma/zinit) (Formerly zplugin)
+- [zsh](http://zsh.org/) with [zsh4humans](https://github.com/romkatv/zsh4humans)
 - [asdf](https://asdf-vm.com) with Ruby & Node.js
 - [tmux](https://github.com/tmux/tmux/)
 - [macOS defaults](./etc/macos)
