@@ -19,8 +19,7 @@ git remote set-url origin git@github.com:narze/dotfiles.git
 Here are the list of issues I've found on running the script on M1 Macbooks (Tested on both Macbook Air & Macbook Pro)
 
 - ~~dotbot/brew fails silently : Now they need XCode to be installed first (via App Store), rather than just XCode CLT~~ Seems to be fixed now
-- Kitty.app installing binaries from Homebrew does get you x86, now you have to [Build from source](https://sw.kovidgoyal.net/kitty/build.html)
-
+- ~~Kitty.app installing binaries from Homebrew does get you x86, now you have to [Build from source](https://sw.kovidgoyal.net/kitty/build.html)~~
   - ```shell
     ghq get -l kovidgoyal/kitty
     /opt/homebrew/bin/python3 setup.py kitty.app # Needs python3 from brew
@@ -33,7 +32,7 @@ Here are the list of issues I've found on running the script on M1 Macbooks (Tes
 
   - If you want both versions, download the executable and rename it (`kitty_x86.app`)
 
-- Docker for Mac : Replace with [Tech Preview version](https://docs.docker.com/docker-for-mac/apple-m1)
+- ~~Docker for Mac : Replace with [Tech Preview version](https://docs.docker.com/docker-for-mac/apple-m1)~~
 - ~~Some brew/asdf packages cannot be installed on arm64~~ See "Apple Silicon specific commands"
 - Setup both versions of Homebrew, then use shell script to point to the correct `brew`
 
@@ -67,7 +66,7 @@ Here are the list of issues I've found on running the script on M1 Macbooks (Tes
     ![image](https://user-images.githubusercontent.com/248741/111079897-a77e6380-852e-11eb-92d5-42f743dc3060.png)
   </details>
 
-### Apple Silicon specific commands
+### ~~Apple Silicon specific commands~~
 
 - `make brew-x86` : Install packages which cannot be instaled with `arm64` arch right now (eg. ~~`kubectl`, `kubectx`~~ Both are now supported!)
 
