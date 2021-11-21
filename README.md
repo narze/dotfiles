@@ -14,6 +14,12 @@ cd ~/dotfiles && make bootstrap
 git remote set-url origin git@github.com:narze/dotfiles.git
 ```
 
+## Zsh + Fish
+
+After the recent [drama with Zinit](https://github.com/zdharma-continuum/I_WANT_TO_HELP), I decided to give [Fish](https://fishshell.com) a try, it is good but I also want to still maintain my Zsh configuration. I migrated the settings to [zsh4human](https://github.com/romkatv/zsh4humans) which is maintained by the one who made Powerlevel10k. It's 2-3x faster than Zinit as of now.
+
+I'll separate the dotfiles script to install zsh or fish separately to save some space. You also install both like mine.
+
 ## Apple Silicon
 
 Here are the list of issues I've found on running the script on M1 Macbooks (Tested on both Macbook Air & Macbook Pro)
@@ -106,7 +112,8 @@ all                            Run all tasks at once
 - [Homebrew](https://brew.sh)
 - [Homebrew Cask](https://github.com/Homebrew/homebrew-cask)
 - [Mas](https://github.com/mas-cli/mas)
-- [zsh](http://zsh.org/) with [zsh4humans](https://github.com/romkatv/zsh4humans)
+- [zsh](https://zsh.org) with [zsh4humans](https://github.com/romkatv/zsh4humans)
+- [fish](https://fishshell.com) with [fisher](https://github.com/jorgebucaran/fisher)
 - [asdf](https://asdf-vm.com) with Ruby & Node.js
 - [tmux](https://github.com/tmux/tmux/)
 - [macOS defaults](./etc/macos)
