@@ -147,6 +147,7 @@ alias te=touch-editor
 alias tg=terragrunt
 alias tf=terraform
 alias tm=tmux
+alias tmux="direnv exec / tmux"
 alias tn='terminal-notifier'
 alias tnm='terminal-notifier -message'
 alias uuid='uuidgen | tr "[:upper:]" "[:lower:]"'
