@@ -136,3 +136,7 @@ transfer() {
     curl --progress-bar --upload-file "-" "http://transfer.sh/$file_name" | tee /dev/null
   fi
 }
+
+dir() {
+  basename $PWD
+}
