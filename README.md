@@ -4,14 +4,15 @@ Bootstrap my macOS machines, for fun & profit. Now supports [Github Codespaces!]
 
 [Dotfiles are meant to be forked,](https://zachholman.com/2010/08/dotfiles-are-meant-to-be-forked) but mine isn't. This script installs many things you won't use.
 
+## Chezmoi TODOs
+
+- [ ] Fix Fish shell
+- [ ] Add Homebrew install script (run-once)
+
 ## Usage
 
 ```shell
-git clone https://github.com/narze/dotfiles ~/dotfiles
-cd ~/dotfiles && make bootstrap
-
-# Optional : Change to SSH url for pushing updates
-git remote set-url origin git@github.com:narze/dotfiles.git
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/narze/dotfiles/chezmoi/remote_install.sh)"
 ```
 
 ## Zsh + Fish
@@ -26,6 +27,7 @@ Here are the list of issues I've found on running the script on M1 Macbooks (Tes
 
 - ~~dotbot/brew fails silently : Now they need XCode to be installed first (via App Store), rather than just XCode CLT~~ Seems to be fixed now
 - ~~Kitty.app installing binaries from Homebrew does get you x86, now you have to [Build from source](https://sw.kovidgoyal.net/kitty/build.html)~~
+
   - ```shell
     ghq get -l kovidgoyal/kitty
     /opt/homebrew/bin/python3 setup.py kitty.app # Needs python3 from brew
@@ -68,8 +70,8 @@ Here are the list of issues I've found on running the script on M1 Macbooks (Tes
   <details>
     <summary>Workaround</summary>
 
-    Setup native shortcut keys manually and use non-consuming shortcut settings (`->`) in `skhd`
-    ![image](https://user-images.githubusercontent.com/248741/111079897-a77e6380-852e-11eb-92d5-42f743dc3060.png)
+  Setup native shortcut keys manually and use non-consuming shortcut settings (`->`) in `skhd`
+  ![image](https://user-images.githubusercontent.com/248741/111079897-a77e6380-852e-11eb-92d5-42f743dc3060.png)
   </details>
 
 ### ~~Apple Silicon specific commands~~
