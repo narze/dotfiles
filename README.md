@@ -8,12 +8,16 @@ Bootstrap my macOS machines, for fun & profit. Now supports [Github Codespaces!]
 
 - [ ] Fix Fish shell
 - [ ] Add Homebrew install script (run-once)
+- [ ] Cleanup dotbot
+- [ ] Update this readme
 
 ## Usage
 
 ```shell
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/narze/dotfiles/chezmoi/remote_install.sh)"
 ```
+
+To customize with prompt, run `ASK=1 chezmoi init` after first installation.
 
 ## Zsh + Fish
 
