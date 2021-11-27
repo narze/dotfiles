@@ -1,0 +1,121 @@
+#!/usr/bin/env sh
+
+# https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)
+# the scripting-addition must be loaded manually if
+# you are running yabai on macOS Big Sur. Uncomment
+# the following line to have the injection performed
+# when the config is executed during startup.
+#
+# for this to work you must configure sudo such that
+# it will be able to run the command without password
+
+sudo yabai --load-sa
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+
+# global settings
+yabai -m config mouse_follows_focus          on
+yabai -m config focus_follows_mouse          off # autofocus|autoraise|off
+yabai -m config window_placement             first_child
+yabai -m config window_topmost               off
+yabai -m config window_opacity               off # turning it on reduces overall performance!
+yabai -m config window_opacity_duration      0.0
+yabai -m config window_shadow                off
+yabai -m config insert_feedback_color        0xaad75f5f
+yabai -m config active_window_opacity        1.0
+yabai -m config normal_window_opacity        0.85
+yabai -m config split_ratio                  0.40
+yabai -m config auto_balance                 off
+yabai -m config mouse_modifier               fn
+yabai -m config mouse_action1                move
+yabai -m config mouse_action2                resize
+yabai -m config mouse_drop_action            stack
+yabai -m config external_bar                 all:20:0
+
+# borders
+yabai -m config window_border                off
+yabai -m config window_border_width          8
+yabai -m config active_window_border_color   0xF006B6D4
+yabai -m config normal_window_border_color   0x8006B6D4
+
+# general space settings
+yabai -m config layout                       bsp
+yabai -m config top_padding                  16
+yabai -m config bottom_padding               16
+yabai -m config left_padding                 40
+yabai -m config right_padding                40
+yabai -m config window_gap                   12
+
+# specific space settings
+yabai -m space 1 --layout                    stack
+
+# signals
+# focus mouse hovered window when a window is closed, minimized or terminated
+yabai -m signal --add event=window_destroyed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
+yabai -m signal --add event=window_minimized action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
+yabai -m signal --add event=application_terminated action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
+# yabai -m signal --add event=window_created action="~/.yabai_axunknown_float"
+
+# Yabai-Spaces for BitBar
+yabai -m signal --add event=space_changed action="open -gj 'bitbar://refreshPlugin?name=yabai.1d.sh'"
+yabai -m signal --add event=display_added action="open -gj 'bitbar://refreshPlugin?name=yabai.1d.sh'"
+yabai -m signal --add event=display_removed action="open -gj 'bitbar://refreshPlugin?name=yabai.1d.sh'"
+yabai -m signal --add event=display_changed action="open -gj 'bitbar://refreshPlugin?name=yabai.1d.sh'"
+yabai -m signal --add event=display_moved action="open -gj 'bitbar://refreshPlugin?name=yabai.1d.sh'"
+
+# sh ~/.yabai_rules
+
+yabai -m rule --add label="1Password 7" app="^1Password 7$" manage=off
+# yabai -m rule --add label="Browserosaurus" app="^Browserosaurus$" manage=off
+yabai -m rule --add label="Activity Monitor" app="^Activity Monitor$" manage=off
+yabai -m rule --add label="Alfred Preferences" app="^Alfred Preferences$" manage=off
+yabai -m rule --add label="App Store" app="^App Store$" manage=off
+yabai -m rule --add label="Boom 3D" app="^Boom 3D$" manage=off
+yabai -m rule --add label="Calculator" app="^Calculator$" manage=off
+yabai -m rule --add label="CleanMyMac X" app="^CleanMyMac X$" manage=off
+yabai -m rule --add label="Dash" app="Dash" manage=off
+# yabai -m rule --add label="Dictionary" app="^Dictionary$" manage=off
+# yabai -m rule --add label="Fantastical" app="Fantastical" manage=off
+# yabai -m rule --add label="Finder Main" app="^Finder$" manage=off
+yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off
+# yabai -m rule --add label="Firefox" app="Firefox" manage=off
+yabai -m rule --add label="Gather" app="^Gather$" manage=off
+yabai -m rule --add label="Notion" app="Notion" manage=off
+yabai -m rule --add label="NotionQuickAdd" app="NotionQuickAdd" manage=off
+yabai -m rule --add label="Preview" app="Preview" manage=off
+# yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
+yabai -m rule --add label="Session" app="^Session$" manage=off border=off
+yabai -m rule --add label="Stickies" app="Stickies" manage=off border=off
+yabai -m rule --add label="System Preferences" app="^System Preferences$" manage=off
+# yabai -m rule --add label="The Unarchiver" app="^The Unarchiver$" manage=off
+# yabai -m rule --add label="Time Out" app="Time Out" manage=off
+# yabai -m rule --add label="Transmission" app="^Transmission$" manage=off
+yabai -m rule --add label="VirtualBox" app="^VirtualBox$" manage=off
+yabai -m rule --add label="Electron" app="^Electron$" manage=off
+
+# Simple-bar signals
+# # Refresh spaces widget on space change
+# yabai -m signal --add event=space_changed action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-spaces-jsx\"'"
+# # Refresh spaces widget on display focus change
+# yabai -m signal --add event=display_changed action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-spaces-jsx\"'"
+# # Refresh process widget on space change
+# yabai -m signal --add event=space_changed action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-process-jsx\"'"
+
+# # Refresh process widget on when focused application changes
+# yabai -m signal --add event=window_focused action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-process-jsx\"'"
+# # Refresh spaces widget on when focused application changes
+# yabai -m signal --add event=window_focused action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-spaces-jsx\"'"
+
+# # Refresh process widget on when focused application changes
+# yabai -m signal --add event=application_front_switched action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-process-jsx\"'"
+# # Refresh spaces widget on when focused application changes
+# yabai -m signal --add event=application_front_switched action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-spaces-jsx\"'"
+
+# # Refresh process widget on when an application window is closed
+# yabai -m signal --add event=window_destroyed action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-process-jsx\"'"
+# # Refresh spaces widget on when an application window is closed
+# yabai -m signal --add event=window_destroyed action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-spaces-jsx\"'"
+
+# # Refresh process widget when current window title changes
+# yabai -m signal --add event=window_title_changed action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-process-jsx\"'"
+
+echo "yabai configuration loaded.."
