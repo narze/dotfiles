@@ -1,0 +1,28 @@
+{{- if (eq .chezmoi.os "darwin") -}}
+#!/bin/bash
+
+{{ if (env "SKIP_PACKAGES") -}}
+echo "Skip installing packages"
+exit 0
+{{- end }}
+
+set -ufo pipefail
+
+mas account &> /dev/null
+
+if [[ $? -ne 0 ]]; then
+  echo "Please login to Mac app store first, then run command again"
+  mas open
+  exit 0
+fi
+
+brew bundle --no-lock --file=/dev/stdin <<EOF
+
+mas "CYHMN Can you hear me now?", id: 1564656437
+mas "Fantastical", id: 975937182
+mas "Helium", id: 1054607607
+mas "Pocket", id: 568494494
+mas "Spark", id: 1176895641
+
+EOF
+{{ end -}}
