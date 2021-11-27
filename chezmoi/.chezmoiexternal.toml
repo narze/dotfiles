@@ -1,0 +1,20 @@
+[".hammerspoon/stackline"]
+    type = "archive"
+    url = "https://github.com/AdamWagner/stackline/archive/refs/heads/main.zip"
+    exact = true
+    stripComponents = 1
+    refreshPeriod = "168h"
+[".hammerspoon/Spoons/FocusHighlight.spoon"]
+    type = "archive"
+    url = "https://github.com/dtinth/FocusHighlight.spoon/archive/refs/tags/v0.1.tar.gz"
+    exact = true
+    stripComponents = 1
+    refreshPeriod = "168h"
+[".tmux.conf"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/narze/.tmux/master/.tmux.conf"
+    refreshPeriod = "168h"
+[".tmux.conf.local"]
+    type = "file"
+    url = "https://raw.githubusercontent.com/narze/.tmux/master/.tmux.conf.local"
+    refreshPeriod = "168h"
