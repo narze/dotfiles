@@ -157,6 +157,8 @@ alias ls="${aliases[ls]:-ls} -A"
 setopt glob_dots     # no special treatment for file names with a leading dot
 setopt no_auto_menu  # require an extra TAB press to open the completion menu
 
+{{ if (eq .chezmoi.os "darwin" ) -}}
+# Mac specific config
 if [[ "$(uname -m)" == "arm64" ]]; then
   # 3. x86 brew bin
   if [ -f /usr/local/bin/brew ]; then
@@ -183,6 +185,7 @@ fi
 if [ -f ~/homebrew/bin/brew ]; then
   eval $(~/homebrew/bin/brew shellenv)
 fi
+{{- end }}
 
 # Cleanup duplicated PATHs (mostly from shellenv evals above)
 PATH="$(perl -e 'print join(":", grep { not $seen{$_}++ } split(/:/, $ENV{PATH}))')"
