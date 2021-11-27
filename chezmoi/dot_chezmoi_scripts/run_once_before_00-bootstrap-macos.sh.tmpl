@@ -1,10 +1,13 @@
 {{- if (eq .chezmoi.os "darwin") -}}
 #!/bin/bash
 
+{{ if (env "SKIP_PACKAGES") -}}
+exit 0
+{{- end }}
+
 echo "Installing Homebrew..."
 
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 echo "Homebrew Installed!"
 {{ end -}}
-

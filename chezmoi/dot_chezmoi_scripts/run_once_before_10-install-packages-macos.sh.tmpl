@@ -1,6 +1,11 @@
 {{- if (eq .chezmoi.os "darwin") -}}
 #!/bin/bash
 
+{{ if (env "SKIP_PACKAGES") -}}
+echo "Skip installing packages"
+exit 0
+{{- end }}
+
 set -eufo pipefail
 
 {{ $taps := list
@@ -50,4 +55,3 @@ cask "{{ . }}"
 {{ end -}}
 EOF
 {{ end -}}
-
