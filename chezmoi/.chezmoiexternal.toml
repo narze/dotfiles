@@ -1,3 +1,4 @@
+{{ if eq .chezmoi.os "darwin" }}
 [".hammerspoon/stackline"]
     type = "archive"
     url = "https://github.com/AdamWagner/stackline/archive/refs/heads/main.zip"
@@ -10,6 +11,14 @@
     exact = true
     stripComponents = 1
     refreshPeriod = "168h"
+["Library/Keyboard Layouts/ColemakDHm.bundle"]
+    type = "archive"
+    url = "https://github.com/narze/Colemak-DHm/releases/download/stable/ColemakDHm.bundle.zip"
+    exact = true
+    stripComponents = 1
+    refreshPeriod = "2160h"
+{{ end -}}
+
 [".tmux.conf"]
     type = "file"
     url = "https://raw.githubusercontent.com/narze/.tmux/master/.tmux.conf"
