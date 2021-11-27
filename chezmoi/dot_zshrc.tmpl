@@ -18,7 +18,6 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
-export PATH="$HOME/.dotfiles/etc/bin:$PATH"
 export PATH="/Applications/Postgres.app/Contents/Versions/9.6/bin:$PATH"
 export PATH="$PATH:${HOME}/.krew/bin"
 export PATH="$PATH:${HOME}/.local/bin"
@@ -204,9 +203,9 @@ if command -v zoxide &> /dev/null; then
   eval "$(zoxide init zsh --hook prompt)"
 fi
 
-z4h source $HOME/.dotfiles/zsh/config/00_aliases.zsh
-z4h source $HOME/.dotfiles/zsh/config/10_options.zsh
-z4h source $HOME/.dotfiles/zsh/config/20_functions.zsh
+z4h source $HOME/zsh/config/00_aliases.zsh
+z4h source $HOME/zsh/config/10_options.zsh
+z4h source $HOME/zsh/config/20_functions.zsh
 
 z4h source $HOME/.asdf/asdf.sh
 
