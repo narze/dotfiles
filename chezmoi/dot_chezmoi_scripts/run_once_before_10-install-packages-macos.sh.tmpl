@@ -1,0 +1,54 @@
+{{- if (eq .chezmoi.os "darwin") -}}
+#!/bin/bash
+
+set -eufo pipefail
+
+{{ $taps := list
+  "homebrew/cask"
+  "homebrew/cask-fonts"
+  "koekeishiya/formulae"
+  "narze/taps"
+  "yqrashawn/goku"
+-}}
+
+{{ $brews := list
+  "bat"
+  "ffmpeg"
+  "gh"
+  "ghq"
+  "git"
+  "git-delta"
+  "jq"
+  "mackup"
+  "mas"
+  "mpc"
+  "mpd"
+  "ncmpcpp"
+  "neofetch"
+  "reattach-to-user-namespace"
+  "terminal-notifier"
+  "tmux"
+  "tree"
+  "watch"
+  "zsh"
+-}}
+
+{{ $casks := list
+  "koekeishiya/formulae/skhd"
+  "koekeishiya/formulae/yabai"
+  "yqrashawn/goku/goku"
+-}}
+
+brew bundle --no-lock --file=/dev/stdin <<EOF
+{{ range ($taps | sortAlpha | uniq) -}}
+tap "{{ . }}"
+{{ end -}}
+{{ range ($brews | sortAlpha | uniq) -}}
+brew "{{ . }}"
+{{ end -}}
+{{ range ($casks | sortAlpha | uniq) -}}
+cask "{{ . }}"
+{{ end -}}
+EOF
+{{ end -}}
+
