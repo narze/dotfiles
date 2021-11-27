@@ -1,14 +1,17 @@
 {{- $name := "Manassarn Manoonchai" -}}
 {{- $email := "manassarn@gmail.com" -}}
+{{- $github_user := "narze" -}}
 
 {{- if (env "ASK") }}
 {{- $name = promptString "Full Name" $name -}}
 {{- $email = promptString "Email" $email -}}
+{{- $github_user = promptString "GitHub Username" $github_user -}}
 {{- end }}
 
 data:
   name: {{ $name | quote }}
   email: {{ $email | quote }}
+  github_user: {{ $github_user | quote }}
 
 encryption: gpg
 gpg:

@@ -1,25 +1,27 @@
 [user]
-	name = {{ .name }}
-	email = {{ .email }}
+  name = {{ .name }}
+  email = {{ .email }}
 [core]
-	excludesfile = ~/.gitignore_global
-	# pager = delta --plus-color="#012800" --minus-color="#340001" --theme='Monokai Extended'
+  excludesfile = ~/.gitignore_global
+  # pager = delta --plus-color="#012800" --minus-color="#340001" --theme='Monokai Extended'
 [interactive]
-	# diffFilter = delta --color-only
+  # diffFilter = delta --color-only
 [alias]
-	conflicts = "diff --name-only --diff-filter=U"
+  conflicts = "diff --name-only --diff-filter=U"
 [ghq]
-	root = ~/Code
+  root = ~/Code
 [rerere]
-	enabled = 1
+  enabled = 1
 [pull]
-	rebase = true
+  rebase = true
 [filter "lfs"]
-	required = true
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
+  required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
 [init]
-	defaultBranch = main
+  defaultBranch = main
 [include]
-    path = ~/.gitconfig.local
+  path = ~/.gitconfig.local
+[url "ssh://git@github.com/{{ .github_user }}"]
+  insteadOf = https://github.com/{{ .github_user }}
