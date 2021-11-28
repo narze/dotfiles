@@ -4,6 +4,7 @@
 {{- $asdf_version := "0.8.1" -}}
 {{- $computer_name := "narze-m1-pro" -}}
 {{- $hostname := "narzem1pro" -}}
+{{- $gpg_recipient := "7A6FE00E074F2B913EBD33B5F05DC9084102F48A" -}}
 
 {{- if (env "ASK") }}
 {{-   $computer_name = promptString "Computer Name" $computer_name -}}
@@ -12,6 +13,7 @@
 {{-   $email = promptString "Email" $email -}}
 {{-   $github_user = promptString "GitHub Username" $github_user -}}
 {{-   $asdf_version = promptString "Asdf Version" $asdf_version -}}
+{{-   $gpg_recipient = promptString "GPG Recipient" $gpg_recipient -}}
 {{- end }}
 
 {{- $delta_is_not_installed := true }}
@@ -31,4 +33,4 @@ data:
 
 encryption: gpg
 gpg:
-  recipient: 7A6FE00E074F2B913EBD33B5F05DC9084102F48A
+  recipient: {{ $gpg_recipient | quote }}
