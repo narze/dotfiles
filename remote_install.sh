@@ -21,4 +21,4 @@ else
 fi
 
 # exec: replace current process with chezmoi init
-exec "$chezmoi" init --branch chezmoi --apply narze
+exec "$chezmoi" init --apply narze
