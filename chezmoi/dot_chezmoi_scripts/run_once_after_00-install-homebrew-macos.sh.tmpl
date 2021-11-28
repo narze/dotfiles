@@ -1,0 +1,26 @@
+{{- if (eq .chezmoi.os "darwin") -}}
+#!/bin/sh
+
+# Install Homebrew
+
+source ./utils.sh
+
+printf "${green}[00 - macOS] ${reset}"
+{{ if or (lt 0 (atoi (env "SCRIPTS_START_AT"))) (env "SKIP_HOMEBREW_SETUP") -}}
+echo "Skip installing Homebrew"
+exit 0
+{{ else }}
+echo "Install Homebrew"
+{{- end }}
+
+if command -v curl >/dev/null 2>&1; then
+  echo "Homebrew already installed, skipping."
+  exit 0
+fi
+
+echo "Installing Homebrew..."
+
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+echo "Homebrew Installed!"
+{{ end -}}

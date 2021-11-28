@@ -1,9 +1,0 @@
-" Extended from ~/.vim_runtime/vimrcs
-" The leader is `,` so whenever you see <leader> it means `,`.
-set gfn=FantasqueSansMono\ Nerd\ Font\ Mono:h14,FiraCode\ Nerd\ Font:h14,Source\ Code\ Pro:h15,Menlo:h15
-
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-
-vmap <C-c> y:call system("pbcopy", getreg("\""))<CR>
-nmap <C-v> :call setreg("\"",system("pbpaste"))<CR>p

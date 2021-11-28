@@ -1,0 +1,98 @@
+{{- if (eq .chezmoi.os "darwin") -}}
+#!/bin/sh
+
+# Install common macOS packages
+
+source ./utils.sh
+
+printf "${green}[10 - macOS] ${reset}"
+{{- if or (lt 10 (atoi (env "SCRIPTS_START_AT"))) (env "SKIP_BREW") }}
+echo "Skip installing common macOS packages"
+exit 0
+{{ else }}
+echo "Install common macOS packages"
+{{- end }}
+
+set -eufo pipefail
+
+{{ $taps := list
+  "homebrew/cask"
+  "homebrew/cask-fonts"
+  "koekeishiya/formulae"
+  "yqrashawn/goku"
+-}}
+
+{{ $brews := list
+  "gh"
+  "ghq"
+  "git"
+  "git-delta"
+
+  "mackup"
+  "mas"
+
+  "mpc"
+  "mpd"
+  "ncmpcpp"
+
+  "neofetch"
+  "reattach-to-user-namespace"
+  "terminal-notifier"
+  "tmux"
+  "tree"
+  "watch"
+  "zsh"
+
+  "helm"
+  "kubernetes-cli"
+  "kubectx"
+  "stern"
+
+  "koekeishiya/formulae/skhd"
+  "koekeishiya/formulae/yabai"
+  "yqrashawn/goku/goku"
+
+  "bat"
+  "chezmoi"
+  "ffmpeg"
+  "jq"
+  "fzf"
+  "fzy"
+  "zoxide"
+-}}
+
+{{ $casks := list
+  "font-fira-code"
+  "font-fira-code-nerd-font"
+  "font-fantasque-sans-mono"
+  "font-fantasque-sans-mono-nerd-font"
+
+  "qlcolorcode"
+  "qlstephen"
+  "qlmarkdown"
+  "quicklook-json"
+  "qlimagesize"
+  "suspicious-package"
+  "quicklookase"
+  "qlvideo"
+-}}
+
+brew bundle --no-lock --file=/dev/stdin <<EOF
+{{ range ($taps | sortAlpha | uniq) -}}
+tap "{{ . }}"
+{{ end }}
+{{ range ($brews | sortAlpha | uniq) -}}
+brew "{{ . }}"
+{{ end }}
+{{ range ($casks | sortAlpha | uniq) -}}
+cask "{{ . }}"
+{{ end }}
+EOF
+
+echo "Start services..."
+
+brew services start skhd
+brew services start yabai
+brew services start goku
+
+{{ end -}}

@@ -1,0 +1,22 @@
+{{- if (eq .chezmoi.os "darwin") -}}
+#!/bin/sh
+
+# Install Fish Shell via Homebrew
+
+source ./utils.sh
+
+printf "${green}[40 - macOS] ${reset}"
+{{- if or (lt 40 (atoi (env "SCRIPTS_START_AT"))) (env "SKIP_FISH_INSTALL") }}
+echo "Skip installing Fish Shell"
+exit 0
+{{ else }}
+echo "Install Fish Shell via Homebrew"
+{{- end }}
+
+set -eufo pipefail
+
+brew bundle --no-lock --file=/dev/stdin <<EOF
+brew "fish"
+EOF
+
+{{ end -}}

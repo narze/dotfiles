@@ -1,0 +1,29 @@
+[user]
+  name = {{ .name }}
+  email = {{ .email }}
+[core]
+  excludesfile = ~/.gitignore_global
+  {{ if .flags.delta_is_not_installed -}} # [git-delta not installed] {{ end -}}
+  pager = delta --plus-color="#012800" --minus-color="#340001" --theme='Monokai Extended'
+[interactive]
+  {{ if .flags.delta_is_not_installed -}} # [git-delta not installed] {{ end -}}
+  diffFilter = delta --color-only
+[alias]
+  conflicts = "diff --name-only --diff-filter=U"
+[ghq]
+  root = ~/Code
+[rerere]
+  enabled = 1
+[pull]
+  rebase = true
+[filter "lfs"]
+  required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+[init]
+  defaultBranch = main
+[include]
+  path = ~/.gitconfig.local
+[url "ssh://git@github.com/{{ .github_user }}"]
+  insteadOf = https://github.com/{{ .github_user }}

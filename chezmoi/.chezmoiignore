@@ -1,0 +1,37 @@
+*/README.md
+fishd.*
+.config/fish/config.fish.backup
+.config/fish/fish_history
+.config/fish/fish_variables
+
+{{ if ne .chezmoi.os "darwin" }}
+.config/karabiner
+.config/kitty
+.duti
+.hammerspoon
+.mackup
+.mackup.cfg
+.skhdrc
+.yabairc
+{{ end }}
+
+{{ if ne .chezmoi.os "linux" }}
+.hushlogin
+.local/share/fonts
+{{ end }}
+
+{{ if ne .chezmoi.os "windows" }}
+Documents
+{{ else }}
+.bash_aliases
+.inputrc
+.oh-my-zsh
+.p10k.zsh
+.ssh/authorized_keys
+.ssh/id_rsa
+.ssh/id_rsa.pub
+.tmux.conf
+.vim
+.vimrc
+.zshrc
+{{ end }}

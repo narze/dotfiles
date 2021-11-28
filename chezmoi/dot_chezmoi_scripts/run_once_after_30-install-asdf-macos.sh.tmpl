@@ -1,0 +1,22 @@
+{{- if (eq .chezmoi.os "darwin") -}}
+#!/bin/sh
+
+# Install/upgrade asdf
+
+source ./utils.sh
+
+printf "${green}[30 - macOS] ${reset}"
+{{- if or (lt 30 (atoi (env "SCRIPTS_START_AT"))) (env "SKIP_ASDF") }}
+echo "Skip installing asdf"
+exit 0
+{{ else }}
+echo "Install/upgrade asdf"
+{{- end }}
+
+if [[ ! $(command -v asdf) ]]; then
+  git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v{{ .asdf_version }}
+else
+  asdf update
+fi
+
+{{ end -}}
