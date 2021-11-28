@@ -48,6 +48,10 @@ set -eufo pipefail
   "kubectx"
   "stern"
 
+  "koekeishiya/formulae/skhd"
+  "koekeishiya/formulae/yabai"
+  "yqrashawn/goku/goku"
+
   "bat"
   "chezmoi"
   "ffmpeg"
@@ -58,10 +62,6 @@ set -eufo pipefail
 -}}
 
 {{ $casks := list
-  "koekeishiya/formulae/skhd"
-  "koekeishiya/formulae/yabai"
-  "yqrashawn/goku/goku"
-
   "font-fira-code"
   "font-fira-code-nerd-font"
   "font-fantasque-sans-mono"
@@ -88,5 +88,11 @@ brew "{{ . }}"
 cask "{{ . }}"
 {{ end }}
 EOF
+
+echo "Start services..."
+
+brew services start skhd
+brew services start yabai
+brew services start goku
 
 {{ end -}}
