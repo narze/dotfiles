@@ -13,6 +13,11 @@ exit 0
 echo "Install Homebrew"
 {{- end }}
 
+if command -v curl >/dev/null 2>&1; then
+  echo "Homebrew already installed, skipping."
+  exit 0
+fi
+
 echo "Installing Homebrew..."
 
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
