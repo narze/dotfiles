@@ -209,6 +209,11 @@ z4h source $HOME/zsh/config/20_functions.zsh
 
 z4h source $HOME/.asdf/asdf.sh
 
+# Chezmoi completion
+if command -v chezmoi >/dev/null 2>&1; then
+  source $(chezmoi completion zsh)
+fi
+
 if [ -d "$HOME/.asdf/plugins/direnv" ]; then
   eval "$(asdf exec direnv hook zsh)"
   direnv() { asdf exec direnv "$@"; }
