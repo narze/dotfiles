@@ -49,6 +49,7 @@ set -eufo pipefail
   "stern"
 
   "bat"
+  "chezmoi"
   "ffmpeg"
   "jq"
   "fzf"
@@ -87,4 +88,5 @@ brew "{{ . }}"
 cask "{{ . }}"
 {{ end }}
 EOF
+
 {{ end -}}

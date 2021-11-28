@@ -19,12 +19,4 @@ brew bundle --no-lock --file=/dev/stdin <<EOF
 brew "fish"
 EOF
 
-# Completion
-
-echo "Add Chezmoi completion to Fish Shell"
-
-if command -v chezmoi >/dev/null 2>&1; then
-  chezmoi completion fish --output=~/.config/fish/completions/chezmoi.fish
-fi
-
 {{ end -}}
