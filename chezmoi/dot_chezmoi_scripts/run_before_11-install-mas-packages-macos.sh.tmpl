@@ -1,8 +1,8 @@
 {{- if (eq .chezmoi.os "darwin") -}}
 #!/bin/bash
 
-{{ if (env "SKIP_PACKAGES") -}}
-echo "Skip installing packages"
+{{ if or (env "SKIP_PACKAGES") (env "SKIP_MAS") -}}
+echo "Skip installing Mas packages"
 exit 0
 {{- end }}
 

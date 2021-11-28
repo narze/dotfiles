@@ -1,7 +1,7 @@
 {{- if (eq .chezmoi.os "darwin") -}}
 #!/bin/bash
 
-{{ if (env "SKIP_PACKAGES") -}}
+{{ if or (env "SKIP_PACKAGES") (env "SKIP_HOMEBREW_SETUP") -}}
 exit 0
 {{- end }}
 
