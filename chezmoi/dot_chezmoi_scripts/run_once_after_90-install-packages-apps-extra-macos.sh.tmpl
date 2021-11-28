@@ -1,0 +1,37 @@
+{{- if (eq .chezmoi.os "darwin") -}}
+#!/bin/sh
+
+# Install Mac Apps via Homebrew Cask (Extra: Need additional actions)
+
+source ./utils.sh
+
+printf "${green}[90 - macOS] ${reset}"
+{{- if or (lt 90 (atoi (env "SCRIPTS_START_AT"))) (env "SKIP_APPS") }}
+echo "Skip installing extra Mac Apps"
+exit 0
+{{ else }}
+echo "Install Mac Apps (Extra: Need additional actions)"
+{{- end }}
+
+set -eufo pipefail
+
+{{ $taps := list -}}
+
+{{ $brews := list -}}
+
+{{ $casks := list
+  "setapp"
+-}}
+
+brew bundle --no-lock --file=/dev/stdin <<EOF
+{{ range ($taps | sortAlpha | uniq) -}}
+tap "{{ . }}"
+{{ end }}
+{{ range ($brews | sortAlpha | uniq) -}}
+brew "{{ . }}"
+{{ end }}
+{{ range ($casks | sortAlpha | uniq) -}}
+cask "{{ . }}"
+{{ end }}
+EOF
+{{ end -}}

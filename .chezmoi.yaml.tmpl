@@ -1,11 +1,13 @@
 {{- $name := "Manassarn Manoonchai" -}}
 {{- $email := "manassarn@gmail.com" -}}
 {{- $github_user := "narze" -}}
+{{- $asdf_version := "0.8.1" -}}
 
 {{- if (env "ASK") }}
 {{- $name = promptString "Full Name" $name -}}
 {{- $email = promptString "Email" $email -}}
 {{- $github_user = promptString "GitHub Username" $github_user -}}
+{{- $asdf_version = promptString "Asdf Version" $asdf_version -}}
 {{- end }}
 
 {{- $delta_is_not_installed := true }}
@@ -17,6 +19,7 @@ data:
   name: {{ $name | quote }}
   email: {{ $email | quote }}
   github_user: {{ $github_user | quote }}
+  asdf_version: {{ $asdf_version | quote }}
   flags:
     delta_is_not_installed: {{ $delta_is_not_installed }}
 

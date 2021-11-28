@@ -1,9 +1,14 @@
 {{- if (eq .chezmoi.os "darwin") -}}
-#!/bin/bash
+#!/bin/sh
 
-{{ if or (env "SKIP_PACKAGES") (env "SKIP_MAS") -}}
-echo "Skip installing Mas packages"
+source ./utils.sh
+
+printf "${green}[22 - macOS] ${reset}"
+{{- if or (lt 22 (atoi (env "SCRIPTS_START_AT"))) (env "SKIP_MAS") }}
+echo "Skip installing Mac App Store apps via mas"
 exit 0
+{{ else }}
+echo "Install Mac App Store apps via mas"
 {{- end }}
 
 set -ufo pipefail

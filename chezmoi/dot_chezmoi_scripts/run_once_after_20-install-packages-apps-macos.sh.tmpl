@@ -1,0 +1,58 @@
+{{- if (eq .chezmoi.os "darwin") -}}
+#!/bin/sh
+
+# Install Mac Apps via Homebrew Cask
+
+source ./utils.sh
+
+printf "${green}[20 - macOS] ${reset}"
+{{- if or (lt 20 (atoi (env "SCRIPTS_START_AT"))) (env "SKIP_APPS") }}
+echo "Skip installing Mac Apps via Homebrew Cask"
+exit 0
+{{ else }}
+echo "Install Mac Apps via Homebrew Cask"
+{{- end }}
+
+set -eufo pipefail
+
+{{ $taps := list -}}
+
+{{ $brews := list -}}
+
+{{ $casks := list
+  "1password"
+  "alfred"
+  "raycast"
+  "beardedspice"
+  "discord"
+  "docker"
+  "flux"
+  "google-chrome"
+  "karabiner-elements"
+  "kitty"
+  "keyboard-maestro"
+  "microsoft-edge"
+  "postgres"
+  "postman"
+  "rescuetime"
+  "slack"
+  "spotify"
+  "startupizer"
+  "syncthing"
+  "telegram"
+  "the-unarchiver"
+  "visual-studio-code"
+-}}
+
+brew bundle --no-lock --file=/dev/stdin <<EOF
+{{ range ($taps | sortAlpha | uniq) -}}
+tap "{{ . }}"
+{{ end }}
+{{ range ($brews | sortAlpha | uniq) -}}
+brew "{{ . }}"
+{{ end }}
+{{ range ($casks | sortAlpha | uniq) -}}
+cask "{{ . }}"
+{{ end }}
+EOF
+{{ end -}}
