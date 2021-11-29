@@ -18,7 +18,7 @@ The latest version of my dotfiles are managed with [Chezmoi](https://chezmoi.io)
 ## Usage
 
 ```shell
-ASK=1 sh -c "$(curl -fsSL https://raw.githubusercontent.com/narze/dotfiles/chezmoi/remote_install.sh) -x encrypted -v"
+ASK=1 sh -c "$(curl -fsSL https://raw.githubusercontent.com/narze/dotfiles/master/remote_install.sh) -x encrypted -v"
 ```
 
 First installation will ask for your name so you can customize a bit, and it will skip the encryped files, since you have to retrieve the GPG private key manually later. Removing `ASK=1` will use my names for the machine.
