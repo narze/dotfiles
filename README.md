@@ -2,7 +2,7 @@
 
 I don't want to waste time setting up my machines, so I spent years maintaining dotfiles.
 
-[Dotfiles are meant to be forked,](https://zachholman.com/2010/08/dotfiles-are-meant-to-be-forked) but mine aren't. These scripts install many things you won't ever use.
+[Dotfiles are meant to be forked,](https://zachholman.com/2010/08/dotfiles-are-meant-to-be-forked) but mine aren't. These scripts install many things you won't ever use. Feel free to look around and copy some of my script to fit your needs.
 
 ## Chezmoi
 
@@ -10,10 +10,13 @@ The latest version of my dotfiles are managed with [Chezmoi](https://chezmoi.io)
 
 ### TODOs
 
-- [x] Fix Fish shell
+- [ ] Fix Fish shell broken in clean install
 - [x] Add Homebrew install script (run-once)
 - [x] Update this readme
 - [ ] Cleanup dotbot (wip)
+- [ ] Linux / Github Codespaces install scripts
+- [ ] Documentation website
+- [ ] 1password integration
 
 ## Usage
 
