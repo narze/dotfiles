@@ -10,7 +10,7 @@ The latest version of my dotfiles are managed with [Chezmoi](https://chezmoi.io)
 
 ### TODOs
 
-- [ ] Fix Fish shell broken in clean install
+- [x] Fix Fish shell broken in clean install
 - [x] Add Homebrew install script (run-once)
 - [x] Update this readme
 - [ ] Cleanup dotbot (wip)
