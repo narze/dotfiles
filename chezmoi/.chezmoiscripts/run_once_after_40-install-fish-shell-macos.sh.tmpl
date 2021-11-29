@@ -15,7 +15,7 @@ echo "Install Fish Shell via Homebrew"
 
 set -eufo pipefail
 
-brew bundle --no-lock --file=/dev/stdin <<EOF
+brew bundle --no-lock --file=/dev/stdin <<EOF || :
 brew "fish"
 EOF
 

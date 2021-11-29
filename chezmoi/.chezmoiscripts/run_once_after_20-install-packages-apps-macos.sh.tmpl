@@ -44,7 +44,7 @@ set -eufo pipefail
   "visual-studio-code"
 -}}
 
-brew bundle --no-lock --file=/dev/stdin <<EOF
+brew bundle --no-lock --file=/dev/stdin <<EOF || :
 {{ range ($taps | sortAlpha | uniq) -}}
 tap "{{ . }}"
 {{ end }}
