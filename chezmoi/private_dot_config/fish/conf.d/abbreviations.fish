@@ -83,7 +83,7 @@ abbr grh "git reset HEAD"
 abbr grm 'if git show-ref -q --heads main; git rebase main; else; git rebase master; end'
 abbr grp "git rebase -p"
 abbr grw "gh repo view -w"
-abbr gs "gatsby"
+abbr gs "git status -s -b && git log --oneline -n5 2>/dev/null || :"
 abbr gsub "git submodule update --init --recursive --remote"
 abbr gu "gitupdate"
 abbr h "helm"
