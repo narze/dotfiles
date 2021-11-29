@@ -3,7 +3,7 @@
 
 # Install/upgrade asdf
 
-source ./utils.sh
+source /tmp/chezmoi-utils.sh
 
 printf "${green}[30 - macOS] ${reset}"
 {{- if or (lt 30 (atoi (env "SCRIPTS_START_AT"))) (env "SKIP_ASDF") }}

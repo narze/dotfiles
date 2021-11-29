@@ -3,7 +3,7 @@
 
 # Install Homebrew
 
-source ./utils.sh
+source /tmp/chezmoi-utils.sh
 
 printf "${green}[00 - macOS] ${reset}"
 {{ if or (lt 0 (atoi (env "SCRIPTS_START_AT"))) (env "SKIP_HOMEBREW_SETUP") -}}

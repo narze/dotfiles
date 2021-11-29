@@ -3,7 +3,7 @@
 
 # Install Mac Apps via Homebrew Cask
 
-source ./utils.sh
+source /tmp/chezmoi-utils.sh
 
 printf "${green}[20 - macOS] ${reset}"
 {{- if or (lt 20 (atoi (env "SCRIPTS_START_AT"))) (env "SKIP_APPS") }}

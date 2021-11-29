@@ -1,7 +1,7 @@
 {{- if (eq .chezmoi.os "darwin") -}}
 #!/bin/sh
 
-source ./utils.sh
+source /tmp/chezmoi-utils.sh
 
 printf "${green}[22 - macOS] ${reset}"
 {{- if or (lt 22 (atoi (env "SCRIPTS_START_AT"))) (env "SKIP_MAS") }}

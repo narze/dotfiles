@@ -3,7 +3,7 @@
 
 # Install asdf plugins
 
-source ./utils.sh
+source /tmp/chezmoi-utils.sh
 
 printf "${green}[31 - macOS] ${reset}"
 {{- if or (lt 31 (atoi (env "SCRIPTS_START_AT"))) (env "SKIP_ASDF_PLUGINS") }}

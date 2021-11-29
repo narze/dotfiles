@@ -3,7 +3,7 @@
 
 # Install common macOS packages
 
-source ./utils.sh
+source /tmp/chezmoi-utils.sh
 
 printf "${green}[10 - macOS] ${reset}"
 {{- if or (lt 10 (atoi (env "SCRIPTS_START_AT"))) (env "SKIP_BREW") }}
