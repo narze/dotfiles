@@ -223,3 +223,14 @@ fi
 precmd() {
   echo -ne "\033]0; @ ${HOST%%.*} : ${PWD/#$HOME/~} \007"
 }
+
+zsh_odd_fish_even() {
+  if [ $(($(date +%d) % 2)) -eq 0 ]; then
+    if command -v fish >/dev/null 2>&1; then
+      echo "You should use fish on even days!"
+      fish
+    fi
+  fi
+}
+
+# zsh_odd_fish_even()
