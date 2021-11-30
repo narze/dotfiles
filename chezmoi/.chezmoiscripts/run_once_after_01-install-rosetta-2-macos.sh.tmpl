@@ -1,0 +1,20 @@
+{{- if (eq .chezmoi.os "darwin") -}}
+#!/bin/sh
+
+# Install Rosetta 2"
+
+source /tmp/chezmoi-utils.sh
+
+printf "${green}[01 - macOS] ${reset}"
+{{- if or (lt 01 (atoi (env "SCRIPTS_START_AT"))) (env "SKIP_FISH_INSTALL") }}
+echo "Skip installing Rosetta 2"
+exit 0
+{{ else }}
+echo "Install Rosetta 2"
+{{- end }}
+
+set -eufo pipefail
+
+sudo softwareupdate --install-rosetta
+
+{{ end -}}
