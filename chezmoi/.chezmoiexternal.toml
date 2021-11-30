@@ -17,6 +17,12 @@
     exact = true
     stripComponents = 1
     refreshPeriod = "2160h"
+["Library/Keyboard Layouts/Manoonchai-ColemakDH-Mod.keylayout"]
+    type = "file"
+    url = "https://github.com/Manoonchai/Manoonchai/releases/download/v1.0b2/Manoonchai-ColemakDH-Mod.keylayout"
+    exact = true
+    stripComponents = 1
+    refreshPeriod = "2160h"
 {{ end -}}
 
 [".tmux.conf"]
