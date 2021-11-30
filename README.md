@@ -16,6 +16,7 @@ The latest version of my dotfiles are managed with [Chezmoi](https://chezmoi.io)
 - [x] Cleanup dotbot
 - [ ] Linux / Github Codespaces install scripts
 - [ ] Documentation website
+- [ ] Instructions to import GPG keys
 - [ ] 1password integration
 
 ## Usage
