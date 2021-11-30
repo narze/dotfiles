@@ -13,7 +13,7 @@ The latest version of my dotfiles are managed with [Chezmoi](https://chezmoi.io)
 - [x] Fix Fish shell broken in clean install
 - [x] Add Homebrew install script (run-once)
 - [x] Update this readme
-- [ ] Cleanup dotbot (wip)
+- [x] Cleanup dotbot
 - [ ] Linux / Github Codespaces install scripts
 - [ ] Documentation website
 - [ ] 1password integration
@@ -75,7 +75,7 @@ macos                          Run macos script
 
 After the recent [drama with Zinit](https://github.com/zdharma-continuum/I_WANT_TO_HELP), I decided to give [Fish](https://fishshell.com) a try, it is good but I also want to still maintain my Zsh configuration. I migrated the settings to [zsh4human](https://github.com/romkatv/zsh4humans) which is maintained by the one who made Powerlevel10k. It's 2-3x faster than Zinit as of now.
 
-I'll separate the dotfiles script to install zsh or fish separately to save some space. You also install both like mine.
+I'll separate the dotfiles script to install zsh or fish separately to save some space. You can also install both like mine.
 
 ### Apple Silicon
 
