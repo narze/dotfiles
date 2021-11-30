@@ -13,6 +13,7 @@ echo "Install Mac App Store apps via mas"
 
 set -ufo pipefail
 
+{{- if not (eq .computer_name "narze-m1-pro") }}
 mas account &> /dev/null
 
 if [[ $? -ne 0 ]]; then
@@ -20,6 +21,7 @@ if [[ $? -ne 0 ]]; then
   mas open
   exit 0
 fi
+{{- end }}
 
 brew bundle --no-lock --file=/dev/stdin <<EOF
 
