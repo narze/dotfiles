@@ -20,6 +20,9 @@ echo "Install asdf plugins"
   "yarn"       "1.22.17"
 }}
 
+# Skip Node.js signature check
+export NODEJS_CHECK_SIGNATURES=no
+
 # Add plugins & install versions
 {{ range sortAlpha (keys $plugins) -}}
   asdf plugin-add {{ . }} || true
