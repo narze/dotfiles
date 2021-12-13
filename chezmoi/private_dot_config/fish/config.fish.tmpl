@@ -13,10 +13,6 @@ if status is-interactive
   function fish_greeting
     echo ~~~  Hello (date +%A)!  ~~~
   end
-
-  {{- if eq .github_user "narze" }}
-  zsh_odd_fish_even
-  {{- end }}
 end
 
 set -Ux EDITOR nvim
