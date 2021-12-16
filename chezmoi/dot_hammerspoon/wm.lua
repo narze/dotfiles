@@ -25,7 +25,30 @@ spoon.WindowHalfsAndThirds:bindHotkeys({
 -- Focus windows
 local focusMods = {"alt"}
 
-hs.hotkey.bind(focusMods, "e", function() hs.window.frontmostWindow().focusWindowNorth(nil, false, true) end)
-hs.hotkey.bind(focusMods, "i", function() hs.window.frontmostWindow().focusWindowEast(nil, false, true) end)
-hs.hotkey.bind(focusMods, "n", function() hs.window.frontmostWindow().focusWindowSouth(nil, false, true) end)
-hs.hotkey.bind(focusMods, "m", function() hs.window.frontmostWindow().focusWindowWest(nil, false, true) end)
+hs.hotkey.bind(focusMods, "e", function()
+  hs.window.frontmostWindow().focusWindowNorth(nil, false, true)
+  local rect = hs.window.frontmostWindow():frame()
+  local center = hs.geometry.rectMidPoint(rect)
+  hs.mouse.setAbsolutePosition(center)
+end)
+
+hs.hotkey.bind(focusMods, "i", function()
+  hs.window.frontmostWindow().focusWindowEast(nil, false, true)
+  local rect = hs.window.frontmostWindow():frame()
+  local center = hs.geometry.rectMidPoint(rect)
+  hs.mouse.setAbsolutePosition(center)
+end)
+
+hs.hotkey.bind(focusMods, "n", function()
+  hs.window.frontmostWindow().focusWindowSouth(nil, false, true)
+  local rect = hs.window.frontmostWindow():frame()
+  local center = hs.geometry.rectMidPoint(rect)
+  hs.mouse.setAbsolutePosition(center)
+end)
+
+hs.hotkey.bind(focusMods, "m", function()
+  hs.window.frontmostWindow().focusWindowWest(nil, false, true)
+  local rect = hs.window.frontmostWindow():frame()
+  local center = hs.geometry.rectMidPoint(rect)
+  hs.mouse.setAbsolutePosition(center)
+end)
