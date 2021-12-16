@@ -16,6 +16,7 @@
 }
  :devices {:apple-internal [{:vendor_id 1452 :product_id 635}]
            :filco-bt [{:vendor_id 2652 :product_id 34050}]
+           :keychron-k12 [{:vendor_id 1452 :product_id 591}]
            ; All QMK keyboards I own
            :qmk [{:vendor_id 936 :product_id 44545} ; Planck Rev4
                  {:vendor_id 936 :product_id 42233} ; Planck Rev6
@@ -36,6 +37,9 @@
         {:des "Enable Swap Quote" :rules [:disable-swap-quote [:!CTOquote [{:set ["disable-swap-quote" 0]} [:beep2]]]]}
         {:des "Disable swapping quote" :rules [:colemak :disable-swap-quote [:##quote :quote]]}
         {:des "' <-> \" (Colemak)" :rules [:colemak [:quote :!Squote] [:!Squote :quote]]}
+
+        ; Esc -> Grave on Keychron K12
+        {:des "Esc -> Grave" :rules [:keychron-k12 [:##escape :grave_accent_and_tilde]]}
 
         ; General
         {:des "; <-> : (Colemak)" :rules [:colemak [:p :!Sp] [:!Sp :p]]}
