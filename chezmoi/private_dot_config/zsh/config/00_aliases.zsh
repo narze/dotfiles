@@ -1,6 +1,6 @@
 # Editing
-alias aliases='$EDITOR ~/dotfiles/zsh/config/00_aliases.zsh ; reload ; echo "Aliases reloaded"'
-alias funcs='$EDITOR ~/dotfiles/zsh/config/20_functions.zsh ; reload ; echo "Aliases reloaded"'
+alias aliases='$EDITOR ~/.config/zsh/config/00_aliases.zsh ; reload ; echo "Aliases reloaded"'
+alias funcs='$EDITOR ~/.config/zsh/config/20_functions.zsh ; reload ; echo "Aliases reloaded"'
 alias ke='$EDITOR ~/dotfiles/etc/karabiner.edn'
 alias zshrc='$EDITOR ~/.zshrc ; reload'
 alias .tmux='$EDITOR ~/.tmux.conf.local'
