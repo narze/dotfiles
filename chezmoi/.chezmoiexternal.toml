@@ -10,16 +10,16 @@
     url = "https://github.com/dtinth/FocusHighlight.spoon/archive/refs/tags/v0.1.tar.gz"
     exact = true
     stripComponents = 1
-    refreshPeriod = "168h"
+    refreshPeriod = "2160h"
 ["Library/Keyboard Layouts/ColemakDHm.bundle"]
     type = "archive"
     url = "https://github.com/narze/Colemak-DHm/releases/download/stable/ColemakDHm.bundle.zip"
     exact = true
     stripComponents = 1
     refreshPeriod = "2160h"
-["Library/Keyboard Layouts/Manoonchai-ColemakDH-Mod.keylayout"]
-    type = "file"
-    url = "https://github.com/Manoonchai/Manoonchai/releases/download/v1.0b2/Manoonchai-ColemakDH-Mod.keylayout"
+["Library/Keyboard Layouts/Manoonchai.bundle"]
+    type = "archive"
+    url = "https://github.com/narze/Manoonchai-ColemakDHm/releases/download/latest/Manoonchai.bundle.zip"
     exact = true
     stripComponents = 1
     refreshPeriod = "2160h"
