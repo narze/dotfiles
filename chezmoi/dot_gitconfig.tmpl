@@ -3,15 +3,11 @@
   email = {{ .email }}
 [core]
   excludesfile = ~/.gitignore_global
-  {{ if .flags.delta_is_not_installed -}} # [git-delta not installed] {{ end -}}
-  {{ if (eq .flags.delta_is_not_installed false) -}}
+  {{ if .flags.delta_is_not_installed -}} # [git-delta not installed] # {{ end -}}
   pager = delta --plus-color="#012800" --minus-color="#340001" --theme='Monokai Extended'
-  {{- end }}
 [interactive]
-  {{ if .flags.delta_is_not_installed -}} # [git-delta not installed] {{ end -}}
-  {{ if (eq .flags.delta_is_not_installed false) -}}
+  {{ if .flags.delta_is_not_installed -}} # [git-delta not installed] # {{ end -}}
   diffFilter = delta --color-only
-  {{- end }}
 [alias]
   conflicts = "diff --name-only --diff-filter=U"
 [ghq]
@@ -29,5 +25,8 @@
   defaultBranch = main
 [include]
   path = ~/.gitconfig.local
+
+{{ if .flags.is_codespace -}} # [Disable since it's codespace] # {{ end -}}
 [url "ssh://git@github.com/{{ .github_user }}"]
+{{ if .flags.is_codespace -}} # [Disable since it's codespace] #   {{ end -}}
   insteadOf = https://github.com/{{ .github_user }}
