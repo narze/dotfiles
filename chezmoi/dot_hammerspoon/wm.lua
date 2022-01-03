@@ -23,7 +23,7 @@ spoon.WindowHalfsAndThirds:bindHotkeys({
 })
 
 -- Top-Left 1440p (2/3 of 2160p)
-hs.hotkey.bind({"ctrl", "alt", "cmd"}, "t", function()
+hs.hotkey.bind({"ctrl", "alt", "cmd"}, "p", function()
   local win = hs.window.focusedWindow()
   if not win then return end
 
