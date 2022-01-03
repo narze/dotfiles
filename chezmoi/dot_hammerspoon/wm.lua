@@ -22,6 +22,19 @@ spoon.WindowHalfsAndThirds:bindHotkeys({
   smaller     = { {"ctrl", "alt", "cmd"}, "u" },
 })
 
+-- Top-Left 1440p (2/3 of 2160p)
+hs.hotkey.bind({"ctrl", "alt", "cmd"}, "t", function()
+  local win = hs.window.focusedWindow()
+  if not win then return end
+
+  local screen = win:screen()
+  local res = screen:frame()
+  local w = res.w * 2 / 3
+  local h = res.h * 2 / 3
+
+  win:move({x=0, y=0, w=w, h=h})
+end)
+
 -- Focus windows
 local focusMods = {"alt"}
 
