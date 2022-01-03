@@ -16,6 +16,7 @@ The latest version of my dotfiles are managed with [Chezmoi](https://chezmoi.io)
 - [x] Cleanup dotbot
 - [ ] Linux / Github Codespaces install scripts
   - [ ] `git-delta`, `exa` not installed
+  - [ ] `Fish` crashed
 - [ ] Documentation website
 - [ ] Instructions to import GPG keys
 - [ ] 1password integration
