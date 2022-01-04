@@ -22,10 +22,8 @@
 {{- end }}
 
 {{- $delta_is_not_installed := true }}
-{{- if (not $is_codespace) }}
-{{-   if (contains "delta" (output "command" "-v" "delta" "||" "true")) }}
-{{-     $delta_is_not_installed = false }}
-{{-   end }}
+{{- if (contains "delta" (output "bash" "-c" "command -v delta || true")) }}
+{{-   $delta_is_not_installed = false }}
 {{- end }}
 
 data:
