@@ -1,0 +1,10 @@
+{{- if .flags.is_codespace -}}
+#!/bin/sh
+
+# Install Packages
+
+cargo install exa
+cargo install git-delta
+
+echo "Packages Installed!"
+{{ end -}}
