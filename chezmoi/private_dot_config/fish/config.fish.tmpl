@@ -16,3 +16,7 @@ if status is-interactive
 end
 
 set -Ux EDITOR nvim
+
+# Chezmoi cached variables
+set -x CM_computer_name {{ .computer_name }}
+set -x CM_hostname {{ .hostname }}
