@@ -65,3 +65,18 @@ hs.hotkey.bind(focusMods, "m", function()
   local center = hs.geometry.rectMidPoint(rect)
   hs.mouse.setAbsolutePosition(center)
 end)
+
+-- Move Windows to Screen
+local moveMods = {"alt", "shift"}
+
+hs.hotkey.bind(moveMods, "u", function()
+  local win = hs.window.focusedWindow()
+  if not win then return end
+  win:moveOneScreenWest(nil, nil, 0.3)
+end)
+
+hs.hotkey.bind(moveMods, "y", function()
+  local win = hs.window.focusedWindow()
+  if not win then return end
+  win:moveOneScreenEast(nil, nil, 0.3)
+end)
