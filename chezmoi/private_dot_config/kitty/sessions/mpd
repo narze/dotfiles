@@ -1,0 +1,5 @@
+title ncmpcpp
+launch ncmpcpp -s playlist -S visualizer
+
+new_tab mpd
+launch sh -c "tmuxinator mpd"
