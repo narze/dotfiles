@@ -6,6 +6,7 @@
 {{- $hostname := default "narze" (env "CM_hostname") -}}
 {{- $gpg_recipient := "7A6FE00E074F2B913EBD33B5F05DC9084102F48A" -}}
 {{- $is_codespace := false }}
+{{- $nas_mount_path := default "~/mnt/nas" (env "NAS_PATH") -}}
 
 {{- if (eq .chezmoi.username "codespace") }}
 {{-   $is_codespace = true }}
@@ -33,6 +34,7 @@ data:
   asdf_version: {{ $asdf_version | quote }}
   computer_name: {{ $computer_name | quote }}
   hostname: {{ $hostname | quote }}
+  nas_mount_path: {{ $nas_mount_path | quote }}
   flags:
     delta_is_not_installed: {{ $delta_is_not_installed }}
     is_codespace: {{ $is_codespace }}
