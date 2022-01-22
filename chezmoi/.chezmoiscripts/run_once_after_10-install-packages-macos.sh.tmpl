@@ -94,10 +94,10 @@ EOF
 
 echo "Start services..."
 
-{{- if not (eq .computer_name "narze-m1-pro") }}
-brew services start skhd
-brew services start yabai
-{{- end }}
+# {{- if not (eq .computer_name "narze-m1-pro") }}
+# brew services start skhd
+# brew services start yabai
+# {{- end }}
 brew services start goku
 
 {{ end -}}
