@@ -35,6 +35,21 @@ hs.hotkey.bind({"ctrl", "alt", "cmd"}, "p", function()
   win:move({x=0, y=0, w=w, h=h})
 end)
 
+-- Center
+hs.hotkey.bind({"ctrl", "alt", "cmd"}, "f", function()
+  local win = hs.window.focusedWindow()
+  if not win then return end
+
+  local screen = win:screen()
+  local res = screen:frame()
+  local w = res.w * 2 / 3
+  local h = res.h * 2 / 3
+  local x = res.w * 1 / 6
+  local y = res.h * 1 / 6
+
+  win:move({x=x, y=y, w=w, h=h})
+end)
+
 -- Focus windows
 local focusMods = {"alt"}
 
