@@ -4,7 +4,7 @@
 [core]
   excludesfile = ~/.gitignore_global
   {{ if .flags.delta_is_not_installed -}} # [git-delta not installed] # {{ end -}}
-  pager = delta --plus-color="#012800" --minus-color="#340001" --theme='Monokai Extended'
+  pager = delta
 [interactive]
   {{ if .flags.delta_is_not_installed -}} # [git-delta not installed] # {{ end -}}
   diffFilter = delta --color-only
@@ -25,6 +25,13 @@
   defaultBranch = main
 [include]
   path = ~/.gitconfig.local
+[delta]
+  navigate = true  # use n and N to move between diff sections
+  line-numbers = true
+[merge]
+  conflictstyle = diff3
+[diff]
+  colorMoved = default
 
 {{ if .flags.is_codespace -}} # [Disable since it's codespace] # {{ end -}}
 [url "ssh://git@github.com/{{ .github_user }}"]
