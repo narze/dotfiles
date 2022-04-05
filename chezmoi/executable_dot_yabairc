@@ -29,11 +29,12 @@ yabai -m config mouse_modifier               fn
 yabai -m config mouse_action1                move
 yabai -m config mouse_action2                resize
 yabai -m config mouse_drop_action            stack
-yabai -m config external_bar                 all:20:0
+yabai -m config external_bar                 all:0:0
+# yabai -m config external_bar                 all:20:0
 
 # borders
 yabai -m config window_border                off
-yabai -m config window_border_width          8
+yabai -m config window_border_width          4
 yabai -m config active_window_border_color   0xF006B6D4
 yabai -m config normal_window_border_color   0x8006B6D4
 
@@ -41,8 +42,8 @@ yabai -m config normal_window_border_color   0x8006B6D4
 yabai -m config layout                       bsp
 yabai -m config top_padding                  16
 yabai -m config bottom_padding               16
-yabai -m config left_padding                 40
-yabai -m config right_padding                40
+yabai -m config left_padding                 20
+yabai -m config right_padding                20
 yabai -m config window_gap                   12
 
 # specific space settings
