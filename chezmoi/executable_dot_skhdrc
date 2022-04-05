@@ -105,12 +105,12 @@
 alt - w : yabai -m window --close
 
 # focus window (migrated to Hammerspoon since it's faster)
-# alt - n : yabai -m window --focus south
-# alt - h : yabai -m window --focus west
-# alt - m : yabai -m window --focus west
-# alt - e : yabai -m window --focus north
-# alt - i : yabai -m window --focus east
-# alt - m : yabai -m window --focus recent
+alt - n : yabai -m window --focus south
+alt - h : yabai -m window --focus west
+alt - m : yabai -m window --focus west
+alt - e : yabai -m window --focus north
+alt - i : yabai -m window --focus east
+alt - m : yabai -m window --focus recent
 
 # focus window in stack
 alt - 0x2B : yabai -m window --focus stack.prev
