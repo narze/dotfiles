@@ -30,7 +30,7 @@ yabai -m config mouse_action1 move
 yabai -m config mouse_action2 resize
 yabai -m config mouse_drop_action stack
 yabai -m config external_bar all:28:0
-yabai -m config external_bar main:28:48
+# yabai -m config external_bar main:28:48
 
 # borders
 yabai -m config window_border off
