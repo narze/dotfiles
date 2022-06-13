@@ -15,21 +15,22 @@ yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 # global settings
 yabai -m config mouse_follows_focus on
 yabai -m config focus_follows_mouse off # autofocus|autoraise|off
-yabai -m config window_placement first_child
+yabai -m config window_placement second_child
 yabai -m config window_topmost off
-yabai -m config window_opacity off # turning it on reduces overall performance!
+yabai -m config window_opacity on # turning it on reduces overall performance?
 yabai -m config window_opacity_duration 0.0
-yabai -m config window_shadow off
+yabai -m config window_shadow on
 yabai -m config insert_feedback_color 0xaad75f5f
 yabai -m config active_window_opacity 1.0
 yabai -m config normal_window_opacity 0.85
-yabai -m config split_ratio 0.40
+yabai -m config split_ratio 0.50
 yabai -m config auto_balance off
 yabai -m config mouse_modifier fn
 yabai -m config mouse_action1 move
 yabai -m config mouse_action2 resize
 yabai -m config mouse_drop_action stack
 yabai -m config external_bar all:28:0
+yabai -m config window_origin_display focused
 # yabai -m config external_bar main:28:48
 
 # borders
@@ -54,6 +55,7 @@ yabai -m config window_gap 8
 yabai -m signal --add event=window_destroyed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
 yabai -m signal --add event=window_minimized action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
 yabai -m signal --add event=application_terminated action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
+
 # yabai -m signal --add event=window_created action="~/.yabai_axunknown_float"
 
 # Yabai-Spaces for BitBar
@@ -98,6 +100,65 @@ yabai -m rule --add label="Electron" app="^Electron$" manage=off
 yabai -m rule --add label="OpenIn" app="^OpenIn$" mouse_follows_focus=off
 yabai -m rule --add label="Hammerspoon" app="^Hammerspoon$" manage=off
 
+DISPLAY_COUNT=$(yabai -m query --displays | jq length)
+SPACE_COUNT=$(yabai -m query --spaces --display 1 | jq length)
+SPACE_2ND_DSP=$(yabai -m query --displays | jq '.[] | select(.index == 2) | .spaces[0]')
+
+# Create more spaces if insufficient
+if [ "$SPACE_COUNT" -lt 5 ]; then
+  for _i in $(seq 1 $((5 - SPACE_COUNT))); do
+    yabai -m space --create
+  done
+fi
+
+# Label spaces
+yabai -m space 1 --label "Term"
+yabai -m space 2 --label "Editor"
+yabai -m space 3 --label "Browse"
+yabai -m space 4 --label "Misc"
+
+if [ "$DISPLAY_COUNT" = "1" ]; then
+  yabai -m space 5 --label "OffScreen"
+else
+  yabai -m space "$SPACE_2ND_DSP" --label "OffScreen"
+fi
+
+# Move all windows to Space 4 (Misc) by default
+yabai -m space Misc --layout stack
+yabai -m rule --add app=".*" label="All Apps" space=4
+yabai -m rule --remove "All Apps"
+
+# Spaces
+## Space 1: Terminals
+yabai -m rule --add app="kitty" space=Term
+yabai -m rule --add app="iTerm2" space=Term
+
+## Space 2: Editor
+yabai -m rule --add app="Code" space=Editor
+
+## Space 3: Browsing / Notes
+yabai -m rule --add app="Chrome" space=Browse
+yabai -m rule --add app="Microsoft Edge" space=Browse
+yabai -m rule --add app="Obsidian" space=Browse
+yabai -m rule --add app="Opera GX" space=Browse
+
+## Space 4: Misc (Stacked)
+yabai -m space Misc --layout stack
+yabai -m space Misc --padding abs:32:32:32:32
+
+## Space 5 / Display 2 Space 1 : Off Screen
+yabai -m space OffScreen --layout stack
+
+yabai -m rule --add app="1Password" space=OffScreen
+yabai -m rule --add app="Discord" space=OffScreen
+yabai -m rule --add app="Fantastical" space=OffScreen
+yabai -m rule --add app="OBS" space=OffScreen
+yabai -m rule --add app="Slack" space=OffScreen
+yabai -m rule --add app="Sonixd" space=OffScreen
+yabai -m rule --add app="Spark" space=OffScreen
+yabai -m rule --add app="Spotify" space=OffScreen
+yabai -m rule --add app="Streamlabs" space=OffScreen
+
 # Simple-bar signals
 # # Refresh spaces widget on space change
 # yabai -m signal --add event=space_changed action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-spaces-jsx\"'"
@@ -125,3 +186,5 @@ yabai -m rule --add label="Hammerspoon" app="^Hammerspoon$" manage=off
 # yabai -m signal --add event=window_title_changed action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-process-jsx\"'"
 
 echo "yabai configuration loaded.."
+
+yabai -m space --focus 1

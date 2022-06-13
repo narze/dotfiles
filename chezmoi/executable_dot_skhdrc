@@ -339,10 +339,15 @@ ctrl + alt + cmd - 0x2B : mpc prev
 ctrl + alt + cmd - 0x2F : mpc next
 
 # Reload yabai
-ctrl + alt + cmd - z : osascript -e 'tell application "Keyboard Maestro Engine" to do script "Hide All Windows"' && \
+ctrl + alt + cmd - z : chezmoi apply ~/.yabairc ~/.skhdrc && \
+                       osascript -e 'tell application "Keyboard Maestro Engine" to do script "Hide All Windows"' && \
                        launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai" && \
                        sleep 5 && \
                        hs -c "hs.reload()"
+
+# Quick reload yabai
+ctrl + cmd - z : chezmoi apply ~/.yabairc ~/.skhdrc && \
+                 launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
 
 # Float everything in screen except current window
 ctrl + alt + cmd - x : ids=$(yabai -m query --windows --space | jq -r ".[] | select(.floating == 0) | .id") && \
