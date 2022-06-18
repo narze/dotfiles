@@ -1,4 +1,3 @@
-{{- if (eq .chezmoi.os "darwin") -}}
 #!/usr/bin/env bash
 
 # ~/.macos — https://mths.be/macos
@@ -955,4 +954,3 @@ defaults write com.tapbots.TweetbotMac OpenURLsDirectly -bool true
 # done
 
 echo "Done. Note that some of these changes require a logout/restart to take effect."
-{{ end -}}
