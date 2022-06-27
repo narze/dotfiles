@@ -2,10 +2,10 @@
 
 SCRIPTS_DIR={{ .chezmoi.sourceDir }}/../scripts
 
-{{- if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "ubuntu") }}
-  OS=linux-ubuntu
-{{- else if eq .chezmoi.os "darwin" }}
+{{- if eq .chezmoi.os "darwin" }}
   OS=darwin
+{{- else if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "ubuntu") }}
+  OS=linux-ubuntu
 {{- else }}
   echo "Not supported"
   exit 0
