@@ -1,0 +1,8 @@
+#!/bin/bash
+
+while [ ! -d "$NAS_PATH" ]; do
+  echo "Waiting for $NAS_PATH to be mounted..."
+  sleep 1
+done
+
+echo "$NAS_PATH is mounted"
