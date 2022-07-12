@@ -16,7 +16,7 @@ yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 yabai -m config mouse_follows_focus on
 yabai -m config focus_follows_mouse off # autofocus|autoraise|off
 yabai -m config window_placement second_child
-yabai -m config window_topmost off
+yabai -m config window_topmost on # Make floating windows stay on top
 yabai -m config window_opacity on # turning it on reduces overall performance?
 yabai -m config window_opacity_duration 0.0
 yabai -m config window_shadow on
@@ -52,18 +52,18 @@ yabai -m config window_gap 8
 
 # signals
 # focus mouse hovered window when a window is closed, minimized or terminated
-yabai -m signal --add event=window_destroyed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
-yabai -m signal --add event=window_minimized action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
-yabai -m signal --add event=application_terminated action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
+# yabai -m signal --add event=window_destroyed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
+# yabai -m signal --add event=window_minimized action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
+# yabai -m signal --add event=application_terminated action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
 
 # yabai -m signal --add event=window_created action="~/.yabai_axunknown_float"
 
 # Yabai-Spaces for BitBar
-yabai -m signal --add event=space_changed action="open -gj 'bitbar://refreshPlugin?name=yabai.1d.sh'"
-yabai -m signal --add event=display_added action="open -gj 'bitbar://refreshPlugin?name=yabai.1d.sh'"
-yabai -m signal --add event=display_removed action="open -gj 'bitbar://refreshPlugin?name=yabai.1d.sh'"
-yabai -m signal --add event=display_changed action="open -gj 'bitbar://refreshPlugin?name=yabai.1d.sh'"
-yabai -m signal --add event=display_moved action="open -gj 'bitbar://refreshPlugin?name=yabai.1d.sh'"
+# yabai -m signal --add event=space_changed action="open -gj 'bitbar://refreshPlugin?name=yabai.1d.sh'"
+# yabai -m signal --add event=display_added action="open -gj 'bitbar://refreshPlugin?name=yabai.1d.sh'"
+# yabai -m signal --add event=display_removed action="open -gj 'bitbar://refreshPlugin?name=yabai.1d.sh'"
+# yabai -m signal --add event=display_changed action="open -gj 'bitbar://refreshPlugin?name=yabai.1d.sh'"
+# yabai -m signal --add event=display_moved action="open -gj 'bitbar://refreshPlugin?name=yabai.1d.sh'"
 
 # sh ~/.yabai_rules
 
@@ -130,17 +130,17 @@ yabai -m rule --remove "All Apps"
 
 # Spaces
 ## Space 1: Terminals
-yabai -m rule --add app="kitty" space=Term
-yabai -m rule --add app="iTerm2" space=Term
+yabai -m rule --add app="kitty" title=".+" space=Term
+yabai -m rule --add app="iTerm2" title=".+" space=Term
 
 ## Space 2: Editor
-yabai -m rule --add app="Code" space=Editor
+yabai -m rule --add app="Code" title=".+" space=Editor
 
 ## Space 3: Browsing / Notes
-yabai -m rule --add app="Chrome" space=Browse
-yabai -m rule --add app="Microsoft Edge" space=Browse
-yabai -m rule --add app="Obsidian" space=Browse
-yabai -m rule --add app="Opera GX" space=Browse
+yabai -m rule --add app="Chrome" title=".+" space=Browse
+yabai -m rule --add app="Microsoft Edge" title=".+" space=Browse
+yabai -m rule --add app="Obsidian" title=".+" space=Browse
+yabai -m rule --add app="Opera GX" title=".+" space=Browse
 
 ## Space 4: Misc (Stacked)
 yabai -m space Misc --layout stack
@@ -149,15 +149,15 @@ yabai -m space Misc --padding abs:32:32:32:32
 ## Space 5 / Display 2 Space 1 : Off Screen
 yabai -m space OffScreen --layout stack
 
-yabai -m rule --add app="1Password" space=OffScreen
-yabai -m rule --add app="Discord" space=OffScreen
-yabai -m rule --add app="Fantastical" space=OffScreen
-yabai -m rule --add app="OBS" space=OffScreen
-yabai -m rule --add app="Slack" space=OffScreen
-yabai -m rule --add app="Sonixd" space=OffScreen
-yabai -m rule --add app="Spark" space=OffScreen
-yabai -m rule --add app="Spotify" space=OffScreen
-yabai -m rule --add app="Streamlabs" space=OffScreen
+yabai -m rule --add app="1Password" title=".+" space=OffScreen
+yabai -m rule --add app="Discord" title=".+" space=OffScreen
+yabai -m rule --add app="Fantastical" title=".+" space=OffScreen
+yabai -m rule --add app="OBS" title=".+" space=OffScreen
+yabai -m rule --add app="Slack" title=".+" space=OffScreen
+yabai -m rule --add app="Sonixd" title=".+" space=OffScreen
+yabai -m rule --add app="Spark" title=".+" space=OffScreen
+yabai -m rule --add app="Spotify" title=".+" space=OffScreen
+yabai -m rule --add app="Streamlabs" title=".+" space=OffScreen
 
 # Simple-bar signals
 # # Refresh spaces widget on space change
@@ -186,5 +186,14 @@ yabai -m rule --add app="Streamlabs" space=OffScreen
 # yabai -m signal --add event=window_title_changed action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-process-jsx\"'"
 
 echo "yabai configuration loaded.."
+
+yabai -m signal --add event=window_created label="focus-floating-windows" action='sh ~/.yabai.focus-floating-windows.sh $YABAI_WINDOW_ID'
+yabai -m signal --add event=window_created label="window-created-debug" action='echo "[window_created] window id: $YABAI_WINDOW_ID" >> /tmp/yabai.txt'
+yabai -m signal --add event=window_focused label="window-focused-debug" action='echo "[window_focused] window id: $YABAI_WINDOW_ID" >> /tmp/yabai.txt'
+
+# Re-focus
+# yabai -m signal --add event=window_focused label="move-window-focused-to-mouse" action='yabai -m window --focus $YABAI_WINDOW_ID ; yabai -m window $YABAI_WINDOW_ID --toggle topmost'
+# yabai -m signal --add event=window_focused label="move-window-focused-to-mouse" action='echo "ididid"$(yabai -m query --windows --window | jq .id) >> /tmp/yabai.txt'
+# yabai -m signal --add event=window_focused label="move-window-focused-to-mouse" action='yabai -m window $YABAI_WINDOW_ID --toggle topmost ; echo "topmosting $YABAI_WINDOW_ID" >> /tmp/yabai.txt'
 
 yabai -m space --focus 1
