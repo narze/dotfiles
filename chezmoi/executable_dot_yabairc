@@ -52,9 +52,9 @@ yabai -m config window_gap 8
 
 # signals
 # focus mouse hovered window when a window is closed, minimized or terminated
-yabai -m signal --add event=window_destroyed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
-yabai -m signal --add event=window_minimized action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
-yabai -m signal --add event=application_terminated action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
+# yabai -m signal --add event=window_destroyed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
+# yabai -m signal --add event=window_minimized action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
+# yabai -m signal --add event=application_terminated action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
 # yabai -m signal --add event=space_changed action="sleep 0.2 ; yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
 
 # yabai -m signal --add event=window_created action="~/.yabai_axunknown_float"
@@ -101,6 +101,9 @@ yabai -m rule --add label="VirtualBox" app="^VirtualBox$" manage=off
 yabai -m rule --add label="Electron" app="^Electron$" manage=off
 yabai -m rule --add label="OpenIn" app="^OpenIn$" mouse_follows_focus=off
 yabai -m rule --add label="Hammerspoon" app="^Hammerspoon$" manage=off
+
+# Ignore everything without title
+yabai -m rule --add label="untitled" app=".+" title="^$" manage=off
 
 DISPLAY_COUNT=$(yabai -m query --displays | jq length)
 SPACE_COUNT=$(yabai -m query --spaces --display 1 | jq length)
@@ -189,9 +192,9 @@ yabai -m rule --add app="Streamlabs" title=".+" space=OffScreen
 
 echo "yabai configuration loaded.."
 
-yabai -m signal --add event=window_created label="focus-floating-windows" action='sh ~/.yabai.focus-floating-windows.sh $YABAI_WINDOW_ID'
-yabai -m signal --add event=window_created label="window-created-debug" action='echo "[window_created] window id: $YABAI_WINDOW_ID" >> /tmp/yabai.txt'
-yabai -m signal --add event=window_focused label="window-focused-debug" action='echo "[window_focused] window id: $YABAI_WINDOW_ID" >> /tmp/yabai.txt'
+# yabai -m signal --add event=window_created label="focus-floating-windows" action='sh ~/.yabai.focus-floating-windows.sh $YABAI_WINDOW_ID'
+# yabai -m signal --add event=window_created label="window-created-debug" action='echo "[window_created] window id: $YABAI_WINDOW_ID" >> /tmp/yabai.txt'
+# yabai -m signal --add event=window_focused label="window-focused-debug" action='echo "[window_focused] window id: $YABAI_WINDOW_ID" >> /tmp/yabai.txt'
 
 # Re-focus
 # yabai -m signal --add event=window_focused label="move-window-focused-to-mouse" action='yabai -m window --focus $YABAI_WINDOW_ID ; yabai -m window $YABAI_WINDOW_ID --toggle topmost'
