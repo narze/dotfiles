@@ -102,6 +102,9 @@ yabai -m rule --add label="Electron" app="^Electron$" manage=off
 yabai -m rule --add label="OpenIn" app="^OpenIn$" mouse_follows_focus=off
 yabai -m rule --add label="Hammerspoon" app="^Hammerspoon$" manage=off
 
+# Sticky windows
+yabai -m rule --add label="Obsidian" app="^Obsidian$" manage=off sticky=on
+
 # Ignore everything without title
 yabai -m rule --add label="untitled" app=".+" title="^$" manage=off
 
@@ -144,7 +147,7 @@ yabai -m rule --add app="Code" title=".+" space=Editor
 ## Space 3: Browsing / Notes
 yabai -m rule --add app="Chrome" title=".+" space=Browse
 yabai -m rule --add app="Microsoft Edge" title=".+" space=Browse
-yabai -m rule --add app="Obsidian" title=".+" space=Browse
+# yabai -m rule --add app="Obsidian" title=".+" space=Browse
 yabai -m rule --add app="Opera GX" title=".+" space=Browse
 
 ## Space 4: Misc (Stacked)
