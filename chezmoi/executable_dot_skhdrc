@@ -311,7 +311,6 @@ alt - p : yabai -m window --toggle float;\
 
 # toggle sticky, float and resize to picture-in-picture size
 alt + shift - p : yabai -m window --toggle sticky;\
-                  yabai -m window --toggle border;\
                   yabai -m window --toggle pip;\
                   yabai -m window --layer above;
 
