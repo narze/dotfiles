@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 COUNT=0
-COUNT=$(curl https://github.com/users/FelixKratz/contributions | grep $(date '+%Y-%m-%d') | sed -nr 's/.*data-count=\"([^"]+).*/\1/p')
+COUNT=$(curl https://github.com/users/narze/contributions | grep $(date '+%Y-%m-%d') | sed -nr 's/.*data-count=\"([^"]+).*/\1/p')
 
 echo $COUNT
 if [ $COUNT -gt 0 ]; then
