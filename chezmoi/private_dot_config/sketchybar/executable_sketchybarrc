@@ -68,7 +68,6 @@ sketchybar -m --add space term left                              \
                          associated_space=5                      \
                          icon=                                  \
                          icon.highlight_color=0xfffab402         \
-                         label=OffScreen                               \
                          click_script="yabai -m space --focus 5" 
 
 ############## SECONDARY DISPLAY SPACES ############## 
@@ -159,14 +158,18 @@ sketchybar -m --add graph cpu_user right 200                                    
                                  update_freq=15                                     \
                                  script="$PLUGIN_DIR/topproc.sh"
 
-###################### CENTER ITEMS ###################
+###################### CENTER ITEMS ################### (Right of the notch)
 
 # Adding custom events which can listen on distributed notifications from other running processes
 sketchybar -m --add event spotify_change "com.spotify.client.PlaybackStateChanged"                       \
-              --add item spotifyIndicator center                                                         \
+              --add item spotifyIndicator e                                                          \
               --set spotifyIndicator script="$PLUGIN_DIR/spotifyIndicator.sh"           \
               --set spotifyIndicator click_script="osascript -e 'tell application \"Spotify\" to pause'" \
               --subscribe spotifyIndicator spotify_change
+sketchybar -m --add item sonixdIndicator e                                                          \
+              --set sonixdIndicator script="ruby $PLUGIN_DIR/sonixdIndicator.rb"           \
+                                    click_script="ruby $PLUGIN_DIR/sonixdIndicator.rb" \
+                                    update_freq=15 
 
 ############## FINALIZING THE SETUP ##############
 sketchybar -m --update

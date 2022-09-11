@@ -1,0 +1,34 @@
+#!/usr/bin/env ruby
+
+require "net/http"
+require "json"
+
+name = ENV["NAME"] # Input from sketchybar
+
+if `ps aux | grep Sonix[d]` == ""
+  `sketchybar -m --set #{name} label=""`
+
+  exit 0
+end
+
+# Format: http://<URL>:4533/rest/getNowPlaying?u=<USER>&p=<PASS>&v=1.16.1&f=json&c=sketchybar
+url = "{{- onepasswordRead "op://Private/rv52gjmik65gzkhjjnyrgma4ze/navidrome-get-now-playing-url" -}}".strip
+
+begin
+  response = Net::HTTP.get_response(URI(url))
+
+  # `echo #{response.body} > /tmp/sonixd.json`
+
+  song = JSON.parse(response.body).dig(
+    "subsonic-response","nowPlaying","entry",0
+  )
+
+  title = song.dig("title")
+  artist = song.dig("artist")
+
+  label = " #{title}  #{artist}"
+
+  `sketchybar -m --set #{name} label="#{label}" label.font="FantasqueSansMono Nerd Font:Bold:12.0"`
+rescue StandardError => e
+  `sketchybar -m --set #{name} label="sonixdInticator error: #{url} #{e}" label.font="FantasqueSansMono Nerd Font:Bold:8.0"`
+end
