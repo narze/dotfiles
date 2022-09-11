@@ -5,7 +5,17 @@ PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
 # This is a demo config to bring across some of the most important commands more easily.
 # For a more advanced configuration example see https://github.com/FelixKratz/SketchyBar/discussions/47#discussion-3587958
 ############## BAR ############## 
-sketchybar -m --bar height=42        \
+if [ "$(sysctl -n machdep.cpu.brand_string)" = "Apple M1 Pro" ]; then
+  BAR_HEIGHT=42
+  LEFT_NOTCH_POSITION=q
+  RIGHT_NOTCH_POSITION=e
+else
+  BAR_HEIGHT=25
+  LEFT_NOTCH_POSITION=center
+  RIGHT_NOTCH_POSITION=center
+fi
+
+sketchybar -m --bar height=$BAR_HEIGHT \
                     blur_radius=50   \
                     position=top     \
                     padding_left=10  \
@@ -119,9 +129,10 @@ sketchybar -m --add item space_separator left                                   
                                      update_freq=15                                            \
                                      script="$PLUGIN_DIR/topmem.sh"
 
-sketchybar --add item window_title q                               \
+sketchybar --add item window_title $LEFT_NOTCH_POSITION               \
            --set window_title    script="$PLUGIN_DIR/window_title.sh" \
                                  icon.drawing=off                     \
+                                 label.padding_left=20               \
                                  label.padding_right=20               \
            --subscribe window_title front_app_switched
 
@@ -162,11 +173,11 @@ sketchybar -m --add graph cpu_user right 200                                    
 
 # Adding custom events which can listen on distributed notifications from other running processes
 sketchybar -m --add event spotify_change "com.spotify.client.PlaybackStateChanged"                       \
-              --add item spotifyIndicator e                                                          \
+              --add item spotifyIndicator $RIGHT_NOTCH_POSITION                                           \
               --set spotifyIndicator script="$PLUGIN_DIR/spotifyIndicator.sh"           \
               --set spotifyIndicator click_script="osascript -e 'tell application \"Spotify\" to pause'" \
               --subscribe spotifyIndicator spotify_change
-sketchybar -m --add item sonixdIndicator e                                                          \
+sketchybar -m --add item sonixdIndicator $RIGHT_NOTCH_POSITION                                           \
               --set sonixdIndicator script="ruby $PLUGIN_DIR/sonixdIndicator.rb"           \
                                     click_script="ruby $PLUGIN_DIR/sonixdIndicator.rb" \
                                     update_freq=15 
