@@ -1,0 +1,8 @@
+#!/bin/sh
+
+{{- if .flags.is_codespace }}
+echo ""
+echo "=== Dotfiles installed on Codespaces! ==="
+echo "To install LunarVim, run this script:"
+echo "~/.local/share/chezmoi/scripts/manual/codespaces-lunarvim.sh"
+{{ end -}}
