@@ -59,6 +59,13 @@ ulimit -n 8192
 # Prefer using emacs mode for zsh
 bindkey -e
 
+{{ if .flags.is_codespace -}}
+if [[ ! -r "$Z4H/stickycache/no-chsh" ]]; then
+  mkdir -p $Z4H/stickycache
+  touch $Z4H/stickycache/no-chsh
+fi
+{{- end }}
+
 # Periodic auto-update on Zsh startup: 'ask' or 'no'.
 # You can manually run `z4h update` to update everything.
 zstyle ':z4h:' auto-update      'no'
