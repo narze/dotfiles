@@ -1,0 +1,12 @@
+{{- if .flags.is_codespace -}}
+
+#!/bin/bash
+
+SCRIPTS_DIR={{ .chezmoi.sourceDir }}/../scripts
+
+for script in $SCRIPTS_DIR/codespaces/*.*sh
+do
+  $script
+done
+
+{{- end -}}
