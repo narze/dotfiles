@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# don't install lunarvim on codespace since it fails
+{{- if not .flags.is_codespace -}}
 
 set -xe
 
@@ -32,3 +34,4 @@ fi
 # rm /tmp/install-lunarvim.sh
 
 echo "LunarVim installed."
+{{- end -}}
