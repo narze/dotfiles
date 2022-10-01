@@ -14,12 +14,14 @@ The latest version of my dotfiles are managed with [Chezmoi](https://chezmoi.io)
 - [x] Add Homebrew install script (run-once)
 - [x] Update this readme
 - [x] Cleanup dotbot
-- [ ] Linux / Github Codespaces install scripts
-  - [ ] `git-delta`, `exa` not installed
-  - [ ] `Fish` crashed
+- [x] Linux / Github Codespaces install scripts
+- [ ] Github Codespaces for development
+  - [ ] LunarVim (For ssh access)
+  - [ ] tmux
+- [ ] `Fish`
 - [ ] Documentation website
 - [ ] Instructions to import GPG keys
-- [ ] 1password integration
+- [x] 1password integration
 
 ## Usage
 
