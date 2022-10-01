@@ -80,6 +80,14 @@ After the recent [drama with Zinit](https://github.com/zdharma-continuum/I_WANT_
 
 I'll separate the dotfiles script to install zsh or fish separately to save some space. You can also install both like mine.
 
+### Development on Github Codespaces
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=master&repo=101657113&machine=standardLinux32gb)
+
+- `chezmoi cd` (Change directory into `~/.local/share/chezmoi`)
+- Update config and/or scripts
+- `chezmoi apply -x encrypted`
+
 ### Apple Silicon
 
 Here are the list of issues I've found on running the script on M1 Macbooks (Tested on both Macbook Air & Macbook Pro)
