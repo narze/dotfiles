@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+set -xe
+
+if [ -d "$HOME/.local/share/lunarvim" ]; then
+  echo "LunarVim Already Installed"
+  exit 0
+fi
+
+# Add asdf shims to path.
+export PATH="$PATH:$HOME/.asdf/shims:$HOME/.asdf/bin"
+
+# Fetch the LunarVim script.
+# curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh >/tmp/install-lunarvim.sh
+# chmod +x /tmp/install-lunarvim.sh
+
+# Install LunarVim.
+# The dependencies installation depends on NodeJS, Python and Rust.
+if command -v node &>/dev/null && command -v python &>/dev/null && command -v cargo &>/dev/null; then
+  echo "Installing LunarVim with dependencies."
+  bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh) --install-dependencies --yes --local
+
+  # /tmp/install-lunarvim.sh --install-dependencies --yes --local | :
+else
+  echo "Installing LunarVim without dependencies."
+  bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh) --no-install-dependencies --yes --local
+
+  # /tmp/install-lunarvim.sh --no-install-dependencies --yes --local | :
+fi
+
+# Cleanup installation script.
+# rm /tmp/install-lunarvim.sh
+
+echo "LunarVim installed."
