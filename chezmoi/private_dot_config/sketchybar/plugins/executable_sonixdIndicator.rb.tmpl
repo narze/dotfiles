@@ -1,3 +1,4 @@
+{{- if (eq .chezmoi.os "darwin") -}}
 #!/usr/bin/env ruby
 
 require "net/http"
@@ -32,3 +33,4 @@ begin
 rescue StandardError => e
   `sketchybar -m --set #{name} label="sonixdInticator error: #{url} #{e}" label.font="FantasqueSansMono Nerd Font:Bold:8.0"`
 end
+{{ end -}}
