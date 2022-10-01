@@ -13,5 +13,6 @@ SCRIPTS_DIR={{ .chezmoi.sourceDir }}/../scripts
 
 for script in $SCRIPTS_DIR/$OS/*.*sh
 do
-  $script
+  echo $script
+  source $script
 done
