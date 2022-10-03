@@ -12,6 +12,7 @@ asdf global ghq latest
 asdf plugin add direnv
 asdf install direnv latest
 asdf global direnv latest
+asdf direnv setup --version latest # Setup script
 
 # neovim
 asdf plugin add neovim
