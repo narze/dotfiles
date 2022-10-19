@@ -139,3 +139,7 @@ transfer() {
 dir() {
   basename $PWD
 }
+
+shadowenv() {
+  # No-op
+}
