@@ -41,7 +41,8 @@
         {:des "' <-> \" (Colemak)" :rules [:colemak [:quote :!Squote] [:!Squote :quote]]}
 
         ; Esc -> Grave on Keychrons
-        {:des "Esc -> Grave" :rules [:keychron-k6-pro :keychron-k12 [:##escape :grave_accent_and_tilde]]}
+        {:des "Esc -> Grave (K6 Pro)" :rules [:keychron-k6-pro [:##escape :grave_accent_and_tilde]]}
+        {:des "Esc -> Grave (K12)" :rules [:keychron-k12 [:##escape :grave_accent_and_tilde]]}
 
         ; General
         {:des "; <-> : (Colemak)" :rules [:colemak [:p :!Sp] [:!Sp :p]]}
