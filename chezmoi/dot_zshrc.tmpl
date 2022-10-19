@@ -120,9 +120,6 @@ z4h install olets/zsh-abbr || return
 # perform network I/O must be done above. Everything else is best done below.
 z4h init || return
 
-# Extend PATH.
-path=(~/bin $path)
-
 # Export environment variables.
 export GPG_TTY=$TTY
 
@@ -244,3 +241,6 @@ export PATH=/Users/narze/.meteor:$PATH
 # Bun
 export BUN_INSTALL="/Users/narze/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+# Extend bin PATH.
+path=(~/bin $path)
