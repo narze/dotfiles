@@ -4,7 +4,6 @@
 {{- $asdf_version := "0.9.0" -}}
 {{- $computer_name := default "narze-computer-name" (env "CM_computer_name") -}}
 {{- $hostname := default "narze" (env "CM_hostname") -}}
-{{- $gpg_recipient := "7A6FE00E074F2B913EBD33B5F05DC9084102F48A" -}}
 {{- $is_codespace := false }}
 {{- $nas_mount_path := default "~/mnt/nas" (env "NAS_PATH") -}}
 {{- $passphrase := default "change me with 'SETPASS=1 chezmoi init'" (.passphrase) -}}

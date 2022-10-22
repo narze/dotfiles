@@ -10,4 +10,8 @@ echo "~/.local/share/chezmoi/scripts/manual/codespaces-lunarvim.sh"
 {{- end }}
 
 echo ""
-echo "You can clear run_once script states with: chezmoi state delete-bucket --bucket=scriptState"
+echo "You can clear run_once script states with:"
+echo "  chezmoi state delete-bucket --bucket=scriptState"
+
+echo "Setting encryption passphrase:"
+echo "  SETPASS=1 chezmoi init"
