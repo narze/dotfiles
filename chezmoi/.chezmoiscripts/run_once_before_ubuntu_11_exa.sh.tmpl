@@ -1,4 +1,4 @@
-{{- if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "ubuntu") }}
+{{- if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "ubuntu") -}}
 #!/bin/sh
 
 EXA_VERSION=$(curl -s "https://api.github.com/repos/ogham/exa/releases/latest" | grep -Po '"tag_name": "v\K[0-9.]+')
