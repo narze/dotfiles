@@ -1,10 +1,10 @@
 {{- if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "ubuntu") -}}
 #!/bin/sh
 
-apt update
+sudo apt update
 
-apt install -y unzip zsh
+sudo apt install -y unzip zsh
 
 # Dependencies for asdf
-apt install -y curl git
+sudo apt install -y curl git
 {{ end -}}
