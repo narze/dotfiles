@@ -7,6 +7,7 @@ fishd.*
 {{ if ne .chezmoi.os "darwin" }}
 .config/karabiner
 .config/kitty
+.config/sketchybar
 .local/macos
 .duti
 .hammerspoon
