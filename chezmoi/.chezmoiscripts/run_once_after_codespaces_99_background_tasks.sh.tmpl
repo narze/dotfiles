@@ -1,0 +1,8 @@
+{{- if .flags.is_codespace -}}
+#!/bin/sh
+
+echo "Running tasks in background for codespaces"
+# Fetch z4h plugins
+z4h update &>/dev/null
+
+{{ end -}}
