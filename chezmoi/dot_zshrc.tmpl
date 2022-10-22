@@ -218,8 +218,12 @@ z4h source $HOME/.config/zsh/config/20_functions.zsh
 z4h source $HOME/.asdf/asdf.sh
 
 if [ -d "$HOME/.asdf/plugins/direnv" ]; then
-  eval "$(asdf exec direnv hook zsh)"
-  direnv() { asdf exec direnv "$@"; }
+  # Old hook script
+  # eval "$(asdf exec direnv hook zsh)"
+  # direnv() { asdf exec direnv "$@"; }
+
+  # New hook script
+  source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
 fi
 
 # Timing App Terminal Support
