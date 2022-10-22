@@ -1,8 +1,11 @@
 {{- if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "ubuntu") -}}
-#!/bin/sh
+#!/bin/bash
 
 # Zoxide
 curl -sS https://webinstall.dev/zoxide | bash
+
+# Load asdf
+source $HOME/.asdf/asdf.sh
 
 # ghq
 asdf plugin add ghq
