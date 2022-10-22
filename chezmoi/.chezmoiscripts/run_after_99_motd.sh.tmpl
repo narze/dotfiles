@@ -1,10 +1,13 @@
-#!/bin/sh
 {{- if .flags.is_codespace -}}
+#!/bin/sh
 
 echo ""
 echo "=== Dotfiles installed on Codespaces! ==="
 echo "To install LunarVim, run this script:"
 echo "~/.local/share/chezmoi/scripts/manual/codespaces-lunarvim.sh"
-{{ end -}}
+{{- else -}}
+#!/bin/sh
+{{- end }}
 
+echo ""
 echo "You can clear run_once script states with: chezmoi state delete-bucket --bucket=scriptState"
