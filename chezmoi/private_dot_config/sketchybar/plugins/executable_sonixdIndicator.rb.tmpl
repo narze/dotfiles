@@ -13,7 +13,7 @@ if `ps aux | grep Sonix[d]` == ""
 end
 
 # Format: http://<URL>:4533/rest/getNowPlaying?u=<USER>&p=<PASS>&v=1.16.1&f=json&c=sketchybar
-url = "{{- onepasswordRead "op://Private/rv52gjmik65gzkhjjnyrgma4ze/navidrome-get-now-playing-url" -}}".strip
+url = "{{- joinPath .chezmoi.sourceDir "dot_local" "macos" "encrypted_navidrome_now_playing_url.asc" | include | decrypt -}}".strip
 
 begin
   response = Net::HTTP.get_response(URI(url))

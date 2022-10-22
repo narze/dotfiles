@@ -7,10 +7,9 @@
 {{- $gpg_recipient := "7A6FE00E074F2B913EBD33B5F05DC9084102F48A" -}}
 {{- $is_codespace := false }}
 {{- $nas_mount_path := default "~/mnt/nas" (env "NAS_PATH") -}}
+{{- $passphrase := "change me with 'SETPASS=1 chezmoi init'" -}}
 
-{{- if (eq .chezmoi.username "codespace") }}
-{{-   $is_codespace = true }}
-{{- end }}
+{{- $is_codespace:= env "CODESPACES" | not | not -}}
 
 {{- if (env "ASK") }}
 {{-   $computer_name = promptString "Computer Name" $computer_name -}}
@@ -19,7 +18,10 @@
 {{-   $email = promptString "Email" $email -}}
 {{-   $github_user = promptString "GitHub Username" $github_user -}}
 {{-   $asdf_version = promptString "Asdf Version" $asdf_version -}}
-{{-   $gpg_recipient = promptString "GPG Recipient" $gpg_recipient -}}
+{{- end }}
+
+{{- if (env "SETPASS") }}
+{{    $passphrase = promptString "Encryption Passphrase" $passphrase -}}
 {{- end }}
 
 {{- $delta_is_not_installed := true }}
@@ -35,10 +37,13 @@ data:
   computer_name: {{ $computer_name | quote }}
   hostname: {{ $hostname | quote }}
   nas_mount_path: {{ $nas_mount_path | quote }}
+  passphrase: {{ $passphrase | quote }}
+
   flags:
     delta_is_not_installed: {{ $delta_is_not_installed }}
     is_codespace: {{ $is_codespace }}
 
 encryption: gpg
 gpg:
-  recipient: {{ $gpg_recipient | quote }}
+  symmetric: true
+  args: ["--batch", "--passphrase", {{ $passphrase | quote }}, "--no-symkey-cache", "--quiet"]
