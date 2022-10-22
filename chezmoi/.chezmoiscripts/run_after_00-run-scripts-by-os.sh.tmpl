@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SCRIPTS_DIR={{ .chezmoi.sourceDir }}/../scripts
+SCRIPTS_DIR={{ .chezmoi.workingTree }}/scripts
 
 {{- if eq .chezmoi.os "darwin" }}
   OS=darwin
