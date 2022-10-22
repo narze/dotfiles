@@ -1,13 +1,13 @@
 {{- if .flags.is_codespace -}}
-#!/bin/sh
+#!/bin/bash
 
 echo "Running tasks in background for codespaces"
 
 # Fetch z4h plugins
-
-nohup {{ .chezmoi.workingTree }}/scripts/codespaces/z4h-init.sh &
+# TODO: Make it really work in background (now it's suspended)
 # z4h update &>/dev/null
-# zsh -ic "echo z4h plugins initialized"
+zsh -ic "echo z4h plugins initialized" &
+disown
 # zsh -ic "z4h update"
 
 {{ end -}}
