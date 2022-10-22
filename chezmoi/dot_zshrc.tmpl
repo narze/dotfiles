@@ -223,7 +223,9 @@ if [ -d "$HOME/.asdf/plugins/direnv" ]; then
   # direnv() { asdf exec direnv "$@"; }
 
   # New hook script
-  source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
+  if [ -s "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc" ]; then
+    source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
+  fi
 fi
 
 # Timing App Terminal Support
