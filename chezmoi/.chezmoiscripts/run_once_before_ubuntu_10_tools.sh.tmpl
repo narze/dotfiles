@@ -1,3 +1,4 @@
+{{- if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "ubuntu") }}
 #!/bin/sh
 
 # Zoxide
@@ -18,3 +19,4 @@ asdf direnv setup --version latest # Setup script
 asdf plugin add neovim
 asdf install neovim latest
 asdf global neovim latest
+{{ end -}}
