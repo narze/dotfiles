@@ -20,4 +20,4 @@ else
   chezmoi=chezmoi
 fi
 
-exec "$chezmoi" init --apply narze -k -x encryption
+exec "$chezmoi" init --apply narze -k -x encrypted
