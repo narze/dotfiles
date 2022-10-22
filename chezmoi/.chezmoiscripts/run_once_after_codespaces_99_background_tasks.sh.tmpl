@@ -2,9 +2,12 @@
 #!/bin/sh
 
 echo "Running tasks in background for codespaces"
+
 # Fetch z4h plugins
+
+nohup {{ .chezmoi.workingTree }}/scripts/codespaces/z4h-init.sh &
 # z4h update &>/dev/null
-zsh -ic "z4h updated" &
+# zsh -ic "echo z4h plugins initialized"
 # zsh -ic "z4h update"
 
 {{ end -}}
