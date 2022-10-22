@@ -1,0 +1,6 @@
+{{- if (eq .chezmoi.os "darwin") -}}
+#!/bin/sh
+
+fileicon set "/Applications/Visual Studio Code.app" $HOME/.local/macos/fileicons/vscode.icns
+
+{{ end -}}

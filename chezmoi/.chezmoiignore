@@ -1,4 +1,3 @@
-.chezmoiscripts
 */README.md
 fishd.*
 .config/fish/config.fish.backup
@@ -8,6 +7,7 @@ fishd.*
 {{ if ne .chezmoi.os "darwin" }}
 .config/karabiner
 .config/kitty
+.local/macos
 .duti
 .hammerspoon
 .mackup
@@ -17,6 +17,7 @@ fishd.*
 {{ end }}
 
 {{ if ne .chezmoi.os "linux" }}
+.local/linux
 .hushlogin
 .local/share/fonts
 {{ end }}
