@@ -17,7 +17,7 @@ yabai -m config mouse_follows_focus on
 yabai -m config focus_follows_mouse off # autofocus|autoraise|off
 yabai -m config window_placement second_child
 yabai -m config window_topmost off # Make floating windows stay on top
-yabai -m config window_opacity on # turning it on reduces overall performance?
+yabai -m config window_opacity on  # turning it on reduces overall performance?
 yabai -m config window_opacity_duration 0.0
 yabai -m config window_shadow on
 yabai -m config insert_feedback_color 0xaad75f5f
@@ -36,10 +36,10 @@ yabai -m config window_animation_duration 0.0
 
 # borders
 yabai -m config window_border on
-yabai -m config window_border_width 2
+yabai -m config window_border_width 4
 yabai -m config active_window_border_color 0xA006B6D4
 yabai -m config normal_window_border_color 0x5006B6D4
-yabai -m config window_border_hidpi off
+yabai -m config window_border_hidpi on
 yabai -m config window_border_blur off
 
 # general space settings
