@@ -6,7 +6,7 @@
 {{- $hostname := default "narze" (env "CM_hostname") -}}
 {{- $is_codespace := false }}
 {{- $nas_mount_path := default "~/mnt/nas" (env "NAS_PATH") -}}
-{{- $passphrase := default "change me with 'SETPASS=1 chezmoi init'" (.passphrase) -}}
+{{- $passphrase := default "change me with 'SETPASS=1 chezmoi init'" (index . "passphrase") -}}
 
 {{- $is_codespace:= env "CODESPACES" | not | not -}}
 
