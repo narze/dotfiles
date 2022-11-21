@@ -83,6 +83,7 @@ yabai -m rule --add label="CleanMyMac X" app="^CleanMyMac X$" manage=off
 yabai -m rule --add label="Dash" app="Dash" manage=off
 # yabai -m rule --add label="Dictionary" app="^Dictionary$" manage=off
 # yabai -m rule --add label="Fantastical" app="Fantastical" manage=off
+yabai -m rule --add label="Fig Autocomplete" app="^Fig$" title="^Fig Autocomplete$" manage=off
 # yabai -m rule --add label="Finder Main" app="^Finder$" manage=off
 yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off
 # yabai -m rule --add label="Firefox" app="Firefox" manage=off
