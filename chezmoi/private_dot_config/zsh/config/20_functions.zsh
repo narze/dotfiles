@@ -143,3 +143,23 @@ dir() {
 shadowenv() {
   # No-op
 }
+
+nz_repair_second_brain() {
+  if [ -d "$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/narze/" ]; then
+    cd "$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/narze/"
+
+    if (git status -s); then
+      echo "Git is fine"
+    else
+      echo "Git corrupted, repairing..."
+      rm -rf "$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/narze/.git"
+      rm -rf /tmp/second-brain
+      git clone --no-checkout https://github.com/narze/second-brain.git /tmp/second-brain
+      mv /tmp/second-brain/.git/ "$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/narze/"
+      git reset
+      git status
+    fi
+  else
+    echo "Second brain directory not found"
+  fi
+}
