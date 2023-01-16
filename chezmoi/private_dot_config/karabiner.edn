@@ -18,8 +18,8 @@
            :filco-bt [{:vendor_id 2652 :product_id 34050}]
            :keychron-k12 [{:vendor_id 1452 :product_id 591}]
            :keychron-k6-pro [{:vendor_id 13364 :product_id 608}]
-           :lily-58-zmk [{:vendor_id 7504 :product_id 24926}]
            ; All QMK/ZMK keyboards I own
+           :lily-58-zmk [{:vendor_id 7504 :product_id 24926}]
            :qmk [{:vendor_id 936 :product_id 44545} ; Planck Rev4
                  {:vendor_id 936 :product_id 42233} ; Planck Rev6
                  {:vendor_id 936 :product_id 48802} ; Planck Light
@@ -33,7 +33,7 @@
  :main [
         ; Non QMK Rules (Avoid modifier keys collide with QMK keebs)
         {:des "Cmd -> Cmd / Underscore" :rules [:!qmk [:##left_command :left_command nil {:alone :!Shyphen}]]}
-        {:des "Delete -> F19" :rules [:!qmk :!lily-58-zmk [:##delete_or_backspace [:f19]]]}
+        {:des "Delete -> F19" :rules [[:condi :!qmk :!lily-58-zmk] [:##delete_or_backspace [:f19]]]}
         {:des "ROption -> Option / Cmb+Tab (Colemak)" :rules [:colemak :!qmk :!filco-bt [:##right_option :right_option nil {:held :right_option :alone :!Ctab}]]}
         {:des "ROption -> Option / Delete (Filco)" :rules [:colemak :filco-bt [:##right_option :right_option nil {:held :right_option :alone :delete_or_backspace}]]}
 
@@ -69,17 +69,17 @@
         ; {:des "Delmode F/J/K -> Delete" :rules [:delete-mode [:f :delete_or_backspace] [:j :delete_or_backspace] [:k :delete_or_backspace]]}
 
         ; SuperDuper Mode with S+D (Non-QMK)
-        {:des "SuperDuper <- S+D" :rules [:!qmk :!lily-58-zmk [{:sim [:s :d]
+        {:des "SuperDuper <- S+D" :rules [[:condi :!qmk :!lily-58-zmk] [{:sim [:s :d]
                                      :simo {:interrupt true
                                             :dorder :insensitive
                                             :uorder :insensitive
                                             :afterup {:set ["superduper-mode" 0]}}} {:set ["superduper-mode" 1]}]]}
-        {:des "A+S+D -> SD+Option" :rules [:!qmk :!lily-58-zmk [{:sim [:a :s :d]
+        {:des "A+S+D -> SD+Option" :rules [[:condi :!qmk :!lily-58-zmk] [{:sim [:a :s :d]
                                      :simo {:interrupt true
                                             :dorder :insensitive
                                             :uorder :insensitive
                                             :afterup {:set ["superduper-mode" 0]}}} [{:set ["superduper-mode" 1]} :left_option]]]}
-        {:des "A+S+D+F-> SD+Option" :rules [:!qmk :!lily-58-zmk [{:sim [:a :s :d :f]
+        {:des "A+S+D+F-> SD+Option" :rules [[:condi :!qmk :!lily-58-zmk] [{:sim [:a :s :d :f]
                                      :simo {:interrupt true
                                             :dorder :insensitive
                                             :uorder :insensitive
