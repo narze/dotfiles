@@ -69,17 +69,17 @@
         ; {:des "Delmode F/J/K -> Delete" :rules [:delete-mode [:f :delete_or_backspace] [:j :delete_or_backspace] [:k :delete_or_backspace]]}
 
         ; SuperDuper Mode with S+D (Non-QMK)
-        {:des "SuperDuper <- S+D" :rules [:!qmk [{:sim [:s :d]
+        {:des "SuperDuper <- S+D" :rules [:!qmk :!lily-58-zmk [{:sim [:s :d]
                                      :simo {:interrupt true
                                             :dorder :insensitive
                                             :uorder :insensitive
                                             :afterup {:set ["superduper-mode" 0]}}} {:set ["superduper-mode" 1]}]]}
-        {:des "A+S+D -> SD+Option" :rules [:!qmk [{:sim [:a :s :d]
+        {:des "A+S+D -> SD+Option" :rules [:!qmk :!lily-58-zmk [{:sim [:a :s :d]
                                      :simo {:interrupt true
                                             :dorder :insensitive
                                             :uorder :insensitive
                                             :afterup {:set ["superduper-mode" 0]}}} [{:set ["superduper-mode" 1]} :left_option]]]}
-        {:des "A+S+D+F-> SD+Option" :rules [:!qmk [{:sim [:a :s :d :f]
+        {:des "A+S+D+F-> SD+Option" :rules [:!qmk :!lily-58-zmk [{:sim [:a :s :d :f]
                                      :simo {:interrupt true
                                             :dorder :insensitive
                                             :uorder :insensitive
