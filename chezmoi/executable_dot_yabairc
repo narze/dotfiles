@@ -89,6 +89,7 @@ yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info
 # yabai -m rule --add label="Firefox" app="Firefox" manage=off
 yabai -m rule --add label="Gather" app="^Gather$" manage=off
 yabai -m rule --add label="KeyCastr" app="KeyCastr" manage=off
+yabai -m rule --add label="Kit" app="Kit" title="^Script Kit Widget$" manage=off
 yabai -m rule --add label="Steam" app="Steam" manage=off
 yabai -m rule --add label="GoPro Webcam" app="GoPro Webcam" manage=off
 yabai -m rule --add label="Loom" app="Loom" manage=off
