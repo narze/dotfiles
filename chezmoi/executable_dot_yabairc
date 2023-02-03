@@ -79,6 +79,7 @@ yabai -m rule --add label="Alfred Preferences" app="^Alfred Preferences$" manage
 yabai -m rule --add label="App Store" app="^App Store$" manage=off
 yabai -m rule --add label="Boom 3D" app="^Boom 3D$" manage=off
 yabai -m rule --add label="Calculator" app="^Calculator$" manage=off
+yabai -m rule --add label="Chromium" app="^Chromium$" manage=off
 yabai -m rule --add label="CleanMyMac X" app="^CleanMyMac X$" manage=off
 yabai -m rule --add label="Dash" app="Dash" manage=off
 # yabai -m rule --add label="Dictionary" app="^Dictionary$" manage=off
