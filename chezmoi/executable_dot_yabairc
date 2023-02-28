@@ -12,6 +12,14 @@
 sudo yabai --load-sa
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 
+move_to_space() {
+  id=$(yabai -m query --windows | jq ".[] | select(.app | contains(\"$1\")) | .id")
+
+  if [ -n "$id" ]; then
+    yabai -m window "$id" --space "$2"
+  fi
+}
+
 # global settings
 yabai -m config mouse_follows_focus on
 yabai -m config focus_follows_mouse off # autofocus|autoraise|off
@@ -71,6 +79,7 @@ yabai -m config window_gap 8
 
 # sh ~/.yabai_rules
 
+yabai -m rule --add label="1Password" app="^1Password$" manage=off
 yabai -m rule --add label="1Password 7" app="^1Password 7$" manage=off
 # yabai -m rule --add label="Browserosaurus" app="^Browserosaurus$" manage=off
 yabai -m rule --add label="Arc PiP" app="^Arc$" title="Picture in Picture" manage=off
@@ -146,18 +155,24 @@ yabai -m rule --remove "All Apps"
 
 # Spaces
 ## Space 1: Terminals
-yabai -m rule --add app="kitty" title=".+" space=Term
-yabai -m rule --add app="iTerm2" title=".+" space=Term
+# yabai -m rule --add app="kitty" title=".+" space=Term
+move_to_space "kitty" Term
+# yabai -m rule --add app="iTerm2" title=".+" space=Term
+move_to_space "iTerm2" Term
 
 ## Space 2: Editor
-yabai -m rule --add app="Code" title=".+" space=Editor
+# yabai -m rule --add app="Code" title=".+" space=Editor
+move_to_space "Code" Editor
 
 ## Space 3: Browsing / Notes
-yabai -m rule --add app="Arc" title=".+" space=Browse
-yabai -m rule --add app="Chrome" title=".+" space=Browse
-yabai -m rule --add app="Microsoft Edge" title=".+" space=Browse
-# yabai -m rule --add app="Obsidian" title=".+" space=Browse
-yabai -m rule --add app="Opera GX" title=".+" space=Browse
+# yabai -m rule --add app="Arc" title=".+" space=Browse
+move_to_space "Arc" Browse
+# yabai -m rule --add app="Chrome" title=".+" space=Browse
+move_to_space "Chrome" Browse
+# yabai -m rule --add app="Microsoft Edge" title=".+" space=Browse
+move_to_space Microsoft "Edge" Browse
+# yabai -m rule --add app="Opera GX" title=".+" space=Browse
+move_to_space Opera "GX" Browse
 
 ## Space 4: Misc (Stacked)
 yabai -m space Misc --layout stack
@@ -166,15 +181,24 @@ yabai -m space Misc --padding abs:32:32:32:32
 ## Space 5 / Display 2 Space 1 : Off Screen
 yabai -m space OffScreen --layout stack
 
-yabai -m rule --add app="1Password" title=".+" space=OffScreen
-yabai -m rule --add app="Discord" title=".+" space=OffScreen
-yabai -m rule --add app="Fantastical" title=".+" space=OffScreen
-yabai -m rule --add app="OBS" title=".+" space=OffScreen
-yabai -m rule --add app="Slack" title=".+" space=OffScreen
-yabai -m rule --add app="Sonixd" title=".+" space=OffScreen
-yabai -m rule --add app="Spark" title=".+" space=OffScreen
-yabai -m rule --add app="Spotify" title=".+" space=OffScreen
-yabai -m rule --add app="Streamlabs" title=".+" space=OffScreen
+# yabai -m rule --add app="1Password" title=".+" space=OffScreen
+move_to_space "1Password" OffScreen
+# yabai -m rule --add app="Discord" title=".+" space=OffScreen
+move_to_space "Discord" OffScreen
+# yabai -m rule --add app="Fantastical" title=".+" space=OffScreen
+move_to_space "Fantastical" OffScreen
+# yabai -m rule --add app="OBS" title=".+" space=OffScreen
+move_to_space "OBS" OffScreen
+# yabai -m rule --add app="Slack" title=".+" space=OffScreen
+move_to_space "Slack" OffScreen
+# yabai -m rule --add app="Sonixd" title=".+" space=OffScreen
+move_to_space "Sonixd" OffScreen
+# yabai -m rule --add app="Spark" title=".+" space=OffScreen
+move_to_space "Spark" OffScreen
+# yabai -m rule --add app="Spotify" title=".+" space=OffScreen
+move_to_space "Spotify" OffScreen
+# yabai -m rule --add app="Streamlabs" title=".+" space=OffScreen
+move_to_space "Streamlabs" OffScreen
 
 # Simple-bar signals
 # # Refresh spaces widget on space change
