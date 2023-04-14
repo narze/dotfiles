@@ -31,6 +31,6 @@ begin
 
   `sketchybar -m --set #{name} label="#{label}" label.font="FantasqueSansMono Nerd Font:Bold:12.0" icon="" icon.color=0xff48aa2a`
 rescue StandardError => e
-  `sketchybar -m --set #{name} label="sonixdInticator error: #{e}" label.font="FantasqueSansMono Nerd Font:Bold:8.0"`
+  `sketchybar -m --set #{name} label="sonixdInticator error: #{e.to_s.gsub(url, "<redacted>")}" label.font="FantasqueSansMono Nerd Font:Bold:8.0"`
 end
 {{ end -}}
