@@ -382,3 +382,7 @@ ctrl + alt + cmd + shift - 1 : /Applications/Microsoft\ Edge.app/Contents/MacOS/
 # Opacity toggle
 alt - o : opacity=$(yabai -m query --windows --window | jq .opacity); \
           [ $opacity -eq 1 ] && yabai -m window --opacity 0.85 || yabai -m window --opacity 1.0
+
+# Move window to mouse
+alt + shift - j : space=$(yabai -m query --spaces --space mouse | jq .index); \
+                  yabai -m window --space "$space"
