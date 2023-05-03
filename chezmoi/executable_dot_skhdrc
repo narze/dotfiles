@@ -385,4 +385,5 @@ alt - o : opacity=$(yabai -m query --windows --window | jq .opacity); \
 
 # Move window to mouse
 alt + shift - j : space=$(yabai -m query --spaces --space mouse | jq .index); \
-                  yabai -m window --space "$space"
+                  yabai -m window --space "$space"; \
+                  yabai -m space --focus "$space";
