@@ -250,3 +250,8 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # Extend bin PATH.
 path=(~/bin $path)
+
+# Nix
+if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+fi
