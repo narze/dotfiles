@@ -1,5 +1,8 @@
-{{- if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "ubuntu") -}}
 #!/bin/sh
+
+{{- if .flags.is_codespace }}
+echo "Using codespace, skip running apt commands"
+{{- else if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "ubuntu") }}
 
 sudo apt update
 
