@@ -15,9 +15,7 @@ The latest version of my dotfiles are managed with [Chezmoi](https://chezmoi.io)
 - [x] Update this readme
 - [x] Cleanup dotbot
 - [x] Linux / Github Codespaces install scripts
-- [ ] Github Codespaces for development
-  - [ ] LunarVim (For ssh access)
-  - [ ] tmux
+- [x] Github Codespaces for development
 - [ ] `Fish`
 - [ ] Documentation website
 - [ ] Instructions to import GPG keys
