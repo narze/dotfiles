@@ -82,7 +82,7 @@ yabai -m config window_gap 8
 yabai -m rule --add label="1Password" app="^1Password$" manage=off
 yabai -m rule --add label="1Password 7" app="^1Password 7$" manage=off
 # yabai -m rule --add label="Browserosaurus" app="^Browserosaurus$" manage=off
-yabai -m rule --add label="Arc PiP" app="^Arc$" title="Picture in Picture" manage=off
+yabai -m rule --add label="Arc PiP" app="^Arc$" title="^$" manage=off
 yabai -m rule --add label="Little Arc Launcher" app="^Arc$" title="^Space 1$" manage=off
 yabai -m rule --add label="Activity Monitor" app="^Activity Monitor$" manage=off
 yabai -m rule --add label="Alfred Preferences" app="^Alfred Preferences$" manage=off
