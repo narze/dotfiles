@@ -14,7 +14,8 @@ fishd.*
 .mackup
 .mackup.cfg
 .skhdrc
-.yabairc
+.yabai*
+obsidian
 {{ end }}
 
 {{ if ne .chezmoi.os "linux" }}
