@@ -28,9 +28,9 @@ sketchybar -m --bar height=$BAR_HEIGHT \
 sketchybar -m --default updates=when_shown                    \
                         drawing=on                            \
                         cache_scripts=on                      \
-                        icon.font="FantasqueSansMono Nerd Font:Bold:17.0"  \
+                        icon.font="FantasqueSansM Nerd Font:Bold:17.0"  \
                         icon.color=0xffffffff                 \
-                        label.font="FantasqueSansMono Nerd Font:Bold:14.0" \
+                        label.font="FantasqueSansM Nerd Font:Bold:14.0" \
                         label.color=0xffffffff
 
 ############## SPACE DEFAULTS ############## 
@@ -43,7 +43,7 @@ sketchybar -m --default label.padding_left=2  \
 sketchybar -m --add space term left                              \
               --set term associated_display=1                    \
                          associated_space=1                      \
-                         icon.font="FantasqueSansMono Nerd Font:Bold:20.0"    \
+                         icon.font="FantasqueSansM Nerd Font:Bold:20.0"    \
                          icon=                                  \
                          icon.highlight_color=0xfffab402         \
                          label=Term                              \
@@ -84,7 +84,7 @@ sketchybar -m --add space term left                              \
 sketchybar -m --add space offscreen_2 left                              \
               --set offscreen_2 associated_display=2                    \
                          associated_space=5                      \
-                         icon.font="FantasqueSansMono Nerd Font:Bold:20.0"    \
+                         icon.font="FantasqueSansM Nerd Font:Bold:20.0"    \
                          icon=                                  \
                          icon.highlight_color=0xff48aa2a         \
                          label=OffScreen                              \
@@ -103,12 +103,12 @@ sketchybar -m --add item space_separator left                                   
                                      associated_space=1                                        \
                                      icon.padding_left=15                                      \
                                      label.padding_right=15                                    \
-                                     icon.font="FantasqueSansMono Nerd Font:Bold:15.0"                      \
+                                     icon.font="FantasqueSansM Nerd Font:Bold:15.0"                      \
                                                                                                \
               --add item gitNotifications left                                                 \
               --set gitNotifications associated_space=1                                        \
                                      update_freq=300                                           \
-                                     icon.font="FantasqueSansMono Nerd Font:Bold:18.0"                      \
+                                     icon.font="FantasqueSansM Nerd Font:Bold:18.0"                      \
                                      icon=                                                    \
                                      script="$PLUGIN_DIR/gitNotifications.sh" \
                                      click_script="open https://github.com/notifications"      \
@@ -117,7 +117,7 @@ sketchybar -m --add item space_separator left                                   
               --add item githubIndicator left                                                  \
               --set githubIndicator  associated_space=1                                        \
                                      update_freq=1000                                          \
-                                     icon.font="FantasqueSansMono Nerd Font:Bold:18.0"                      \
+                                     icon.font="FantasqueSansM Nerd Font:Bold:18.0"                      \
                                      icon=                                                    \
                                      click_script="open https://github.com"                    \
                                      script="$PLUGIN_DIR/githubIndicator.sh"  \
@@ -145,7 +145,7 @@ sketchybar -m --add item clock right                                            
               # --set mailIndicator associated_space=1,2,3                                              \
               #                     update_freq=30                                                      \
               #                     script="$PLUGIN_DIR/mailIndicator.sh"              \
-              #                     icon.font="FantasqueSansMono Nerd Font:Bold:20.0"                                \
+              #                     icon.font="FantasqueSansM Nerd Font:Bold:20.0"                                \
               #                     icon=                                                              \
               #                     click_script="osascript -e 'tell application \"Mail\" to activate'"
 
