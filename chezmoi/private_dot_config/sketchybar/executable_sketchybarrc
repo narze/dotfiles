@@ -52,7 +52,7 @@ sketchybar -m --add space term left                              \
               --add space editor left                               \
               --set editor associated_display=1                    \
                          associated_space=2                      \
-                         icon=                                  \
+                         icon=󰈮                                  \
                          icon.highlight_color=0xfffab402         \
                          label=Editor                               \
                          click_script="yabai -m space --focus 2" \
@@ -76,7 +76,7 @@ sketchybar -m --add space term left                              \
               --add space offscreen left                               \
               --set offscreen associated_display=1                    \
                          associated_space=5                      \
-                         icon=                                  \
+                         icon=󰹑                                  \
                          icon.highlight_color=0xfffab402         \
                          click_script="yabai -m space --focus 5" 
 
@@ -85,7 +85,7 @@ sketchybar -m --add space offscreen_2 left                              \
               --set offscreen_2 associated_display=2                    \
                          associated_space=5                      \
                          icon.font="FantasqueSansM Nerd Font:Bold:20.0"    \
-                         icon=                                  \
+                         icon=󰹑                                  \
                          icon.highlight_color=0xff48aa2a         \
                          label=OffScreen                              \
                          click_script="yabai -m space --focus 5"
@@ -108,8 +108,8 @@ sketchybar -m --add item space_separator left                                   
               --add item gitNotifications left                                                 \
               --set gitNotifications associated_space=1                                        \
                                      update_freq=300                                           \
-                                     icon.font="FantasqueSansM Nerd Font:Bold:18.0"                      \
-                                     icon=                                                    \
+                                     icon.font="FantasqueSansM Nerd Font:Bold:18.0"            \
+                                     icon=                                                    \
                                      script="$PLUGIN_DIR/gitNotifications.sh" \
                                      click_script="open https://github.com/notifications"      \
               --subscribe gitNotifications system_woke                                         \
@@ -118,7 +118,7 @@ sketchybar -m --add item space_separator left                                   
               --set githubIndicator  associated_space=1                                        \
                                      update_freq=1000                                          \
                                      icon.font="FantasqueSansM Nerd Font:Bold:18.0"                      \
-                                     icon=                                                    \
+                                     icon=                                                    \
                                      click_script="open https://github.com"                    \
                                      script="$PLUGIN_DIR/githubIndicator.sh"  \
               --subscribe githubIndicator system_woke                                          \
