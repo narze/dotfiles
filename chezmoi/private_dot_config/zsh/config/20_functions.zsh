@@ -61,6 +61,9 @@ take() {
 }
 
 n() {
+  if [[ -f "$(pwd)/pnpm-lock.yaml" ]]; then
+    echo "Found pnpm-lock.yaml, using pnpm"
+    pnpm $@
   if [[ -f "$(pwd)/yarn.lock" ]]; then
     echo "Found yarn.lock, using Yarn"
     yarn $@
@@ -68,10 +71,10 @@ n() {
     echo "Found package-lock.json, using Npm"
     npm $@
   elif [[ -f "$(pwd)/package.json" ]]; then
-    echo "Yarn & Npm lockfile not found, but found package.json, using Yarn"
-    yarn $@
+    echo "No lockfiles found, but found package.json, using pnpm by default"
+    pnpm $@
   else
-    echo "Yarn & Npm lockfile not found"
+    echo "No lockfiles found"
     return 1
   fi
 }
