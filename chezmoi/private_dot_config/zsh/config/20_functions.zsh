@@ -64,7 +64,7 @@ n() {
   if [[ -f "$(pwd)/pnpm-lock.yaml" ]]; then
     echo "Found pnpm-lock.yaml, using pnpm"
     pnpm $@
-  if [[ -f "$(pwd)/yarn.lock" ]]; then
+  elif [[ -f "$(pwd)/yarn.lock" ]]; then
     echo "Found yarn.lock, using Yarn"
     yarn $@
   elif [[ -f "$(pwd)/package-lock.json" ]]; then
