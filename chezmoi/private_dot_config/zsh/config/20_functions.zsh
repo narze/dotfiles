@@ -166,3 +166,19 @@ nz_repair_second_brain() {
     echo "Second brain directory not found"
   fi
 }
+
+next_and_current() {
+  echo "${fg[green]}================ NEXT ================"
+  echo "next $@ ${reset_color}"
+  next "$@"
+
+  if [ $? -ne 0 ]; then
+    echo "${fg[red]}Next command failed, skipping current command. ${reset_color}"
+    return 1
+  fi
+
+  echo "\n"
+  echo "${fg[green]}================ CURRENT ================"
+  echo "$@ ${reset_color}"
+  "$@"
+}
