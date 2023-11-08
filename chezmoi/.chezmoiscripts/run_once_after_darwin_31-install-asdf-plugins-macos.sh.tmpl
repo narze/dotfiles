@@ -15,16 +15,16 @@ echo "Install asdf plugins"
 
 {{ $plugins := dict
   "nodejs"     "lts-gallium"
-  "pnpm"       "6.23.3"
-  "ruby"       "3.0.3"
-  "yarn"       "1.22.17"
+  "pnpm"       "latest"
+  "ruby"       "latest"
   "direnv"     "latest"
-  "erlang"     "latest"
-  "elixir"     "latest"
-  "rust"       "latest"
-  "terraform"  "1.0.4"
-  "terragrunt" "latest"
 }}
+# "yarn"       "1.22.17"
+# "erlang"     "latest"
+# "elixir"     "latest"
+# "rust"       "latest"
+# "terraform"  "1.0.4"
+# "terragrunt" "latest"
 
 # Skip Node.js signature check
 export NODEJS_CHECK_SIGNATURES=no

@@ -31,12 +31,8 @@ set -eufo pipefail
   "mackup"
   "mas"
 
-  "mpc"
-  "mpd"
-  "ncmpcpp"
 
   "neofetch"
-  "neovim"
   "reattach-to-user-namespace"
   "terminal-notifier"
   "tmux"
@@ -47,10 +43,8 @@ set -eufo pipefail
   "colima"
   "docker"
   "docker-compose"
-  "helm"
   "kubernetes-cli"
   "kubectx"
-  "stern"
 
   "koekeishiya/formulae/skhd"
   "koekeishiya/formulae/yabai"
@@ -70,7 +64,6 @@ set -eufo pipefail
   "shellcheck"
   "switchaudio-osx"
   "zoxide"
-  "task"
 -}}
 
 {{ $casks := list
@@ -89,6 +82,7 @@ set -eufo pipefail
   "quicklookase"
   "qlvideo"
   "WebPQuickLook"
+
 -}}
 
 brew bundle --no-lock --file=/dev/stdin <<EOF || :
