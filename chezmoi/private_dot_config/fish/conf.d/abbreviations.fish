@@ -76,7 +76,7 @@ abbr gpl "gh pr list"
 abbr gpr "gh pr"
 abbr gps "gh pr status"
 abbr gpw "gh pr view -w"
-abbr gq "ghq get -l -p"
+abbr gq "ghq get -l"
 abbr gr "git reset"
 abbr grh "git reset HEAD"
 abbr grm 'if git show-ref -q --heads main; git rebase main; else; git rebase master; end'
