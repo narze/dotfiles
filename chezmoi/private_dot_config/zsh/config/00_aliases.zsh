@@ -30,7 +30,7 @@ alias gmm="if git show-ref -q --heads main; then; git merge main; else; git merg
 alias gps="gh pr status"
 alias gpc="gh pr checkout"
 alias gpl="gh pr list"
-
+alias gpm="gh pr list --author '@me'"
 alias gfr='git fetch && git rebase'
 alias glog="git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
 alias gd='git diff'
