@@ -41,11 +41,10 @@ To change the data or script, `chezmoi cd`, edit them, then run `chezmoi apply`.
   - Run Setapp installer manually after the `brew` script is run.
   - Login to App Store before running (If not `mas` will skip installation and open the App Store for you)
   - Preferences -> Change input source switch to CMD+Space, and Spotlight search to Option+Space
-  - Run `mackup restore` once after Syncthing is installed, logged-in, and `~/Sync/Mackup` is synced.
-  - Connect to Zerotier private network to mount NAS
-  - Setup Arq for backup
+  - Run `mackup restore` once after iCloud is synced
+  - Connect to Tailscale to mount NAS
   - Disable Boom 3D keyboard shortcuts
-  - Disable Timing keyboard shortcuts
+  - Set enrcyption password `SETPASS=1 chezmoi init`
 
 ## Features
 
