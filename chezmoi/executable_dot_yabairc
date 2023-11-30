@@ -53,11 +53,11 @@ borders active_color=0xC0FF8552 inactive_color=0x3006B6D4 width=10.0 hidpi=on &
 
 # general space settings
 yabai -m config layout bsp
-yabai -m config top_padding 8
+yabai -m config top_padding 0
 yabai -m config bottom_padding 8
 yabai -m config left_padding 8
 yabai -m config right_padding 8
-yabai -m config window_gap 8
+yabai -m config window_gap 12
 
 # specific space settings
 # yabai -m space 1 --layout stack
