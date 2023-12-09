@@ -151,8 +151,12 @@ else
   yabai -m space "$SPACE_2ND_DSP" --label "OffScreen"
 fi
 
-# Set normal layer for all apps as from v6.0.0 force all tiled windows to be "below" layer
+# Set normal layer for all apps as from v6.0.0 force all tiled windows to be "below" layer (why???)
 yabai -m rule --add app=".*" label="Normal Layer" layer=normal
+yabai -m signal --add event=application_front_switched action="yabai -m window --layer normal"
+yabai -m signal --add event=window_moved action="yabai -m window --layer normal"
+yabai -m signal --add event=window_focused action="yabai -m window --layer normal"
+# yabai -m signal --add event=window_resized action="yabai -m window --layer normal"
 
 # Move all windows to Space 4 (Misc) by default
 yabai -m space Misc --layout stack
