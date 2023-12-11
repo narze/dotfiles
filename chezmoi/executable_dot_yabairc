@@ -80,6 +80,7 @@ yabai -m config window_gap 12
 
 # sh ~/.yabai_rules
 
+yabai -m rule --add app="coreautha" manage=off
 yabai -m rule --add label="1Password" app="^1Password$" manage=off
 yabai -m rule --add label="1Password 7" app="^1Password 7$" manage=off
 # yabai -m rule --add label="Browserosaurus" app="^Browserosaurus$" manage=off
