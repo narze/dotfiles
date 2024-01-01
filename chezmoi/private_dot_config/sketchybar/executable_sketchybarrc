@@ -4,7 +4,7 @@ PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
 
 # This is a demo config to bring across some of the most important commands more easily.
 # For a more advanced configuration example see https://github.com/FelixKratz/SketchyBar/discussions/47#discussion-3587958
-############## BAR ############## 
+############## BAR ##############
 if [ "$(sysctl -n machdep.cpu.brand_string)" = "Apple M1 Pro" ]; then
   BAR_HEIGHT=42
   LEFT_NOTCH_POSITION=q
@@ -15,31 +15,38 @@ else
   RIGHT_NOTCH_POSITION=center
 fi
 
+TRANSPARENT=0x00000000
+BG=0xfa232639
+FONT_FACE="MonaspiceKr Nerd Font"
+
 sketchybar -m --bar height=$BAR_HEIGHT \
                     blur_radius=50   \
                     position=top     \
                     padding_left=10  \
                     padding_top=10  \
                     padding_right=10 \
-                    color=0x44000000 \
+                    color=$TRANSPARENT \
                     y_offset=0
 
-############## GLOBAL DEFAULTS ############## 
-sketchybar -m --default updates=when_shown                    \
-                        drawing=on                            \
-                        cache_scripts=on                      \
-                        icon.font="FantasqueSansM Nerd Font:Bold:17.0"  \
-                        icon.color=0xffffffff                 \
-                        label.font="FantasqueSansM Nerd Font:Bold:14.0" \
-                        label.color=0xffffffff
+############## GLOBAL DEFAULTS ##############
+sketchybar -m --default icon.font="$FONT_FACE:Regular:17.0"  \
+                        icon.color=$BG                 \
+                        label.font="$FONT_FACE:Regular:12.0" \
+                        label.color=$BG \
+                        background.color=$TRANSPARENT \
+                        background.border_color=$BG \
+                        background.border_width=1 \
+                        background.corner_radius=8 \
+                        background.padding_right=5 \
+                        background.height=26
 
-############## SPACE DEFAULTS ############## 
+############## SPACE DEFAULTS ##############
 sketchybar -m --default label.padding_left=2  \
                         label.padding_right=2 \
                         icon.padding_left=8   \
                         label.padding_right=8
 
-############## PRIMARY DISPLAY SPACES ############## 
+############## PRIMARY DISPLAY SPACES ##############
 sketchybar -m --add space term left                              \
               --set term associated_display=1                    \
                          associated_space=1                      \
@@ -78,9 +85,9 @@ sketchybar -m --add space term left                              \
                          associated_space=5                      \
                          icon=󰹑                                  \
                          icon.highlight_color=0xfffab402         \
-                         click_script="yabai -m space --focus 5" 
+                         click_script="yabai -m space --focus 5"
 
-############## SECONDARY DISPLAY SPACES ############## 
+############## SECONDARY DISPLAY SPACES ##############
 sketchybar -m --add space offscreen_2 left                              \
               --set offscreen_2 associated_display=2                    \
                          associated_space=5                      \
@@ -97,46 +104,48 @@ sketchybar -m --default label.padding_left=2  \
                         label.padding_right=6
 
 
-############## LEFT ITEMS ############## 
-sketchybar -m --add item space_separator left                                                  \
-              --set space_separator  icon=                                                    \
-                                     associated_space=1                                        \
-                                     icon.padding_left=15                                      \
-                                     label.padding_right=15                                    \
-                                     icon.font="FantasqueSansM Nerd Font:Bold:15.0"                      \
-                                                                                               \
-              --add item gitNotifications left                                                 \
-              --set gitNotifications associated_space=1                                        \
-                                     update_freq=300                                           \
-                                     icon.font="FantasqueSansM Nerd Font:Bold:18.0"            \
-                                     icon=                                                    \
-                                     script="$PLUGIN_DIR/gitNotifications.sh" \
-                                     click_script="open https://github.com/notifications"      \
-              --subscribe gitNotifications system_woke                                         \
-                                                                                               \
-              --add item githubIndicator left                                                  \
-              --set githubIndicator  associated_space=1                                        \
-                                     update_freq=1000                                          \
-                                     icon.font="FantasqueSansM Nerd Font:Bold:18.0"                      \
-                                     icon=                                                    \
-                                     click_script="open https://github.com"                    \
-                                     script="$PLUGIN_DIR/githubIndicator.sh"  \
-              --subscribe githubIndicator system_woke                                          \
-                                                                                               \
-              --add item topmem left                                                           \
-              --set topmem           associated_space=1                                        \
-                                     icon.padding_left=10                                      \
-                                     update_freq=15                                            \
-                                     script="$PLUGIN_DIR/topmem.sh"
+############## LEFT ITEMS ##############
+# sketchybar -m --add item space_separator left                                                  \
+#               --set space_separator  icon=                                                    \
+#                                      associated_space=1                                        \
+#                                      icon.padding_left=15                                      \
+#                                      label.padding_right=15                                    \
+#                                      icon.font="FantasqueSansM Nerd Font:Bold:15.0"                      \
+#                                                                                                \
+#               --add item gitNotifications left                                                 \
+#               --set gitNotifications associated_space=1                                        \
+#                                      update_freq=300                                           \
+#                                      icon.font="FantasqueSansM Nerd Font:Bold:18.0"            \
+#                                      icon=                                                    \
+#                                      script="$PLUGIN_DIR/gitNotifications.sh" \
+#                                      click_script="open https://github.com/notifications"      \
+#               --subscribe gitNotifications system_woke                                         \
+#                                                                                                \
+#               --add item githubIndicator left                                                  \
+#               --set githubIndicator  associated_space=1                                        \
+#                                      update_freq=1000                                          \
+#                                      icon.font="FantasqueSansM Nerd Font:Bold:18.0"                      \
+#                                      icon=                                                    \
+#                                      click_script="open https://github.com"                    \
+#                                      script="$PLUGIN_DIR/githubIndicator.sh"  \
+#               --subscribe githubIndicator system_woke                                          \
+#                                                                                                \
+#               --add item topmem left                                                           \
+#               --set topmem           associated_space=1                                        \
+#                                      icon.padding_left=10                                      \
+#                                      update_freq=15                                            \
+#                                      script="$PLUGIN_DIR/topmem.sh"
 
 sketchybar --add item window_title $LEFT_NOTCH_POSITION               \
            --set window_title    script="$PLUGIN_DIR/window_title.sh" \
                                  icon.drawing=off                     \
-                                 label.padding_left=20               \
-                                 label.padding_right=20               \
+                                 label.padding_left=16               \
+                                 label.padding_right=16               \
+                                 background.padding_right=16            \
+                                 drawing=off \
            --subscribe window_title front_app_switched
 
-############## RIGHT ITEMS ############## 
+############## RIGHT ITEMS ##############
 sketchybar -m --add item clock right                                                                  \
               --set clock         update_freq=10                                                      \
                                   script="$PLUGIN_DIR/clock.sh"                      \
@@ -176,11 +185,12 @@ sketchybar -m --add event spotify_change "com.spotify.client.PlaybackStateChange
               --add item spotifyIndicator $RIGHT_NOTCH_POSITION                                           \
               --set spotifyIndicator script="$PLUGIN_DIR/spotifyIndicator.sh"           \
               --set spotifyIndicator click_script="osascript -e 'tell application \"Spotify\" to pause'" \
+              --set spotifyIndicator background.padding_left=16            \
               --subscribe spotifyIndicator spotify_change
 sketchybar -m --add item sonixdIndicator $RIGHT_NOTCH_POSITION                                           \
               --set sonixdIndicator script="ruby $PLUGIN_DIR/sonixdIndicator.rb"           \
                                     click_script="ruby $PLUGIN_DIR/sonixdIndicator.rb" \
-                                    update_freq=15 
+                                    update_freq=15
 
 ############## FINALIZING THE SETUP ##############
 sketchybar -m --update

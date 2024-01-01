@@ -8,6 +8,7 @@ name = ENV["NAME"] # Input from sketchybar
 
 if `ps aux | grep Sonix[d]` == ""
   `sketchybar -m --set #{name} label=""`
+  `sketchybar -m --set #{name} drawing="off"`
 
   exit 0
 end

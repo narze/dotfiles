@@ -1,3 +1,5 @@
 #!/usr/bin/env sh
 
-sketchybar --set $NAME label="$INFO"
+if [ -n "$INFO" ]; then
+  sketchybar --set $NAME label="$INFO" drawing="on"
+fi

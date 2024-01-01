@@ -6,5 +6,5 @@ MEM=$(echo $TOPMEM | sed -nr 's/([^MB]+).*/\1/p')
 if [ $MEM -gt 2048 ]; then
   sketchybar -m --set $NAME label=" $TOPMEM"
 else
-  sketchybar -m --set $NAME label=""
+  sketchybar -m --set $NAME drawing="off"
 fi

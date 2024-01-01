@@ -20,5 +20,5 @@ if [ $RUNNING -eq 0 ] && [ $PLAYING -eq 0 ]; then
     sketchybar -m --set $NAME label=" $TRACK  $ARTIST"
   fi
 else
-  sketchybar -m --set $NAME label=""
+  sketchybar -m --set $NAME drawing="off"
 fi
