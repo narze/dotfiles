@@ -40,6 +40,7 @@ yabai -m config mouse_drop_action stack
 yabai -m config external_bar all:42:0
 yabai -m config window_origin_display default # default|focused|cursor
 # yabai -m config window_animation_duration 0.0
+yabai -m config window_zoom_persist off
 
 # borders are removed since 6.0.0, use JankyBorders instead https://github.com/FelixKratz/JankyBorders
 # yabai -m config window_border on
