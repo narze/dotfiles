@@ -38,7 +38,7 @@ yabai -m config mouse_action1 move
 yabai -m config mouse_action2 resize
 yabai -m config mouse_drop_action stack
 yabai -m config external_bar all:42:0
-yabai -m config window_origin_display focused
+yabai -m config window_origin_display default # default|focused|cursor
 # yabai -m config window_animation_duration 0.0
 
 # borders are removed since 6.0.0, use JankyBorders instead https://github.com/FelixKratz/JankyBorders
@@ -52,11 +52,11 @@ borders active_color=0xC0FF8552 inactive_color=0x3006B6D4 width=10.0 hidpi=on &
 
 # general space settings
 yabai -m config layout bsp
-yabai -m config top_padding 0
-yabai -m config bottom_padding 8
-yabai -m config left_padding 8
-yabai -m config right_padding 8
-yabai -m config window_gap 12
+yabai -m config top_padding 8
+yabai -m config bottom_padding 16
+yabai -m config left_padding 16
+yabai -m config right_padding 16
+yabai -m config window_gap 20
 
 # specific space settings
 # yabai -m space 1 --layout stack
