@@ -106,11 +106,11 @@ alt - w : yabai -m window --close
 
 # focus window (migrated to Hammerspoon since it's faster)
 alt - n : yabai -m window --focus south
-alt - h : yabai -m window --focus west
 alt - m : yabai -m window --focus west
 alt - e : yabai -m window --focus north
 alt - i : yabai -m window --focus east
-alt - m : yabai -m window --focus recent
+alt - 0x27 : yabai -m window --focus recent
+alt - o : yabai -m window --focus smallest
 
 # focus window in stack
 alt - 0x2B : yabai -m window --focus stack.prev
@@ -380,10 +380,13 @@ ctrl + alt + cmd + shift - d : osascript ~/Library/Scripts/omnifocus-task-random
 ctrl + alt + cmd + shift - 1 : /Applications/Microsoft\ Edge.app/Contents/MacOS/Microsoft\ Edge
 
 # Opacity toggle
-alt - o : opacity=$(yabai -m query --windows --window | jq .opacity); \
-          [ $opacity -eq 1 ] && yabai -m window --opacity 0.85 || yabai -m window --opacity 1.0
+# alt - o : opacity=$(yabai -m query --windows --window | jq .opacity); \
+#           [ $opacity -eq 1 ] && yabai -m window --opacity 0.85 || yabai -m window --opacity 1.0
 
 # Move window to mouse
 alt + shift - j : space=$(yabai -m query --spaces --space mouse | jq .index); \
                   yabai -m window --space "$space"; \
                   yabai -m space --focus "$space";
+
+# Swap window with the largest window on screen, if already largest, swap with recent window and focus largest window again
+alt - tab : ~/.yabai.swap-largest.sh
