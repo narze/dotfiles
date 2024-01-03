@@ -168,6 +168,12 @@ sketchybar --add item keyboard right        \
            --add event keyboard_change "AppleSelectedInputSourcesChangedNotification" \
            --subscribe keyboard keyboard_change
 
+sketchybar --add item mic right \
+           --set mic script="$PLUGIN_DIR/mic.sh" \
+           --set mic click_script="$PLUGIN_DIR/mic_click.sh" \
+           --add event mic_vol_change \
+           --subscribe mic mic_vol_change
+
 # Creating Graphs
 sketchybar -m --add graph cpu_user right 200                                        \
               --set cpu_user     graph.color=0xffffffff                             \
