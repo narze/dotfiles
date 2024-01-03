@@ -10,7 +10,7 @@ if [ "$(sysctl -n machdep.cpu.brand_string)" = "Apple M1 Pro" ]; then
   LEFT_NOTCH_POSITION=q
   RIGHT_NOTCH_POSITION=e
 else
-  BAR_HEIGHT=25
+  BAR_HEIGHT=36
   LEFT_NOTCH_POSITION=center
   RIGHT_NOTCH_POSITION=center
 fi
