@@ -181,16 +181,16 @@ sketchybar --add item wifi right                         \
            --subscribe wifi wifi_change
 
 # Creating Graphs
-sketchybar -m --add graph cpu_user right 200                                        \
-              --set cpu_user     graph.color=0xffffffff                             \
-                                 update_freq=2                                      \
+sketchybar -m --add graph cpu_user right 64                                         \
+              --set cpu_user     graph.color=0xff000000                             \
+                                 update_freq=1                                      \
                                  width=0                                            \
                                  label.padding_left=0                               \
                                  icon=                                             \
                                  script="$PLUGIN_DIR/cpu_graph.sh" \
                                  lazy=on                                            \
                                                                                     \
-              --add graph cpu_sys right 200                                         \
+              --add graph cpu_sys right 64                                          \
               --set cpu_sys      label.padding_left=0                               \
                                  icon=                                             \
                                  graph.color=0xff48aa2a                             \
