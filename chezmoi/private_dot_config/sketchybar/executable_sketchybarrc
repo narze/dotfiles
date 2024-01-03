@@ -138,10 +138,10 @@ sketchybar -m --default label.padding_left=2  \
 
 sketchybar --add item window_title $LEFT_NOTCH_POSITION               \
            --set window_title    script="$PLUGIN_DIR/window_title.sh" \
-                                 icon.drawing=off                     \
                                  label.padding_left=16               \
                                  label.padding_right=16               \
                                  background.padding_right=16            \
+                                 icon.drawing=off                     \
                                  drawing=off \
            --subscribe window_title front_app_switched
 
