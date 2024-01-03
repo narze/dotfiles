@@ -158,6 +158,16 @@ sketchybar -m --add item clock right                                            
               #                     icon=                                                              \
               #                     click_script="osascript -e 'tell application \"Mail\" to activate'"
 
+keyboard=(
+    icon.drawing=off
+    label.font="$FONT_FACE:Semibold:14.0"
+    script="$PLUGIN_DIR/keyboard.sh"
+)
+sketchybar --add item keyboard right        \
+           --set keyboard "${keyboard[@]}"  \
+           --add event keyboard_change "AppleSelectedInputSourcesChangedNotification" \
+           --subscribe keyboard keyboard_change
+
 # Creating Graphs
 sketchybar -m --add graph cpu_user right 200                                        \
               --set cpu_user     graph.color=0xffffffff                             \
