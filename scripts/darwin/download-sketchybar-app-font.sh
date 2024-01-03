@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Download sketchybar-app-font, add .ttf to macOS fonts directory,
+# and then sketchybar will be able to use the icon font `sketchybar-app-font` and icon format `:icon_name:`
+# Also, icon_map function will be available for mapping front application with icon name
+# See all available app-icon mappings at ~/.config/sketchybar/plugins/sketchybar-app-font/icon_map_fn.sh
+
 # GitHub user/repo
 USER_REPO="kvndrsslr/sketchybar-app-font"
 
