@@ -113,6 +113,7 @@ zstyle ':z4h:ssh:*' send-extra-files '~/.nanorc' '~/.env.zsh'
 z4h install romkatv/zsh-prompt-benchmark || return
 z4h install mollifier/cd-gitroot || return
 z4h install olets/zsh-abbr || return
+z4h install sobolevn/wakatime-zsh-plugin
 
 # Install or update core components (fzf, zsh-autosuggestions, etc.) and
 # initialize Zsh. After this point console I/O is unavailable until Zsh
@@ -134,6 +135,7 @@ z4h source ~/.env.zsh
 z4h load   romkatv/zsh-prompt-benchmark  # load a plugin
 z4h load   mollifier/cd-gitroot
 z4h load   olets/zsh-abbr
+z4h load   sobolevn/wakatime-zsh-plugin
 
 # Define key bindings.
 z4h bindkey undo Ctrl+/  # undo the last command line change
