@@ -195,7 +195,34 @@
                                         [:h :!Cclose_bracket ["multitouch_extension_finger_count_total" 1]]
                                         [:w :!Cw ["multitouch_extension_finger_count_total" 1]]
                                         ]}
+
+        ; Function keys
+        {:des "Function Keys" :rules [:!apple-internal [:f1 :f1]
+                                                       [:f2 :f2]
+                                                       [:f3 :f3]
+                                                       [:f4 :f4]
+                                                       [:f5 :f5]
+                                                       [:f6 :f6]
+                                                       [:f7 :f7]
+                                                       [:f8 :f8]
+                                                       [:f9 :f9]
+                                                       [:f10 :f10]
+                                                       [:f11 :f11]
+                                                       [:f12 :f12] ]}
+        {:des "Alt + Function Keys -> Media Keys" :rules [:!apple-internal [:!Of1 {:ckey :display_brightness_decrement}]
+                                                                    [:!Of2 {:ckey :display_brightness_increment}]
+                                                                    [:!Of3 :mission_control]
+                                                                    ;; [:!Of4 :f4]
+                                                                    ;; [:!Of5 :f5]
+                                                                    ;; [:!Of6 :f6]
+                                                                    [:!Of7 {:ckey :rewind}]
+                                                                    [:!Of8 {:ckey :play_or_pause}]
+                                                                    [:!Of9 {:ckey :fastforward}]
+                                                                    [:!Of10 {:ckey :mute}]
+                                                                    [:!Of11 {:ckey :volume_decrement}]
+                                                                    [:!Of12 {:ckey :volume_increment}] ]}
         ]
+
  ;; code won't read cheatsheet section
  ;; ! stand for mandatory
  ;; # stand for optional
