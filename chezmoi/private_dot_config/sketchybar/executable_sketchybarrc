@@ -180,6 +180,11 @@ sketchybar --add item wifi right                         \
                          update_freq=120 \
            --subscribe wifi wifi_change
 
+sketchybar -m --add item battery right \
+              --set battery update_freq=60 \
+              --set battery script="$PLUGIN_DIR/power.sh" \
+              --subscribe battery power_source_change
+
 # Creating Graphs
 sketchybar -m --add graph cpu_user right 64                                         \
               --set cpu_user     graph.color=0xff000000                             \
