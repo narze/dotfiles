@@ -12,4 +12,4 @@ case "$LAYOUT" in
     *) SHORT_LAYOUT="?";;
 esac
 
-sketchybar --set keyboard label="$SHORT_LAYOUT"
+sketchybar --set keyboard label="$SHORT_LAYOUT" icon.drawing="off" label.padding_left=6 label.padding_right=6
