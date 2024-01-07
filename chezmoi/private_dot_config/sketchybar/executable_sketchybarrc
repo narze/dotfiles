@@ -19,6 +19,9 @@ TRANSPARENT=0x00000000
 BG=0xfa232639
 FONT_FACE="MonaspiceKr Nerd Font"
 
+# Custom event
+sketchybar --add event window_change
+
 sketchybar -m --bar height=$BAR_HEIGHT \
                     blur_radius=50   \
                     position=top     \
@@ -46,56 +49,101 @@ sketchybar -m --default label.padding_left=2  \
                         icon.padding_left=8   \
                         label.padding_right=8
 
-############## PRIMARY DISPLAY SPACES ##############
-sketchybar -m --add space term left                              \
-              --set term associated_display=1                    \
-                         associated_space=1                      \
-                         icon.font="FantasqueSansM Nerd Font:Bold:20.0"    \
-                         icon=                                  \
-                         icon.highlight_color=0xfffab402         \
-                         label=Term                              \
-                         click_script="yabai -m space --focus 1" \
-                                                                 \
-              --add space editor left                               \
-              --set editor associated_display=1                    \
-                         associated_space=2                      \
-                         icon=󰈮                                  \
-                         icon.highlight_color=0xfffab402         \
-                         label=Editor                               \
-                         click_script="yabai -m space --focus 2" \
-                                                                 \
-              --add space browse left                               \
-              --set browse associated_display=1                    \
-                         associated_space=3                      \
-                         icon=                                  \
-                         icon.highlight_color=0xfffab402         \
-                         label=Browse                               \
-                         click_script="yabai -m space --focus 3" \
-                                                                 \
-              --add space misc left                               \
-              --set misc associated_display=1                    \
-                         associated_space=4                      \
-                         icon=                                  \
-                         icon.highlight_color=0xfffab402         \
-                         label=Misc                               \
-                         click_script="yabai -m space --focus 4" \
-                                                                 \
-              --add space offscreen left                               \
-              --set offscreen associated_display=1                    \
-                         associated_space=5                      \
-                         icon=󰹑                                  \
-                         icon.highlight_color=0xfffab402         \
-                         click_script="yabai -m space --focus 5"
+# https://github.com/FelixKratz/SketchyBar/discussions/12?sort=top#discussioncomment-6974258
+COLOR_BACKGROUND=0xe01d2021
+COLOR_FOREGROUND=0xe0fbf1c7
+COLOR_BLACK=0xe0282828
+COLOR_RED=0xe0cc241d
+COLOR_GREEN=0xe098971a
+COLOR_YELLOW=0xe0d79921
+COLOR_BLUE=0xe0458588
+COLOR_MAGENTA=0xe0b16286
+COLOR_CYAN=0xe0689d6a
+COLOR_WHITE=0xe0a89984
+ICONS_SPACE=(󰎤 󰎧 󰎪 󰎭 󰎱 󰎳 󰎶)
+COLORS_SPACE=($COLOR_YELLOW $COLOR_CYAN $COLOR_MAGENTA $COLOR_WHITE $COLOR_BLUE $COLOR_RED $COLOR_GREEN)
+LENGTH=${#ICONS_SPACE[@]}
 
-############## SECONDARY DISPLAY SPACES ##############
-sketchybar -m --add space offscreen_2 left                              \
-              --set offscreen_2 associated_display=2                    \
-                         associated_space=5                      \
-                         icon.font="FantasqueSansM Nerd Font:Bold:20.0"    \
-                         icon=󰹑                                  \
-                         icon.highlight_color=0xff48aa2a         \
-                         label=OffScreen                              \
-                         click_script="yabai -m space --focus 5"
+for i in "${!ICONS_SPACE[@]}"
+do
+  sid=$(($i+1))
+  PAD_LEFT=2
+  PAD_RIGHT=2
+  if [[ $i == 0 ]]; then
+    PAD_LEFT=8
+  elif [[ $i == $(($LENGTH-1)) ]]; then
+    PAD_RIGHT=8
+  fi
+  sketchybar --add space space.$sid left                                       \
+             --set       space.$sid script="$PLUGIN_DIR/app_space.sh"          \
+                                    associated_space=$sid                      \
+                                    padding_left=$PAD_LEFT                     \
+                                    padding_right=$PAD_RIGHT                   \
+                                    background.color=${COLORS_SPACE[i]}        \
+                                    background.border_width=0                  \
+                                    background.corner_radius=6                 \
+                                    background.height=24                       \
+                                    icon=${ICONS_SPACE[i]}                     \
+                                    icon.color=${COLORS_SPACE[i]}              \
+                                    label="_"                                  \
+                                    label.color=${COLORS_SPACE[i]}             \
+             --subscribe space.$sid front_app_switched window_change
+done
+
+# Space bracket
+sketchybar --add bracket spaces '/space\..*/'                      \
+           --set         spaces background.color=$COLOR_BACKGROUND
+
+# ############## PRIMARY DISPLAY SPACES ##############
+# sketchybar -m --add space term left                              \
+#               --set term associated_display=1                    \
+#                          associated_space=1                      \
+#                          icon.font="FantasqueSansM Nerd Font:Bold:20.0"    \
+#                          icon=                                  \
+#                          icon.highlight_color=0xfffab402         \
+#                          label=Term                              \
+#                          click_script="yabai -m space --focus 1" \
+#                                                                  \
+#               --add space editor left                               \
+#               --set editor associated_display=1                    \
+#                          associated_space=2                      \
+#                          icon=󰈮                                  \
+#                          icon.highlight_color=0xfffab402         \
+#                          label=Editor                               \
+#                          click_script="yabai -m space --focus 2" \
+#                                                                  \
+#               --add space browse left                               \
+#               --set browse associated_display=1                    \
+#                          associated_space=3                      \
+#                          icon=                                  \
+#                          icon.highlight_color=0xfffab402         \
+#                          label=Browse                               \
+#                          click_script="yabai -m space --focus 3" \
+#                                                                  \
+#               --add space misc left                               \
+#               --set misc associated_display=1                    \
+#                          associated_space=4                      \
+#                          icon=                                  \
+#                          icon.highlight_color=0xfffab402         \
+#                          label=Misc                               \
+#                          click_script="yabai -m space --focus 4" \
+#                                                                  \
+#               --add space offscreen left                               \
+#               --set offscreen associated_display=1                    \
+#                          associated_space=5                      \
+#                          icon=󰹑                                  \
+#                          icon.highlight_color=0xfffab402         \
+#                          click_script="yabai -m space --focus 5"
+
+# ############## SECONDARY DISPLAY SPACES ##############
+# sketchybar -m --add space offscreen_2 left                              \
+#               --set offscreen_2 associated_display=2                    \
+#                          associated_space=5                      \
+#                          icon.font="FantasqueSansM Nerd Font:Bold:20.0"    \
+#                          icon=󰹑                                  \
+#                          icon.highlight_color=0xff48aa2a         \
+#                          label=OffScreen                              \
+#                          click_script="yabai -m space --focus 5"
 
 ############## ITEM DEFAULTS ###############
 sketchybar -m --default label.padding_left=2  \

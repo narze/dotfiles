@@ -71,12 +71,9 @@ yabai -m signal --add event=application_terminated action="yabai -m window mouse
 
 # yabai -m signal --add event=window_created action="~/.yabai_axunknown_float"
 
-# Yabai-Spaces for BitBar
-# yabai -m signal --add event=space_changed action="open -gj 'bitbar://refreshPlugin?name=yabai.1d.sh'"
-# yabai -m signal --add event=display_added action="open -gj 'bitbar://refreshPlugin?name=yabai.1d.sh'"
-# yabai -m signal --add event=display_removed action="open -gj 'bitbar://refreshPlugin?name=yabai.1d.sh'"
-# yabai -m signal --add event=display_changed action="open -gj 'bitbar://refreshPlugin?name=yabai.1d.sh'"
-# yabai -m signal --add event=display_moved action="open -gj 'bitbar://refreshPlugin?name=yabai.1d.sh'"
+# Sketchybar signals
+yabai -m signal --add event=window_created action="sketchybar -m --trigger window_change &> /dev/null"
+yabai -m signal --add event=window_destroyed action="sketchybar -m --trigger window_change &> /dev/null"
 
 # sh ~/.yabai_rules
 
