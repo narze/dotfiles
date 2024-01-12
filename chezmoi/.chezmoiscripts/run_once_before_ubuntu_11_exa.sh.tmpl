@@ -1,9 +1,9 @@
 {{- if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "ubuntu") -}}
 #!/bin/bash
 
-EXA_VERSION=$(curl -s "https://api.github.com/repos/ogham/exa/releases/latest" | grep -Po '"tag_name": "v\K[0-9.]+')
+# EZA_VERSION=$(curl -s "https://api.github.com/repos/eza-community/eza/releases/latest" | grep -Po '"tag_name": "v\K[0-9.]+')
 
-curl -fsSLo /tmp/exa.zip "https://github.com/ogham/exa/releases/latest/download/exa-linux-x86_64-v${EXA_VERSION}.zip"
+curl -fsSLo /tmp/eza.zip "https://github.com/eza-community/eza/releases/latest/download/eza_x86_64-unknown-linux-gnu.zip"
 
-sudo unzip -o -q /tmp/exa.zip bin/exa -d /usr/local
+sudo unzip -o -q /tmp/eza.zip bin/eza -d /usr/local
 {{ end -}}
