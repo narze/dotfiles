@@ -1,0 +1,14 @@
+{{- if (eq .chezmoi.os "darwin") -}}
+#!/bin/bash
+
+source /tmp/chezmoi-utils.sh
+
+printf "${green}[40 - hishtory] ${reset}"
+
+if command -v zoxide &> /dev/null; then
+  hishtory update
+else
+  curl https://hishtory.dev/install.py | python3 -
+fi
+
+{{ end -}}

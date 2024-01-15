@@ -240,14 +240,11 @@ precmd() {
   echo -ne "\033]0; @ ${HOST%%.*} : ${PWD/#$HOME/~} \007"
 }
 
-# Meteor
-export PATH=/Users/narze/.meteor:$PATH
-
 # bun completions
-[ -s "/Users/narze/.bun/_bun" ] && source "/Users/narze/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # Bun
-export BUN_INSTALL="/Users/narze/.bun"
+export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 # Extend bin PATH.
@@ -259,5 +256,9 @@ if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
 fi
 
 # pnpm
-export PNPM_HOME="/Users/narze/Library/pnpm"
+export PNPM_HOME="$HOME/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
+
+# Hishtory Config:
+export PATH="$PATH:$HOME/.hishtory"
+[ -s "$HOME/.hishtory/config.zsh" ] && source $HOME/.hishtory/config.zsh
