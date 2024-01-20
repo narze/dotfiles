@@ -44,6 +44,8 @@ alias ga="git add"
 alias ga.="git add ."
 alias gaa="git add --all"
 alias gai="git add -i"
+alias gs="git stash"
+alias gsp="git stash pop"
 gcam() {
   git add --all && git commit -m "$*"
 }
@@ -116,7 +118,6 @@ alias de='direnv edit'
 alias ex='exercism'
 alias fixappleeventsbug='sudo killall -KILL appleeventsd'
 alias gowd='cd "`pbpaste`"'
-alias gs="gatsby"
 alias gu="gitupdate"
 alias h='helm'
 alias hdi='howdoi'
