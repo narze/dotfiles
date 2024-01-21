@@ -233,6 +233,13 @@ sketchybar -m --add item battery right \
               --set battery script="$PLUGIN_DIR/power.sh" \
               --subscribe battery power_source_change
 
+sketchybar --add alias "Session,Item-0" right \
+           --set "Session,Item-0" alias.color=0xff000000 \
+                                  icon.padding_left=0   \
+                                  icon.padding_right=0  \
+                                  label.padding_left=0  \
+                                  label.padding_right=0
+
 # Creating Graphs
 sketchybar -m --add graph cpu_user right 64                                         \
               --set cpu_user     graph.color=0xff000000                             \
