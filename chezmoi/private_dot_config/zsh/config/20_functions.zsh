@@ -182,3 +182,46 @@ next_and_current() {
   echo "$@ ${reset_color}"
   "$@"
 }
+
+# gira()
+#    Creates a new Git branch based on a JIRA issue.
+#    The branch name is derived from the JIRA issue key and the summary,
+#    with non-alphanumeric characters replaced by hyphens and all letters in lowercase.
+#    If the branch already exists, it checks out the existing branch.
+# Requires: go-jira
+# Usage:
+#    gira <JIRA-Issue-ID>
+# Example:
+#    gira "EVP-1234"
+gira() {
+  local jira_issue="$1"
+
+  # Get the output of the jira command, capturing stderr
+  output=$(jira view "$jira_issue" 2>&1)
+
+  # Check if jira command was successful
+  if [ $? -ne 0 ]; then
+    echo "Issue $jira_issue not found"
+    return 1
+  fi
+
+  # Extract issue and summary
+  issue=$(echo "$output" | grep 'issue:' | awk '{print $2}')
+  summary=$(echo "$output" | grep 'summary:' | cut -d ' ' -f 2- | xargs)
+
+  # Convert summary to lowercase and replace spaces and disallowed characters with hyphens
+  formatted_summary=$(echo "$summary" | tr '[:upper:]' '[:lower:]' | tr -cs 'a-z0-9-' '-' | sed 's/-*$//')
+
+  # Concatenate issue and formatted summary
+  branch_name="${issue}-${formatted_summary}"
+
+  # Check if the branch already exists
+  if git rev-parse --verify "$branch_name" >/dev/null 2>&1; then
+    echo "Branch $branch_name already exists. Checking out."
+    git checkout "$branch_name"
+  else
+    # Create and checkout new branch
+    git checkout -b "$branch_name"
+    echo "Created and checked out branch: $branch_name"
+  fi
+}
