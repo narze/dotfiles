@@ -121,7 +121,7 @@ yabai -m rule --add label="OpenIn" app="^OpenIn$" mouse_follows_focus=off
 yabai -m rule --add label="Hammerspoon" app="^Hammerspoon$" manage=off
 
 # Sticky windows
-yabai -m rule --add label="Obsidian" app="^Obsidian$" manage=off sticky=on
+yabai -m rule --add label="Obsidian" app="^Obsidian$" manage=off sticky=off
 
 # Ignore everything without title
 yabai -m rule --add label="untitled" app=".+" title="^$" manage=off
