@@ -230,6 +230,10 @@ if [ -d "$HOME/.asdf/plugins/direnv" ]; then
   fi
 fi
 
+if [ -d "$HOME/.asdf/plugins/flutter" ]; then
+  export FLUTTER_ROOT="$(asdf where flutter)"
+fi
+
 # Timing App Terminal Support
 if [ $ITERM_SESSION_ID ]; then
   DISABLE_AUTO_TITLE="true"
@@ -262,3 +266,4 @@ export PATH="$PNPM_HOME:$PATH"
 # Hishtory Config:
 export PATH="$PATH:$HOME/.hishtory"
 [ -s "$HOME/.hishtory/config.zsh" ] && source $HOME/.hishtory/config.zsh
+
