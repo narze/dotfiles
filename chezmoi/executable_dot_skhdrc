@@ -100,6 +100,7 @@
 # 0x2B = Comma / <
 # 0x2F = Fullstop / >
 # 0x2C = Slash
+# Observe keycode with `skhd -o`
 
 # close focused window
 alt - w : yabai -m window --close
@@ -390,3 +391,8 @@ alt + shift - j : space=$(yabai -m query --spaces --space mouse | jq .index); \
 
 # Swap window with the largest window on screen, if already largest, swap with recent window and focus largest window again
 alt - tab : ~/.yabai.swap-largest.sh
+
+# Adjust split ratio with alt + equal and alt + minus
+alt + cmd - 0x18 : yabai -m config split_ratio $(bc -l <<< "$(yabai -m config split_ratio) + 0.025"); yabai -m space --equalize;
+alt + cmd - 0x1B : yabai -m config split_ratio $(bc -l <<< "$(yabai -m config split_ratio) - 0.025"); yabai -m space --equalize;
+alt + cmd - 0 : yabai -m config split_ratio 0.618; yabai -m space --equalize;
