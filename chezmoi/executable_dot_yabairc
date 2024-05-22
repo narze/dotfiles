@@ -245,6 +245,9 @@ move_to_space "Streamlabs" OffScreen
 
 yabai -m signal --add event=window_created label="focus-created-window" action='sh ~/.yabai.focus-standard-window.sh $YABAI_WINDOW_ID'
 
+# Unzoom all windows when change focus
+yabai -m signal --add event=window_focused label="unzoom-windows" action='yabai -m query --windows | jq -r ".[] | select(.\"has-fullscreen-zoom\" == true) | .id" | xargs -I {} yabai -m window {} --toggle zoom-fullscreen'
+
 yabai -m space --focus 1
 
 echo "yabai configuration loaded.."
