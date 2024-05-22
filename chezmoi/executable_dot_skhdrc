@@ -293,7 +293,7 @@ alt - q : yabai -m window --toggle fade
 
 # float / unfloat window and center on screen
 alt - t : yabai -m window --toggle float;\
-          yabai -m window --grid 6:6:1:1:4:4
+          yabai -m window --grid 9:16:2:1:12:7 # Rows:Columns:X:Y:W:H
 
 # toggle sticky
 alt - s : yabai -m window --toggle sticky
@@ -356,7 +356,7 @@ ctrl + alt + cmd - x : ids=$(yabai -m query --windows --space | jq -r ".[] | sel
                         done <<< "$ids" && \
                         ids=$(yabai -m query --windows --space | jq -r ".[] | select(.floating == 1) | .id") && \
                         while IFS= read -r id; do \
-                          yabai -m window $id --grid 6:6:1:1:4:4; \
+                          yabai -m window $id --grid 9:16:2:1:12:7; \
                         done <<< "$ids" && \
 
 # Unfloat
