@@ -120,11 +120,11 @@ yabai -m rule --add label="Electron" app="^Electron$" manage=off
 yabai -m rule --add label="OpenIn" app="^OpenIn$" mouse_follows_focus=off
 yabai -m rule --add label="Hammerspoon" app="^Hammerspoon$" manage=off
 
-# Sticky windows
-yabai -m rule --add label="Obsidian" app="^Obsidian$" manage=off sticky=off
+# Scratchpad
+yabai -m rule --add label="Obsidian" app="^Obsidian$" scratchpad="obsidian" grid=18:32:5:3:22:12
 
 # Ignore everything without title
-yabai -m rule --add label="untitled" app=".+" title="^$" manage=off
+yabai -m rule --add --one-shot label="untitled" app=".+" title="^$" manage=off
 
 DISPLAY_COUNT=$(yabai -m query --displays | jq length)
 SPACE_COUNT=$(yabai -m query --spaces --display 1 | jq length)
@@ -159,8 +159,7 @@ yabai -m signal --add event=window_focused action="yabai -m window --sub-layer n
 
 # Move all windows to Space 4 (Misc) by default
 yabai -m space Misc --layout stack
-yabai -m rule --add app=".*" label="All Apps" space=4
-yabai -m rule --remove "All Apps"
+yabai -m rule --add --one-shot app=".*" label="All Apps" space=4
 
 # Spaces
 ## Space 1: Terminals
