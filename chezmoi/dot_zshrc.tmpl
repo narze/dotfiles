@@ -217,21 +217,26 @@ z4h source $HOME/.config/zsh/config/00_aliases.zsh
 z4h source $HOME/.config/zsh/config/10_options.zsh
 z4h source $HOME/.config/zsh/config/20_functions.zsh
 
-z4h source $HOME/.asdf/asdf.sh
+# Use mise (https://mise.jdx.dev) instead of asdf
+if [[ -f ~/.local/bin/mise ]]; then
+  eval "$(~/.local/bin/mise activate zsh)"
+else
+  z4h source $HOME/.asdf/asdf.sh
 
-if [ -d "$HOME/.asdf/plugins/direnv" ]; then
-  # Old hook script
-  # eval "$(asdf exec direnv hook zsh)"
-  # direnv() { asdf exec direnv "$@"; }
+  if [ -d "$HOME/.asdf/plugins/direnv" ]; then
+    # Old hook script
+    # eval "$(asdf exec direnv hook zsh)"
+    # direnv() { asdf exec direnv "$@"; }
 
-  # New hook script
-  if [ -s "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc" ]; then
-    source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
+    # New hook script
+    if [ -s "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc" ]; then
+      source "${XDG_CONFIG_HOME:-$HOME/.config}/asdf-direnv/zshrc"
+    fi
   fi
-fi
 
-if [ -d "$HOME/.asdf/plugins/flutter" ]; then
-  export FLUTTER_ROOT="$(asdf where flutter)"
+  if [ -d "$HOME/.asdf/plugins/flutter" ]; then
+    export FLUTTER_ROOT="$(asdf where flutter)"
+  fi
 fi
 
 # Timing App Terminal Support

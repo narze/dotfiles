@@ -50,3 +50,6 @@ dump.rdb
 
 # Direnv
 .envrc
+
+# Mise
+.mise.toml
