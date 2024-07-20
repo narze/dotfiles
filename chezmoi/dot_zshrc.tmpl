@@ -259,6 +259,9 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # Extend bin PATH.
 path=(~/bin $path)
 
+# Extend fpath for custom completions.
+fpath=(~/.config/zsh/completions $fpath)
+
 # Nix
 if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
   . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
