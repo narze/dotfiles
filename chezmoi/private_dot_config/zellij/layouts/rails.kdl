@@ -1,0 +1,51 @@
+layout {
+  // cwd "~/Code/your/repo"
+
+  tab_template name="mytab" {
+    pane size=1 borderless=true {
+      plugin location="tab-bar"
+    }
+
+    children
+
+    pane size=2 borderless=true {
+      plugin location="status-bar"
+    }
+  }
+
+  mytab focus=true name="Main" split_direction="vertical" {
+    pane focus=true
+
+    pane {
+      name "guard"
+      command "mx"
+      args "bin/guard"
+      start_suspended true
+    }
+  }
+
+  mytab name="Server" {
+    pane {
+      name "rails s"
+      command "mx"
+      args "bin/rails s -b 0.0.0.0"
+    }
+  }
+
+  mytab name="Console" split_direction="vertical" {
+    pane {
+      name "rails c"
+      command "mx"
+      args "bin/rails c"
+    }
+  }
+
+  mytab name="Worker" {
+    pane {
+      name "sidekiq"
+      command "mx"
+      args "bundle exec sidekiq"
+      start_suspended true
+    }
+  }
+}

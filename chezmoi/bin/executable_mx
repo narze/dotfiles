@@ -1,0 +1,13 @@
+#!/bin/zsh
+
+# Evaluate the mise hook-env
+eval "$(mise hook-env)"
+
+# Check if only one argument is passed
+if [ "$#" -eq 1 ]; then
+  # Execute the single command string
+  eval "$1"
+else
+  # Execute the passed command with arguments
+  "$@"
+fi
