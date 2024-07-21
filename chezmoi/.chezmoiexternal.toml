@@ -33,3 +33,7 @@
     type = "file"
     url = "https://raw.githubusercontent.com/narze/.tmux/master/.tmux.conf.local"
     refreshPeriod = "168h"
+[".config/zellij/plugins/zjstatus.wasm"]
+    type = "file"
+    url = "https://github.com/dj95/zjstatus/releases/download/v0.17.0/zjstatus.wasm"
+    refreshPeriod = "168h"
