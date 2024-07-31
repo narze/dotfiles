@@ -1,0 +1,4 @@
+#!/bin/zsh
+# mise description="Apply chezmoi changes (files only)"
+
+chezmoi -k apply -i files

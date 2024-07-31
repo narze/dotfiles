@@ -1,0 +1,4 @@
+#!/bin/zsh
+# mise description="mise run apply, verbosely"
+
+mise watch -t apply -- --print-events --verbose

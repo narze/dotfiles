@@ -53,3 +53,4 @@ dump.rdb
 
 # Mise
 .mise.toml
+.mise/
