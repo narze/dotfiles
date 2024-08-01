@@ -129,6 +129,7 @@ alias l='eza -la --icons'
 alias lt='cd ~/laptop'
 alias ltgl='cd ~/laptop && git pull'
 alias mk='minikube'
+alias mr='mise run'
 alias mux='tmuxinator'
 alias nf='fastfetch'
 alias o.="open ."
