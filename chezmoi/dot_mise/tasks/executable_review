@@ -1,0 +1,65 @@
+#!/usr/bin/env ruby
+# mise description="Review PRs with git worktree"
+
+# This script creates new worktree with specified PR number, creates [projectname]-pr-[#] folder, then runs rails server with another port
+
+# Requires:
+# - gh (for getting branch name from PR number)
+
+require 'optparse'
+
+options = { type: "rails" }
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: mise run review [options]"
+
+  opts.on("-t TYPE", "--type", "Type of app")
+  opts.on("-p PR", "--pr", "PR number")
+end.parse!(into: options)
+
+options[:pr] ||= print "Please specify PR number"; gets.chomp
+p options
+exit 0
+
+PR_NUMBER = ARGV[0]
+OPTION = ARGV[1]
+
+if PR_NUMBER.nil?
+  puts "Please specify PR number"
+  exit 1
+end
+
+project = File.basename(Dir.pwd)
+
+pr_path = "#{project}-pr-#{PR_NUMBER}"
+
+# Get branch name from gh, exit if error
+branch_name = `gh pr view #{PR_NUMBER} --json headRefName --template '{{ .headRefName }}'`
+
+if $?.success?
+  puts "Branch name: #{branch_name}"
+else
+  puts "Error getting branch name"
+  exit 1
+end
+
+if OPTION == "stop"
+  puts "Removing worktree"
+  `git worktree remove ../#{pr_path}`
+  exit 0
+end
+
+puts "Creating new worktree"
+
+`git worktree add ../#{pr_path} #{branch_name}`
+
+if $?.success?
+  puts "Worktree created (Remove with `bin/review.rb #{PR_NUMBER} stop`)"
+else
+  puts "Error creating worktree"
+  exit 1
+end
+
+puts "Running rails server in worktree #{pr_path}"
+
+`cd ../#{pr_path} && bundle exec rails server -p 3001`
