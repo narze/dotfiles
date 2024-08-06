@@ -1,7 +1,6 @@
 {{- $name := "Manassarn Manoonchai" -}}
 {{- $email := "manassarn@gmail.com" -}}
 {{- $github_user := "narze" -}}
-{{- $asdf_version := "0.13.1" -}}
 {{- $computer_name := default "narze-computer-name" (env "CM_computer_name") -}}
 {{- $hostname := default "narze" (env "CM_hostname") -}}
 {{- $is_codespace := false }}
@@ -16,7 +15,6 @@
 {{-   $name = promptString "Full Name" $name -}}
 {{-   $email = promptString "Email" $email -}}
 {{-   $github_user = promptString "GitHub Username" $github_user -}}
-{{-   $asdf_version = promptString "Asdf Version" $asdf_version -}}
 {{- end }}
 
 {{- if (env "SETPASS") }}
@@ -32,7 +30,6 @@ data:
   name: {{ $name | quote }}
   email: {{ $email | quote }}
   github_user: {{ $github_user | quote }}
-  asdf_version: {{ $asdf_version | quote }}
   computer_name: {{ $computer_name | quote }}
   hostname: {{ $hostname | quote }}
   nas_mount_path: {{ $nas_mount_path | quote }}

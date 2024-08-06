@@ -65,8 +65,8 @@ macos                          Run macos script
   - [Chezmoi](https://chezmoi.io)
   - [zsh](https://zsh.org) with [zsh4humans](https://github.com/romkatv/zsh4humans) + [Powerlevel10k](https://github.com/romkatv/powerlevel10k) theme
   - [fish](https://fishshell.com) with [fisher](https://github.com/jorgebucaran/fisher) + [Tide](https://github.com/IlanCosman/tide) theme
-  - [asdf](https://asdf-vm.com) with Ruby & Node.js
-  - [tmux](https://github.com/tmux/tmux/)
+  - [mise](https://mise.jdx.dev)
+  - [zellij](https://zellij.dev)
   - [macOS defaults](https://mths.be/macos)
   - etc.
 - Linux
