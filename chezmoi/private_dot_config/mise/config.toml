@@ -1,0 +1,7 @@
+# Global config
+
+[tools]
+node = ["20", "22"]
+neovim = "latest"
+pnpm = "latest"
+ruby = ["3.3"]
