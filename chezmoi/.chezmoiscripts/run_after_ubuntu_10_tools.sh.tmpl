@@ -5,7 +5,7 @@
 curl -sS https://webi.sh/gh | sh
 
 # ghq
-if [[ ! $(command -v mise) ]]; then
+if command -v mise >/dev/null; then
   mise use ghq -y
 fi
 
