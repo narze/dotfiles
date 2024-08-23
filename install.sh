@@ -12,8 +12,9 @@ if [ -n "${CODER:-}" ] && [ "${CODER}" != "false" ]; then
   mkdir -p ~/.local/share
   ln -sf "${PWD}" ~/.local/share/chezmoi
 
-  # Prevent infinite recursion
-  CODER=false exec ~/.local/share/chezmoi/install.sh
+  # Prevent infinite recursion by unsetting CODER
+  unset CODER
+  exec ~/.local/share/chezmoi/install.sh
 fi
 
 if ! chezmoi="$(command -v chezmoi)"; then
