@@ -5,6 +5,8 @@
 curl -sS https://webi.sh/gh | sh
 
 # ghq
-mise use ghq -y
+if [[ ! $(command -v mise) ]]; then
+  mise use ghq -y
+fi
 
 {{ end -}}
