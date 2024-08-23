@@ -6,17 +6,14 @@
 # -u: exit on unset variables
 set -eu
 
-# If CODER env is set, then this file will likely to be executed from `coder dotfiles`
-# which will clone and run this repo in `~/.config/coderv2/dotfiles`, we don't want that so we'll copy the files to ~/.local/share/chezmoi, then continue
-# Also prevents the script from running infinitely
+# Handle Coder environment
 if [ -n "${CODER:-}" ] && [ "${CODER}" != "false" ]; then
-  echo "CODER env is set, symlink ~/.local/share/chezmoi to here if not already"
+  echo "CODER env detected, symlinking ~/.local/share/chezmoi"
   mkdir -p ~/.local/share
   ln -sf "${PWD}" ~/.local/share/chezmoi
 
-  # Set CODER to false so the script doesn't run infinitely
-  export CODER=false
-  exec ~/.local/share/chezmoi/install.sh
+  # Prevent infinite recursion
+  CODER=false exec ~/.local/share/chezmoi/install.sh
 fi
 
 if ! chezmoi="$(command -v chezmoi)"; then
