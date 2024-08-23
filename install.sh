@@ -48,6 +48,10 @@ script_dir="$(cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P)"
 
 set -- init --apply --source="${script_dir}" -k -x encrypted
 
+if [ -n "${CODER:-}" ]; then
+  set -- init --apply --source="${script_dir}" -k -x encrypted --force
+fi
+
 echo "Running 'chezmoi $*'" >&2
 # exec: replace current process with chezmoi
 exec "$chezmoi" "$@"
