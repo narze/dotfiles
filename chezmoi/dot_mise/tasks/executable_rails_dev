@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# mise description="Install dependencies for Rails development"
+
+if [[ -x "$(command -v apt-get)" ]]; then
+  sudo apt-get update
+  sudo apt-get install -y autoconf patch build-essential rustc libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libgmp-dev libncurses5-dev libffi-dev libgdbm6 libgdbm-dev libdb-dev uuid-dev
+
+  # Additional dependencies
+  sudo apt-get install -y libpq-dev imagemagick
+fi
+
+# If brew exists and in macOS, install dependencies
+if [[ -x "$(command -v brew)" && "$(uname -s)" == "Darwin" ]]; then
+  # If ruby version is from than 3.1 onwards
+  ruby_version=$(ruby -e 'puts RUBY_VERSION')
+  if [[ $(printf '%s\n' "3.1" "$ruby_version" | sort -V | head -n1) == "3.1" ]]; then
+    brew install openssl@3 readline libyaml gmp
+  else
+    brew install openssl@1.1 readline libyaml gmp
+  fi
+fi
