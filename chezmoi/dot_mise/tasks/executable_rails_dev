@@ -2,6 +2,10 @@
 # mise description="Install dependencies for Rails development"
 
 if [[ -x "$(command -v apt-get)" ]]; then
+  # Ignore needrestart
+  export NEEDRESTART_SUSPEND=1
+  # export NEEDRESTART_MODE=a
+
   sudo apt-get update
   sudo apt-get install -y autoconf patch build-essential rustc libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libgmp-dev libncurses5-dev libffi-dev libgdbm6 libgdbm-dev libdb-dev uuid-dev
 
