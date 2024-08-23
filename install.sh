@@ -8,13 +8,10 @@ set -eu
 
 # Handle Coder environment
 if [ -n "${CODER:-}" ] && [ "${CODER}" != "false" ]; then
-  echo "CODER env detected, symlinking ~/.local/share/chezmoi"
+  echo "CODER env detected, symlinking ~/.local/share/chezmoi to ~/.config/coderv2/dotfiles"
   mkdir -p ~/.local/share
-  ln -sf "${PWD}" ~/.local/share/chezmoi
-
-  # Prevent infinite recursion by unsetting CODER
-  unset CODER
-  exec ~/.local/share/chezmoi/install.sh
+  # Link ~/.local/share/chezmoi -> ~/.config/coderv2/dotfiles
+  ln -sf ~/.config/coderv2/dotfiles ~/.local/share/chezmoi
 fi
 
 if ! chezmoi="$(command -v chezmoi)"; then
