@@ -7,11 +7,24 @@
 set -eu
 
 # Handle Coder environment
-if [ -n "${CODER:-}" ] && [ "${CODER}" != "false" ]; then
+# Context: It will run every time Coder workspace restarts, while everything in home directory and chezmoi state is persistent, but system apps are not e.g. zsh, .
+if [ -n "${CODER:-}" ]; then
   echo "CODER env detected, symlinking ~/.local/share/chezmoi to ~/.config/coderv2/dotfiles"
   mkdir -p ~/.local/share
   # Link ~/.local/share/chezmoi -> ~/.config/coderv2/dotfiles
   ln -sf ~/.config/coderv2/dotfiles ~/.local/share/chezmoi
+
+  # Install zsh if not installed and non-interactive shell, then change default shell for all users
+  if ! command -v zsh >/dev/null; then
+    sudo apt-get install zsh
+    # change default shell for all users
+    sudo chsh -s "$(which zsh)"
+  fi
+
+  # if chezmoi already exists at ~/.local/bin/chezmoi, clear script state so that scripts are re-run
+  if [ -f ~/.local/bin/chezmoi ]; then
+    ~/.local/share/chezmoi state delete-bucket --bucket=scriptState
+  fi
 fi
 
 if ! chezmoi="$(command -v chezmoi)"; then
