@@ -17,8 +17,8 @@ if [ -n "${CODER:-}" ]; then
   # Install zsh if not installed and non-interactive shell, then change default shell for all users
   if ! command -v zsh >/dev/null; then
     sudo apt-get install -y zsh
-    # change default shell for all users
-    sudo chsh -s "$(which zsh)"
+    # change default shell for current user
+    sudo chsh -s "$(which zsh)" "$USER"
   fi
 
   # if chezmoi already exists at ~/.local/bin/chezmoi, clear script state so that scripts are re-run
