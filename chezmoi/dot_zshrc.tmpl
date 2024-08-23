@@ -218,8 +218,8 @@ z4h source $HOME/.config/zsh/config/10_options.zsh
 z4h source $HOME/.config/zsh/config/20_functions.zsh
 
 # Use mise (https://mise.jdx.dev) instead of asdf
-if [[ -f ~/.local/bin/mise ]]; then
-  eval "$(~/.local/bin/mise activate zsh)"
+if command -v mise &> /dev/null; then
+  eval "$(mise activate zsh)"
 else
   z4h source $HOME/.asdf/asdf.sh
 
