@@ -23,7 +23,7 @@ if [ -n "${CODER:-}" ]; then
 
   # if chezmoi already exists at ~/.local/bin/chezmoi, clear script state so that scripts are re-run
   if [ -f ~/.local/bin/chezmoi ]; then
-    ~/.local/share/chezmoi state delete-bucket --bucket=scriptState
+    ~/.local/bin/chezmoi state delete-bucket --bucket=scriptState
   fi
 fi
 
