@@ -6,6 +6,15 @@
 # -u: exit on unset variables
 set -eu
 
+# If CODER env is set, then this file will likely to be executed from `coder dotfiles`
+# which will clone and run this repo in `~/.config/coderv2/dotfiles`, we don't want that so we'll copy the files to ~/.local/share/chezmoi, then continue
+if [ -n "${CODER}" ]; then
+  echo "CODER env is set, copying files to ~/.local/share/chezmoi"
+  mkdir -p ~/.local/share/chezmoi
+  cp -r ~/.config/coderv2/dotfiles/* ~/.local/share/chezmoi
+  cd ~/.local/share/chezmoi
+fi
+
 if ! chezmoi="$(command -v chezmoi)"; then
   bin_dir="${HOME}/.local/bin"
   chezmoi="${bin_dir}/chezmoi"
