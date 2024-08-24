@@ -1,0 +1,7 @@
+
+{{/* [Put this at the end of file] For Coder, exec zsh if exist */}}
+{{- if (env "CODER") }}
+if command -v zsh &> /dev/null; then
+  exec zsh
+fi
+{{- end }}
