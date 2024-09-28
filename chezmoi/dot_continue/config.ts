@@ -6,7 +6,7 @@ export function modifyConfig(config: Config): Config {
       const diff = await sdk.ide.getDiff();
       const prompt = [
         diff,
-        "The code above is the git diff before commit. Please read the added changes and check for any mistakes. You should look for the following, and be extremely vigilant:",
+        "The code above is the git diff before commit. Please read only the added/deleted changes and check for any mistakes. You should look for the following, and be extremely vigilant:",
         "- Syntax errors",
         "- Logic errors",
         "- Security vulnerabilities",
