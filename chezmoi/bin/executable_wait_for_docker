@@ -2,8 +2,10 @@
 
 # Open Docker, only if is not running
 if (! docker ps -q); then
-  # If Colima exists, start Colima
-  if (colima version); then
+  # Orbctl > Colima > Desktop
+  if (orbctl version); then
+    orbctl start
+  elif (colima version); then
     colima start
   else
     # On Mac OS this would be the terminal command to launch Docker
