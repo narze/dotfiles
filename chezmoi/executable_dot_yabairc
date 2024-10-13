@@ -49,7 +49,7 @@ yabai -m config window_zoom_persist off
 # yabai -m config normal_window_border_color 0x5006B600
 # yabai -m config window_border_hidpi on
 # yabai -m config window_border_blur off
-borders active_color=0xC0FF8552 inactive_color=0x3006B6D4 width=10.0 hidpi=on &
+# borders active_color=0xC0FF8552 inactive_color=0x3006B6D4 width=10.0 hidpi=on &
 
 # general space settings
 yabai -m config layout bsp
