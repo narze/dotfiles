@@ -110,7 +110,8 @@ alt - n : yabai -m window --focus south
 alt - m : yabai -m window --focus west
 alt - e : yabai -m window --focus north
 alt - i : yabai -m window --focus east
-alt - 0x27 : yabai -m window --focus recent
+# Sometimes --focus recent does not work, use second yabai.history.txt if fails
+alt - 0x27 : yabai -m window --focus recent || yabai -m window --focus "$(tail -n 2 /tmp/yabai.history.txt | head -n 1 | cut -d ' ' -f 1)"
 alt - o : yabai -m window --focus smallest
 
 # focus window in stack
@@ -119,7 +120,7 @@ alt - 0x2F : yabai -m window --focus stack.next
 alt - 0x2C : yabai -m window --focus stack.recent
 
 # focus monitor
-alt - u  : yabai -m display --focus west
+alt - u : yabai -m display --focus west
 # alt + ctrl - h  : ~/.yabai_focus_display prev
 alt - y : yabai -m display --focus east
 # alt + ctrl - i  : ~/.yabai_focus_display next
@@ -138,10 +139,10 @@ alt + shift - e : yabai -m window --swap north
 alt + shift - i : yabai -m window --swap east
 
 # stack window
-alt + ctrl + shift - m  : yabai -m window --stack west
-alt + ctrl + shift - n  : yabai -m window --stack south
-alt + ctrl + shift - e  : yabai -m window --stack north
-alt + ctrl + shift - i  : yabai -m window --stack east
+alt + ctrl + shift - m : yabai -m window --stack west
+alt + ctrl + shift - n : yabai -m window --stack south
+alt + ctrl + shift - e : yabai -m window --stack north
+alt + ctrl + shift - i : yabai -m window --stack east
 
 # Float (migrated to Hammerspoon)
 # make floating window fill screen, make it float if not already floating
@@ -203,7 +204,7 @@ alt - 8 : yabai -m space --focus 8 || skhd -k "ctrl - 8"
 # send window to desktop
 alt + ctrl + shift - 0x2B : yabai -m window --space recent
 alt + shift - l : yabai -m window --space prev
-alt + ctrl + shift - h  : yabai -m window --space prev
+alt + ctrl + shift - h : yabai -m window --space prev
 alt + shift - 0x23 : yabai -m window --space next
 shift + alt - 1 : yabai -m window --space 1
 shift + alt - 2 : yabai -m window --space 2

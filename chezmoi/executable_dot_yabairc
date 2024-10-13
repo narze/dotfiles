@@ -244,10 +244,15 @@ move_to_space "Streamlabs" OffScreen
 # yabai -m signal --add event=window_focused label="move-window-focused-to-mouse" action='yabai -m window $YABAI_WINDOW_ID --toggle topmost ; echo "topmosting $YABAI_WINDOW_ID" >> /tmp/yabai.txt'
 
 yabai -m signal --add event=window_created label="focus-created-window" action='sh ~/.yabai.focus-standard-window.sh $YABAI_WINDOW_ID'
+# Append log with yabai window id
+yabai -m signal --add event=window_focused label="window-history" action='echo "${YABAI_WINDOW_ID} $(date +"%Y-%m-%d_%H:%M:%S")" >> /tmp/yabai.history.txt'
 
 # Unzoom all windows when change focus
 # yabai -m signal --add event=window_focused label="unzoom-windows" action='yabai -m query --windows | jq -r ".[] | select(.\"has-fullscreen-zoom\" == true) | .id" | xargs -I {} yabai -m window {} --toggle zoom-fullscreen'
 
 yabai -m space --focus 1
+
+# Reset yabai.history.txt to have only the last 100 lines
+tail -n 100 /tmp/yabai.history.txt >/tmp/yabai.history.txt.tmp && mv /tmp/yabai.history.txt.tmp /tmp/yabai.history.txt
 
 echo "yabai configuration loaded.."
