@@ -1,4 +1,9 @@
-# Reference: https://github.com/i3/i3/blob/next/etc/config
+# AeroSpace still lacks some features that I use in Yabai
+# - BSP - There are no way to replicate it in AeroSpace yet, at least
+#     - https://github.com/nikitabobko/AeroSpace/issues/260
+# - No resizing floating window e.g. Make window float, then make it center if the screen is not possible
+# - Cannot get status of window, so creating complex condition is not possible
+# - Cannot swap window A & B
 
 enable-normalization-flatten-containers = true
 enable-normalization-opposite-orientation-for-nested-containers = true
