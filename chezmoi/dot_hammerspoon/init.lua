@@ -1,4 +1,4 @@
-stackline = require "stackline"
+-- stackline = require "stackline"
 -- stackline = require "stackline.stackline.stackline"
 
 -- local config = {
@@ -14,7 +14,7 @@ stackline = require "stackline"
 -- }
 
 -- stackline:init(config)
-stackline:init()
+-- stackline:init()
 
 -- Disable since it messes with yabai focusing apps like OpenIn
 -- hs.loadSpoon("FocusHighlight")
@@ -26,4 +26,21 @@ stackline:init()
 -- spoon.FocusHighlight.highlightFadeOutDuration = 0.3
 -- spoon.FocusHighlight.highlightFillAlpha = 0.03
 
-require "wm"
+-- require "wm"
+
+-- Function to be called from command line
+function centerAndResizeWindow()
+  local win = hs.window.focusedWindow()
+  if not win then return end
+
+  local screen = win:screen()
+  local res = screen:frame()
+  local w = res.w * 2 / 3
+  local h = res.h * 2 / 3
+  local x = res.w * 1 / 6
+  local y = res.h * 1 / 6
+
+  win:setFrame(hs.geometry.rect(x, y, w, h), 0)
+end
+
+hs.ipc.cliInstall()

@@ -1,0 +1,169 @@
+# Reference: https://github.com/i3/i3/blob/next/etc/config
+
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'auto'
+
+# Mouse follows focus when focused monitor changes
+on-focus-changed = ['move-mouse window-lazy-center']
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+
+automatically-unhide-macos-hidden-apps = true
+
+accordion-padding = 36
+
+[gaps]
+inner.horizontal = 16
+inner.vertical =   16
+outer.left =       16
+outer.bottom =     16
+outer.top =        16
+outer.right =      16
+
+[mode.main.binding]
+# See: https://nikitabobko.github.io/AeroSpace/goodness#open-a-new-window-with-applescript
+# alt-enter = '''exec-and-forget osascript -e '
+# tell application "Terminal"
+#     do script
+#     activate
+# end tell'
+# '''
+
+# Migrated from yabai-skhd
+
+# Close window
+# alt-w = 'close'
+
+# Focus window
+alt-h = 'focus --boundaries-action wrap-around-the-workspace left'
+alt-j = 'focus --boundaries-action wrap-around-the-workspace down'
+alt-k = 'focus --boundaries-action wrap-around-the-workspace up'
+alt-l = 'focus --boundaries-action wrap-around-the-workspace right'
+# Focus recently used window
+alt-quote = 'exec-and-forget aerospace focus-back-and-forth || aerospace workspace-back-and-forth'
+
+# Move window
+alt-shift-h = 'move left'
+alt-shift-j = 'move down'
+alt-shift-k = 'move up'
+alt-shift-l = 'move right'
+
+alt-shift-cmd-h = 'join-with left'
+alt-shift-cmd-j = 'join-with down'
+alt-shift-cmd-k = 'join-with up'
+alt-shift-cmd-l = 'join-with right'
+
+# Focus workspace
+alt-u = 'workspace prev'
+alt-p = 'workspace next'
+
+# Move window to workspace
+alt-shift-u = 'move-node-to-workspace --focus-follows-window prev'
+alt-shift-p = 'move-node-to-workspace --focus-follows-window next'
+
+# Focus monitor
+alt-i = 'focus-monitor --wrap-around prev'
+alt-o = 'focus-monitor --wrap-around next'
+
+# Move window to monitor
+alt-shift-i = 'move-node-to-monitor --focus-follows-window prev'
+alt-shift-o = 'move-node-to-monitor --focus-follows-window next'
+
+# i3 Config (Default):
+
+# Consider using 'join-with' command as a 'split' replacement if you want to enable normalizations
+# alt-h = 'split horizontal'
+# alt-v = 'split vertical'
+
+alt-z = 'fullscreen'
+
+alt-s = 'layout tiles accordion' # 'layout stacking' in i3
+# alt-w = 'layout h_accordion' # 'layout tabbed' in i3
+alt-e = 'layout tiles horizontal vertical' # 'layout toggle split' in i3
+
+alt-f = 'layout floating tiling' # 'floating toggle' in i3
+
+# Not supported, because this command is redundant in AeroSpace mental model.
+# See: https://nikitabobko.github.io/AeroSpace/guide#floating-windows
+#alt-space = 'focus toggle_tiling_floating'
+
+# `focus parent`/`focus child` are not yet supported, and it's not clear whether they
+# should be supported at all https://github.com/nikitabobko/AeroSpace/issues/5
+# alt-a = 'focus parent'
+
+alt-1 = 'workspace 1'
+alt-2 = 'workspace 2'
+alt-3 = 'workspace 3'
+alt-4 = 'workspace 4'
+alt-5 = 'workspace 5'
+alt-6 = 'workspace 6'
+alt-7 = 'workspace 7'
+alt-8 = 'workspace 8'
+alt-9 = 'workspace 9'
+alt-0 = 'workspace 10'
+
+alt-shift-1 = 'move-node-to-workspace 1'
+alt-shift-2 = 'move-node-to-workspace 2'
+alt-shift-3 = 'move-node-to-workspace 3'
+alt-shift-4 = 'move-node-to-workspace 4'
+alt-shift-5 = 'move-node-to-workspace 5'
+alt-shift-6 = 'move-node-to-workspace 6'
+alt-shift-7 = 'move-node-to-workspace 7'
+alt-shift-8 = 'move-node-to-workspace 8'
+alt-shift-9 = 'move-node-to-workspace 9'
+alt-shift-0 = 'move-node-to-workspace 10'
+
+alt-shift-c = 'reload-config'
+
+alt-shift-r = 'mode resize'
+
+[mode.resize.binding]
+h = 'resize width -50'
+j = 'resize height +50'
+k = 'resize height -50'
+l = 'resize width +50'
+enter = 'mode main'
+esc = 'mode main'
+
+[key-mapping]
+preset = "qwerty"
+
+[key-mapping.key-notation-to-key-code]
+q = 'q'
+w = 'w'
+f = 'f'
+p = 'p'
+b = 'b'
+j = 'j'
+l = 'l'
+u = 'u'
+y = 'y'
+semicolon = 'semicolon'
+leftSquareBracket = 'leftSquareBracket'
+rightSquareBracket = 'rightSquareBracket'
+backslash = 'backslash'
+
+a = 'a'
+r = 'r'
+s = 's'
+t = 't'
+g = 'g'
+m = 'm'
+n = 'n'
+e = 'e'
+i = 'i'
+o = 'o'
+quote = 'quote'
+
+z = 'z'
+x = 'x'
+c = 'c'
+d = 'd'
+v = 'v'
+k = 'k'
+h = 'h'
+comma = 'comma'
+period = 'period'
+slash = 'slash'
