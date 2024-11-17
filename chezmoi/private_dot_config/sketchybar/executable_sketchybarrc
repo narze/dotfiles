@@ -263,16 +263,16 @@ sketchybar -m --add graph cpu_user right 64                                     
 ###################### CENTER ITEMS ################### (Right of the notch)
 
 # Adding custom events which can listen on distributed notifications from other running processes
-sketchybar -m --add event spotify_change "com.spotify.client.PlaybackStateChanged"                       \
-              --add item spotifyIndicator $RIGHT_NOTCH_POSITION                                           \
-              --set spotifyIndicator script="$PLUGIN_DIR/spotifyIndicator.sh"           \
-              --set spotifyIndicator click_script="osascript -e 'tell application \"Spotify\" to pause'" \
-              --set spotifyIndicator background.padding_left=16            \
-              --subscribe spotifyIndicator spotify_change
-sketchybar -m --add item sonixdIndicator $RIGHT_NOTCH_POSITION                                           \
-              --set sonixdIndicator script="ruby $PLUGIN_DIR/sonixdIndicator.rb"           \
-                                    click_script="ruby $PLUGIN_DIR/sonixdIndicator.rb" \
-                                    update_freq=15
+# sketchybar -m --add event spotify_change "com.spotify.client.PlaybackStateChanged"                       \
+#               --add item spotifyIndicator $RIGHT_NOTCH_POSITION                                           \
+#               --set spotifyIndicator script="$PLUGIN_DIR/spotifyIndicator.sh"           \
+#               --set spotifyIndicator click_script="osascript -e 'tell application \"Spotify\" to pause'" \
+#               --set spotifyIndicator background.padding_left=16            \
+#               --subscribe spotifyIndicator spotify_change
+# sketchybar -m --add item sonixdIndicator $RIGHT_NOTCH_POSITION                                           \
+#               --set sonixdIndicator script="ruby $PLUGIN_DIR/sonixdIndicator.rb"           \
+#                                     click_script="ruby $PLUGIN_DIR/sonixdIndicator.rb" \
+#                                     update_freq=15
 
 ############## FINALIZING THE SETUP ##############
 sketchybar -m --update
