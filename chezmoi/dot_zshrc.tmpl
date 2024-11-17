@@ -112,7 +112,8 @@ zstyle ':z4h:ssh:*' send-extra-files '~/.nanorc' '~/.env.zsh'
 # z4h install ohmyzsh/ohmyzsh || return
 z4h install romkatv/zsh-prompt-benchmark || return
 z4h install mollifier/cd-gitroot || return
-z4h install olets/zsh-abbr || return
+# v6 is bugged right now https://github.com/olets/zsh-abbr/issues/156#issuecomment-2475736885
+z4h install olets/zsh-abbr@v5.8.3 || return
 z4h install sobolevn/wakatime-zsh-plugin
 
 # Install or update core components (fzf, zsh-autosuggestions, etc.) and
