@@ -172,3 +172,13 @@ h = 'h'
 comma = 'comma'
 period = 'period'
 slash = 'slash'
+
+# Window rules
+# https://nikitabobko.github.io/AeroSpace/guide#callbacks
+#
+# To get app-id:
+# - https://nikitabobko.github.io/AeroSpace/goodness#popular-apps-ids
+# - `aerospace list-apps`
+[[on-window-detected]]
+if.app-id = 'com.philipyoungg.session-setapp'
+run = 'layout floating'
