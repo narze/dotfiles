@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # . ~/.cache/wal/colors.sh
-BG=0xf0e1e3e4
+BG=0xf0c0caf5
 BATT_PERCENT=$(pmset -g batt | grep -Eo "\d+%" | cut -d% -f1)
 CHARGING=$(pmset -g batt | grep 'AC Power')
 

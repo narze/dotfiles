@@ -17,7 +17,7 @@ fi
 
 TRANSPARENT=0x00000000
 # BG=0xfa232639
-BG=0xf0e1e3e4
+BG=0xf0c0caf5
 FONT_FACE="MonaspiceKr Nerd Font"
 
 # Custom event
