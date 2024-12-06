@@ -51,7 +51,7 @@ sketchybar -m --default label.padding_left=2  \
                         label.padding_right=8
 
 ###################### AeroSpace Spaces ###################
-sketchybar --add alias "AeroSpace,Item-0" left \
+sketchybar --add alias "AeroSpace,Item-0" $LEFT_NOTCH_POSITION \
            --set "AeroSpace,Item-0" alias.color=$BG \
                                   icon.padding_left=0   \
                                   icon.padding_right=0  \
