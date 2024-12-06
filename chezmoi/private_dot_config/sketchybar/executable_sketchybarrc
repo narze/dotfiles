@@ -16,7 +16,8 @@ else
 fi
 
 TRANSPARENT=0x00000000
-BG=0xfa232639
+# BG=0xfa232639
+BG=0xf0e1e3e4
 FONT_FACE="MonaspiceKr Nerd Font"
 
 # Custom event
@@ -34,7 +35,7 @@ sketchybar -m --bar height=$BAR_HEIGHT \
 ############## GLOBAL DEFAULTS ##############
 sketchybar -m --default icon.font="$FONT_FACE:Regular:17.0"  \
                         icon.color=$BG                 \
-                        label.font="$FONT_FACE:Regular:12.0" \
+                        label.font="$FONT_FACE:Bold:12.0" \
                         label.color=$BG \
                         background.color=$TRANSPARENT \
                         background.border_color=$BG \
@@ -48,6 +49,32 @@ sketchybar -m --default label.padding_left=2  \
                         label.padding_right=2 \
                         icon.padding_left=8   \
                         label.padding_right=8
+
+###################### AeroSpace Spaces ###################
+sketchybar --add alias "AeroSpace,Item-0" left \
+           --set "AeroSpace,Item-0" alias.color=$BG \
+                                  icon.padding_left=0   \
+                                  icon.padding_right=0  \
+                                  label.padding_left=0  \
+                                  label.padding_right=0 \
+           --subscribe "AeroSpace,Item-0" aerospace_workspace_change
+                              
+sketchybar --add event aerospace_workspace_change
+
+# for mid in $(aerospace list-monitors | awk -F " | " '{print $1}'); do
+for sid in $(aerospace list-workspaces --all); do
+  sketchybar --add item aerospace.$sid left \
+    --subscribe aerospace.$sid aerospace_workspace_change \
+    --set aerospace.$sid \
+    background.color=0x44ffffff \
+    background.corner_radius=5 \
+    background.drawing=off \
+    background.border_color=$BG \
+    background.border_width=1 \
+    label="$sid" \
+    click_script="aerospace workspace $sid" \
+    script="$CONFIG_DIR/plugins/aerospace.sh $sid"
+done
 
 # https://github.com/FelixKratz/SketchyBar/discussions/12?sort=top#discussioncomment-6974258
 COLOR_BACKGROUND=0xe01d2021
@@ -64,35 +91,36 @@ ICONS_SPACE=(󰎤 󰎧 󰎪 󰎭 󰎱 󰎳 󰎶)
 COLORS_SPACE=($COLOR_YELLOW $COLOR_CYAN $COLOR_MAGENTA $COLOR_WHITE $COLOR_BLUE $COLOR_RED $COLOR_GREEN)
 LENGTH=${#ICONS_SPACE[@]}
 
-for i in "${!ICONS_SPACE[@]}"
-do
-  sid=$(($i+1))
-  PAD_LEFT=2
-  PAD_RIGHT=2
-  if [[ $i == 0 ]]; then
-    PAD_LEFT=8
-  elif [[ $i == $(($LENGTH-1)) ]]; then
-    PAD_RIGHT=8
-  fi
-  sketchybar --add space space.$sid left                                       \
-             --set       space.$sid script="$PLUGIN_DIR/app_space.sh"          \
-                                    associated_space=$sid                      \
-                                    padding_left=$PAD_LEFT                     \
-                                    padding_right=$PAD_RIGHT                   \
-                                    background.color=${COLORS_SPACE[i]}        \
-                                    background.border_width=0                  \
-                                    background.corner_radius=6                 \
-                                    background.height=24                       \
-                                    icon=${ICONS_SPACE[i]}                     \
-                                    icon.color=${COLORS_SPACE[i]}              \
-                                    label="_"                                  \
-                                    label.color=${COLORS_SPACE[i]}             \
-             --subscribe space.$sid front_app_switched window_change
-done
+# Yabai Spaces
+# for i in "${!ICONS_SPACE[@]}"
+# do
+#   sid=$(($i+1))
+#   PAD_LEFT=2
+#   PAD_RIGHT=2
+#   if [[ $i == 0 ]]; then
+#     PAD_LEFT=8
+#   elif [[ $i == $(($LENGTH-1)) ]]; then
+#     PAD_RIGHT=8
+#   fi
+#   sketchybar --add space space.$sid left                                       \
+#              --set       space.$sid script="$PLUGIN_DIR/app_space.sh"          \
+#                                     associated_space=$sid                      \
+#                                     padding_left=$PAD_LEFT                     \
+#                                     padding_right=$PAD_RIGHT                   \
+#                                     background.color=${COLORS_SPACE[i]}        \
+#                                     background.border_width=0                  \
+#                                     background.corner_radius=6                 \
+#                                     background.height=24                       \
+#                                     icon=${ICONS_SPACE[i]}                     \
+#                                     icon.color=${COLORS_SPACE[i]}              \
+#                                     label="_"                                  \
+#                                     label.color=${COLORS_SPACE[i]}             \
+#              --subscribe space.$sid front_app_switched window_change
+# done
 
-# Space bracket
-sketchybar --add bracket spaces '/space\..*/'                      \
-           --set         spaces background.color=$COLOR_BACKGROUND
+# # Space bracket
+# sketchybar --add bracket spaces '/space\..*/'                      \
+#            --set         spaces background.color=$COLOR_BACKGROUND
 
 # ############## PRIMARY DISPLAY SPACES ##############
 # sketchybar -m --add space term left                              \
@@ -234,7 +262,7 @@ sketchybar -m --add item battery right \
               --subscribe battery power_source_change
 
 sketchybar --add alias "Session,Item-0" right \
-           --set "Session,Item-0" alias.color=0xff000000 \
+           --set "Session,Item-0" alias.color=$BG \
                                   icon.padding_left=0   \
                                   icon.padding_right=0  \
                                   label.padding_left=0  \

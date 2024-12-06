@@ -19,13 +19,27 @@ automatically-unhide-macos-hidden-apps = true
 
 accordion-padding = 36
 
+after-startup-command = [
+  # JankyBorders has a built-in detection of already running process,
+  # so it won't be run twice on AeroSpace restart
+  'exec-and-forget borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=4.0',
+
+  # Sketchybar
+  "exec-and-forget sketchybar",
+]
+
+# Notify Sketchybar about workspace change
+exec-on-workspace-change = ['/bin/bash', '-c',
+  'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+]
+
 [gaps]
-inner.horizontal = 16
-inner.vertical =   16
-outer.left =       16
-outer.bottom =     16
-outer.top =        16
-outer.right =      16
+inner.horizontal = 12
+inner.vertical =   12
+outer.left =       12
+outer.bottom =     12
+outer.top =        40 # Sketchybar height
+outer.right =      12
 
 [mode.main.binding]
 # See: https://nikitabobko.github.io/AeroSpace/goodness#open-a-new-window-with-applescript
@@ -98,23 +112,23 @@ alt-f = 'layout floating tiling' # 'floating toggle' in i3
 # should be supported at all https://github.com/nikitabobko/AeroSpace/issues/5
 # alt-a = 'focus parent'
 
-alt-1 = 'workspace 1'
-alt-2 = 'workspace 2'
-alt-3 = 'workspace 3'
-alt-4 = 'workspace 4'
-alt-5 = 'workspace 5'
-alt-6 = 'workspace 6'
+alt-1 = 'workspace 1.Main'
+alt-2 = 'workspace 2.Browse'
+alt-3 = 'workspace 3.Code'
+alt-4 = 'workspace 4.Comms'
+alt-5 = 'workspace 5.System'
+alt-6 = 'workspace 6.Other'
 alt-7 = 'workspace 7'
 alt-8 = 'workspace 8'
 alt-9 = 'workspace 9'
 alt-0 = 'workspace 10'
 
-alt-shift-1 = 'move-node-to-workspace 1'
-alt-shift-2 = 'move-node-to-workspace 2'
-alt-shift-3 = 'move-node-to-workspace 3'
-alt-shift-4 = 'move-node-to-workspace 4'
-alt-shift-5 = 'move-node-to-workspace 5'
-alt-shift-6 = 'move-node-to-workspace 6'
+alt-shift-1 = 'move-node-to-workspace 1.Main'
+alt-shift-2 = 'move-node-to-workspace 2.Browse'
+alt-shift-3 = 'move-node-to-workspace 3.Code'
+alt-shift-4 = 'move-node-to-workspace 4.Comms'
+alt-shift-5 = 'move-node-to-workspace 5.System'
+alt-shift-6 = 'move-node-to-workspace 6.Other'
 alt-shift-7 = 'move-node-to-workspace 7'
 alt-shift-8 = 'move-node-to-workspace 8'
 alt-shift-9 = 'move-node-to-workspace 9'
@@ -132,46 +146,46 @@ l = 'resize width +50'
 enter = 'mode main'
 esc = 'mode main'
 
-[key-mapping]
-preset = "qwerty"
+# [key-mapping]
+# preset = "qwerty"
 
-[key-mapping.key-notation-to-key-code]
-q = 'q'
-w = 'w'
-f = 'f'
-p = 'p'
-b = 'b'
-j = 'j'
-l = 'l'
-u = 'u'
-y = 'y'
-semicolon = 'semicolon'
-leftSquareBracket = 'leftSquareBracket'
-rightSquareBracket = 'rightSquareBracket'
-backslash = 'backslash'
+# [key-mapping.key-notation-to-key-code]
+# q = 'q'
+# w = 'w'
+# f = 'f'
+# p = 'p'
+# b = 'b'
+# j = 'j'
+# l = 'l'
+# u = 'u'
+# y = 'y'
+# semicolon = 'semicolon'
+# leftSquareBracket = 'leftSquareBracket'
+# rightSquareBracket = 'rightSquareBracket'
+# backslash = 'backslash'
 
-a = 'a'
-r = 'r'
-s = 's'
-t = 't'
-g = 'g'
-m = 'm'
-n = 'n'
-e = 'e'
-i = 'i'
-o = 'o'
-quote = 'quote'
+# a = 'a'
+# r = 'r'
+# s = 's'
+# t = 't'
+# g = 'g'
+# m = 'm'
+# n = 'n'
+# e = 'e'
+# i = 'i'
+# o = 'o'
+# quote = 'quote'
 
-z = 'z'
-x = 'x'
-c = 'c'
-d = 'd'
-v = 'v'
-k = 'k'
-h = 'h'
-comma = 'comma'
-period = 'period'
-slash = 'slash'
+# z = 'z'
+# x = 'x'
+# c = 'c'
+# d = 'd'
+# v = 'v'
+# k = 'k'
+# h = 'h'
+# comma = 'comma'
+# period = 'period'
+# slash = 'slash'
 
 # Window rules
 # https://nikitabobko.github.io/AeroSpace/guide#callbacks
@@ -179,10 +193,98 @@ slash = 'slash'
 # To get app-id:
 # - https://nikitabobko.github.io/AeroSpace/goodness#popular-apps-ids
 # - `aerospace list-apps`
+
+# Workspace #1 Main
 [[on-window-detected]]
 if.app-id = 'com.philipyoungg.session-setapp'
-run = ['layout floating', 'move-node-to-workspace 3']
+run = ['layout floating', 'move-node-to-workspace 1.Main']
 
 [[on-window-detected]]
+if.app-id = 'com.1password.1password'
+run = ['layout floating', 'move-node-to-workspace 1.Main']
+
+[[on-window-detected]]
+if.app-id = 'com.spotify.client'
+run = ['move-node-to-workspace 1.Main']
+
+# Workspace #2 Browse
+[[on-window-detected]]
 if.app-id = 'com.kapeli.dash-setapp'
-run = ['layout floating', 'move-node-to-workspace 5']
+run = ['layout floating', 'move-node-to-workspace 2.Browse']
+
+[[on-window-detected]]
+if.app-id = 'company.thebrowser.Browser' # Arc Browser
+run = ['move-node-to-workspace 2.Browse']
+
+[[on-window-detected]]
+if.app-id = 'com.google.Chrome'
+run = ['move-node-to-workspace 2.Browse']
+
+[[on-window-detected]]
+if.app-id = 'org.mozilla.firefox'
+run = ['move-node-to-workspace 2.Browse']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Safari'
+run = ['move-node-to-workspace 2.Browse']
+
+# Workspace #3 Code
+[[on-window-detected]]
+if.app-id = 'com.microsoft.VSCode'
+run = ['move-node-to-workspace 3.Code']
+
+[[on-window-detected]]
+if.app-id = 'net.kovidgoyal.kitty'
+run = ['move-node-to-workspace 3.Code']
+
+[[on-window-detected]]
+if.app-id = 'com.github.wez.wezterm'
+run = ['move-node-to-workspace 3.Code']
+
+# Workspace #4 Comms
+[[on-window-detected]]
+if.app-id = 'md.obsidian'
+run = ['move-node-to-workspace 4.Comms']
+
+[[on-window-detected]]
+if.app-id = 'com.tinyspeck.slackmacgap'
+run = ['move-node-to-workspace 4.Comms']
+
+[[on-window-detected]]
+if.app-id = 'com.tdesktop.Telegram'
+run = ['move-node-to-workspace 4.Comms']
+
+[[on-window-detected]]
+if.app-id = 'com.cron.electron' # Notion Calendar
+run = ['move-node-to-workspace 4.Comms']
+
+# Workspace #5 System
+[[on-window-detected]]
+if.app-id = 'com.apple.systempreferences'
+run = ['layout floating', 'move-node-to-workspace 5.System']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+run = ['move-node-to-workspace 5.System']
+
+[[on-window-detected]]
+if.app-id = 'org.pqrs.Karabiner-Elements.Settings'
+run = ['move-node-to-workspace 5.System']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.shortcuts'
+run = ['move-node-to-workspace 5.System']
+
+[[on-window-detected]]
+if.app-id = 'com.stairways.keyboardmaestro.editor'
+run = ['move-node-to-workspace 5.System']
+
+# Workspace #6 Other
+
+[workspace-to-monitor-force-assignment]
+"1.Main" = ["secondary", "main"]
+"2.Browse" = "main"
+"3.Code" = "main"
+"4.Comms" = "main"
+"5.System" = ["secondary", "main"]
+"6.Other" = "main"
