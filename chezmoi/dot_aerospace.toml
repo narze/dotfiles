@@ -258,6 +258,10 @@ run = ['move-node-to-workspace 4.Comms']
 if.app-id = 'com.cron.electron' # Notion Calendar
 run = ['move-node-to-workspace 4.Comms']
 
+[[on-window-detected]]
+if.app-id = 'com.hnc.Discord'
+run = ['move-node-to-workspace 4.Comms']
+
 # Workspace #5 System
 [[on-window-detected]]
 if.app-id = 'com.apple.systempreferences'
