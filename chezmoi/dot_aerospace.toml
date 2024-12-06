@@ -39,7 +39,7 @@ outer.right =      16
 # Migrated from yabai-skhd
 
 # Close window
-# alt-w = 'close'
+alt-w = 'close'
 
 # Focus window
 alt-h = 'focus --boundaries-action wrap-around-the-workspace left'
@@ -181,4 +181,8 @@ slash = 'slash'
 # - `aerospace list-apps`
 [[on-window-detected]]
 if.app-id = 'com.philipyoungg.session-setapp'
-run = 'layout floating'
+run = ['layout floating', 'move-node-to-workspace 3']
+
+[[on-window-detected]]
+if.app-id = 'com.kapeli.dash-setapp'
+run = ['layout floating', 'move-node-to-workspace 5']
