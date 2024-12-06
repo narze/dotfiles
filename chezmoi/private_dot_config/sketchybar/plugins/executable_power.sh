@@ -1,19 +1,20 @@
 #!/bin/bash
 
 # . ~/.cache/wal/colors.sh
+BG=0xf0e1e3e4
 BATT_PERCENT=$(pmset -g batt | grep -Eo "\d+%" | cut -d% -f1)
 CHARGING=$(pmset -g batt | grep 'AC Power')
 
 # Charging
 if [[ $CHARGING != "" ]]; then
   sketchybar -m --set battery \
-    icon.color=0xFF000000 \
+    icon.color=$BG \
     icon="󰂄" \
     label=$(printf "${BATT_PERCENT}%%")
   exit 0
 fi
 
-[[ ${BATT_PERCENT} -gt 10 ]] && COLOR=0xFF000000 || COLOR=0xFFFF0000
+[[ ${BATT_PERCENT} -gt 10 ]] && COLOR=$BG || COLOR=0xFFFF0000
 
 case ${BATT_PERCENT} in
 100) ICON="" ;;

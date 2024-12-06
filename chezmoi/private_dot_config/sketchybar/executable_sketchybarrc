@@ -39,8 +39,8 @@ sketchybar -m --default icon.font="$FONT_FACE:Regular:17.0"  \
                         label.color=$BG \
                         background.color=$TRANSPARENT \
                         background.border_color=$BG \
-                        background.border_width=1 \
-                        background.corner_radius=8 \
+                        background.border_width=2 \
+                        background.corner_radius=6 \
                         background.padding_right=5 \
                         background.height=26
 
@@ -58,19 +58,19 @@ sketchybar --add alias "AeroSpace,Item-0" left \
                                   label.padding_left=0  \
                                   label.padding_right=0 \
            --subscribe "AeroSpace,Item-0" aerospace_workspace_change
-                              
+
 sketchybar --add event aerospace_workspace_change
 
+# NOTE: AeroSpace & Sketchybar have different monitor IDs so we can't add icons according to the display yet
 # for mid in $(aerospace list-monitors | awk -F " | " '{print $1}'); do
 for sid in $(aerospace list-workspaces --all); do
   sketchybar --add item aerospace.$sid left \
     --subscribe aerospace.$sid aerospace_workspace_change \
     --set aerospace.$sid \
     background.color=0x44ffffff \
-    background.corner_radius=5 \
     background.drawing=off \
     background.border_color=$BG \
-    background.border_width=1 \
+    background.border_width=2 \
     label="$sid" \
     click_script="aerospace workspace $sid" \
     script="$CONFIG_DIR/plugins/aerospace.sh $sid"
