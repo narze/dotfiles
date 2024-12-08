@@ -205,6 +205,24 @@ plugins {
     filepicker location="zellij:strider" {
         cwd "/"
     }
+
+    autolock location="file:~/.config/zellij/plugins/zellij-autolock.wasm" {
+        // Enabled at start?
+        is_enabled true
+        // Lock when any open these programs open.
+        triggers "nvim|vim|git|fzf|zoxide|atuin"
+        // Reaction to input occurs after this many seconds. (default=0.3)
+        // (An existing scheduled reaction prevents additional reactions.)
+        reaction_seconds "0.3"
+        // Print to Zellij log? (default=false)
+        print_to_log true
+    }
+}
+
+// This plugin does not work as of December 9, 2024
+// Will check back later
+load_plugins {
+    // autolock
 }
 
 // Choose what to do when zellij receives SIGTERM, SIGINT, SIGQUIT or SIGHUP
