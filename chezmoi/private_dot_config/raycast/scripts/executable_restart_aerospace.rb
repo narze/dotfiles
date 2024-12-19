@@ -2,7 +2,7 @@
 
 # Required parameters:
 # @raycast.schemaVersion 1
-# @raycast.title Restart Aerospace
+# @raycast.title Reload Aerospace
 # @raycast.mode compact
 
 # Optional parameters:
