@@ -1,0 +1,20 @@
+# Reload with ⌘+Shift+Comma
+
+# Configurations
+background-blur-radius = 20
+background-opacity = 0.5
+bold-is-bright = true
+clipboard-trim-trailing-spaces = true
+confirm-close-surface = false
+font-family = "FantasqueSansM Nerd Font"
+macos-auto-secure-input = true
+macos-titlebar-style = tabs
+mouse-hide-while-typing = true
+quit-after-last-window-closed = true
+quit-after-last-window-closed-delay = 2s
+
+# Theme (Run `ghostty +list-themes` to see all available themes)
+theme = "tokyonight"
+
+# Keybinds
+keybind = global:ctrl+grave_accent=toggle_quick_terminal
