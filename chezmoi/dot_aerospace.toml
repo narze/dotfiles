@@ -194,6 +194,18 @@ esc = 'mode main'
 # - https://nikitabobko.github.io/AeroSpace/goodness#popular-apps-ids
 # - `aerospace list-apps`
 
+# Fix macOS native tabs e.g. Finder, Ghostty
+# Now it must be floating on start, then you can tile it manually
+[[on-window-detected]]
+if.app-id = 'com.mitchellh.ghostty'
+run = ['layout floating']
+check-further-callbacks = true
+
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+run = ['layout floating']
+check-further-callbacks = true
+
 # Workspace #1 Main
 [[on-window-detected]]
 if.app-id = 'com.philipyoungg.session-setapp'
@@ -235,6 +247,10 @@ run = ['move-node-to-workspace 3.Code']
 
 [[on-window-detected]]
 if.app-id = 'net.kovidgoyal.kitty'
+run = ['move-node-to-workspace 3.Code']
+
+[[on-window-detected]]
+if.app-id = 'com.mitchellh.ghostty'
 run = ['move-node-to-workspace 3.Code']
 
 [[on-window-detected]]
