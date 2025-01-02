@@ -1,6 +1,9 @@
 {{- if and (eq .chezmoi.os "darwin") (eq .chezmoi.arch "arm64") -}}
 #!/bin/sh
 
+# We don't need Rosetta 2 anymore I suppose
+exit 0
+
 # Install Rosetta 2"
 
 source /tmp/chezmoi-utils.sh
