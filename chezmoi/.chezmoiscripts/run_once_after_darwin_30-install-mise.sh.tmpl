@@ -16,7 +16,8 @@ echo "Install/upgrade mise"
 if [[ ! $(command -v mise) ]]; then
   curl https://mise.run | sh
 else
-  mise self-update -y
+  # mise self-update -y
+  brew upgrade mise
 fi
 
 {{ end -}}
