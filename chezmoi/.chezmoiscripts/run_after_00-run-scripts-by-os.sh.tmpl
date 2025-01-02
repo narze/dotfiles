@@ -14,5 +14,6 @@ SCRIPTS_DIR={{ .chezmoi.workingTree }}/scripts
 for script in $SCRIPTS_DIR/$OS/*.*sh
 do
   echo $script
-  source $script
+  # Run script file, ignoring exit code so that we can run all scripts in the directory
+  bash $script || true
 done
