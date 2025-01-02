@@ -19,8 +19,12 @@ fi
 if grep -Fxq "$INCLUDE_LINE" "$SSH_CONFIG_FILE"; then
   echo "Include line already exists in $SSH_CONFIG_FILE"
 else
-  # Add the Include line at the end of the SSH config file
   echo "Adding Include line to $SSH_CONFIG_FILE"
-  echo "# Managed by dotfiles" >>"$SSH_CONFIG_FILE"
-  echo "$INCLUDE_LINE" >>"$SSH_CONFIG_FILE"
+  cat <<<"
+# Managed by dotfiles
+$INCLUDE_LINE
+
+$(cat "$SSH_CONFIG_FILE")" >"$SSH_CONFIG_FILE.tmp"
+
+  mv "$SSH_CONFIG_FILE.tmp" "$SSH_CONFIG_FILE"
 fi
