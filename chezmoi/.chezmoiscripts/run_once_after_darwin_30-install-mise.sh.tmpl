@@ -15,9 +15,10 @@ echo "Install/upgrade mise"
 
 if [[ ! $(command -v mise) ]]; then
   curl https://mise.run | sh
-else
-  # mise self-update -y
+elif brew list --formula | grep -q '^mise$'; then
   brew upgrade mise
+else
+  mise self-update -y
 fi
 
 {{ end -}}
