@@ -229,6 +229,10 @@ if.app-id = 'company.thebrowser.Browser' # Arc Browser
 run = ['move-node-to-workspace 2.Browse']
 
 [[on-window-detected]]
+if.app-id = 'com.vivaldi.Vivaldi'
+run = ['move-node-to-workspace 2.Browse']
+
+[[on-window-detected]]
 if.app-id = 'com.google.Chrome'
 run = ['move-node-to-workspace 2.Browse']
 
