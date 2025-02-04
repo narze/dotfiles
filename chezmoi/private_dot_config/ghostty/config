@@ -12,9 +12,12 @@ macos-titlebar-style = tabs
 mouse-hide-while-typing = true
 quit-after-last-window-closed = true
 quit-after-last-window-closed-delay = 2s
+font-thicken = true
+window-padding-color = extend
 
 # Theme (Run `ghostty +list-themes` to see all available themes)
 theme = "tokyonight"
 
 # Keybinds
 keybind = global:ctrl+grave_accent=toggle_quick_terminal
+keybind = cmd+d=paste_from_clipboard
