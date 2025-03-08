@@ -22,12 +22,14 @@ set -eufo pipefail
 {{ $casks := list
   "1password"
   "airflow"
+  "alt-tab"
   "amitv87-pip"
+  "anki"
   "arc"
   "beardedspice"
   "betterdisplay"
+  "cursor"
   "discord"
-  "flux"
   "ghostty"
   "google-chrome"
   "google-drive"
@@ -35,12 +37,15 @@ set -eufo pipefail
   "hammerspoon"
   "iina"
   "karabiner-elements"
+  "kawa"
   "keyboard-maestro"
   "keycastr"
   "kitty"
   "localsend/localsend/localsend"
   "lulu"
+  "notunes"
   "obsidian"
+  "orbstack"
   "plex"
   "postgres-unofficial"
   "postman"
@@ -55,9 +60,11 @@ set -eufo pipefail
   "telegram"
   "the-unarchiver"
   "visual-studio-code"
+  "vivaldi"
+  "zen-browser"
 -}}
 
-brew bundle --no-lock --file=/dev/stdin <<EOF || :
+brew bundle --file=/dev/stdin <<EOF || :
 {{ range ($taps | sortAlpha | uniq) -}}
 tap "{{ . }}"
 {{ end }}
