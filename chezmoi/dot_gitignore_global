@@ -54,3 +54,6 @@ dump.rdb
 # Mise
 .mise.toml
 .mise/
+
+# Ottotime
+.ottotime
