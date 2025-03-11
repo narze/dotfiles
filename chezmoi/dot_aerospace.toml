@@ -250,6 +250,14 @@ if.app-id = 'com.microsoft.VSCode'
 run = ['move-node-to-workspace 3.Code']
 
 [[on-window-detected]]
+if.app-id = 'com.microsoft.VSCodeInsiders'
+run = ['move-node-to-workspace 3.Code']
+
+[[on-window-detected]]
+if.app-id = 'com.todesktop.230313mzl4w4u92' # Cursor
+run = ['move-node-to-workspace 3.Code']
+
+[[on-window-detected]]
 if.app-id = 'net.kovidgoyal.kitty'
 run = ['move-node-to-workspace 3.Code']
 
