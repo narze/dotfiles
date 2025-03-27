@@ -1,7 +1,16 @@
 {{- if (eq .chezmoi.os "darwin") -}}
 #!/bin/sh
 
-fileicon set "/Applications/kitty.app" $HOME/.local/macos/fileicons/terminal_synthwave.icns
-fileicon set "/Applications/Visual Studio Code.app" $HOME/.local/macos/fileicons/vscode.icns
+if [ -d "/Applications/kitty.app" ]; then
+  fileicon set "/Applications/kitty.app" $HOME/.local/macos/fileicons/terminal_synthwave.icns
+fi
+
+if [ -d "/Applications/Ghostty.app" ]; then
+  fileicon set "/Applications/Ghostty.app" $HOME/.local/macos/fileicons/terminal_synthwave.icns
+fi
+
+if [ -d "/Applications/Visual Studio Code.app" ]; then
+  fileicon set "/Applications/Visual Studio Code.app" $HOME/.local/macos/fileicons/vscode.icns
+fi
 
 {{ end -}}
