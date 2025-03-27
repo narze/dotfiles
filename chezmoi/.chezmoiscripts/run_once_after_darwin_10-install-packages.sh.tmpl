@@ -16,7 +16,6 @@ echo "Install common macOS packages"
 set -eufo pipefail
 
 {{ $taps := list
-  "homebrew/cask-fonts"
   "FelixKratz/formulae"
   "yqrashawn/goku"
   "nikitabobko/tap"
@@ -48,7 +47,6 @@ set -eufo pipefail
   "yqrashawn/goku/goku"
   "FelixKratz/formulae/sketchybar"
   "FelixKratz/formulae/borders"
-  "nikitabobko/tap/aerospace"
 
   "bat"
   "btop"
@@ -78,11 +76,12 @@ set -eufo pipefail
 
   "qlmarkdown"
   "quicklook-json"
-  "qlimagesize"
   "suspicious-package"
   "quicklookase"
   "qlvideo"
   "WebPQuickLook"
+
+  "nikitabobko/tap/aerospace"
 -}}
 
 brew bundle --file=/dev/stdin <<EOF || :
