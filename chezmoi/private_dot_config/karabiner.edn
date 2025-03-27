@@ -217,7 +217,7 @@
                                                                     ;; [:!Of6 :f6]
                                                                     [:!Of7 {:ckey :rewind}]
                                                                     [:!Of8 {:ckey :play_or_pause}]
-                                                                    [:!Of9 {:ckey :fastforward}]
+                                                                    ;; [:!Of9 {:ckey :fastforward}]
                                                                     [:!Of10 {:ckey :mute}]
                                                                     [:!Of11 {:ckey :volume_decrement}]
                                                                     [:!Of12 {:ckey :volume_increment}] ]}
