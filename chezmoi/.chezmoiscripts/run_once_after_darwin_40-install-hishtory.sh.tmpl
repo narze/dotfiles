@@ -5,10 +5,19 @@ source /tmp/chezmoi-utils.sh
 
 printf "${green}[40 - hishtory] ${reset}"
 
-if command -v zoxide &> /dev/null; then
+if command -v hishtory &> /dev/null; then
   hishtory update
 else
   curl https://hishtory.dev/install.py | python3 -
+fi
+
+# If $HISHTORY_SECRET_KEY is set and it's not the same as the secret key in history status, re-init with history init
+if command -v hishtory &> /dev/null; then
+  if [ -n "$HISHTORY_SECRET_KEY" ]; then
+    if ! hishtory status | grep -q "$HISHTORY_SECRET_KEY"; then
+      hishtory init $HISHTORY_SECRET_KEY --force
+    fi
+  fi
 fi
 
 {{ end -}}
