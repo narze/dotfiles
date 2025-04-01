@@ -38,10 +38,31 @@ To change the data or script, `chezmoi cd`, edit them, then run `chezmoi apply`.
 ## Manual tasks (One-time per machine)
 
 - macOS
-  - Run Setapp installer manually after the `brew` script is run.
-  - Login to App Store before running (If not `mas` will skip installation and open the App Store for you)
-  - Preferences -> Change input source switch to CMD+Space, and Spotlight search to Option+Space
-  - Run `mackup restore` once after iCloud is synced
+  - Syncthing
+    - Run Syncthing and sync default folder to `~/Sync`
+  - Karabiner Elements
+    - Rename default profile to `Default`
+    - Allow permissions, reboot
+  - Keyboard Maestro
+    - Open sync file `~/Sync/Apps/Keyboard Maestro/Keyboard Maestro Macros.kmsync`
+  - Raycast
+    - Setup shortcut key to `Ctrl+Space`
+    - Import data from iCloud drive
+  - Vivaldi Browser
+    - Login & sync data
+    - Manually mirror settings & keyboard shortcuts
+    - Manually add workspace rules
+  - Install apps in Setapp
+  - Cleanshot
+    - Set keyboard shortcuts & disable system shortcuts
+  - Session
+    - Enable "break_start" shortcut trigger
+  - Time Out
+    - Add "Normal" & "Micro" break but disabled them
+  - Login to Mac App Store
+  - System Settings
+    - Keyboard Shortcuts
+      - Change input source switch to CMD+Space, and Spotlight search to Option+Space
   - Connect to Tailscale to mount NAS
   - Disable Boom 3D keyboard shortcuts
   - Set enrcyption password `SETPASS=1 chezmoi init`
