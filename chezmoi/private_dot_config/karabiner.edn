@@ -26,6 +26,7 @@
                  {:vendor_id 65261 :product_id 25700} ; Ergodox Infinity
                  {:vendor_id 7185 :product_id 45133} ; Ergodox Infinity (Macbook)
                  {:vendor_id 1240 :product_id 60205} ; Lily 58 Pro
+                 {:vendor_id 2007} ; BLKM
                 ;;  {:vendor_id 13364 :product_id 608} ; Keychron K6 Pro
                  ]}
  :input-sources {:colemak {:input_source_id "org.sil.ukelele.keyboardlayout.com.colemak.dhm.colemakdhm" :language "en"}}
