@@ -54,6 +54,7 @@ dump.rdb
 
 # Mise
 .mise.toml
+mise.local.toml
 .mise/
 
 # Ottotime
@@ -61,3 +62,5 @@ dump.rdb
 
 # Claude Code
 .claude
+
+Procfile.edk
