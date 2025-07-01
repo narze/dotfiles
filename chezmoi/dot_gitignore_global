@@ -58,3 +58,6 @@ dump.rdb
 
 # Ottotime
 .ottotime
+
+# Claude Code
+.claude
