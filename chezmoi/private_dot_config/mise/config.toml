@@ -4,7 +4,9 @@
 node = ["20", "22"]
 neovim = "latest"
 pnpm = "latest"
-ruby = ["3.3"]
+ruby = "3.4.4"
+bun = "latest"
 
 [settings]
 experimental = true
+idiomatic_version_file_enable_tools = ["ruby"]
