@@ -33,11 +33,6 @@
 [diff]
   colorMoved = default
 
-{{ if .flags.is_codespace -}} # [Disable since it's codespace] # {{ end -}}
-[url "ssh://git@github.com/{{ .github_user }}"]
-{{ if .flags.is_codespace -}} # [Disable since it's codespace] #   {{ end -}}
-  insteadOf = https://github.com/{{ .github_user }}
-
 {{/* Added from gh auth setup-git */}}
 {{- if (env "CODER") }}
 [credential "https://github.com"]
