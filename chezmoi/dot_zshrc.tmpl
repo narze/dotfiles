@@ -66,6 +66,9 @@ if [[ ! -r "$Z4H/stickycache/no-chsh" ]]; then
 fi
 {{- end }}
 
+# Try disabling p10k
+zstyle ':z4h:powerlevel10k' channel 'none'
+
 # Periodic auto-update on Zsh startup: 'ask' or 'no'.
 # You can manually run `z4h update` to update everything.
 zstyle ':z4h:' auto-update      'no'
