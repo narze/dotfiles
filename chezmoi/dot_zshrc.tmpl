@@ -66,8 +66,12 @@ if [[ ! -r "$Z4H/stickycache/no-chsh" ]]; then
 fi
 {{- end }}
 
-# Try disabling p10k
-zstyle ':z4h:powerlevel10k' channel 'none'
+# Disable p10k if run within VSCode / Cursor (having $VSCODE_INSPECTOR_OPTIONS)
+if [[ -n "$VSCODE_INSPECTOR_OPTIONS" ]]; then
+  zstyle ':z4h:powerlevel10k' channel 'none'
+else
+  zstyle -d :z4h:powerlevel10k channel none
+fi
 
 # Periodic auto-update on Zsh startup: 'ask' or 'no'.
 # You can manually run `z4h update` to update everything.
