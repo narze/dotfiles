@@ -4,8 +4,11 @@
 #
 # Documentation: https://github.com/romkatv/zsh4humans/blob/v5/README.md.
 
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# Disable instant prompt if run within VSCode / Cursor (having $VSCODE_INSPECTOR_OPTIONS)
+if [[ -n "$VSCODE_INSPECTOR_OPTIONS" ]]; then
+  if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+  fi
 fi
 
 if [[ -n "${GITHUB_CODESPACE_TOKEN}" ]]; then
@@ -64,14 +67,14 @@ if [[ ! -r "$Z4H/stickycache/no-chsh" ]]; then
   mkdir -p $Z4H/stickycache
   touch $Z4H/stickycache/no-chsh
 fi
-{{- end }}
+{{- end -}}
 
 # Disable p10k if run within VSCode / Cursor (having $VSCODE_INSPECTOR_OPTIONS)
-if [[ -n "$VSCODE_INSPECTOR_OPTIONS" ]]; then
-  zstyle ':z4h:powerlevel10k' channel 'none'
-else
-  zstyle -d :z4h:powerlevel10k channel none
-fi
+# if [[ -n "$VSCODE_INSPECTOR_OPTIONS" ]]; then
+#   zstyle ':z4h:powerlevel10k' channel 'none'
+# else
+#   zstyle -d :z4h:powerlevel10k channel none
+# fi
 
 # Periodic auto-update on Zsh startup: 'ask' or 'no'.
 # You can manually run `z4h update` to update everything.
