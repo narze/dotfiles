@@ -1,9 +1,0 @@
-#!/bin/sh
-
-# https://medium.com/@joaomoreno/persistent-terminal-sessions-in-vs-code-8fc469ed6b41
-
-# Get session name based on pwd
-SESSION="vsc-$(pwd | md5sum | cut -c 1-8)"
-
-# Attach or create session
-tmux attach-session -d -t "$SESSION" || tmux new-session -s "$SESSION"
