@@ -206,6 +206,10 @@ if.app-id = 'com.apple.finder'
 run = ['layout floating']
 check-further-callbacks = true
 
+[[on-window-detected]]
+if.app-id = 'com.autodesk.fusion360'
+run = ['layout floating']
+
 # Workspace #1 Main
 [[on-window-detected]]
 if.app-id = 'com.philipyoungg.session-setapp'
