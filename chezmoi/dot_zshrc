@@ -102,30 +102,17 @@ alias ls="${aliases[ls]:-ls} -A"
 setopt glob_dots     # no special treatment for file names with a leading dot
 setopt no_auto_menu  # require an extra TAB press to open the completion menu
 
-# Mac specific config
-# if [[ "$(uname -m)" == "arm64" ]]; then
-#   # 3. x86 brew bin
-#   if [ -f /usr/local/bin/brew ]; then
-#     eval $(/usr/local/bin/brew shellenv)
-#   fi
+# x86 brew bin (3rd)
+if [ -f /usr/local/bin/brew ]; then
+  eval $(/usr/local/bin/brew shellenv)
+fi
 
-#   # 2. arm64 brew
-#   if [ -f /opt/homebrew/bin/brew ]; then
-#     eval $(/opt/homebrew/bin/brew shellenv)
-#   fi
-# else
-#   # 3. arm64 brew
-#   if [ -f /opt/homebrew/bin/brew ]; then
-#     eval $(/opt/homebrew/bin/brew shellenv)
-#   fi
+# arm64 brew (2nd)
+if [ -f /opt/homebrew/bin/brew ]; then
+  eval $(/opt/homebrew/bin/brew shellenv)
+fi
 
-#   # 2. x86 brew bin
-#   if [ -f /usr/local/bin/brew ]; then
-#     eval $(/usr/local/bin/brew shellenv)
-#   fi
-# fi
-
-# 1. user brew
+# user brew (1st)
 if [ -f ~/homebrew/bin/brew ]; then
   eval $(~/homebrew/bin/brew shellenv)
 fi
