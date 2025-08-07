@@ -1,44 +1,51 @@
+export USE_ZIM=1
+
+if [[ -n "$USE_ZIM" ]]; then
+{{ template "zim.tmpl" . }}
+fi
+
 # Personal Zsh configuration file. It is strongly recommended to keep all
 # shell customization and configuration (including exported environment
 # variables such as PATH) in this file or in files source by it.
 #
 # Documentation: https://github.com/romkatv/zsh4humans/blob/v5/README.md.
 
-
-# Cursor Agent detection - only activate minimal mode for actual agents
-if [[ -n "$npm_config_yes" ]] || [[ -n "$CI" ]] || [[ "$-" != *i* ]]; then
-  export CURSOR_AGENT_MODE=true
-else
-  export CURSOR_AGENT_MODE=false
-fi
-
-if [[ "$CURSOR_AGENT_MODE" == "true" ]]; then
-  POWERLEVEL9K_INSTANT_PROMPT=off
-  # Disable complex prompt features for AI agents
-  POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs)
-  POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
-  # Ensure non-interactive mode
-  export DEBIAN_FRONTEND=noninteractive
-  export NONINTERACTIVE=1
-fi
-
-# Disable instant prompt if run within VSCode / Cursor (having $VSCODE_INSPECTOR_OPTIONS or $CURSOR_AGENT_MODE)
-if [[ "$CURSOR_AGENT_MODE" == "false" ]]; then
-  if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+if [[ -z "$USE_ZIM" ]]; then
+  # Cursor Agent detection - only activate minimal mode for actual agents
+  if [[ -n "$npm_config_yes" ]] || [[ -n "$CI" ]] || [[ "$-" != *i* ]]; then
+    export CURSOR_AGENT_MODE=true
+  else
+    export CURSOR_AGENT_MODE=false
   fi
-fi
 
-# Later in your .zshrc - minimal prompt for agents
-if [[ "$CURSOR_AGENT_MODE" == "true" ]]; then
-  PROMPT='%n@%m:%~%# '
-  RPROMPT=''
-  unsetopt CORRECT
-  unsetopt CORRECT_ALL
-  setopt NO_BEEP
-  setopt NO_HIST_BEEP
-  setopt NO_LIST_BEEP
-  typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+  if [[ "$CURSOR_AGENT_MODE" == "true" ]]; then
+    POWERLEVEL9K_INSTANT_PROMPT=off
+    # Disable complex prompt features for AI agents
+    POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs)
+    POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
+    # Ensure non-interactive mode
+    export DEBIAN_FRONTEND=noninteractive
+    export NONINTERACTIVE=1
+  fi
+
+  # Disable instant prompt if run within VSCode / Cursor (having $VSCODE_INSPECTOR_OPTIONS or $CURSOR_AGENT_MODE)
+  if [[ "$CURSOR_AGENT_MODE" == "false" ]]; then
+    if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+      source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+    fi
+  fi
+
+  # Later in your .zshrc - minimal prompt for agents
+  if [[ "$CURSOR_AGENT_MODE" == "true" ]]; then
+    PROMPT='%n@%m:%~%# '
+    RPROMPT=''
+    unsetopt CORRECT
+    unsetopt CORRECT_ALL
+    setopt NO_BEEP
+    setopt NO_HIST_BEEP
+    setopt NO_LIST_BEEP
+    typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+  fi
 fi
 
 if [[ -n "${GITHUB_CODESPACE_TOKEN}" ]]; then
@@ -92,13 +99,13 @@ ulimit -n 8192
 # Prefer using emacs mode for zsh
 bindkey -e
 
-# Load z4h (zsh4humans) configuration
-source ~/.config/zsh/z4h.zsh
+if [[ -z "$USE_ZIM" ]]; then
+  # Load z4h (zsh4humans) configuration
+  source ~/.config/zsh/z4h.zsh
+fi
 
 # Export environment variables.
 export GPG_TTY=$TTY
-
-
 
 # Autoload functions.
 autoload -Uz zmv
