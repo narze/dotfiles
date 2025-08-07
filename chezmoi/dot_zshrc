@@ -1,56 +1,14 @@
-export USE_ZIM=1
-export USE_STARSHIP=1
+# export USE_ZIM=1
+# export USE_STARSHIP=1
+
+export USE_ZINIT=1
 
 if [[ -n "$USE_ZIM" ]]; then
-{{ template "zim.tmpl" . }}
+  source ~/.config/zsh/plugin-managers/zim.zsh
 fi
 
-# Personal Zsh configuration file. It is strongly recommended to keep all
-# shell customization and configuration (including exported environment
-# variables such as PATH) in this file or in files source by it.
-#
-# Documentation: https://github.com/romkatv/zsh4humans/blob/v5/README.md.
-
-if [[ -z "$USE_ZIM" ]]; then
-  # Cursor Agent detection - only activate minimal mode for actual agents
-  if [[ -n "$npm_config_yes" ]] || [[ -n "$CI" ]] || [[ "$-" != *i* ]]; then
-    export CURSOR_AGENT_MODE=true
-  else
-    export CURSOR_AGENT_MODE=false
-  fi
-
-  if [[ "$CURSOR_AGENT_MODE" == "true" ]]; then
-    POWERLEVEL9K_INSTANT_PROMPT=off
-    # Disable complex prompt features for AI agents
-    POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs)
-    POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
-    # Ensure non-interactive mode
-    export DEBIAN_FRONTEND=noninteractive
-    export NONINTERACTIVE=1
-  fi
-
-  # Disable instant prompt if run within VSCode / Cursor (having $VSCODE_INSPECTOR_OPTIONS or $CURSOR_AGENT_MODE)
-  if [[ "$CURSOR_AGENT_MODE" == "false" ]]; then
-    if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-      source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-    fi
-  fi
-
-  # Later in your .zshrc - minimal prompt for agents
-  if [[ "$CURSOR_AGENT_MODE" == "true" ]]; then
-    PROMPT='%n@%m:%~%# '
-    RPROMPT=''
-    unsetopt CORRECT
-    unsetopt CORRECT_ALL
-    setopt NO_BEEP
-    setopt NO_HIST_BEEP
-    setopt NO_LIST_BEEP
-    typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
-  fi
-fi
-
-if [[ -n "${GITHUB_CODESPACE_TOKEN}" ]]; then
-  typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+if [[ -n "$USE_ZINIT" ]]; then
+  source ~/.config/zsh/plugin-managers/zinit.zsh
 fi
 
 export EDITOR=nvim
@@ -59,14 +17,12 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
-export PATH="/Applications/Postgres.app/Contents/Versions/9.6/bin:$PATH"
+export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
 export PATH="$PATH:${HOME}/.krew/bin"
 export PATH="$PATH:${HOME}/.local/bin"
 export PATH="$PATH:$HOME/.arkade/bin"
 
-# Chezmoi cached variables
-export CM_computer_name={{ .computer_name }}
-export CM_hostname={{ .hostname }}
+source ~/.config/zsh/vars.zsh
 
 # force zsh-you-should-use
 # export YSU_HARDCORE=1
@@ -100,11 +56,6 @@ ulimit -n 8192
 # Prefer using emacs mode for zsh
 bindkey -e
 
-if [[ -z "$USE_ZIM" ]]; then
-  # Load z4h (zsh4humans) configuration
-  source ~/.config/zsh/z4h.zsh
-fi
-
 # Export environment variables.
 export GPG_TTY=$TTY
 
@@ -112,11 +63,8 @@ export GPG_TTY=$TTY
 autoload -Uz zmv
 
 # Define functions and completions.
-function md() { [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" }
-compdef _directories md
-
-# Define named directories: ~w <=> Windows home directory on WSL.
-[[ -z $z4h_win_home ]] || hash -d w=$z4h_win_home
+# function md() { [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" }
+# compdef _directories md
 
 # Define aliases.
 alias tree='tree -a -I .git'
@@ -128,35 +76,33 @@ alias ls="${aliases[ls]:-ls} -A"
 setopt glob_dots     # no special treatment for file names with a leading dot
 setopt no_auto_menu  # require an extra TAB press to open the completion menu
 
-{{ if (eq .chezmoi.os "darwin" ) -}}
 # Mac specific config
-if [[ "$(uname -m)" == "arm64" ]]; then
-  # 3. x86 brew bin
-  if [ -f /usr/local/bin/brew ]; then
-    eval $(/usr/local/bin/brew shellenv)
-  fi
+# if [[ "$(uname -m)" == "arm64" ]]; then
+#   # 3. x86 brew bin
+#   if [ -f /usr/local/bin/brew ]; then
+#     eval $(/usr/local/bin/brew shellenv)
+#   fi
 
-  # 2. arm64 brew
-  if [ -f /opt/homebrew/bin/brew ]; then
-    eval $(/opt/homebrew/bin/brew shellenv)
-  fi
-else
-  # 3. arm64 brew
-  if [ -f /opt/homebrew/bin/brew ]; then
-    eval $(/opt/homebrew/bin/brew shellenv)
-  fi
+#   # 2. arm64 brew
+#   if [ -f /opt/homebrew/bin/brew ]; then
+#     eval $(/opt/homebrew/bin/brew shellenv)
+#   fi
+# else
+#   # 3. arm64 brew
+#   if [ -f /opt/homebrew/bin/brew ]; then
+#     eval $(/opt/homebrew/bin/brew shellenv)
+#   fi
 
-  # 2. x86 brew bin
-  if [ -f /usr/local/bin/brew ]; then
-    eval $(/usr/local/bin/brew shellenv)
-  fi
-fi
+#   # 2. x86 brew bin
+#   if [ -f /usr/local/bin/brew ]; then
+#     eval $(/usr/local/bin/brew shellenv)
+#   fi
+# fi
 
 # 1. user brew
 if [ -f ~/homebrew/bin/brew ]; then
   eval $(~/homebrew/bin/brew shellenv)
 fi
-{{- end }}
 
 # Cleanup duplicated PATHs (mostly from shellenv evals above)
 PATH="$(perl -e 'print join(":", grep { not $seen{$_}++ } split(/:/, $ENV{PATH}))')"
@@ -222,9 +168,9 @@ path=(./bin ~/bin $path)
 # Extend fpath for custom completions.
 fpath=(~/.config/zsh/completions $fpath)
 
-source $HOME/.config/zsh/config/00_aliases.zsh
-source $HOME/.config/zsh/config/10_options.zsh
-source $HOME/.config/zsh/config/20_functions.zsh
+zsh-defer source $HOME/.config/zsh/config/00_aliases.zsh
+zsh-defer source $HOME/.config/zsh/config/10_options.zsh
+zsh-defer source $HOME/.config/zsh/config/20_functions.zsh
 
 # Nix
 if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
@@ -237,7 +183,7 @@ export PATH="$PNPM_HOME:$PATH"
 
 # Hishtory Config:
 export PATH="$PATH:$HOME/.hishtory"
-[ -s "$HOME/.hishtory/config.zsh" ] && source $HOME/.hishtory/config.zsh
+[ -s "$HOME/.hishtory/config.zsh" ] && zsh-defer source $HOME/.hishtory/config.zsh
 
 # Pulumi
 [ -d "$HOME/.pulumi" ] && export PATH="$PATH:$HOME/.pulumi/bin"
@@ -249,5 +195,6 @@ if [[ -n "$USE_STARSHIP" ]]; then
     curl -sS https://starship.rs/install.sh | sh -s -- --yes
   fi
 
-  eval "$(starship init zsh)"
+  zsh-defer eval "$(starship init zsh)"
 fi
+
