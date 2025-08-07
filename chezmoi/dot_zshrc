@@ -3,12 +3,38 @@
 
 export USE_ZINIT=1
 
+# export USE_ZPM=1
+
+# export SHOW_LOAD_TIME=1
+
 if [[ -n "$USE_ZIM" ]]; then
+  TIME_START=$(($(gdate +%s%0N)/1000000))
   source ~/.config/zsh/plugin-managers/zim.zsh
+  TIME_END=$(($(gdate +%s%0N)/1000000))
+
+  if [[ -n "$SHOW_LOAD_TIME" ]]; then
+    echo "Time used for zim: $((TIME_END - TIME_START)) ms"
+  fi
 fi
 
 if [[ -n "$USE_ZINIT" ]]; then
+  TIME_START=$(($(gdate +%s%0N)/1000000))
   source ~/.config/zsh/plugin-managers/zinit.zsh
+  TIME_END=$(($(gdate +%s%0N)/1000000))
+
+  if [[ -n "$SHOW_LOAD_TIME" ]]; then
+    echo "Time used for zinit: $((TIME_END - TIME_START)) ms"
+  fi
+fi
+
+if [[ -n "$USE_ZPM" ]]; then
+  TIME_START=$(($(gdate +%s%0N)/1000000))
+  source ~/.config/zsh/plugin-managers/zpm.zsh
+  TIME_END=$(($(gdate +%s%0N)/1000000))
+
+  if [[ -n "$SHOW_LOAD_TIME" ]]; then
+    echo "Time used for zpm: $((TIME_END - TIME_START)) ms"
+  fi
 fi
 
 export EDITOR=nvim

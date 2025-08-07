@@ -57,3 +57,4 @@ zmodule zsh-users/zsh-autosuggestions
 # Custom modules
 zmodule olets/zsh-abbr
 zmodule mollifier/cd-gitroot
+zmodule romkatv/zsh-defer
