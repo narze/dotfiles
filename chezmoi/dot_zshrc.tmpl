@@ -1,4 +1,5 @@
 export USE_ZIM=1
+export USE_STARSHIP=1
 
 if [[ -n "$USE_ZIM" ]]; then
 {{ template "zim.tmpl" . }}
@@ -240,3 +241,13 @@ export PATH="$PATH:$HOME/.hishtory"
 
 # Pulumi
 [ -d "$HOME/.pulumi" ] && export PATH="$PATH:$HOME/.pulumi/bin"
+
+if [[ -n "$USE_STARSHIP" ]]; then
+  # Install starship if not installed
+  if ! command -v starship &> /dev/null; then
+    echo "Starship not found, installing..."
+    curl -sS https://starship.rs/install.sh | sh
+  fi
+
+  eval "$(starship init zsh)"
+fi
