@@ -246,7 +246,7 @@ if [[ -n "$USE_STARSHIP" ]]; then
   # Install starship if not installed
   if ! command -v starship &> /dev/null; then
     echo "Starship not found, installing..."
-    curl -sS https://starship.rs/install.sh | sh
+    curl -sS https://starship.rs/install.sh | sh -s -- --yes
   fi
 
   eval "$(starship init zsh)"
