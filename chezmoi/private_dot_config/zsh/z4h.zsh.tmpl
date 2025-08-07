@@ -1,0 +1,99 @@
+# z4h (zsh4humans) configuration
+# This file contains all z4h-specific configuration extracted from .zshrc
+
+{{ if .flags.is_codespace -}}
+if [[ ! -r "$Z4H/stickycache/no-chsh" ]]; then
+  mkdir -p $Z4H/stickycache
+  touch $Z4H/stickycache/no-chsh
+fi
+{{- end -}}
+
+# Disable p10k if run within VSCode / Cursor (having $VSCODE_INSPECTOR_OPTIONS)
+# if [[ -n "$VSCODE_INSPECTOR_OPTIONS" ]]; then
+#   zstyle ':z4h:powerlevel10k' channel 'none'
+# else
+#   zstyle -d :z4h:powerlevel10k channel none
+# fi
+
+# Periodic auto-update on Zsh startup: 'ask' or 'no'.
+# You can manually run `z4h update` to update everything.
+zstyle ':z4h:' auto-update      'no'
+# Ask whether to auto-update this often; has no effect if auto-update is 'no'.
+zstyle ':z4h:' auto-update-days '28'
+
+# Start tmux if not already in tmux.
+# zstyle ':z4h:' start-tmux       command tmux -u new -A -D -t z4h
+
+# Move prompt to the bottom when zsh starts and on Ctrl+L.
+zstyle ':z4h:' prompt-at-bottom 'yes'
+
+# Keyboard type: 'mac' or 'pc'.
+zstyle ':z4h:bindkey' keyboard  'mac'
+
+# Right-arrow key accepts one character ('partial-accept') from
+# command autosuggestions or the whole thing ('accept')?
+zstyle ':z4h:autosuggestions' forward-char 'accept'
+
+# Recursively traverse directories when TAB-completing files.
+zstyle ':z4h:fzf-complete' recurse-dirs 'yes'
+
+# Enable direnv to automatically source .envrc files.
+zstyle ':z4h:direnv'         enable 'yes'
+# Show "loading" and "unloading" notifications from direnv.
+zstyle ':z4h:direnv:success' notify 'yes'
+
+# Enable ('yes') or disable ('no') automatic teleportation of z4h over
+# ssh when connecting to these hosts.
+zstyle ':z4h:ssh:example-hostname1'   enable 'yes'
+zstyle ':z4h:ssh:*.example-hostname2' enable 'no'
+# The default value if none of the overrides above match the hostname.
+zstyle ':z4h:ssh:*'                   enable 'no'
+
+# Send these files over to the remote host when connecting over ssh to the
+# enabled hosts.
+zstyle ':z4h:ssh:*' send-extra-files '~/.nanorc' '~/.env.zsh'
+
+# Clone additional Git repositories from GitHub.
+#
+# This doesn't do anything apart from cloning the repository and keeping it
+# up-to-date. Cloned files can be used after `z4h init`. This is just an
+# example. If you don't plan to use Oh My Zsh, delete this line.
+# z4h install ohmyzsh/ohmyzsh || return
+z4h install romkatv/zsh-prompt-benchmark || return
+z4h install mollifier/cd-gitroot || return
+# v6 is bugged right now https://github.com/olets/zsh-abbr/issues/156#issuecomment-2475736885
+z4h install olets/zsh-abbr@v5.8.3 || return
+z4h install sobolevn/wakatime-zsh-plugin
+
+# Install or update core components (fzf, zsh-autosuggestions, etc.) and
+# initialize Zsh. After this point console I/O is unavailable until Zsh
+# is fully initialized. Everything that requires user interaction or can
+# perform network I/O must be done above. Everything else is best done below.
+z4h init || return
+
+# Source additional local files if they exist.
+z4h source ~/.env.zsh
+
+# Use additional Git repositories pulled in with `z4h install`.
+#
+# This is just an example that you should delete. It does nothing useful.
+# z4h source ohmyzsh/ohmyzsh/lib/diagnostics.zsh  # source an individual file
+# z4h load   ohmyzsh/ohmyzsh/plugins/emoji-clock  # load a plugin
+z4h load   romkatv/zsh-prompt-benchmark  # load a plugin
+z4h load   mollifier/cd-gitroot
+z4h load   olets/zsh-abbr
+z4h source -c sobolevn/wakatime-zsh-plugin/wakatime.plugin.zsh
+
+# Define key bindings.
+z4h bindkey undo Ctrl+/  # undo the last command line change
+z4h bindkey redo Alt+/   # redo the last undone command line change
+
+z4h bindkey z4h-cd-back    Shift+Left   # cd into the previous directory
+z4h bindkey z4h-cd-forward Shift+Right  # cd into the next directory
+z4h bindkey z4h-cd-up      Shift+Up     # cd into the parent directory
+z4h bindkey z4h-cd-down    Shift+Down   # cd into a child directory
+
+# Source additional zsh config files using z4h
+# z4h source $HOME/.config/zsh/config/00_aliases.zsh
+# z4h source $HOME/.config/zsh/config/10_options.zsh
+# z4h source $HOME/.config/zsh/config/20_functions.zsh
