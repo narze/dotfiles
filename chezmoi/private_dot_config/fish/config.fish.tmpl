@@ -11,7 +11,7 @@ end
 if status is-interactive
   # Commands to run in interactive sessions can go here
   function fish_greeting
-    echo ~~~  Hello (date +%A)!  ~~~
+    # echo ~~~  Hello (date +%A)!  ~~~
   end
 end
 
@@ -20,3 +20,8 @@ set -Ux EDITOR nvim
 # Chezmoi cached variables
 set -x CM_computer_name {{ .computer_name }}
 set -x CM_hostname {{ .hostname }}
+
+# Starship
+if status is-interactive
+  starship init fish | source
+end
