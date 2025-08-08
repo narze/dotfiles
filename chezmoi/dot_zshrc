@@ -5,12 +5,16 @@ export USE_ZINIT=1
 
 # export USE_ZPM=1
 
-# export SHOW_LOAD_TIME=1
+export SHOW_LOAD_TIME=1
+
+function get_ms() {
+  print $(($(perl -MTime::HiRes=time -e 'printf "%.3f\n", time') * 1000)) | bc
+}
 
 if [[ -n "$USE_ZIM" ]]; then
-  TIME_START=$(($(gdate +%s%0N)/1000000))
+  TIME_START=$(get_ms)
   source ~/.config/zsh/plugin-managers/zim.zsh
-  TIME_END=$(($(gdate +%s%0N)/1000000))
+  TIME_END=$(get_ms)
 
   if [[ -n "$SHOW_LOAD_TIME" ]]; then
     echo "Time used for zim: $((TIME_END - TIME_START)) ms"
@@ -18,9 +22,9 @@ if [[ -n "$USE_ZIM" ]]; then
 fi
 
 if [[ -n "$USE_ZINIT" ]]; then
-  TIME_START=$(($(gdate +%s%0N)/1000000))
+  TIME_START=$(get_ms)
   source ~/.config/zsh/plugin-managers/zinit.zsh
-  TIME_END=$(($(gdate +%s%0N)/1000000))
+  TIME_END=$(get_ms)
 
   if [[ -n "$SHOW_LOAD_TIME" ]]; then
     echo "Time used for zinit: $((TIME_END - TIME_START)) ms"
@@ -28,9 +32,9 @@ if [[ -n "$USE_ZINIT" ]]; then
 fi
 
 if [[ -n "$USE_ZPM" ]]; then
-  TIME_START=$(($(gdate +%s%0N)/1000000))
+  TIME_START=$(get_ms)
   source ~/.config/zsh/plugin-managers/zpm.zsh
-  TIME_END=$(($(gdate +%s%0N)/1000000))
+  TIME_END=$(get_ms)
 
   if [[ -n "$SHOW_LOAD_TIME" ]]; then
     echo "Time used for zpm: $((TIME_END - TIME_START)) ms"
