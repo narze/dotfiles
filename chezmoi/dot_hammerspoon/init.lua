@@ -27,14 +27,15 @@
 -- spoon.FocusHighlight.highlightFillAlpha = 0.03
 
 -- require "wm"
-require "paper_wm"
 
-WarpMouse = hs.loadSpoon("WarpMouse")
-WarpMouse.margin = 8  -- optionally set how far past a screen edge the mouse should warp, default is 2 pixels
-WarpMouse:start()
+-- require "paper_wm"
 
-MouseFollowsFocus = hs.loadSpoon("MouseFollowsFocus")
-MouseFollowsFocus:start()
+-- WarpMouse = hs.loadSpoon("WarpMouse")
+-- WarpMouse.margin = 8  -- optionally set how far past a screen edge the mouse should warp, default is 2 pixels
+-- WarpMouse:start()
+
+-- MouseFollowsFocus = hs.loadSpoon("MouseFollowsFocus")
+-- MouseFollowsFocus:start()
 
 -- Function to be called from command line
 function centerAndResizeWindow()
