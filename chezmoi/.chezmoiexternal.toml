@@ -11,6 +11,23 @@
     exact = true
     stripComponents = 1
     refreshPeriod = "2160h"
+# https://github.com/Hammerspoon/Spoons/raw/master/Spoons/MouseFollowsFocus.spoon.zip
+[".hammerspoon/Spoons/MouseFollowsFocus.spoon"]
+    type = "archive"
+    url = "https://github.com/Hammerspoon/Spoons/raw/master/Spoons/MouseFollowsFocus.spoon.zip"
+    exact = true
+    stripComponents = 1
+    refreshPeriod = "2160h"
+[".hammerspoon/Spoons/PaperWM.spoon"]
+    type = "git-repo"
+    url = "https://github.com/mogenson/PaperWM.spoon"
+    exact = true
+    refreshPeriod = "168h"
+[".hammerspoon/Spoons/WarpMouse.spoon"]
+    type = "git-repo"
+    url = "https://github.com/mogenson/WarpMouse.spoon"
+    exact = true
+    refreshPeriod = "168h"
 ["Library/Keyboard Layouts/ColemakDHm.bundle"]
     type = "archive"
     url = "https://github.com/narze/Colemak-DHm/releases/download/stable/ColemakDHm.bundle.zip"
