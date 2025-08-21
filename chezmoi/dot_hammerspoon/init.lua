@@ -26,7 +26,7 @@
 -- spoon.FocusHighlight.highlightFadeOutDuration = 0.3
 -- spoon.FocusHighlight.highlightFillAlpha = 0.03
 
--- require "wm"
+require "wm"
 
 -- require "paper_wm"
 

@@ -54,31 +54,43 @@ end)
 local focusMods = {"alt"}
 
 hs.hotkey.bind(focusMods, "e", function()
-  hs.window.frontmostWindow().focusWindowNorth(nil, false, true)
+  local current = hs.window.focusedWindow()
+  local otherWindows = current:otherWindowsSameScreen()
+  current:focusWindowNorth(otherWindows, true, true)
+
   local rect = hs.window.frontmostWindow():frame()
   local center = hs.geometry.rectMidPoint(rect)
-  hs.mouse.setAbsolutePosition(center)
+  hs.mouse.absolutePosition(center)
 end)
 
 hs.hotkey.bind(focusMods, "i", function()
-  hs.window.frontmostWindow().focusWindowEast(nil, false, true)
+  local current = hs.window.focusedWindow()
+  local otherWindows = current:otherWindowsSameScreen()
+  current:focusWindowEast(otherWindows, true, true)
+
   local rect = hs.window.frontmostWindow():frame()
   local center = hs.geometry.rectMidPoint(rect)
-  hs.mouse.setAbsolutePosition(center)
+  hs.mouse.absolutePosition(center)
 end)
 
 hs.hotkey.bind(focusMods, "n", function()
-  hs.window.frontmostWindow().focusWindowSouth(nil, false, true)
+  local current = hs.window.focusedWindow()
+  local otherWindows = current:otherWindowsSameScreen()
+  current:focusWindowSouth(otherWindows, true, true)
+
   local rect = hs.window.frontmostWindow():frame()
   local center = hs.geometry.rectMidPoint(rect)
-  hs.mouse.setAbsolutePosition(center)
+  hs.mouse.absolutePosition(center)
 end)
 
 hs.hotkey.bind(focusMods, "m", function()
-  hs.window.frontmostWindow().focusWindowWest(nil, false, true)
+  local current = hs.window.focusedWindow()
+  local otherWindows = current:otherWindowsSameScreen()
+  current:focusWindowWest(otherWindows, true, true)
+
   local rect = hs.window.frontmostWindow():frame()
   local center = hs.geometry.rectMidPoint(rect)
-  hs.mouse.setAbsolutePosition(center)
+  hs.mouse.absolutePosition(center)
 end)
 
 -- Move Windows to Screen
@@ -104,7 +116,6 @@ function getIndexFromValue(tbl, value)
   end
   return nil  -- return nil if the value is not found
 end
-
 
 -- Spaces
 -- Go to next space (increment)
@@ -141,4 +152,71 @@ hs.hotkey.bind({"alt"}, "l", function()
   end
 
   hs.spaces.gotoSpace(prevSpace)
+end)
+
+-- Monitors
+---
+-- A reusable function to focus the most recent window on an adjacent screen.
+-- @param direction A string, either "next" or "previous".
+---
+local function focusWindowOnAdjacentScreen(direction)
+  -- 1. Get the screen where the currently focused window is located
+  local currentWindow = hs.window.focusedWindow()
+  if not currentWindow then
+    print("No window focused")
+    return
+  end
+  local currentScreen = currentWindow:screen()
+
+  -- 2. If there's only one screen, there's nowhere to go
+  if #hs.screen.allScreens() <= 1 then
+    print("Only one display connected")
+    return
+  end
+
+  -- 3. Find the target screen based on the direction parameter
+  local targetScreen
+  if direction == "next" then
+    targetScreen = currentScreen:next()
+  elseif direction == "previous" then
+    targetScreen = currentScreen:previous()
+  else
+    -- This is for safety, in case we call the function with a wrong parameter
+    print("Error: Invalid direction")
+    return
+  end
+
+  -- 4. Find the most recently used window on that target screen
+  local targetWindow = nil
+  for _, win in ipairs(hs.window.orderedWindows()) do
+    -- Check if the window is a standard window and on the target screen
+    if win:screen() and win:screen():id() == targetScreen:id() and win:isStandard() then
+      targetWindow = win
+      break -- Stop at the first one (the most recent)
+    end
+  end
+
+  -- 5. If we found a suitable window, focus it
+  if targetWindow then
+    targetWindow:focus()
+
+    local rect = targetWindow:frame()
+    local center = hs.geometry.rectMidPoint(rect)
+
+    hs.mouse.absolutePosition(center)
+  else
+    print("No windows on " .. direction .. " display")
+  end
+end
+
+-- =============================================================================
+-- Hotkey Bindings
+-- =============================================================================
+
+hs.hotkey.bind({"alt"}, "y", function()
+  focusWindowOnAdjacentScreen("next")
+end)
+
+hs.hotkey.bind({"alt"}, "u", function()
+  focusWindowOnAdjacentScreen("previous")
 end)
