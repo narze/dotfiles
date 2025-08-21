@@ -51,35 +51,35 @@ hs.hotkey.bind({"ctrl", "alt", "cmd"}, "f", function()
 end)
 
 -- Focus windows (migrated back to Yabai)
--- local focusMods = {"alt"}
+local focusMods = {"alt"}
 
--- hs.hotkey.bind(focusMods, "e", function()
---   hs.window.frontmostWindow().focusWindowNorth(nil, false, true)
---   local rect = hs.window.frontmostWindow():frame()
---   local center = hs.geometry.rectMidPoint(rect)
---   hs.mouse.setAbsolutePosition(center)
--- end)
+hs.hotkey.bind(focusMods, "e", function()
+  hs.window.frontmostWindow().focusWindowNorth(nil, false, true)
+  local rect = hs.window.frontmostWindow():frame()
+  local center = hs.geometry.rectMidPoint(rect)
+  hs.mouse.setAbsolutePosition(center)
+end)
 
--- hs.hotkey.bind(focusMods, "i", function()
---   hs.window.frontmostWindow().focusWindowEast(nil, false, true)
---   local rect = hs.window.frontmostWindow():frame()
---   local center = hs.geometry.rectMidPoint(rect)
---   hs.mouse.setAbsolutePosition(center)
--- end)
+hs.hotkey.bind(focusMods, "i", function()
+  hs.window.frontmostWindow().focusWindowEast(nil, false, true)
+  local rect = hs.window.frontmostWindow():frame()
+  local center = hs.geometry.rectMidPoint(rect)
+  hs.mouse.setAbsolutePosition(center)
+end)
 
--- hs.hotkey.bind(focusMods, "n", function()
---   hs.window.frontmostWindow().focusWindowSouth(nil, false, true)
---   local rect = hs.window.frontmostWindow():frame()
---   local center = hs.geometry.rectMidPoint(rect)
---   hs.mouse.setAbsolutePosition(center)
--- end)
+hs.hotkey.bind(focusMods, "n", function()
+  hs.window.frontmostWindow().focusWindowSouth(nil, false, true)
+  local rect = hs.window.frontmostWindow():frame()
+  local center = hs.geometry.rectMidPoint(rect)
+  hs.mouse.setAbsolutePosition(center)
+end)
 
--- hs.hotkey.bind(focusMods, "m", function()
---   hs.window.frontmostWindow().focusWindowWest(nil, false, true)
---   local rect = hs.window.frontmostWindow():frame()
---   local center = hs.geometry.rectMidPoint(rect)
---   hs.mouse.setAbsolutePosition(center)
--- end)
+hs.hotkey.bind(focusMods, "m", function()
+  hs.window.frontmostWindow().focusWindowWest(nil, false, true)
+  local rect = hs.window.frontmostWindow():frame()
+  local center = hs.geometry.rectMidPoint(rect)
+  hs.mouse.setAbsolutePosition(center)
+end)
 
 -- Move Windows to Screen
 local moveMods = {"alt", "shift"}
@@ -94,4 +94,51 @@ hs.hotkey.bind(moveMods, "y", function()
   local win = hs.window.focusedWindow()
   if not win then return end
   win:moveOneScreenEast(nil, nil, 0.3)
+end)
+
+function getIndexFromValue(tbl, value)
+  for index, val in ipairs(tbl) do
+      if val == value then
+          return index
+      end
+  end
+  return nil  -- return nil if the value is not found
+end
+
+
+-- Spaces
+-- Go to next space (increment)
+hs.hotkey.bind({"alt"}, ";", function()
+  local currentSpace = hs.spaces.focusedSpace()
+  local currentScreen = hs.spaces.spaceDisplay(currentSpace)
+
+  local spacesInScreen = hs.spaces.spacesForScreen(currentScreen)
+  local currentScreenIndex = getIndexFromValue(spacesInScreen, currentSpace)
+
+  local nextSpace = spacesInScreen[currentScreenIndex + 1]
+
+  if not nextSpace then
+    print("No next space")
+    return
+  end
+
+  hs.spaces.gotoSpace(nextSpace)
+end)
+
+-- Go to previous space (decrement)
+hs.hotkey.bind({"alt"}, "l", function()
+  local currentSpace = hs.spaces.focusedSpace()
+  local currentScreen = hs.spaces.spaceDisplay(currentSpace)
+
+  local spacesInScreen = hs.spaces.spacesForScreen(currentScreen)
+  local currentScreenIndex = getIndexFromValue(spacesInScreen, currentSpace)
+  local prevSpace = spacesInScreen[currentScreenIndex - 1]
+
+  -- return if null
+  if not prevSpace then
+    print("No previous space")
+    return
+  end
+
+  hs.spaces.gotoSpace(prevSpace)
 end)
