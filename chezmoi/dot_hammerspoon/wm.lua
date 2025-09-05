@@ -220,3 +220,10 @@ end)
 hs.hotkey.bind({"alt"}, "u", function()
   focusWindowOnAdjacentScreen("previous")
 end)
+
+-- Hide current application with alt-h
+hs.hotkey.bind({"alt"}, "h", function()
+  local win = hs.window.focusedWindow()
+  local app = win:application()
+  app:hide()
+end)
