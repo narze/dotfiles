@@ -39,3 +39,8 @@ zsh-defer zinit light mollifier/cd-gitroot
 zsh-defer zinit light zsh-users/zsh-syntax-highlighting
 zsh-defer zinit light zsh-users/zsh-history-substring-search
 zsh-defer zinit light zsh-users/zsh-autosuggestions
+
+zinit from"gh-r" as"program" mv"direnv* -> direnv" \
+    atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' \
+    pick"direnv" src="zhook.zsh" for \
+        direnv/direnv
