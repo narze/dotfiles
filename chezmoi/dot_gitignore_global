@@ -60,7 +60,4 @@ mise.local.toml
 # Ottotime
 .ottotime
 
-# Claude Code
-.claude
-
 Procfile.edk
