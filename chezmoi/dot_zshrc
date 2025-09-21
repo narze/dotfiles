@@ -186,7 +186,7 @@ path=(./bin ~/bin $path)
 fpath=(~/.config/zsh/completions $fpath)
 
 zsh-defer source $HOME/.config/zsh/config/00_aliases.zsh
-zsh-defer source $HOME/.config/zsh/config/10_options.zsh
+source $HOME/.config/zsh/config/10_options.zsh
 zsh-defer source $HOME/.config/zsh/config/20_functions.zsh
 
 # Nix
