@@ -64,3 +64,5 @@ mise.local.toml
 **/.claude/settings.local.json
 
 Procfile.edk
+
+.playwright-mcp
