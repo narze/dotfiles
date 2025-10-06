@@ -22,6 +22,15 @@ zinit light-mode for \
 
 ### End of Zinit's installer chunk
 
+# If run from Cursor Agent, load packages synchronously to prevent errors, and also skip using starship & defer
+if [[ -n "$CURSOR_AGENT" ]]; then
+  zinit light olets/zsh-abbr
+  zinit light zsh-users/zsh-syntax-highlighting
+  zinit light zsh-users/zsh-history-substring-search
+  zinit light zsh-users/zsh-autosuggestions
+  zinit light direnv/direnv
+else
+
 # Load starship theme
 # line 1: `starship` binary as command, from github release
 # line 2: starship setup at clone(create init.zsh, completion)
@@ -48,3 +57,4 @@ zinit from"gh-r" as"program" mv"direnv* -> direnv" \
 zinit light loiccoyle/zsh-github-copilot
 bindkey '»' zsh_gh_copilot_explain  # bind Option+shift+\ to explain
 bindkey '«' zsh_gh_copilot_suggest  # bind Option+\ to suggest
+fi
