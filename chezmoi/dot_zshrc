@@ -227,3 +227,9 @@ for key ('^[[A' '^P' ${terminfo[kcuu1]}) bindkey ${key} history-substring-search
 for key ('^[[B' '^N' ${terminfo[kcud1]}) bindkey ${key} history-substring-search-down
 for key ('k') bindkey -M vicmd ${key} history-substring-search-up
 for key ('j') bindkey -M vicmd ${key} history-substring-search-down
+
+# Added by Antigravity
+export PATH="/Users/narze/.antigravity/antigravity/bin:$PATH"
+
+# Git worktree runner
+export PATH="$HOME/.local/share/git-worktree-runner/bin:$PATH"

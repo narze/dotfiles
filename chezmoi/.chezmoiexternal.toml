@@ -58,3 +58,7 @@
     type = "file"
     url = "https://github.com/fresh2dev/zellij-autolock/releases/download/0.2.1/zellij-autolock.wasm"
     refreshPeriod = "168h"
+[".local/share/git-worktree-runner"]
+    type = "git-repo"
+    url = "https://github.com/coderabbitai/git-worktree-runner.git"
+    refreshPeriod = "168h"
