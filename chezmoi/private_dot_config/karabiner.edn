@@ -29,26 +29,27 @@
                  {:vendor_id 2007} ; BLKM
                 ;;  {:vendor_id 13364 :product_id 608} ; Keychron K6 Pro
                  ]}
- :input-sources {:colemak {:input_source_id "org.sil.ukelele.keyboardlayout.com.colemak.dhm.colemakdhm" :language "en"}}
+ :input-sources {:colemak {:input_source_id "org.sil.ukelele.keyboardlayout.com.colemak.dhm.colemakdhm" :language "en"}
+                 :colemakdh {:input_source_id "io.github.colemakmods.keyboardlayout.colemakdh.colemakdhmatrix" :language "en"}}
 ;;  :input-sources {:colemak {:input_source_id "org.sil.ukelele.keyboardlayout.colemakdh-ansi.colemakdhm*" :language "en"}}
  :main [
         ; Non QMK Rules (Avoid modifier keys collide with QMK keebs)
         {:des "Cmd -> Cmd / Underscore" :rules [:!qmk [:##left_command :left_command nil {:alone :!Shyphen}]]}
         {:des "Delete -> F19" :rules [[:condi :!qmk :!lily-58-zmk] [:##delete_or_backspace [:f19]]]}
-        {:des "ROption -> Option / Cmb+Tab (Colemak)" :rules [:colemak :!qmk :!filco-bt [:##right_option :right_option nil {:held :right_option :alone :!Ctab}]]}
-        {:des "ROption -> Option / Delete (Filco)" :rules [:colemak :filco-bt [:##right_option :right_option nil {:held :right_option :alone :delete_or_backspace}]]}
+        {:des "ROption -> Option / Cmb+Tab (Colemak)" :rules [:colemak :colemakdh :!qmk :!filco-bt [:##right_option :right_option nil {:held :right_option :alone :!Ctab}]]}
+        {:des "ROption -> Option / Delete (Filco)" :rules [:colemak :colemakdh :filco-bt [:##right_option :right_option nil {:held :right_option :alone :delete_or_backspace}]]}
 
         ; Swap Quotes with Ctrl-Option-Command + '
         {:des "Disable Swap Quote" :rules [:!disable-swap-quote [:!CTOquote [{:set ["disable-swap-quote" 1]} [:beep]]]]}
         {:des "Enable Swap Quote" :rules [:disable-swap-quote [:!CTOquote [{:set ["disable-swap-quote" 0]} [:beep2]]]]}
-        {:des "Disable swapping quote" :rules [:colemak :disable-swap-quote [:##quote :quote]]}
-        {:des "' <-> \" (Colemak)" :rules [:colemak [:quote :!Squote] [:!Squote :quote]]}
+        {:des "Disable swapping quote" :rules [:colemak :colemakdh :disable-swap-quote [:##quote :quote]]}
+        {:des "' <-> \" (Colemak)" :rules [:colemak :colemakdh [:quote :!Squote] [:!Squote :quote]]}
 
         ; Esc -> Grave on Keychron
         {:des "Esc -> Grave" :rules [:keychron-k12 [:##escape :grave_accent_and_tilde]]}
 
         ; General
-        {:des "; <-> : (Colemak)" :rules [:colemak [:p :!Sp] [:!Sp :p]]}
+        {:des "; <-> : (Colemak)" :rules [:colemak :colemakdh [:p :!Sp] [:!Sp :p]]}
 
         {:des "Swap Option / Command on certain devices" :rules [
                                                                  [:##left_command :left_option [:filco-bt]]
@@ -60,6 +61,9 @@
         {:des "LOption -> Option / -" :rules [[:##left_option :left_option nil {:held :left_option :alone :hyphen}]]}
         ; {:des "F-L -> Delete Word" :rules [:f-mode [:l :!Odelete_or_backspace]]}
         ; {:des "F-; -> Delete Line" :rules [:f-mode [:semicolon :!Cdelete_or_backspace]]}
+
+        ; Swap ⌘+V & ⌘+D for Colemak
+        {:des "Swap Cmd+V & Cmd+D (Colemak)" :rules [:colemak :colemakdh [:!Cv :!Cb] [:!Cb :!Cv]]}
 
         ; Delete mode with F+J
         ; {:des "Delete <- F+J" :rules [[{:sim [:f :j]
