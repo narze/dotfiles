@@ -7,5 +7,12 @@
       "git push *": "ask",
       "rm *": "ask"
     }
+  },
+  "mcp": {
+    "jira": {
+      "type": "remote",
+      "url": "https://mcp.atlassian.com/v1/sse",
+      "oauth": {}
+    }
   }
 }
