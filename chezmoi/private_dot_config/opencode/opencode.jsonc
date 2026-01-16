@@ -13,6 +13,11 @@
       "type": "remote",
       "url": "https://mcp.atlassian.com/v1/sse",
       "oauth": {}
+    },
+    "playwright": {
+      "type": "local",
+      "command": ["npx", "@playwright/mcp@latest"],
+      "enabled": true
     }
   }
 }
