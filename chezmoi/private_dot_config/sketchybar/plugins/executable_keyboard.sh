@@ -17,6 +17,7 @@ fi
 
 # specify short layouts individually.
 case "$layout_name" in
+  "Colemak DH Matrix") SHORT_LAYOUT="🇺🇸";;
   "Colemak") SHORT_LAYOUT="🇺🇸";;
   "Colemak DHm") SHORT_LAYOUT="🇺🇸";;
   "U.S.") SHORT_LAYOUT="🇺🇸";;
