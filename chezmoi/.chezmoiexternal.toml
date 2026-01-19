@@ -61,4 +61,4 @@
 [".local/share/git-worktree-runner"]
     type = "git-repo"
     url = "https://github.com/coderabbitai/git-worktree-runner.git"
-    refreshPeriod = "168h"
+    refreshPeriod = "48h"
