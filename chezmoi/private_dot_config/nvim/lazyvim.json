@@ -14,8 +14,9 @@
     "lazyvim.plugins.extras.test.core",
     "lazyvim.plugins.extras.util.chezmoi"
   ],
+  "install_version": 7,
   "news": {
-    "NEWS.md": "7429"
+    "NEWS.md": "11866"
   },
-  "version": 7
+  "version": 8
 }

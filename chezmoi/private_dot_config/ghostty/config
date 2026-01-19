@@ -2,7 +2,7 @@
 
 # Configurations
 background-blur-radius = 20
-background-opacity = 0.5
+background-opacity = 0.7
 bold-is-bright = true
 clipboard-trim-trailing-spaces = true
 confirm-close-surface = false
@@ -21,3 +21,4 @@ theme = "tokyonight"
 # Keybinds
 keybind = global:ctrl+grave_accent=toggle_quick_terminal
 keybind = cmd+d=paste_from_clipboard
+keybind = shift+enter=text:\x1b\r
