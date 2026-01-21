@@ -8,6 +8,17 @@
       "rm *": "ask"
     }
   },
+  "agent": {
+    "ask": {
+      "description": "Ask questions and get answers without making changes",
+      "mode": "primary",
+      "permission": {
+        "edit": "ask",
+        "bash": "ask",
+        "write": "ask"
+      }
+    }
+  },
   "mcp": {
     "jira": {
       "type": "remote",
