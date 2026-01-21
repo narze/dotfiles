@@ -13,9 +13,18 @@
       "description": "Ask questions and get answers without making changes",
       "mode": "primary",
       "permission": {
-        "edit": "ask",
-        "bash": "ask",
-        "write": "ask"
+        "edit": "deny",
+        "bash": {
+          "*": "allow",
+          "rm *": "ask",
+          "git commit *": "ask",
+          "git push *": "ask",
+          "npm install *": "ask",
+          "npm uninstall *": "ask",
+          "yarn install *": "ask",
+          "yarn remove *": "ask"
+        },
+        "write": "deny"
       }
     }
   },
