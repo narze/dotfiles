@@ -10,7 +10,7 @@
   },
   "agent": {
     "ask": {
-      "description": "Ask questions and get answers without making changes",
+      "description": "Read-only agent for exploration and analysis - cannot make file changes",
       "mode": "primary",
       "permission": {
         "edit": "deny",
