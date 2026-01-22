@@ -12,6 +12,7 @@
     "ask": {
       "description": "Read-only agent for exploration and analysis - cannot make file changes",
       "mode": "primary",
+      "prompt": "{file:./prompts/ask.txt}",
       "permission": {
         "edit": "deny",
         "bash": {
