@@ -225,3 +225,32 @@ gira() {
     echo "Created and checked out branch: $branch_name"
   fi
 }
+
+# Use git-gtr to create a new worktree and switch to it
+# Usage:
+#    gt <branch-name>
+gt() {
+  # Check if a branch name was provided
+  if [ -z "$1" ]; then
+    echo "Usage: gt <branch-name>"
+    return 1
+  fi
+
+  # 1. Attempt to create the worktree
+  # We allow this to run even if it might fail (e.g. if worktree exists),
+  # so we can proceed to the 'go' step regardless.
+  git gtr new "$1" --yes
+
+  # 2. Resolve the path using 'git gtr go'
+  local worktree_path
+  worktree_path=$(git gtr go "$1")
+
+  # 3. Change directory if the path is valid
+  if [ -d "$worktree_path" ]; then
+    echo "Switching to: $worktree_path"
+    cd "$worktree_path" || return 1
+  else
+    echo "Error: Could not determine valid worktree path for '$1'."
+    return 1
+  fi
+}
