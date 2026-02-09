@@ -14,16 +14,22 @@
       "mode": "primary",
       "prompt": "{file:./prompts/ask.txt}",
       "permission": {
+        "read": {
+          "*": "allow",
+          "*.env": "deny",
+          "*.env.*": "deny",
+          "*.env.example": "allow"
+        },
         "edit": "deny",
         "bash": {
           "*": "allow",
-          "rm *": "ask",
-          "git commit *": "ask",
-          "git push *": "ask",
-          "npm install *": "ask",
-          "npm uninstall *": "ask",
-          "yarn install *": "ask",
-          "yarn remove *": "ask"
+          "rm *": "deny",
+          "git commit *": "deny",
+          "git push *": "deny",
+          "npm install *": "deny",
+          "npm uninstall *": "deny",
+          "yarn install *": "deny",
+          "yarn remove *": "deny"
         },
         "write": "deny"
       }
@@ -37,10 +43,7 @@
     },
     "playwright": {
       "type": "local",
-      "command": [
-        "npx",
-        "@playwright/mcp@latest"
-      ],
+      "command": ["npx", "@playwright/mcp@latest"],
       "enabled": true
     }
   }
