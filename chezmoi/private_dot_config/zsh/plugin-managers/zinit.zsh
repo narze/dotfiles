@@ -54,7 +54,7 @@ zinit from"gh-r" as"program" mv"direnv* -> direnv" \
     pick"direnv" src="zhook.zsh" for \
         direnv/direnv
 
-zinit light loiccoyle/zsh-github-copilot
-bindkey '»' zsh_gh_copilot_explain  # bind Option+shift+\ to explain
-bindkey '«' zsh_gh_copilot_suggest  # bind Option+\ to suggest
+# zinit light loiccoyle/zsh-github-copilot
+# bindkey '»' zsh_gh_copilot_explain  # bind Option+shift+\ to explain
+# bindkey '«' zsh_gh_copilot_suggest  # bind Option+\ to suggest
 fi
