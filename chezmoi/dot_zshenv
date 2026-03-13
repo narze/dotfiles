@@ -1,5 +1,5 @@
-# Activate mise when running in Cursor
-if [[ -n "$CURSOR_AGENT" ]]; then
+# Activate mise when running in Cursor or other agents
+if [[ -n "$CURSOR_AGENT" || -n "$CLAUDECODE" || -n "$OPENCODE" ]]; then
   eval "$(mise activate)"
 fi
 

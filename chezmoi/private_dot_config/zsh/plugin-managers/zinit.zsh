@@ -22,8 +22,8 @@ zinit light-mode for \
 
 ### End of Zinit's installer chunk
 
-# If run from Cursor Agent, load packages synchronously to prevent errors, and also skip using starship & defer
-if [[ -n "$CURSOR_AGENT" ]]; then
+# If run from Cursor or other agents, load packages synchronously to prevent errors, and also skip using starship & defer
+if [[ -n "$CURSOR_AGENT" || -n "$CLAUDECODE" || -n "$OPENCODE" ]]; then
   zinit light olets/zsh-abbr
   zinit light zsh-users/zsh-syntax-highlighting
   zinit light zsh-users/zsh-history-substring-search
