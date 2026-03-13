@@ -110,10 +110,14 @@ echo "Start services..."
 # {{- end }}
 brew services restart goku
 
-# if skhd is installed, instal & start service
 if command -v skhd &> /dev/null; then
   skhd --install-service
   skhd --start-service
+fi
+
+if command -v komorebic &> /dev/null; then
+  komorebic enable-autostart --bar
+  komorebic start --bar
 fi
 
 {{ end -}}
