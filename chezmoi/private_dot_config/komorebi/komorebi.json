@@ -43,6 +43,11 @@
       "id": "Surfshark",
       "kind": "Exe",
       "matching_strategy": "Contains"
+    },
+    {
+      "id": "Android Emulator",
+      "kind": "Exe",
+      "matching_strategy": "Contains"
     }
   ],
   "manage_rules": [],
