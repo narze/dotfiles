@@ -30,6 +30,7 @@
                 ;;  {:vendor_id 13364 :product_id 608} ; Keychron K6 Pro
                  ]}
  :input-sources {:colemak {:input_source_id "org.sil.ukelele.keyboardlayout.com.colemak.dhm.colemakdhm" :language "en"}
+                 :colemakstd {:input_source_id "com.apple.keylayout.Colemak" :language "en"}
                  :colemakdh {:input_source_id "io.github.colemakmods.keyboardlayout.colemakdh.colemakdhmatrix" :language "en"}}
 ;;  :input-sources {:colemak {:input_source_id "org.sil.ukelele.keyboardlayout.colemakdh-ansi.colemakdhm*" :language "en"}}
  :main [
@@ -42,14 +43,14 @@
         ; Swap Quotes with Ctrl-Option-Command + '
         {:des "Disable Swap Quote" :rules [:!disable-swap-quote [:!CTOquote [{:set ["disable-swap-quote" 1]} [:beep]]]]}
         {:des "Enable Swap Quote" :rules [:disable-swap-quote [:!CTOquote [{:set ["disable-swap-quote" 0]} [:beep2]]]]}
-        {:des "Disable swapping quote" :rules [:colemak :colemakdh :disable-swap-quote [:##quote :quote]]}
-        {:des "' <-> \" (Colemak)" :rules [:colemak :colemakdh [:quote :!Squote] [:!Squote :quote]]}
+        {:des "Disable swapping quote" :rules [:colemak :colemakdh :colemakstd :disable-swap-quote [:##quote :quote]]}
+        {:des "' <-> \" (Colemak)" :rules [:colemak :colemakdh :colemakstd [:quote :!Squote] [:!Squote :quote]]}
 
         ; Esc -> Grave on Keychron
         {:des "Esc -> Grave" :rules [:keychron-k12 [:##escape :grave_accent_and_tilde]]}
 
         ; General
-        {:des "; <-> : (Colemak)" :rules [:colemak :colemakdh [:p :!Sp] [:!Sp :p]]}
+        {:des "; <-> : (Colemak)" :rules [:colemak :colemakdh :colemakstd [:p :!Sp] [:!Sp :p]]}
 
         {:des "Swap Option / Command on certain devices" :rules [
                                                                  [:##left_command :left_option [:filco-bt]]
@@ -61,6 +62,11 @@
         {:des "LOption -> Option / -" :rules [[:##left_option :left_option nil {:held :left_option :alone :hyphen}]]}
         ; {:des "F-L -> Delete Word" :rules [:f-mode [:l :!Odelete_or_backspace]]}
         ; {:des "F-; -> Delete Line" :rules [:f-mode [:semicolon :!Cdelete_or_backspace]]}
+
+        ; Swap keys from Colemak Standard to Colemak DH Matrix (i.e. B>G>D>V = T>B>V>G Physically)
+        ; Shift is optional (#S) to allow typing capital letters
+        {:des "Colemak Standard -> Colemak DH Matrix (Left Hand)" :rules [[:condi :colemakstd :!superduper-mode] [:#St :b] [:#Sb :v] [:#Sv :g] [:#Sg :t]]}
+        {:des "Colemak Standard -> Colemak DH Matrix (Right Hand)" :rules [[:condi :colemakstd :!superduper-mode] [:#Sh :m] [:#Sm :h]]}
 
         ; Swap ⌘+V & ⌘+D for Colemak
         {:des "Swap Cmd+V & Cmd+D (Colemak)" :rules [:colemak :colemakdh [:!Cv :!Cb] [:!Cb :!Cv]]}
@@ -98,7 +104,9 @@
         {:des "SuperDuper I -> Prev Tab" :rules [:superduper-mode [:##i :!CSopen_bracket]]}
         {:des "SuperDuper O -> Next Tab" :rules [:superduper-mode [:##o :!CSclose_bracket]]}
         {:des "SuperDuper A -> Option" :rules [:superduper-mode [:##a :left_option]]}
-        {:des "SuperDuper V -> Shift" :rules [:superduper-mode [:##v :left_shift]]}
+        {:des "SuperDuper C -> Copy" :rules [:superduper-mode [:##c :!Cc]]}
+        {:des "SuperDuper V -> Paste (Colemak)" :rules [[:condi :superduper-mode :colemakdh] [:##v :!Cb]]}
+        {:des "SuperDuper V -> Paste" :rules [[:condi :superduper-mode :!colemakdh] [:##v :!Cv]]}
         {:des "SuperDuper B -> Ctrl+B (Tmux prefix)" :rules [:superduper-mode [:##b :!Tb]]}
         {:des "SuperDuper Z -> Undo" :rules [:superduper-mode [:##z :!Cz]]}
 
