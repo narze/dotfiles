@@ -64,9 +64,13 @@
         ; {:des "F-; -> Delete Line" :rules [:f-mode [:semicolon :!Cdelete_or_backspace]]}
 
         ; Swap keys from Colemak Standard to Colemak DH Matrix (i.e. B>G>D>V = T>B>V>G Physically)
-        ; Shift is optional (#S) to allow typing capital letters
-        {:des "Colemak Standard -> Colemak DH Matrix (Left Hand)" :rules [[:condi :colemakstd :!superduper-mode] [:#St :b] [:#Sb :v] [:#Sv :g] [:#Sg :t]]}
-        {:des "Colemak Standard -> Colemak DH Matrix (Right Hand)" :rules [[:condi :colemakstd :!superduper-mode] [:#Sh :m] [:#Sm :h]]}
+        ; Left & Right Shift is optional (#SR) to allow typing capital letters
+        {:des "Colemak Standard -> Colemak DH Matrix (Left Hand)" :rules [[:condi :colemakstd :!superduper-mode] [:#SRt :b] [:#SRb :v] [:#SRv :g] [:#SRg :t]]}
+        {:des "Colemak Standard -> Colemak DH Matrix (Right Hand)" :rules [[:condi :colemakstd :!superduper-mode] [:#SRh :m] [:#SRm :h]]}
+
+        {:des "Physical ⌘+B -> Colemak ⌘+D (Physical G)" :rules [[:condi :colemakstd :!superduper-mode] [:!Cb :!Cg]]}
+        {:des "Physical ⌘+G -> Colemak ⌘+G (Physical T)" :rules [[:condi :colemakstd :!superduper-mode] [:!Cg :!Ct]]}
+        {:des "Physical ⌘+T -> Colemak ⌘+B (Physical B)" :rules [[:condi :colemakstd :!superduper-mode] [:!Ct :!Cb]]}
 
         ; Swap ⌘+V & ⌘+D for Colemak (Not works with apps which auto-paste like Paste.app / WisprFlow)
         {:des "Swap Cmd+V & Cmd+D (Colemak)" :rules [:colemak :colemakdh [:!Cv :!Cb] [:!Cb :!Cv]]}
