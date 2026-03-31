@@ -1,5 +1,5 @@
 # Focus windows
-alt - m                 : komorebic focus left
+alt - h                 : komorebic focus left
 alt - n                 : komorebic focus down
 alt - e                 : komorebic focus up
 alt - i                 : komorebic focus right
@@ -12,7 +12,7 @@ alt - u                 : komorebic cycle-monitor previous
 alt - y                 : komorebic cycle-monitor next
 
 # Move windows
-alt + shift - m         : komorebic move left
+alt + shift - h         : komorebic move left
 alt + shift - n         : komorebic move down
 alt + shift - e         : komorebic move up
 alt + shift - i         : komorebic move right

@@ -68,7 +68,7 @@
         {:des "Colemak Standard -> Colemak DH Matrix (Left Hand)" :rules [[:condi :colemakstd :!superduper-mode] [:#St :b] [:#Sb :v] [:#Sv :g] [:#Sg :t]]}
         {:des "Colemak Standard -> Colemak DH Matrix (Right Hand)" :rules [[:condi :colemakstd :!superduper-mode] [:#Sh :m] [:#Sm :h]]}
 
-        ; Swap ⌘+V & ⌘+D for Colemak
+        ; Swap ⌘+V & ⌘+D for Colemak (Not works with apps which auto-paste like Paste.app / WisprFlow)
         {:des "Swap Cmd+V & Cmd+D (Colemak)" :rules [:colemak :colemakdh [:!Cv :!Cb] [:!Cb :!Cv]]}
 
         ; Delete mode with F+J
