@@ -62,6 +62,8 @@ mise.local.toml
 
 # Claude Code
 **/.claude/settings.local.json
+docs/superpowers
+.claude/worktrees/
 
 Procfile.edk
 
