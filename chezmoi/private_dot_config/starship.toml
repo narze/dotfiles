@@ -1,6 +1,7 @@
 format = """
 [░▒▓](#a3aed2)\
-[  ](bg:#a3aed2 fg:#090c0c)\
+$os\
+$hostname\
 [](bg:#769ff0 fg:#a3aed2)\
 $directory\
 [](fg:#769ff0 bg:#394260)\
@@ -16,6 +17,69 @@ $time\
 [ ](fg:#1d2230)\
 $cmd_duration\
 \n$character"""
+
+[os]
+disabled = false
+style = "fg:#090c0c bg:#a3aed2"
+format = "[ $symbol ](fg:#090c0c bg:#a3aed2)"
+
+[os.symbols]
+AIX = "➿ "
+Alpaquita = "🔔 "
+AlmaLinux = " "        # nf-linux-almalinux
+Alpine = " "           # nf-linux-alpine
+Amazon = "🙂 "
+Android = " "          # nf-fa-android
+Arch = " "             # nf-linux-archlinux
+Artix = " "            # nf-linux-artix
+Bluefin = "🐟 "
+CachyOS = "🎗️ "
+CentOS = " "           # nf-linux-centos
+Debian = " "           # nf-linux-debian
+DragonFly = "🐉 "
+Emscripten = "🔗 "
+EndeavourOS = " "      # nf-linux-endeavour
+Fedora = " "           # nf-linux-fedora
+FreeBSD = " "          # nf-linux-freebsd
+Garuda = " "           # nf-linux-garuda
+Gentoo = " "           # nf-linux-gentoo
+HardenedBSD = "🛡️ "
+Illumos = " "          # nf-linux-illumos
+Kali = " "             # nf-linux-kali_linux
+Linux = " "            # nf-linux-tux
+Mabox = "📦 "
+Macos = " "            # nf-linux-apple
+Manjaro = " "          # nf-linux-manjaro
+Mariner = "🌊 "
+MidnightBSD = "🌘 "
+Mint = " "             # nf-linux-linuxmint
+NetBSD = "🚩 "
+NixOS = " "            # nf-linux-nixos
+Nobara = " "           # nf-linux-nobara
+OpenBSD = " "          # nf-linux-openbsd
+OpenCloudOS = "☁️ "
+openEuler = "🦉 "
+openSUSE = " "         # nf-linux-opensuse
+OracleLinux = " "      # nf-dev-oracle
+Pop = " "              # nf-linux-pop_os
+Raspbian = " "         # nf-linux-raspberry_pi
+Redhat = " "           # nf-linux-redhat
+RedHatEnterprise = " " # nf-linux-redhat
+RockyLinux = " "       # nf-linux-rocky_linux
+Redox = "🧪 "
+Solus = " "            # nf-linux-solus
+SUSE = " "             # nf-fa-suse
+Ubuntu = " "           # nf-linux-ubuntu
+Ultramarine = "🔷 "
+Unknown = "❓ "
+Uos = "🐲 "
+Void = " "             # nf-linux-void
+Windows = " "          # nf-custom-windows
+
+[hostname]
+ssh_only = true
+style = "fg:#090c0c bg:#a3aed2"
+format = "[ $hostname ](fg:#090c0c bg:#a3aed2)"
 
 [directory]
 style = "fg:#e3e5e5 bg:#769ff0"
