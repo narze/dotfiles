@@ -1,3 +1,9 @@
 # Chezmoi cached variables
 export CM_computer_name={{ .computer_name }}
 export CM_hostname={{ .hostname }}
+
+{{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "debian") -}}
+# Reuse the committed abbreviations with zsh-abbr (loaded via zinit).
+# Set before the deferred zsh-abbr load so they're picked up on Debian.
+export ABBR_USER_ABBREVIATIONS_FILE="$HOME/.config/zsh/abbreviations"
+{{ end -}}
