@@ -26,12 +26,26 @@
 {{-   $delta_is_not_installed = false }}
 {{- end }}
 
+{{/* Debian setup profile (minimal base + optional layers e.g. homelab, ai-agent). */}}
+{{/* Prompted once on Debian, then persisted; change later via `chezmoi edit-config`. */}}
+{{/* Only prompt when interactive; non-interactive runs (CI, Coder --force) reuse the */}}
+{{/* persisted value or fall back to the default so init never blocks on a missing TTY. */}}
+{{- $debian_profile := "minimal" -}}
+{{- if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "debian") }}
+{{-   if stdinIsATTY }}
+{{-     $debian_profile = promptStringOnce . "debian_profile" "Debian profile (minimal/homelab/ai-agent)" $debian_profile -}}
+{{-   else }}
+{{-     $debian_profile = (index . "debian_profile") | default $debian_profile -}}
+{{-   end }}
+{{- end }}
+
 data:
   name: {{ $name | quote }}
   email: {{ $email | quote }}
   github_user: {{ $github_user | quote }}
   computer_name: {{ $computer_name | quote }}
   hostname: {{ $hostname | quote }}
+  debian_profile: {{ $debian_profile | quote }}
   nas_mount_path: {{ $nas_mount_path | quote }}
   passphrase: {{ $passphrase | quote }}
 

@@ -95,10 +95,16 @@ macos                          Run macos script
     - zsh, git, curl, unzip
     - [mise](https://mise.jdx.dev)
     - [eza](https://github.com/eza-community/eza), [zoxide](https://github.com/ajeetdsouza/zoxide), [delta](https://github.com/dandavison/delta), [gh](https://cli.github.com), ghq, zellij
-  - Debian (server / minimal)
-    - zsh, git, curl, unzip
-    - [mise](https://mise.jdx.dev) (apt arch auto-detected, so arm64 servers work)
-    - Intentionally skips the extra CLI tooling installed on Ubuntu to stay lean
+  - Debian (server, profile-based)
+    - Minimal base installed for every profile: zsh, git, curl, unzip, [mise](https://mise.jdx.dev) (apt arch auto-detected, so arm64 servers work). Skips the extra CLI tooling installed on Ubuntu to stay lean.
+    - On first `init` you're prompted (once, via `promptStringOnce`) for a **profile**; the choice is persisted in the chezmoi config:
+      - `minimal` (default) — base only
+      - `homelab` — base + `scripts/linux-debian/homelab/`
+      - `ai-agent` — base + `scripts/linux-debian/ai-agent/`
+    - Profiles are **additive**: the selected profile's folder layers extra tools on top of the minimal base.
+    - Add a new profile by creating `scripts/linux-debian/<profile>/` and dropping idempotent `*.sh` scripts in it (they run on every `chezmoi apply`).
+    - Change profile later with `chezmoi edit-config` (set `data.debian_profile`) then `chezmoi apply`.
+    - Non-interactive runs (CI, Coder `--force`) never block on the prompt: they reuse the persisted value or fall back to `minimal`.
 
 <details>
   <summary><b>Notes</b> (If you have some time to read)</summary>
