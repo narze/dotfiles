@@ -1,7 +1,7 @@
 # Global config
 
 [tools]
-node = ["20", "22"]
+node = "24"
 neovim = "latest"
 pnpm = "latest"
 ruby = "3.4.4"
