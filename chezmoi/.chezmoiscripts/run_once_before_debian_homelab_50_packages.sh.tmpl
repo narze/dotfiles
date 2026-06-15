@@ -1,0 +1,9 @@
+{{- if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "debian") (eq .debian_profile "homelab") -}}
+#!/bin/bash
+
+# "homelab" Debian profile — runs on top of the minimal base scripts.
+# Add homelab tooling here, e.g. docker, tailscale, restic, etc.
+
+echo "Setting up Debian 'homelab' profile..."
+
+{{ end -}}

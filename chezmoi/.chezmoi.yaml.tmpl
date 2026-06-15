@@ -6,6 +6,7 @@
 {{- $is_codespace := false }}
 {{- $nas_mount_path := default "~/mnt/nas" (env "NAS_PATH") -}}
 {{- $passphrase := default "change me with 'SETPASS=1 chezmoi init'" (index . "passphrase") -}}
+{{- $debian_profile := "minimal" -}}
 
 {{- $is_codespace:= env "CODESPACES" | not | not -}}
 
@@ -21,6 +22,12 @@
 {{    $passphrase = promptString "Encryption Passphrase" $passphrase -}}
 {{- end }}
 
+{{- /* Pick a Debian setup profile (minimal, homelab, ai-agent, ...). Prompted */}}
+{{- /* once on first init, persisted to config. Re-run `chezmoi init` to change. */}}
+{{- if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "debian") }}
+{{-   $debian_profile = promptStringOnce . "debian_profile" "Debian profile (minimal/homelab/ai-agent)" $debian_profile -}}
+{{- end }}
+
 {{- $delta_is_not_installed := true }}
 {{- if (contains "delta" (output "bash" "-c" "command -v delta || true")) }}
 {{-   $delta_is_not_installed = false }}
@@ -34,6 +41,7 @@ data:
   hostname: {{ $hostname | quote }}
   nas_mount_path: {{ $nas_mount_path | quote }}
   passphrase: {{ $passphrase | quote }}
+  debian_profile: {{ $debian_profile | quote }}
 
   flags:
     delta_is_not_installed: {{ $delta_is_not_installed }}
