@@ -102,9 +102,18 @@ re-run `chezmoi init` to change it):
 - `minimal` (default) — base only: apt essentials (`zsh git curl unzip`) + `mise`
 - `homelab`, `ai-agent`, … — run on top of the minimal base
 
-Add profile-specific install steps as `run_once_before_debian_<profile>_*.sh.tmpl`
-scripts gated on `(eq .debian_profile "<profile>")`, or per-apply scripts under
-`scripts/linux-debian/<profile>/`.
+Each profile is a folder. To add one, just create the folder — `.chezmoiignore`
+auto-discovers profile folders and runs only the active one (no edits needed there):
+
+```
+chezmoi/.chezmoiscripts/debian/        # run-once installs
+  run_once_before_00_install_packages.sh   # base (every profile)
+  run_once_before_01_install_mise.sh       # base (every profile)
+  homelab/run_once_before_50_packages.sh   # only when profile=homelab
+  ai-agent/run_once_before_50_packages.sh  # only when profile=ai-agent
+
+scripts/linux-debian/<profile>/        # optional per-apply scripts
+```
 
 <details>
   <summary><b>Notes</b> (If you have some time to read)</summary>

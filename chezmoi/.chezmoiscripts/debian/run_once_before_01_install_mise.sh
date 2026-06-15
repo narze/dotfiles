@@ -1,4 +1,3 @@
-{{- if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "debian") -}}
 #!/bin/bash
 
 # Install/upgrade mise
@@ -13,5 +12,3 @@ if [[ ! $(command -v mise) ]]; then
 else
   mise self-update -y
 fi
-
-{{ end -}}
