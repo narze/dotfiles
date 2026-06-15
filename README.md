@@ -91,7 +91,14 @@ macos                          Run macos script
   - [macOS defaults](https://mths.be/macos)
   - etc.
 - Linux
-  - Dotfiles only
+  - Ubuntu
+    - zsh, git, curl, unzip
+    - [mise](https://mise.jdx.dev)
+    - [eza](https://github.com/eza-community/eza), [zoxide](https://github.com/ajeetdsouza/zoxide), [delta](https://github.com/dandavison/delta), [gh](https://cli.github.com), ghq, zellij
+  - Debian (server / minimal)
+    - zsh, git, curl, unzip
+    - [mise](https://mise.jdx.dev) (apt arch auto-detected, so arm64 servers work)
+    - Intentionally skips the extra CLI tooling installed on Ubuntu to stay lean
 
 <details>
   <summary><b>Notes</b> (If you have some time to read)</summary>

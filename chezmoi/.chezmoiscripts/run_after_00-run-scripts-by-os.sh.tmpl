@@ -6,6 +6,8 @@ SCRIPTS_DIR={{ .chezmoi.workingTree }}/scripts
   OS=darwin
 {{- else if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "ubuntu") }}
   OS=linux-ubuntu
+{{- else if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "debian") }}
+  OS=linux-debian
 {{- else }}
   echo "Not supported"
   exit 0
