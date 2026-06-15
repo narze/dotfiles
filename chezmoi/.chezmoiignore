@@ -24,6 +24,23 @@ obsidian
 .local/share/fonts
 {{ end }}
 
+{{/* Debian setup profiles: run base + only the active profile's folder.
+     Profile folders under .chezmoiscripts/debian are auto-discovered, so a new
+     profile just needs its own folder — no edits here. */}}
+{{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "debian") }}
+{{-   $debianScripts := joinPath .chezmoi.sourceDir ".chezmoiscripts" "debian" -}}
+{{-   range $path := glob (joinPath $debianScripts "*") -}}
+{{-     if (stat $path).isDir -}}
+{{-       $name := base $path -}}
+{{-       if ne $name $.debian_profile }}
+.chezmoiscripts/debian/{{ $name }}/**
+{{-       end -}}
+{{-     end -}}
+{{-   end -}}
+{{ else }}
+.chezmoiscripts/debian/**
+{{ end }}
+
 {{ if ne .chezmoi.os "windows" }}
 Documents
 {{ else }}

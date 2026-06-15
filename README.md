@@ -91,7 +91,29 @@ macos                          Run macos script
   - [macOS defaults](https://mths.be/macos)
   - etc.
 - Linux
-  - Dotfiles only
+  - Ubuntu: dotfiles + base tools (zsh, mise, eza, zoxide, delta, gh)
+  - Debian: dotfiles + a minimal base, selectable per-machine via setup profiles
+
+### Debian setup profiles
+
+On Debian, `chezmoi init` prompts once for a setup profile (stored in the config,
+re-run `chezmoi init` to change it):
+
+- `minimal` (default) — base only: apt essentials (`zsh git curl unzip`) + `mise`
+- `homelab`, `ai-agent`, … — run on top of the minimal base
+
+Each profile is a folder. To add one, just create the folder — `.chezmoiignore`
+auto-discovers profile folders and runs only the active one (no edits needed there):
+
+```
+chezmoi/.chezmoiscripts/debian/        # run-once installs
+  run_once_before_00_install_packages.sh   # base (every profile)
+  run_once_before_01_install_mise.sh       # base (every profile)
+  homelab/run_once_before_50_packages.sh   # only when profile=homelab
+  ai-agent/run_once_before_50_packages.sh  # only when profile=ai-agent
+
+scripts/linux-debian/<profile>/        # optional per-apply scripts
+```
 
 <details>
   <summary><b>Notes</b> (If you have some time to read)</summary>

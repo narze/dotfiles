@@ -6,6 +6,9 @@ SCRIPTS_DIR={{ .chezmoi.workingTree }}/scripts
   OS=darwin
 {{- else if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "ubuntu") }}
   OS=linux-ubuntu
+{{- else if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "debian") }}
+  OS=linux-debian
+  PROFILE={{ .debian_profile | quote }}
 {{- else }}
   echo "Not supported"
   exit 0
@@ -17,3 +20,12 @@ do
   # Run script file, ignoring exit code so that we can run all scripts in the directory
   bash $script || true
 done
+
+# Run profile-specific per-apply scripts on top of the base (e.g. linux-debian/homelab)
+if [ -n "${PROFILE:-}" ] && [ -d "$SCRIPTS_DIR/$OS/$PROFILE" ]; then
+  for script in $SCRIPTS_DIR/$OS/$PROFILE/*.*sh
+  do
+    echo $script
+    bash $script || true
+  done
+fi
