@@ -33,6 +33,11 @@
 {{-   $delta_is_not_installed = false }}
 {{- end }}
 
+{{- $gh_is_installed := false }}
+{{- if (contains "gh" (output "bash" "-c" "command -v gh || true")) }}
+{{-   $gh_is_installed = true }}
+{{- end }}
+
 data:
   name: {{ $name | quote }}
   email: {{ $email | quote }}
@@ -45,6 +50,7 @@ data:
 
   flags:
     delta_is_not_installed: {{ $delta_is_not_installed }}
+    gh_is_installed: {{ $gh_is_installed }}
     is_codespace: {{ $is_codespace }}
 
 encryption: gpg

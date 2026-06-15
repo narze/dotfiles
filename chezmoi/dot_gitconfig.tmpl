@@ -37,8 +37,8 @@
 [gtr "ai"]
   default = opencode
 
-{{/* Added from gh auth setup-git */}}
-{{- if (env "CODER") }}
+{{/* gh credential helper — when gh CLI is installed */}}
+{{- if .flags.gh_is_installed }}
 [credential "https://github.com"]
   helper =
   helper = !gh auth git-credential
