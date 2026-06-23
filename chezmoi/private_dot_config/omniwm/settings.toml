@@ -3,7 +3,6 @@ monitorDwindleOverrides = []
 monitorGapOverrides = []
 monitorNiriOverrides = []
 monitorOrientationOverrides = []
-monitorRoutingOverrides = []
 
 [appearance]
 mode = "dark"
@@ -37,7 +36,7 @@ crossesMonitorAtEdge = false
 followsMouse = false
 followsWindowToMonitor = true
 moveCrossesMonitorAtEdge = false
-moveMouseToFocusedWindow = true
+moveMouseToFocusedWindow = false
 
 [gaps]
 size = 16.0
@@ -768,6 +767,12 @@ id = "toggleWorkspaceLayout"
 [[hotkeys]]
 binding = "Option+Shift+O"
 id = "toggleOverview"
+
+[[monitorRoutingOverrides]]
+gridColumn = 0
+gridRow = 0
+monitorDisplayId = 1
+monitorName = "Built-in Retina Display"
 
 [[workspaces]]
 id = "AD36F001-C57E-41A5-AC1D-DF5249D007F0"
