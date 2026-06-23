@@ -389,7 +389,7 @@ binding = "Unassigned"
 id = "moveColumnToWorkspace.8"
 
 [[hotkeys]]
-binding = "Option+Shift+H"
+binding = "Unassigned"
 id = "move.left"
 
 [[hotkeys]]
@@ -401,7 +401,7 @@ binding = "Option+Shift+K"
 id = "move.up"
 
 [[hotkeys]]
-binding = "Option+Shift+L"
+binding = "Unassigned"
 id = "move.right"
 
 [[hotkeys]]
@@ -449,19 +449,19 @@ binding = "Control+Command+Grave"
 id = "focusMonitorLast"
 
 [[hotkeys]]
-binding = "Option+Return"
+binding = "Option+Shift+Return"
 id = "toggleFullscreen"
 
 [[hotkeys]]
-binding = "Option+Shift+Return"
+binding = "Unassigned"
 id = "toggleNativeFullscreen"
 
 [[hotkeys]]
-binding = "Hyper+H"
+binding = "Option+Shift+H"
 id = "moveColumn.left"
 
 [[hotkeys]]
-binding = "Hyper+L"
+binding = "Option+Shift+L"
 id = "moveColumn.right"
 
 [[hotkeys]]
@@ -617,7 +617,7 @@ binding = "Unassigned"
 id = "cycleWindowHeightBackward"
 
 [[hotkeys]]
-binding = "Option+Shift+F"
+binding = "Option+Return"
 id = "toggleColumnFullWidth"
 
 [[hotkeys]]
