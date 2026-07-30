@@ -61,6 +61,9 @@ onboarding = false
 # Most reliable direct bindings are ctrl+letter, function keys, and explicit modified chords.
 # alt+..., cmd/super, and punctuation-with-modifiers may depend on your terminal/tmux setup.
 # prefix = "ctrl+b"
+# Match tmux prefix (C-o). tmux's secondary prefix C-a has no herdr equivalent
+# (single prefix only). Note: zellij uses ctrl+o for session mode instead.
+prefix = "ctrl+o"
 
 # Prefix-mode actions
 # help = "prefix+?"
@@ -78,6 +81,8 @@ onboarding = false
 # close_workspace = "prefix+shift+d"
 # previous_workspace = "" # optional, unset by default
 # next_workspace = ""     # optional, unset by default
+previous_workspace = "prefix+l" # L
+next_workspace = "prefix+semicolon"   # ;
 # previous_agent = ""     # optional, unset by default
 # next_agent = ""         # optional, unset by default
 # focus_agent = ""        # optional indexed binding, e.g. "prefix+alt+1..9"
@@ -86,6 +91,9 @@ onboarding = false
 # rename_tab = "prefix+shift+t"
 # previous_tab = "prefix+p"
 # next_tab = "prefix+n"
+rename_tab = "prefix+comma" # match tmux default & zellij tmux-mode ,
+previous_tab = "ctrl+u"     # match tmux bind -n C-u / zellij GoToPreviousTab
+next_tab = "ctrl+y"         # match tmux bind -n C-y / zellij GoToNextTab
 # switch_tab = "prefix+1..9"
 # switch_workspace = ""   # optional indexed binding, e.g. "prefix+shift+1..9"
 # close_tab = "prefix+shift+x"
@@ -96,10 +104,13 @@ onboarding = false
 # focus_pane_up = "prefix+k"
 # focus_pane_right = "prefix+l"
 # cycle_pane_next = "prefix+tab"
+cycle_pane_next = "ctrl+n" # match tmux bind -n C-n / zellij FocusNextPane
 # cycle_pane_previous = "prefix+shift+tab"
 # last_pane = ""          # optional, unset by default; bind e.g. "prefix+tab" for global back-and-forth
 # split_vertical = "prefix+v"
 # split_horizontal = "prefix+minus"
+split_vertical = "prefix+shift+minus" # _ , match tmux split beside
+split_horizontal = "prefix+minus"     # - , match tmux split below (herdr default, explicit)
 # close_pane = "prefix+x"
 # zoom = "prefix+z"       # legacy alias: fullscreen
 # resize_mode = "prefix+r"
