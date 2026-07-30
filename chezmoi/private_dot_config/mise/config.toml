@@ -6,6 +6,7 @@ neovim = "latest"
 pnpm = "latest"
 ruby = "3.4.4"
 bun = "latest"
+pitchfork = "latest"
 
 [settings]
 experimental = true
