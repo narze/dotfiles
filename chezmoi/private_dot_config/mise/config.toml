@@ -4,10 +4,13 @@
 node = "24"
 neovim = "latest"
 pnpm = "latest"
-ruby = "3.4.4"
+ruby = "4.0.1"
 bun = "latest"
 pitchfork = "latest"
 
 [settings]
 experimental = true
 idiomatic_version_file_enable_tools = ["ruby"]
+
+[settings.ruby]
+compile = false

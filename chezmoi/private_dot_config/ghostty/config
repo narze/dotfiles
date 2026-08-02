@@ -20,5 +20,5 @@ theme = "tokyonight"
 
 # Keybinds
 keybind = global:ctrl+grave_accent=toggle_quick_terminal
-keybind = cmd+d=paste_from_clipboard
+# keybind = cmd+d=paste_from_clipboard
 keybind = shift+enter=text:\x1b\r

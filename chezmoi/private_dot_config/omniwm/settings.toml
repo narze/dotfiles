@@ -73,11 +73,12 @@ enabled = true
 margin = 1
 
 [niri]
-alwaysCenterSingleColumn = false
-centerFocusedColumn = "never"
-columnWidthPresets = [0.3333333333333333, 0.5, 0.6666666666666666]
+alwaysCenterSingleColumn = true
+centerFocusedColumn = "onOverflow"
+columnWidthPresets = [0.3333333333333333, 0.5, 0.6666666666666666, 1.0]
+defaultColumnWidth = 0.66
 infiniteLoop = true
-maxVisibleColumns = 2
+maxVisibleColumns = 3
 singleWindowAspectRatio = "fill"
 
 [quakeTerminal]
@@ -191,6 +192,11 @@ bundleId = "com.apple.MobileSMS"
 id = "552FB77D-BF0E-4737-90A6-B5BC6986C579"
 minHeight = 320.0
 minWidth = 660.0
+
+[[appRules]]
+bundleId = "com.vivaldi.Vivaldi"
+id = "1A8044AD-A83F-431B-8DAF-10F946188AD0"
+minWidth = 400.0
 
 [[hotkeys]]
 binding = "Option+1"
@@ -593,11 +599,11 @@ binding = "Unassigned"
 id = "moveColumnToIndex.9"
 
 [[hotkeys]]
-binding = "Hyper+Period"
+binding = "Option+Period"
 id = "cycleColumnWidthForward"
 
 [[hotkeys]]
-binding = "Hyper+Comma"
+binding = "Option+Comma"
 id = "cycleColumnWidthBackward"
 
 [[hotkeys]]
