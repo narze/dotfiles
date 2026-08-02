@@ -27,6 +27,7 @@ maxTotalBytes = 67108864
 defaultSplitRatio = 1.0
 moveToRootStable = true
 singleWindowAspectRatio = "1440x1080"
+singleWindowFit = "fill"
 smartSplit = false
 splitWidthMultiplier = 1.0
 useGlobalGaps = true
@@ -35,6 +36,7 @@ useGlobalGaps = true
 crossesMonitorAtEdge = false
 followsMouse = false
 followsWindowToMonitor = true
+lockModifier = "off"
 moveCrossesMonitorAtEdge = false
 moveMouseToFocusedWindow = false
 
@@ -67,8 +69,17 @@ scrollEnabled = true
 scrollModifierKey = "optionShift"
 scrollSensitivity = 5.0
 trackpadScrollStyle = "snap"
+workspaceSwipeAxis = "vertical"
+workspaceSwipeEnabled = false
+workspaceSwipeFingerCount = 3
+
+[hiddenBar]
+enabled = true
+hiddenBundleIDs = []
+rehideIntervalSeconds = 5.0
 
 [mouseWarp]
+constrainToArrangement = false
 enabled = true
 margin = 1
 
@@ -76,10 +87,42 @@ margin = 1
 alwaysCenterSingleColumn = true
 centerFocusedColumn = "onOverflow"
 columnWidthPresets = [0.3333333333333333, 0.5, 0.6666666666666666, 1.0]
+containerPrimarySpanPresets = [0.3333333333333333, 0.5, 0.6666666666666666]
 defaultColumnWidth = 0.66
 infiniteLoop = true
 maxVisibleColumns = 3
 singleWindowAspectRatio = "fill"
+singleWindowFit = "fill"
+visibleContainerCount = 2
+
+[overview]
+zoom = 1.0
+
+[overview.backdrop]
+alpha = 1.0
+blue = 0.08
+green = 0.05
+red = 0.05
+
+[overview.windowBorders]
+
+[overview.windowBorders.hovered]
+alpha = 1.0
+blue = 1.0
+green = 0.6
+red = 0.4
+
+[overview.windowBorders.normal]
+alpha = 0.5
+blue = 0.35
+green = 0.3
+red = 0.3
+
+[overview.windowBorders.selected]
+alpha = 1.0
+blue = 0.4
+green = 0.8
+red = 0.3
 
 [quakeTerminal]
 animationDuration = 0.2
@@ -92,7 +135,7 @@ position = "center"
 widthPercent = 50.0
 
 [routing]
-mode = "macOS"
+mode = "custom"
 
 [statusBar]
 showAppNames = true
@@ -103,17 +146,25 @@ useWorkspaceId = true
 backgroundOpacity = 0.1
 deduplicateAppIcons = false
 enabled = true
+excludedBundleIDs = []
 height = 24.0
 hideEmptyWorkspaces = false
 labelFontSize = 12.0
+notchActiveZoneWidth = 180.0
 notchAware = true
+notchMode = "moveBelowMenuBar"
 position = "overlappingMenuBar"
 reserveLayoutSpace = false
+revealHoldMilliseconds = 200.0
+revealModifier = "off"
 showFloatingWindows = true
 showLabels = true
+systemStatsButton = false
 windowLevel = "popup"
 xOffset = 0.0
 yOffset = 0.0
+
+[workspaceBar.iconOverrides]
 
 [[appRules]]
 bundleId = "com.openai.codex"
@@ -335,7 +386,7 @@ binding = "Unassigned"
 id = "focusWindowOrWorkspaceUp"
 
 [[hotkeys]]
-binding = "Hyper+C"
+binding = "Unassigned"
 id = "centerColumn"
 
 [[hotkeys]]
@@ -395,7 +446,7 @@ binding = "Unassigned"
 id = "moveColumnToWorkspace.8"
 
 [[hotkeys]]
-binding = "Unassigned"
+binding = "Option+Shift+Command+H"
 id = "move.left"
 
 [[hotkeys]]
@@ -407,7 +458,7 @@ binding = "Option+Shift+K"
 id = "move.up"
 
 [[hotkeys]]
-binding = "Unassigned"
+binding = "Option+Shift+Command+L"
 id = "move.right"
 
 [[hotkeys]]
@@ -469,6 +520,14 @@ id = "moveColumn.left"
 [[hotkeys]]
 binding = "Option+Shift+L"
 id = "moveColumn.right"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "moveColumn.up"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "moveColumn.down"
 
 [[hotkeys]]
 binding = "Hyper+Home"
@@ -600,63 +659,63 @@ id = "moveColumnToIndex.9"
 
 [[hotkeys]]
 binding = "Option+Period"
-id = "cycleColumnWidthForward"
+id = "cycleSizeForward"
 
 [[hotkeys]]
 binding = "Option+Comma"
-id = "cycleColumnWidthBackward"
+id = "cycleSizeBackward"
 
 [[hotkeys]]
 binding = "Unassigned"
-id = "cycleWindowWidthForward"
+id = "cycleWindowPrimarySpanForward"
 
 [[hotkeys]]
 binding = "Unassigned"
-id = "cycleWindowWidthBackward"
+id = "cycleWindowPrimarySpanBackward"
 
 [[hotkeys]]
 binding = "Unassigned"
-id = "cycleWindowHeightForward"
+id = "cycleWindowSecondarySpanForward"
 
 [[hotkeys]]
 binding = "Unassigned"
-id = "cycleWindowHeightBackward"
+id = "cycleWindowSecondarySpanBackward"
 
 [[hotkeys]]
-binding = "Option+Return"
-id = "toggleColumnFullWidth"
+binding = "Option+Shift+F"
+id = "toggleContainerFullPrimarySpan"
 
 [[hotkeys]]
-binding = "Hyper+F"
-id = "expandColumnToAvailableWidth"
+binding = "Control+Option+F"
+id = "expandContainerToAvailablePrimarySpan"
 
 [[hotkeys]]
-binding = "Hyper+R"
-id = "resetWindowHeight"
+binding = "Control+Option+R"
+id = "resetWindowSecondarySpan"
 
 [[hotkeys]]
 binding = "Option+Minus"
-id = "setColumnWidth.decrease10Percent"
+id = "setContainerPrimarySpan.decrease10Percent"
 
 [[hotkeys]]
 binding = "Option+Equal"
-id = "setColumnWidth.increase10Percent"
+id = "setContainerPrimarySpan.increase10Percent"
 
 [[hotkeys]]
 binding = "Unassigned"
-id = "setWindowWidth.decrease10Percent"
+id = "setWindowPrimarySpan.decrease10Percent"
 
 [[hotkeys]]
 binding = "Unassigned"
-id = "setWindowWidth.increase10Percent"
+id = "setWindowPrimarySpan.increase10Percent"
 
 [[hotkeys]]
-binding = "Hyper+Minus"
-id = "setWindowHeight.decrease10Percent"
+binding = "Option+Shift+Minus"
+id = "setWindowSecondarySpan.decrease10Percent"
 
 [[hotkeys]]
-binding = "Hyper+Equal"
-id = "setWindowHeight.increase10Percent"
+binding = "Option+Shift+Equal"
+id = "setWindowSecondarySpan.increase10Percent"
 
 [[hotkeys]]
 binding = "Hyper+B"
@@ -705,6 +764,14 @@ id = "resizeShrink.up"
 [[hotkeys]]
 binding = "Unassigned"
 id = "resizeShrink.down"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "resizeFocusedWindow.grow"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "resizeFocusedWindow.shrink"
 
 [[hotkeys]]
 binding = "Unassigned"
@@ -760,7 +827,7 @@ id = "toggleWorkspaceBarVisibility"
 
 [[hotkeys]]
 binding = "Unassigned"
-id = "toggleHiddenBar"
+id = "toggleHiddenBarPanel"
 
 [[hotkeys]]
 binding = "Option+Grave"
@@ -774,11 +841,27 @@ id = "toggleWorkspaceLayout"
 binding = "Option+Shift+O"
 id = "toggleOverview"
 
+[[hotkeys]]
+binding = "Unassigned"
+id = "toggleSystemStats"
+
+[[monitorRoutingOverrides]]
+gridColumn = 2
+gridRow = 0
+monitorDisplayUUID = "37D8832A-2D66-02CA-B9F7-8F30A301B230"
+monitorName = "Built-in Retina Display"
+
+[[monitorRoutingOverrides]]
+gridColumn = 1
+gridRow = 0
+monitorDisplayUUID = "F4E38363-3F58-4740-A8E1-00B1BAFCD829"
+monitorName = "DELL U3225QE"
+
 [[monitorRoutingOverrides]]
 gridColumn = 0
 gridRow = 0
-monitorDisplayId = 1
-monitorName = "Built-in Retina Display"
+monitorDisplayUUID = "1EB9F915-6A2A-4E9E-9032-07A9E59EF4BA"
+monitorName = "ARZOPA"
 
 [[workspaces]]
 id = "AD36F001-C57E-41A5-AC1D-DF5249D007F0"
