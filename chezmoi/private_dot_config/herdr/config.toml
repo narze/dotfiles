@@ -81,8 +81,12 @@ prefix = "ctrl+o"
 # close_workspace = "prefix+shift+d"
 # previous_workspace = "" # optional, unset by default
 # next_workspace = ""     # optional, unset by default
-previous_workspace = ["prefix+l", "prefix+ctrl+l"] # L
-next_workspace = ["prefix+semicolon", "prefix+colon", "prefix+shift+semicolon", "prefix+ctrl+semicolon"] # ; and : (shift+; varies by terminal)
+# ⌃⌘⇧[ / ⌃⌘⇧] match cmux prevSidebarTab / nextSidebarTab (see
+# ~/.config/cmux/cmux.json). Direct chords, no prefix. Whether they arrive at
+# all depends on the host terminal forwarding cmd chords to the TTY — the
+# prefix bindings stay as the reliable path.
+previous_workspace = ["prefix+l", "prefix+ctrl+l", "ctrl+cmd+shift+["] # L
+next_workspace = ["prefix+semicolon", "prefix+colon", "prefix+shift+semicolon", "prefix+ctrl+semicolon", "ctrl+cmd+shift+]"] # ; and : (shift+; varies by terminal)
 # previous_agent = ""     # optional, unset by default
 # next_agent = ""         # optional, unset by default
 # focus_agent = ""        # optional indexed binding, e.g. "prefix+alt+1..9"

@@ -190,6 +190,25 @@
   //     "defaultLayout" : "unified"
   //   },
 
+  // Workspace switching on ⌃⌘⇧[ / ⌃⌘⇧], the zellij GoToPreviousTab /
+  // GoToNextTab equivalent (herdr: previous_tab / next_tab).
+  // A cmux "workspace" is the sidebar entry holding split panes — the same
+  // structural role a zellij tab plays. Replaces the cmd+ctrl+[ / cmd+ctrl+]
+  // defaults; cmux allows only one binding per action.
+  // ⌃⌘⇧[ / ⌃⌘⇧] ship as moveSurfaceToPreviousPane / moveSurfaceToNextPane,
+  // so those are unbound below to free the chord. Surfaces can still be moved
+  // between panes with ⌥⌘⇧ + arrow keys (moveSurfaceToPane<Direction>).
+  // zellij's Ctrl+n (FocusNextPane) is intentionally not ported — cmux has no
+  // cycle-pane action, only directional focus on cmd+opt+arrows.
+  "shortcuts": {
+    "bindings": {
+      "prevSidebarTab": "ctrl+cmd+shift+[",
+      "nextSidebarTab": "ctrl+cmd+shift+]",
+      "moveSurfaceToPreviousPane": "",
+      "moveSurfaceToNextPane": ""
+    }
+  },
+
   //   "shortcuts" : {
   //     "bindings" : {
   //       "toggleSplitZoom" : "cmd+shift+return",
