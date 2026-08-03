@@ -1,0 +1,1 @@
+{{ .chezmoi.homeDir }}/AGENTS.md
