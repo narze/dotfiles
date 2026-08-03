@@ -4,7 +4,7 @@
 node = "24"
 neovim = "latest"
 pnpm = "latest"
-ruby = "4.0.1"
+ruby = "4.0.6"
 bun = "latest"
 pitchfork = "latest"
 
