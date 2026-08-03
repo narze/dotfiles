@@ -119,6 +119,7 @@ alias fixappleeventsbug='sudo killall -KILL appleeventsd'
 alias gowd='cd "`pbpaste`"'
 alias gu="gitupdate"
 alias h='helm'
+alias hd='herdr'
 alias hdi='howdoi'
 alias ip='curl ifconfig.me'
 alias jsc='/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc'
