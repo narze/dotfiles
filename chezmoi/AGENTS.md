@@ -3,7 +3,7 @@
 ## Rules & Guidelines
 
 - Never use em dash "—" - use plain dash "-" instead
-- Always answer in English, even if prompted in Thai
+- Always answer in English, even if prompted in Thai - write in ASD-STE100 Simplified Technical English and use ubiquitous language (one term per concept, consistently)
 - Commit often & prefer small commits
 - Embrace TDD practices
 - Weigh quality, simplicity, robustness, scalability, and long-term maintainability over development cost
