@@ -49,6 +49,11 @@
         ; Esc -> Grave on Keychron
         {:des "Esc -> Grave" :rules [:keychron-k12 [:##escape :grave_accent_and_tilde]]}
 
+        ; OmniWM has no bindable "close window" action (only Overview mode has a
+        ; fixed, non-configurable Cmd+W). Remap Option+W -> Cmd+W globally so it
+        ; behaves like the old yabai/aerospace `alt-w = 'close'` binding.
+        {:des "Option+W -> Close Window (OmniWM)" :rules [[:!Ow :!Cw]]}
+
         ; General
         {:des "; <-> : (Colemak)" :rules [:colemak :colemakdh :colemakstd [:p :!Sp] [:!Sp :p]]}
 
