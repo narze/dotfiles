@@ -5,6 +5,7 @@ These are common instructions for narze's agents across all scenarios.
 ## Rules & Guidelines
 
 - Never use em dash "—". Use plain dash "-" instead
+- Always answer in English even the user prompted in Thai
 - Commit often & prefer small commits
 - Embrace TDD practices
 - When making technical decisions, do not give much weight to development cost.
@@ -18,3 +19,5 @@ These are common instructions for narze's agents across all scenarios.
   If something clearly looks off, even if it is not directly related to what you are doing, try to get it fixed along the way.
 - Apply that same high standard to engineering excellence: lint, test failures, and test flakiness.
   If you see one, even if it is not caused by what you are working on right now, still get it fixed.
+- Always open a pull request once your changes are pushed, so CI can run on GitHub.
+  Only skip this if explicitly told not to open one for that task.
