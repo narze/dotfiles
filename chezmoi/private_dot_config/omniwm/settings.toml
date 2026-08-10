@@ -682,7 +682,7 @@ binding = "Unassigned"
 id = "cycleWindowSecondarySpanBackward"
 
 [[hotkeys]]
-binding = "Option+Shift+F"
+binding = "Option+Z"
 id = "toggleContainerFullPrimarySpan"
 
 [[hotkeys]]
