@@ -3,6 +3,10 @@ if [[ -n "$CURSOR_AGENT" || -n "$CLAUDECODE" || -n "$OPENCODE" ]]; then
   eval "$(mise activate)"
 fi
 
+if [ -x /opt/homebrew/bin/brew ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
 # # Documentation: https://github.com/romkatv/zsh4humans/blob/v5/README.md.
 # #
 # # Do not modify this file unless you know exactly what you are doing.
