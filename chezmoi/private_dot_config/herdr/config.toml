@@ -86,7 +86,7 @@ prefix = "ctrl+o"
 # all depends on the host terminal forwarding cmd chords to the TTY — the
 # prefix bindings stay as the reliable path.
 previous_workspace = ["prefix+l", "prefix+ctrl+l", "ctrl+cmd+shift+["] # L
-next_workspace = ["prefix+semicolon", "prefix+colon", "prefix+shift+semicolon", "prefix+ctrl+semicolon", "ctrl+cmd+shift+]"] # ; and : (shift+; varies by terminal)
+next_workspace = ["ctrl+semicolon", "prefix+semicolon", "prefix+colon", "prefix+shift+semicolon", "prefix+ctrl+semicolon", "ctrl+cmd+shift+]"] # ctrl+; direct, plus prefix ; and : (shift+; varies by terminal)
 # previous_agent = ""     # optional, unset by default
 # next_agent = ""         # optional, unset by default
 # focus_agent = ""        # optional indexed binding, e.g. "prefix+alt+1..9"
