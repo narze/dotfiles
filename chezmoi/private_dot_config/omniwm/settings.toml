@@ -39,8 +39,10 @@ followsWindowToMonitor = true
 lockModifier = "off"
 moveCrossesMonitorAtEdge = false
 moveMouseToFocusedWindow = false
+raiseOnMouseFocus = true
 
 [gaps]
+fullscreenUsesOuterGaps = false
 size = 16.0
 
 [gaps.outer]
