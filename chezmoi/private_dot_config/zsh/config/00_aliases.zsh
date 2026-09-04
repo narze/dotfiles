@@ -5,6 +5,11 @@ alias ke='$EDITOR ~/dotfiles/etc/karabiner.edn'
 alias zshrc='$EDITOR ~/.zshrc ; reload'
 alias .tmux='$EDITOR ~/.tmux.conf.local'
 
+# macOS app CLIs
+if [[ "$OSTYPE" == darwin* ]]; then
+  alias tailscale='/Applications/Tailscale.app/Contents/MacOS/Tailscale'
+fi
+
 # M1
 alias aa='arch -arm64 '
 alias ax='arch -x86_64 '
