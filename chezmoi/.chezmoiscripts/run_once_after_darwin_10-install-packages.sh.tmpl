@@ -68,7 +68,6 @@ set -eufo pipefail
   "zoxide"
 
   "jackielii/tap/skhd-zig"
-  "lgug2z/tap/komorebi-for-mac"
 -}}
 
 {{ $casks := list
@@ -113,11 +112,6 @@ brew services restart goku
 if command -v skhd &> /dev/null; then
   skhd --install-service
   skhd --start-service
-fi
-
-if command -v komorebic &> /dev/null; then
-  komorebic enable-autostart --bar
-  komorebic start --bar
 fi
 
 {{ end -}}
