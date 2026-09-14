@@ -3,6 +3,7 @@ monitorDwindleOverrides = []
 monitorGapOverrides = []
 monitorNiriOverrides = []
 monitorOrientationOverrides = []
+schemaVersion = 3
 
 [appearance]
 mode = "dark"
@@ -143,6 +144,31 @@ widthPercent = 50.0
 [routing]
 mode = "custom"
 
+[[routing.arrangements]]
+id = "888A80E0-6B30-4757-9C69-676AC92205DB"
+
+[[routing.arrangements.monitors]]
+gridColumn = 1
+gridRow = 0
+monitorDisplayUUID = "F4E38363-3F58-4740-A8E1-00B1BAFCD829"
+monitorName = "DELL U3225QE"
+
+[[routing.arrangements.monitors]]
+gridColumn = 2
+gridRow = 0
+monitorDisplayUUID = "37D8832A-2D66-02CA-B9F7-8F30A301B230"
+monitorName = "Built-in Retina Display"
+
+[[routing.arrangements.monitors]]
+gridColumn = 0
+gridRow = 0
+monitorDisplayUUID = "1EB9F915-6A2A-4E9E-9032-07A9E59EF4BA"
+monitorName = "ARZOPA"
+
+[scratchpads]
+
+[scratchpads.labels]
+
 [statusBar]
 showAppNames = true
 showWorkspaceName = true
@@ -155,6 +181,7 @@ enabled = true
 excludedBundleIDs = []
 height = 24.0
 hideEmptyWorkspaces = false
+hideInNativeFullscreen = false
 labelFontSize = 12.0
 notchActiveZoneWidth = 180.0
 notchAware = true
@@ -256,6 +283,86 @@ id = "1A8044AD-A83F-431B-8DAF-10F946188AD0"
 minWidth = 400.0
 
 [[hotkeys]]
+binding = "Option+Shift+E"
+id = "toggleScratchpad.1"
+
+[[hotkeys]]
+binding = "Hyper+E"
+id = "assignFocusedWindowToScratchpad.1"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "toggleScratchpad.2"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "assignFocusedWindowToScratchpad.2"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "toggleScratchpad.3"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "assignFocusedWindowToScratchpad.3"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "toggleScratchpad.4"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "assignFocusedWindowToScratchpad.4"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "toggleScratchpad.5"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "assignFocusedWindowToScratchpad.5"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "toggleScratchpad.6"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "assignFocusedWindowToScratchpad.6"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "toggleScratchpad.7"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "assignFocusedWindowToScratchpad.7"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "toggleScratchpad.8"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "assignFocusedWindowToScratchpad.8"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "toggleScratchpad.9"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "assignFocusedWindowToScratchpad.9"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "toggleScratchpad.10"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "assignFocusedWindowToScratchpad.10"
+
+[[hotkeys]]
 binding = "Option+1"
 id = "switchWorkspace.0"
 
@@ -326,6 +433,78 @@ id = "switchWorkspace.8"
 [[hotkeys]]
 binding = "Option+Shift+9"
 id = "moveToWorkspace.8"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "switchWorkspaceSlot.1"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "moveToWorkspaceSlot.1"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "switchWorkspaceSlot.2"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "moveToWorkspaceSlot.2"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "switchWorkspaceSlot.3"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "moveToWorkspaceSlot.3"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "switchWorkspaceSlot.4"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "moveToWorkspaceSlot.4"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "switchWorkspaceSlot.5"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "moveToWorkspaceSlot.5"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "switchWorkspaceSlot.6"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "moveToWorkspaceSlot.6"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "switchWorkspaceSlot.7"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "moveToWorkspaceSlot.7"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "switchWorkspaceSlot.8"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "moveToWorkspaceSlot.8"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "switchWorkspaceSlot.9"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "moveToWorkspaceSlot.9"
 
 [[hotkeys]]
 binding = "Unassigned"
@@ -824,12 +1003,8 @@ binding = "Option+F"
 id = "toggleFocusedWindowFloating"
 
 [[hotkeys]]
-binding = "Hyper+E"
-id = "assignFocusedWindowToScratchpad"
-
-[[hotkeys]]
-binding = "Option+Shift+E"
-id = "toggleScratchpadWindow"
+binding = "Unassigned"
+id = "closeFocusedWindow"
 
 [[hotkeys]]
 binding = "Control+Option+M"
@@ -859,24 +1034,6 @@ id = "toggleOverview"
 binding = "Unassigned"
 id = "toggleSystemStats"
 
-[[monitorRoutingOverrides]]
-gridColumn = 2
-gridRow = 0
-monitorDisplayUUID = "37D8832A-2D66-02CA-B9F7-8F30A301B230"
-monitorName = "Built-in Retina Display"
-
-[[monitorRoutingOverrides]]
-gridColumn = 1
-gridRow = 0
-monitorDisplayUUID = "F4E38363-3F58-4740-A8E1-00B1BAFCD829"
-monitorName = "DELL U3225QE"
-
-[[monitorRoutingOverrides]]
-gridColumn = 0
-gridRow = 0
-monitorDisplayUUID = "1EB9F915-6A2A-4E9E-9032-07A9E59EF4BA"
-monitorName = "ARZOPA"
-
 [[workspaces]]
 id = "AD36F001-C57E-41A5-AC1D-DF5249D007F0"
 layoutType = "niri"
@@ -891,7 +1048,11 @@ layoutType = "niri"
 name = "2"
 
 [workspaces.monitorAssignment]
-type = "main"
+type = "specificDisplay"
+
+[workspaces.monitorAssignment.output]
+displayUUID = "1EB9F915-6A2A-4E9E-9032-07A9E59EF4BA"
+name = "ARZOPA"
 
 [[workspaces]]
 displayName = "❤️"
@@ -920,5 +1081,5 @@ name = "8"
 type = "specificDisplay"
 
 [workspaces.monitorAssignment.output]
-displayId = 1
-name = "Built-in Retina Display"
+displayUUID = "1EB9F915-6A2A-4E9E-9032-07A9E59EF4BA"
+name = "ARZOPA"
