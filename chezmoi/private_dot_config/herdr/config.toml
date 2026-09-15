@@ -85,7 +85,7 @@ prefix = "ctrl+o"
 # ~/.config/cmux/cmux.json). Direct chords, no prefix. Whether they arrive at
 # all depends on the host terminal forwarding cmd chords to the TTY — the
 # prefix bindings stay as the reliable path.
-previous_workspace = ["prefix+l", "prefix+ctrl+l", "ctrl+cmd+shift+["] # L
+previous_workspace = ["ctrl+cmd+semicolon", "prefix+l", "prefix+ctrl+l", "ctrl+cmd+shift+["] # ctrl+cmd+; mirrors ctrl+; for next, plus L
 next_workspace = ["ctrl+semicolon", "prefix+semicolon", "prefix+colon", "prefix+shift+semicolon", "prefix+ctrl+semicolon", "ctrl+cmd+shift+]"] # ctrl+; direct, plus prefix ; and : (shift+; varies by terminal)
 # previous_agent = ""     # optional, unset by default
 # next_agent = ""         # optional, unset by default
