@@ -271,7 +271,15 @@ provision_files() {
     ok "node_modules already present"
   else
     log "Installing node packages (pnpm install)..."
-    (cd "$wt" && mise exec -- pnpm install --frozen-lockfile)
+    # Retried once. A first install in a new worktree has been seen to die with
+    # ENOENT on vendor/packages/*.tgz - a tarball that is tracked and really is
+    # there - while pnpm was also verifying the lockfile and fetching from the
+    # network. The immediate retry serves the rest from the store and succeeds,
+    # so one flaky fetch should not cost the whole preview.
+    (cd "$wt" && mise exec -- pnpm install --frozen-lockfile) ||
+      { warn "pnpm install failed - retrying once"
+        (cd "$wt" && mise exec -- pnpm install --frozen-lockfile) ||
+          die "pnpm install failed twice in $wt"; }
     ok "pnpm install complete"
   fi
 
