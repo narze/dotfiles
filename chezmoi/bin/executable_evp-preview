@@ -1,0 +1,636 @@
+#!/usr/bin/env bash
+#
+# evp-preview - boot a local preview of an eventpop branch or pull request.
+#
+# Takes ONE subject - a PR number or a branch name - creates a git worktree of
+# the eventpop checkout for it, provisions the gitignored material the app
+# needs to boot, allocates a free port slot, and starts rails + vite as
+# pitchfork daemons. Prints the URL when the app answers.
+#
+# The preview SHARES the main checkout's development database. It never
+# migrates, seeds or prepares a schema: the point is to skip the slow
+# migrate/seed cycle on every branch. If the branch carries migrations the
+# shared database does not have, evp-preview refuses to boot and says so.
+#
+# Usage:
+#   evp-preview <pr-number|branch> [--with-sidekiq] [--migrate] [--no-wait]
+#   evp-preview down <pr-number|branch> [--force]
+#   evp-preview status
+#   evp-preview logs <pr-number|branch> [rails|vite|sidekiq]
+#
+# Options (up):
+#   --with-sidekiq  Also run sidekiq. OFF by default: the queue is shared with
+#                   the main checkout, so a branch worker would pick up the
+#                   captain's real jobs and run them with branch code.
+#   --migrate       Opt in to running `rake db:migrate` on the SHARED
+#                   development database when the branch has pending
+#                   migrations. Asks for a typed confirmation and refuses in a
+#                   non-interactive shell. Never happens without this flag.
+#   --no-wait       Start the daemons and print the URL without waiting for the
+#                   health check.
+#
+# Options (down):
+#   --force  Discard uncommitted work in the worktree. Previews are checked out
+#            detached, so there is never a branch to delete.
+#
+# Environment:
+#   EVP_PREVIEW_MAIN_TREE      eventpop checkout
+#                              (default ~/Code/github.com/eventpop/eventpop)
+#   EVP_PREVIEW_WORKTREE_ROOT  worktree parent directory
+#                              (default ~/Code/github.com/eventpop/eventpop-worktrees)
+#
+set -euo pipefail
+
+MAIN_TREE="${EVP_PREVIEW_MAIN_TREE:-$HOME/Code/github.com/eventpop/eventpop}"
+WT_ROOT="${EVP_PREVIEW_WORKTREE_ROOT:-$HOME/Code/github.com/eventpop/eventpop-worktrees}"
+
+# The shared development database. evp-preview only ever READS its schema
+# state. The name also doubles as a guard: anything else - a bin/setup slot
+# database, a staging or production database - stops the run.
+SHARED_DEV_DB="stampmein_development"
+
+log()  { printf '\033[1;34m->\033[0m %s\n' "$*"; }
+ok()   { printf '\033[1;32m[ok]\033[0m %s\n' "$*"; }
+warn() { printf '\033[1;33m[warn]\033[0m %s\n' "$*" >&2; }
+die()  { printf '\033[1;31m[fail]\033[0m %s\n' "$*" >&2; exit 1; }
+
+usage() { sed -n '3,40p' "$0" | sed 's/^# \{0,1\}//'; }
+
+# YAML_READER - ruby that leaves a `settings` hash holding what Figaro would
+# put in the environment for development: the file's global keys, then the
+# development section on top. Figaro runs config/application.yml through ERB
+# before YAML and the template calls ActiveSupport predicates, so those two are
+# reproduced here - that way the file parses without booting Rails, and nothing
+# in this path can write. Reads the file named by APP_YML_PATH.
+read -r -d '' YAML_READER <<'RUBY' || true
+module Blankish
+  def blank?; respond_to?(:empty?) ? !!empty? : !self; end
+  def present?; !blank?; end
+end
+Object.include(Blankish)
+cfg = begin
+  YAML.load(ERB.new(File.read(ENV.fetch("APP_YML_PATH"))).result, aliases: true,
+            permitted_classes: [Date, Time, Symbol])
+rescue StandardError
+  nil
+end
+cfg = {} unless cfg.is_a?(Hash)
+globals = cfg.reject { |_, v| v.is_a?(Hash) }
+settings = globals.merge(cfg["development"].is_a?(Hash) ? cfg["development"] : {})
+RUBY
+
+# ---------------------------------------------------------------------------
+# Subject resolution
+# ---------------------------------------------------------------------------
+
+# PR_NUMBER - set when the subject is a pull request number. The worktree is
+# then created from refs/pull/<n>/head rather than from a branch on origin,
+# because that ref exists even when the PR comes from a fork or its branch has
+# already been deleted after a merge.
+PR_NUMBER=""
+
+# resolve_branch <subject> - echo the branch name for a PR number or branch.
+# An all-digits subject is a PR number and gh-axi resolves it to its head ref;
+# anything else is taken as a branch name verbatim. No flag needed either way.
+resolve_branch() {
+  local subject="$1" out ref
+  if [[ ! "$subject" =~ ^[0-9]+$ ]]; then
+    echo "$subject"
+    return 0
+  fi
+
+  out="$(cd "$MAIN_TREE" && gh-axi api "/repos/{owner}/{repo}/pulls/$subject" --jq '.head.ref' 2>&1)" ||
+    die "gh-axi could not read PR #$subject:
+$out"
+  # gh-axi wraps a --jq result in its own report; the value is the `body:` line.
+  ref="$(sed -n 's/^[[:space:]]*body:[[:space:]]*//p' <<<"$out" | head -1 | sed 's/^"//; s/"$//')"
+  [[ -n "$ref" ]] || die "could not find a head branch in gh-axi's reply for PR #$subject:
+$out"
+  echo "$ref"
+}
+
+# worktree_dir <branch> - the worktree path for a branch. Branch names carry
+# slashes (narze/foo) while eventpop-worktrees is flat, so slashes collapse to
+# dashes. The basename doubles as the pitchfork namespace.
+worktree_dir() { echo "$WT_ROOT/${1//\//-}"; }
+
+# ---------------------------------------------------------------------------
+# Port slot allocation
+# ---------------------------------------------------------------------------
+# eventpop's bin/setup already owns a slot scheme for concurrent worktrees, and
+# git itself is its registry: every worktree records its PORT in
+# mise.local.toml. evp-preview reuses that exact scheme, so a preview can never
+# collide with a bin/setup worktree, a bin/pr review slot (3010-3050) or the
+# main checkout (3000) - and two previews can never collide with each other.
+#
+#   rails  3200 + offset*2     capybara  rails + 1     vite  3500 + offset
+#
+# An offset is taken only when no other worktree claims it AND all three of its
+# ports are actually free, so a stale mise.local.toml cannot hand out a busy
+# port.
+
+port_open() { (exec 3<>"/dev/tcp/127.0.0.1/$1") 2>/dev/null; }
+
+allocate_offset() {
+  local self="$1" used="" wt port offset candidate
+  while IFS= read -r wt; do
+    [[ "$wt" == "$self" ]] && continue
+    [[ -f "$wt/mise.local.toml" ]] || continue
+    port="$(sed -n 's/^PORT *= *"\{0,1\}\([0-9]*\)"\{0,1\}.*/\1/p' "$wt/mise.local.toml" | head -1)"
+    [[ -n "$port" ]] || continue
+    offset=$(((port - 3200) / 2))
+    used="$used $offset"
+  done < <(git -C "$MAIN_TREE" worktree list --porcelain | awk '/^worktree /{print $2}')
+
+  for candidate in $(seq 1 100); do
+    printf '%s' "$used" | grep -qw "$candidate" && continue
+    port_open $((3200 + candidate * 2)) && continue
+    port_open $((3201 + candidate * 2)) && continue
+    port_open $((3500 + candidate)) && continue
+    echo "$candidate"
+    return 0
+  done
+  return 1
+}
+
+# ---------------------------------------------------------------------------
+# Provisioning
+# ---------------------------------------------------------------------------
+
+mise_trust() { mise trust --quiet 2>/dev/null || mise trust --quiet 2>/dev/null || mise trust; }
+
+# app_yml_value <key> - what the MAIN checkout's config/application.yml gives a
+# key for development, ignoring the current environment. That file is the
+# definition of "what the shared development environment uses", so it is the
+# right source for the pinned values below.
+app_yml_value() {
+  (cd "$MAIN_TREE" &&
+    APP_YML_PATH="$MAIN_TREE/config/application.yml" APP_YML_KEY="$1" \
+      mise exec -- ruby -ryaml -rerb -rdate -e "$YAML_READER" -e '
+        puts settings[ENV["APP_YML_KEY"]].to_s
+      ')
+}
+
+# provision_slot <worktree> <offset> - write the worktree's mise.local.toml.
+#
+# Two jobs. First the ports, which make the preview its own server. Second, and
+# less obvious: PIN every key eventpop's bin/setup slot scheme varies, back to
+# the value the main checkout uses.
+#
+# The pinning is not cosmetic. pitchfork daemons are spawned by ONE supervisor
+# process shared by every checkout on this machine, and they inherit its
+# environment. That supervisor is long-lived, so if it was first started from a
+# bin/setup slot worktree it carries that slot's RDS_DB_NAME, APP_NAME,
+# TEST_ENV_NUMBER and REDIS_* forever - and a preview started later would
+# silently connect to a slot database instead of the shared one. (Observed:
+# a preview picked up RDS_DB_NAME=stampmein_wt_2 and then raised
+# ActiveRecord::PendingMigrationError for a migration the shared database had
+# already run.) mise's [env] wins over inherited environment, so writing the
+# keys here makes the preview deterministic whatever the supervisor holds.
+#
+# The pinned values come from the main checkout's own config/application.yml,
+# which is the definition of "what the shared development environment uses".
+provision_slot() {
+  local wt="$1" offset="$2" rails_port=$((3200 + $2 * 2)) key value
+  cat >"$wt/mise.local.toml" <<EOF
+# Generated by evp-preview - preview slot $offset for this worktree.
+#
+# The ports make this preview its own server. The rest pins the values that
+# eventpop's bin/setup slot scheme varies, so this preview uses the SHARED
+# development database, cache namespace and redis DBs - and never needs a
+# migrate or seed pass. Pinning is required, not decorative: pitchfork daemons
+# inherit the shared supervisor's environment, which may still carry another
+# worktree's slot values.
+[env]
+PORT = "$rails_port"
+CAPYBARA_SERVER_PORT = "$((rails_port + 1))"
+RAILS_ASSET_HOST = "http://localhost:$rails_port"
+VITE_RUBY_PORT = "$((3500 + offset))"
+
+# Shared development environment, pinned against environment inheritance.
+RDS_DB_NAME = "$SHARED_DEV_DB"
+TEST_ENV_NUMBER = ""
+EOF
+  for key in APP_NAME REDIS_URL REDIS_SESSION_URL; do
+    value="$(app_yml_value "$key")"
+    [[ -n "$value" ]] || continue
+    printf '%s = "%s"\n' "$key" "$value" >>"$wt/mise.local.toml"
+  done
+}
+
+# provision_files <worktree> - the gitignored material the app needs to boot.
+#
+# Copy, install or create fresh - decided per item on cost:
+#
+#   copy      config/application.yml (24K), config/setting.yml, .env, .envrc,
+#             .miserc.toml. All tiny, and a branch may legitimately need to
+#             edit one without writing through to the main checkout.
+#
+#   install   node_modules, with a real `pnpm install --frozen-lockfile`.
+#             A symlink to the main checkout's node_modules looks cheaper and
+#             is what eventpop's bin/setup does, but it does not survive
+#             contact with `vite dev`: pnpm's pre-run dependency check sees a
+#             modules directory that belongs to another project, tries to PURGE
+#             it, and dies with ERR_PNPM_ABORTED_REMOVE_MODULES_DIR_NO_TTY -
+#             which takes the vite daemon down and leaves rails raising
+#             ViteRuby::MissingEntrypointError on every page. With a TTY that
+#             same prompt would offer to delete the main checkout's
+#             node_modules through the link. A real install avoids both, and
+#             pnpm's content-addressable store makes it cost about 15 seconds
+#             and almost no extra disk, because every package is hardlinked.
+#
+#   fresh     tmp/, log/. Per-process runtime state (pids, sockets, caches);
+#             sharing those across checkouts is what makes two servers fight.
+#
+#   nothing   gems. mise gives every worktree the same ruby and therefore the
+#             same gem home, so `bundle check` normally passes with no work.
+provision_files() {
+  local wt="$1" f
+  for f in config/application.yml config/setting.yml .env .envrc .miserc.toml; do
+    if [[ -e "$wt/$f" ]]; then
+      ok "$f already present"
+    elif [[ -f "$MAIN_TREE/$f" ]]; then
+      mkdir -p "$(dirname "$wt/$f")"
+      cp "$MAIN_TREE/$f" "$wt/$f"
+      ok "Copied $f from the main checkout"
+    else
+      warn "$MAIN_TREE/$f does not exist - skipping"
+    fi
+  done
+
+  mkdir -p "$wt/tmp/pids" "$wt/tmp/cache" "$wt/log"
+  ok "Created tmp/ and log/"
+
+  if [[ -L "$wt/node_modules" ]]; then
+    # Left by an earlier bin/setup run. Removing the LINK never touches its
+    # target, and pnpm would otherwise try to purge the main checkout's copy.
+    rm "$wt/node_modules"
+    warn "Replaced a node_modules symlink - pnpm cannot run vite through one"
+  fi
+  if [[ -d "$wt/node_modules" ]]; then
+    ok "node_modules already present"
+  else
+    log "Installing node packages (pnpm install)..."
+    (cd "$wt" && mise exec -- pnpm install --frozen-lockfile)
+    ok "pnpm install complete"
+  fi
+
+  if (cd "$wt" && mise exec -- bundle check >/dev/null 2>&1); then
+    ok "Gems up to date"
+  else
+    log "Installing gems (bundle install)..."
+    (cd "$wt" && mise exec -- bundle install)
+    ok "bundle install complete"
+  fi
+}
+
+# ---------------------------------------------------------------------------
+# Shared-database guard
+# ---------------------------------------------------------------------------
+# Everything here is read-only. The script runs no rake db:* task at all unless
+# --migrate is given and confirmed by hand.
+
+PREVIEW_DB_NAME=""
+PREVIEW_DB_HOST=""
+PREVIEW_DB_PORT=""
+PREVIEW_DB_USER=""
+PREVIEW_DB_PASS=""
+
+# load_db_settings <worktree> - fill the PREVIEW_DB_* globals, then refuse
+# anything that is not the shared development database.
+#
+# Runs inside the worktree under mise, so the keys mise.local.toml pins win -
+# which is exactly what the rails daemon will see. Figaro leaves an existing
+# environment variable alone, so ENV first, config/application.yml second.
+load_db_settings() {
+  local wt="$1" key value
+  while IFS='=' read -r key value; do
+    case "$key" in
+      RDS_HOSTNAME) PREVIEW_DB_HOST="$value" ;;
+      RDS_PORT)     PREVIEW_DB_PORT="$value" ;;
+      RDS_USERNAME) PREVIEW_DB_USER="$value" ;;
+      RDS_PASSWORD) PREVIEW_DB_PASS="$value" ;;
+      RDS_DB_NAME)  PREVIEW_DB_NAME="$value" ;;
+    esac
+  done < <(cd "$wt" && APP_YML_PATH="$wt/config/application.yml" \
+    mise exec -- ruby -ryaml -rerb -rdate -e "$YAML_READER" -e '
+      %w[RDS_HOSTNAME RDS_PORT RDS_USERNAME RDS_PASSWORD RDS_DB_NAME].each do |key|
+        puts "#{key}=#{ENV[key] || settings[key]}"
+      end
+    ')
+
+  # database.yml falls back to stampmein_development when RDS_DB_NAME is unset,
+  # which is exactly the shared database this script is built around.
+  PREVIEW_DB_NAME="${PREVIEW_DB_NAME:-$SHARED_DEV_DB}"
+  PREVIEW_DB_HOST="${PREVIEW_DB_HOST:-127.0.0.1}"
+  PREVIEW_DB_PORT="${PREVIEW_DB_PORT:-5432}"
+  PREVIEW_DB_USER="${PREVIEW_DB_USER:-postgres}"
+
+  [[ "$PREVIEW_DB_NAME" == "$SHARED_DEV_DB" ]] ||
+    die "this preview resolves to database '$PREVIEW_DB_NAME', not the shared '$SHARED_DEV_DB'.
+evp-preview only ever attaches to the shared development database, so it stops here.
+Look for an RDS_DB_NAME override in $wt/mise.local.toml or config/application.yml."
+}
+
+# pending_migrations <worktree> - print the db/migrate versions the shared
+# development database has never applied. One SELECT, no writes.
+pending_migrations() {
+  local wt="$1" applied disk
+  applied="$(PGPASSWORD="$PREVIEW_DB_PASS" psql \
+    -h "$PREVIEW_DB_HOST" -p "$PREVIEW_DB_PORT" -U "$PREVIEW_DB_USER" \
+    -d "$PREVIEW_DB_NAME" -tAc 'SELECT version FROM schema_migrations' 2>&1)" ||
+    die "could not read schema_migrations from '$PREVIEW_DB_NAME':
+$applied
+Is postgres up, and has $MAIN_TREE been through bin/setup?"
+
+  # An unmatched glob prints its own pattern, which carries no version digits
+  # and so drops out at the sed - the same empty result a missing db/migrate
+  # gives.
+  disk="$(cd "$wt" && printf '%s\n' db/migrate/*.rb |
+    sed -n 's|.*/\([0-9][0-9]*\)_.*|\1|p' | sort -u)"
+  [[ -n "$disk" ]] || return 0
+  comm -23 <(printf '%s\n' "$disk") <(printf '%s\n' "$applied" | sed '/^$/d' | sort -u)
+}
+
+# ---------------------------------------------------------------------------
+# Commands
+# ---------------------------------------------------------------------------
+
+# wait_for_health <url> - poll until the app answers 2xx. A 500 carrying
+# PendingMigrationError is reported straight away rather than waited out: that
+# means something put the server on a different database than the guard
+# checked, and no amount of waiting fixes it.
+wait_for_health() {
+  local url="$1" wt="$2" code body
+  for _ in $(seq 1 90); do
+    code="$(curl -s -o /dev/null -w '%{http_code}' --max-time 10 "$url" || echo 000)"
+    case "$code" in
+      2*) return 0 ;;
+      5*)
+        body="$(curl -s --max-time 10 "$url" || true)"
+        if grep -q 'PendingMigrationError' <<<"$body"; then
+          die "the server booted against a database that is missing this branch's migrations,
+even though the guard found none pending on '$PREVIEW_DB_NAME'.
+
+That means something overrode the database for the rails daemon. pitchfork
+daemons inherit the shared supervisor's environment; check it with
+  ps -Ewwo command= -p \"\$(pgrep -f 'pitchfork supervisor run')\" | tr ' ' '\\n' | grep RDS_
+and make sure $wt/mise.local.toml still pins RDS_DB_NAME."
+        fi
+        ;;
+    esac
+    sleep 2
+  done
+  return 1
+}
+
+cmd_up() {
+  local subject="" with_sidekiq=false allow_migrate=false do_wait=true arg
+  for arg in "$@"; do
+    case "$arg" in
+      --with-sidekiq) with_sidekiq=true ;;
+      --migrate)      allow_migrate=true ;;
+      --no-wait)      do_wait=false ;;
+      -h|--help)      usage; exit 0 ;;
+      -*)             die "unknown option: $arg (see --help)" ;;
+      *)              [[ -z "$subject" ]] || die "unexpected argument: $arg"; subject="$arg" ;;
+    esac
+  done
+  [[ -n "$subject" ]] || { usage; exit 1; }
+  [[ -e "$MAIN_TREE/.git" ]] || die "no eventpop checkout at $MAIN_TREE (set EVP_PREVIEW_MAIN_TREE)"
+
+  local branch wt ns
+  # resolve_branch runs in a command substitution, so it cannot set PR_NUMBER
+  # for this shell - decide here instead.
+  [[ "$subject" =~ ^[0-9]+$ ]] && PR_NUMBER="$subject"
+  branch="$(resolve_branch "$subject")"
+  wt="$(worktree_dir "$branch")"
+  ns="$(basename "$wt")"
+  log "Branch: $branch"
+
+  # 1. Worktree. `git worktree add` run from the main checkout never moves its
+  #    own HEAD, so whatever the captain has checked out there stays put.
+  if [[ -d "$wt" ]]; then
+    ok "Worktree already at $wt"
+  else
+    local start_point
+    if [[ -n "$PR_NUMBER" ]]; then
+      # refs/pull/<n>/head is on origin whatever the PR's own branch is doing -
+      # it survives a fork, a rename and a deleted branch after a merge.
+      log "Fetching pull request #$PR_NUMBER ($branch)..."
+      git -C "$MAIN_TREE" fetch --quiet origin \
+        "+refs/pull/$PR_NUMBER/head:refs/remotes/origin/pr/$PR_NUMBER" ||
+        die "origin has no pull request #$PR_NUMBER"
+      start_point="refs/remotes/origin/pr/$PR_NUMBER"
+    else
+      log "Fetching origin/$branch..."
+      git -C "$MAIN_TREE" fetch --quiet origin "+refs/heads/$branch:refs/remotes/origin/$branch" ||
+        die "origin has no branch '$branch'"
+      start_point="refs/remotes/origin/$branch"
+    fi
+    mkdir -p "$WT_ROOT"
+    # Detached on purpose. A preview is for looking at a branch, not for
+    # committing to it, and a named branch can only live in one worktree: the
+    # captain may well already have this branch checked out somewhere, and git
+    # would refuse. Detached also means teardown never has a branch to delete.
+    git -C "$MAIN_TREE" worktree add --quiet --detach "$wt" "$start_point" ||
+      die "could not create a worktree at $wt from $start_point"
+    ok "Created worktree $wt (detached at $branch)"
+  fi
+
+  # 2. Port slot.
+  local offset rails_port vite_port
+  if [[ -f "$wt/mise.local.toml" ]]; then
+    rails_port="$(sed -n 's/^PORT *= *"\{0,1\}\([0-9]*\)"\{0,1\}.*/\1/p' "$wt/mise.local.toml" | head -1)"
+    [[ -n "$rails_port" ]] || die "$wt/mise.local.toml has no PORT - delete it and re-run"
+    offset=$(((rails_port - 3200) / 2))
+    ok "Reusing slot $offset (rails :$rails_port)"
+  else
+    offset="$(allocate_offset "$wt")" ||
+      die "no free preview slot in 1..100 - tear an old preview down first"
+    provision_slot "$wt" "$offset"
+    rails_port=$((3200 + offset * 2))
+    ok "Allocated slot $offset (rails :$rails_port, vite :$((3500 + offset)))"
+  fi
+  vite_port=$((3500 + offset))
+  (cd "$wt" && mise_trust)
+
+  # 3. Gitignored material.
+  provision_files "$wt"
+
+  # 4. Shared-database guard. Nothing past this point writes a schema.
+  log "Comparing db/migrate against the shared $SHARED_DEV_DB..."
+  load_db_settings "$wt"
+  local pending version file
+  pending="$(pending_migrations "$wt")"
+  if [[ -n "$pending" ]]; then
+    echo
+    warn "This branch carries migration(s) that '$PREVIEW_DB_NAME' has never run:"
+    while IFS= read -r version; do
+      [[ -n "$version" ]] || continue
+      # No match leaves the glob pattern itself, which is what we want to show.
+      file="$(cd "$wt" && printf '%s\n' "db/migrate/${version}"_*.rb | head -1)"
+      printf '        %s\n' "$file" >&2
+    done <<<"$pending"
+    echo
+    if ! $allow_migrate; then
+      die "Refusing to migrate. '$PREVIEW_DB_NAME' is your real working database, shared with
+the main checkout and with every other preview.
+
+Rails would raise ActiveRecord::PendingMigrationError on every page load anyway
+(config.active_record.migration_error = :page_load in development).
+
+Options:
+  * preview a branch that adds no migrations;
+  * run the migrations yourself in $MAIN_TREE when you want them everywhere;
+  * re-run with --migrate to apply them to the shared database from here.
+
+Nothing was started and the database was not touched. The worktree is kept so a
+re-run is quick; remove it with  evp-preview down $branch"
+    fi
+    [[ -t 0 ]] || die "--migrate needs an interactive shell for its confirmation"
+    printf "Apply these migrations to the SHARED '%s'?\nThis affects the main checkout and every other preview. Type 'migrate' to confirm: " \
+      "$PREVIEW_DB_NAME"
+    local answer
+    read -r answer
+    [[ "$answer" == "migrate" ]] || die "not confirmed - nothing was migrated"
+    log "Running rake db:migrate on $PREVIEW_DB_NAME..."
+    (cd "$wt" && mise exec -- bundle exec rake db:migrate)
+    ok "Migrated"
+  else
+    ok "No pending migrations - the shared database already matches this branch"
+  fi
+
+  # 5. Daemons. pitchfork namespaces them by directory and reads PORT /
+  #    VITE_RUBY_PORT through mise from the mise.local.toml written above.
+  [[ -f "$wt/pitchfork.toml" ]] ||
+    die "$wt has no pitchfork.toml - this branch predates eventpop's pitchfork setup.
+Start it by hand instead:  cd $wt && mise exec -- bin/dev"
+
+  local daemons=(rails vite)
+  $with_sidekiq && daemons+=(sidekiq)
+  log "Starting ${daemons[*]} in $ns..."
+  # pitchfork.toml gives every daemon a 5s readiness delay; vite regularly
+  # takes longer and is reported as failed while it is in fact still coming up.
+  # The health check below is the real verdict, so a non-zero exit here is a
+  # warning, not the end of the run.
+  (cd "$wt" && pitchfork start "${daemons[@]}") ||
+    warn "pitchfork start reported an error - continuing to the health check"
+
+  local url="http://localhost:$rails_port"
+  if $do_wait; then
+    log "Waiting for $url/health_check?db=1 ..."
+    if wait_for_health "$url/health_check?db=1" "$wt"; then
+      ok "Preview is up"
+    else
+      warn "The app did not answer within 3 minutes. Check: evp-preview logs $branch"
+    fi
+  fi
+
+  cat <<EOF
+
+  Preview   $url
+  Branch    $branch
+  Worktree  $wt
+  Slot      $offset  (rails :$rails_port, vite :$vite_port)
+  Database  $PREVIEW_DB_NAME  (shared with $MAIN_TREE, never migrated by this script)
+
+  Logs      evp-preview logs $branch [rails|vite|sidekiq]
+  Teardown  evp-preview down $branch
+
+EOF
+}
+
+cmd_down() {
+  local subject="" force=false arg
+  for arg in "$@"; do
+    case "$arg" in
+      --force)   force=true ;;
+      -h|--help) usage; exit 0 ;;
+      -*)        die "unknown option: $arg (see --help)" ;;
+      *)         [[ -z "$subject" ]] || die "unexpected argument: $arg"; subject="$arg" ;;
+    esac
+  done
+  [[ -n "$subject" ]] || { usage; exit 1; }
+
+  local branch wt ns
+  branch="$(resolve_branch "$subject")"
+  wt="$(worktree_dir "$branch")"
+  ns="$(basename "$wt")"
+
+  log "Stopping $ns daemons..."
+  pitchfork stop "$ns/rails" "$ns/vite" "$ns/sidekiq" 2>/dev/null ||
+    warn "pitchfork reported an error (the daemons may not have been running)"
+  # `pitchfork stop` returns before the processes are actually gone (SIGTERM,
+  # 10s grace). Removing the directory under a still-live vite leaves it to
+  # recreate .vite/ in the path git just emptied, so wait for a real stop.
+  for _ in $(seq 1 30); do
+    pitchfork list 2>/dev/null | awk -v ns="$ns/" '$1 ~ "^"ns {print $2}' |
+      grep -q '^running$' || break
+    sleep 1
+  done
+  pitchfork clean >/dev/null 2>&1 || true
+
+  if [[ ! -d "$wt" ]]; then
+    ok "No worktree at $wt - nothing else to remove"
+    return 0
+  fi
+
+  # A directory that git no longer knows about is a leftover from an earlier
+  # teardown. Remove it outright rather than asking git about a worktree that
+  # is already deregistered. Scoped to the preview root so this can only ever
+  # delete a directory this script created.
+  if ! git -C "$wt" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    [[ "$wt" == "$WT_ROOT"/?* ]] || die "refusing to remove $wt - it is not under $WT_ROOT"
+    rm -rf "$wt"
+    ok "Removed leftover directory $wt"
+    return 0
+  fi
+
+  # No database is ever dropped, and none can be: the preview's only database
+  # is the shared development one. That is also why this does not delegate to
+  # eventpop's bin/worktree-teardown - that script is built for slot worktrees
+  # and aborts before removing anything once it sees a non-slot RDS_DB_NAME.
+  #
+  # `git worktree remove` needs --force in any case, because the generated
+  # files above are untracked. Real uncommitted work is checked first, so
+  # --force never means "and also throw away your commits-in-progress".
+  local dirty
+  dirty="$(git -C "$wt" status --porcelain)"
+  if [[ -n "$dirty" ]] && ! $force; then
+    echo "$dirty" | head -10 >&2
+    die "worktree has uncommitted changes (above) - re-run with --force to discard"
+  fi
+  git -C "$MAIN_TREE" worktree remove --force "$wt"
+  ok "Removed worktree $wt"
+}
+
+cmd_status() {
+  printf '%-8s %-10s %s\n' PORT RAILS WORKTREE
+  local wt port state
+  while IFS= read -r wt; do
+    [[ -f "$wt/mise.local.toml" ]] || continue
+    grep -q 'Generated by evp-preview' "$wt/mise.local.toml" || continue
+    port="$(sed -n 's/^PORT *= *"\{0,1\}\([0-9]*\)"\{0,1\}.*/\1/p' "$wt/mise.local.toml" | head -1)"
+    state="$(pitchfork status "$(basename "$wt")/rails" 2>/dev/null |
+      sed -n 's/^[[:space:]]*Status:[[:space:]]*//p' | head -1)"
+    printf '%-8s %-10s %s\n' "${port:-?}" "${state:-unknown}" "$wt"
+  done < <(git -C "$MAIN_TREE" worktree list --porcelain | awk '/^worktree /{print $2}')
+}
+
+cmd_logs() {
+  local subject="${1:-}" which="${2:-rails}" branch
+  [[ -n "$subject" ]] || { usage; exit 1; }
+  branch="$(resolve_branch "$subject")"
+  pitchfork logs "$(basename "$(worktree_dir "$branch")")/$which"
+}
+
+# ---------------------------------------------------------------------------
+
+case "${1:-}" in
+  ""|-h|--help) usage; exit 0 ;;
+  down)         shift; cmd_down "$@" ;;
+  status)       shift; cmd_status "$@" ;;
+  logs)         shift; cmd_logs "$@" ;;
+  *)            cmd_up "$@" ;;
+esac

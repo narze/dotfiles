@@ -85,6 +85,8 @@ Attribute prefixes come before `dot_`/`private_` in a fixed order - for files it
 
 `chezmoi/bin/` maps to `~/bin`, which `dot_zshrc` puts on PATH. Personal command-line tools live there.
 
+Keep them plaintext (`bin/executable_<name>`) so they stay lintable and reviewable in diffs; encrypt only a script that cannot work without an embedded secret, and prefer moving that secret into a separate encrypted file the script reads at run time. Scripts here should pass `shellcheck` at its default severity.
+
 ### External Dependencies
 
 `chezmoi/.chezmoiexternal.toml` manages downloaded artifacts (tmux config, zellij WASM plugins, Hammerspoon spoons). These are fetched automatically on `chezmoi apply`.
@@ -99,7 +101,7 @@ Attribute prefixes come before `dot_`/`private_` in a fixed order - for files it
 | `chezmoi/private_dot_config/starship.toml` | Starship prompt (uses `[os]` module for auto OS icon) |
 | `chezmoi/dot_gitconfig.tmpl` | Git config (delta pager, gh credential helper, opencode as git worktree AI) |
 | `chezmoi/dot_zshenv` | Activates mise for Claude Code / Cursor / OpenCode agents |
-| `chezmoi/bin/encrypted_executable_evp-preview.asc` | `evp-preview` - boots an eventpop PR/branch in its own worktree and port slot against the shared dev database |
+| `chezmoi/bin/executable_evp-preview` | `evp-preview` - boots an eventpop PR/branch in its own worktree and port slot against the shared dev database |
 
 ## Shell Setup
 
