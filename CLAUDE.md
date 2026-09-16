@@ -79,6 +79,12 @@ The master dispatcher `run_after_00-run-scripts-by-os.sh.tmpl` routes to `script
 
 Sensitive files (`.asc` suffix) use GPG symmetric encryption. The passphrase is set via `SETPASS=1 chezmoi init`. When installing fresh without a GPG key, pass `-x encrypted` to skip encrypted files.
 
+Attribute prefixes come before `dot_`/`private_` in a fixed order - for files it is `encrypted_`, `private_`, `readonly_`, `empty_`, `executable_`, `dot_` (see [source state attributes](https://www.chezmoi.io/reference/source-state-attributes/)). So an encrypted script on PATH is `bin/encrypted_executable_<name>.asc`, which lands as `~/bin/<name>` mode 755. Edit an encrypted file with `chezmoi edit ~/bin/<name>` (never the `.asc` directly); `chezmoi encrypt`/`chezmoi decrypt` read the same config for one-off conversions.
+
+### User Scripts
+
+`chezmoi/bin/` maps to `~/bin`, which `dot_zshrc` puts on PATH. Personal command-line tools live there.
+
 ### External Dependencies
 
 `chezmoi/.chezmoiexternal.toml` manages downloaded artifacts (tmux config, zellij WASM plugins, Hammerspoon spoons). These are fetched automatically on `chezmoi apply`.
@@ -93,6 +99,7 @@ Sensitive files (`.asc` suffix) use GPG symmetric encryption. The passphrase is 
 | `chezmoi/private_dot_config/starship.toml` | Starship prompt (uses `[os]` module for auto OS icon) |
 | `chezmoi/dot_gitconfig.tmpl` | Git config (delta pager, gh credential helper, opencode as git worktree AI) |
 | `chezmoi/dot_zshenv` | Activates mise for Claude Code / Cursor / OpenCode agents |
+| `chezmoi/bin/encrypted_executable_evp-preview.asc` | `evp-preview` - boots an eventpop PR/branch in its own worktree and port slot against the shared dev database |
 
 ## Shell Setup
 
