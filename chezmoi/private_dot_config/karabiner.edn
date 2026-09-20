@@ -14,6 +14,9 @@
   ; :h-mode {:key :h}
   :q-mode {:key :q}
 }
+ ; The VM window is owned by a bundle-less QEMU binary inside the app, so match its path too
+ :applications {:omarchy [:identifiers "^dev\\.tryomarchy\\.native$"
+                          :paths "^/Applications/Try Omarchy\\.app/"]}
  :devices {:apple-internal [{:vendor_id 1452 :product_id 635}]
            :filco-bt [{:vendor_id 2652 :product_id 34050}]
            :keychron-k12 [{:vendor_id 1452 :product_id 591}]
@@ -65,12 +68,13 @@
 
         ; Swap keys from Colemak Standard to Colemak DH Matrix (i.e. B>G>D>V = T>B>V>G Physically)
         ; Left & Right Shift is optional (#SR) to allow typing capital letters
-        {:des "Colemak Standard -> Colemak DH Matrix (Left Hand)" :rules [[:condi :colemakstd :!superduper-mode] [:#SRt :b] [:#SRb :v] [:#SRv :g] [:#SRg :t]]}
-        {:des "Colemak Standard -> Colemak DH Matrix (Right Hand)" :rules [[:condi :colemakstd :!superduper-mode] [:#SRh :m] [:#SRm :h]]}
+        ; Try Omarchy runs its own layout remapping, so pass keys through untouched there
+        {:des "Colemak Standard -> Colemak DH Matrix (Left Hand)" :rules [[:condi :colemakstd :!superduper-mode :!omarchy] [:#SRt :b] [:#SRb :v] [:#SRv :g] [:#SRg :t]]}
+        {:des "Colemak Standard -> Colemak DH Matrix (Right Hand)" :rules [[:condi :colemakstd :!superduper-mode :!omarchy] [:#SRh :m] [:#SRm :h]]}
 
-        {:des "Physical ⌘+B -> Colemak ⌘+D (Physical G)" :rules [[:condi :colemakstd :!superduper-mode] [:!Cb :!Cg]]}
-        {:des "Physical ⌘+G -> Colemak ⌘+G (Physical T)" :rules [[:condi :colemakstd :!superduper-mode] [:!Cg :!Ct]]}
-        {:des "Physical ⌘+T -> Colemak ⌘+B (Physical B)" :rules [[:condi :colemakstd :!superduper-mode] [:!Ct :!Cb]]}
+        {:des "Physical ⌘+B -> Colemak ⌘+D (Physical G)" :rules [[:condi :colemakstd :!superduper-mode :!omarchy] [:!Cb :!Cg]]}
+        {:des "Physical ⌘+G -> Colemak ⌘+G (Physical T)" :rules [[:condi :colemakstd :!superduper-mode :!omarchy] [:!Cg :!Ct]]}
+        {:des "Physical ⌘+T -> Colemak ⌘+B (Physical B)" :rules [[:condi :colemakstd :!superduper-mode :!omarchy] [:!Ct :!Cb]]}
 
         ; Swap ⌘+V & ⌘+D for Colemak (Not works with apps which auto-paste like Paste.app / WisprFlow)
         {:des "Swap Cmd+V & Cmd+D (Colemak)" :rules [:colemak :colemakdh [:!Cv :!Cb] [:!Cb :!Cv]]}
