@@ -1,7 +1,8 @@
 ;; Kanata configuration for narze (Omarchy / Linux).
 ;;
-;; SuperDuper, ported from ~/.config/karabiner.edn:
+;; Ported from ~/.config/karabiner.edn.
 ;;
+;; SuperDuper:
 ;;   S+D     - enter the SuperDuper modal layer
 ;;   A+S+D   - enter SuperDuper with Alt (Option) held
 ;;   A+S+D+F - enter SuperDuper with Alt+Backspace (delete word) held
@@ -15,8 +16,14 @@
 ;;   C/V/Z     - Copy / Paste / Undo
 ;;   B         - Ctrl+B (tmux prefix)
 ;;
-;; On macOS these shortcuts used Cmd; on Linux we use the equivalent
-;; Ctrl shortcuts so that copy/paste/undo and tab switching still work.
+;; Modifier tap-hold (hold = modifier, tap = symbol):
+;;   LShift -> (   RShift -> )   LAlt -> -   LCmd -> _
+;;   Caps   -> Esc when tapped, Super when held
+;;   RCmd   -> Backspace
+;;
+;; Swaps:
+;;   ; <-> :   (physical P / Shift+P under Colemak-DH)
+;;   ' <-> "   (physical ' / Shift+')
 
 (defcfg
   ;; Required by defchordsv2.
@@ -35,6 +42,25 @@
 ;; first s/d/a/f keystroke typed after an idle pause.
 (defvar chord-timeout 50)
 
+(defalias
+  ;; Modifier keys double as symbol keys when tapped.
+  lshift (tap-hold-press 200 200 S-9 lsft)      ;; tap (   hold Shift
+  rshift (tap-hold-press 200 200 S-0 rsft)      ;; tap )   hold Shift
+  loption (tap-hold-press 200 200 - lalt)       ;; tap -   hold Alt
+  lcommand (tap-hold-press 200 200 S-- lmet)    ;; tap _   hold Super
+  capslock (tap-hold-press 200 200 esc lmet)    ;; tap Esc hold Super
+  rcommand bspc                                 ;; RCmd -> Backspace
+)
+
+(defoverrides
+  ;; ; <-> :  (physical P / Shift+P under Colemak-DH)
+  (p) (lsft p)
+  (lsft p) (p)
+  ;; ' <-> "  (physical ' / Shift+')
+  (') (lsft ')
+  (lsft ') (')
+)
+
 ;; The whole keyboard is listed so that every key goes through the chord
 ;; system. Keys outside defsrc bypass it and would be emitted immediately,
 ;; which reorders them ahead of a still-pending chord key (typing "map" could
@@ -48,11 +74,11 @@
 )
 
 (deflayer base
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _              _              _    _    _
+  _         _    _    _    _    _    _    _    _    _    _    _    _    _
+  _         _    _    _    _    _    _    _    _    _    _    _    _    _
+  @capslock _    _    _    _    _    _    _    _    _    _    _    _
+  @lshift   _    _    _    _    _    _    _    _    _    _    @rshift
+  _         @lcommand @loption _              _         @rcommand _
 )
 
 (deflayermap (superduper)
