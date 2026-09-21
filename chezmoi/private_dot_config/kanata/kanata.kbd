@@ -1,0 +1,110 @@
+;; Kanata configuration for narze (Omarchy / Linux).
+;;
+;; Ported from ~/.config/karabiner.edn.
+;;
+;; SuperDuper:
+;;   S+D     - enter the SuperDuper modal layer
+;;   A+S+D   - enter SuperDuper with Alt (Option) held
+;;   A+S+D+F - enter SuperDuper with Alt+Backspace (delete word) held
+;;
+;; Inside SuperDuper:
+;;   H/J/K/L   - left/down/up/right
+;;   F         - Backspace
+;;   ;         - Forward delete
+;;   I/O       - previous/next tab (Ctrl+PageUp / Ctrl+PageDown)
+;;   A         - Alt (Option)
+;;   C/V/Z     - Copy / Paste / Undo
+;;   B         - Ctrl+B (tmux prefix)
+;;
+;; Modifier tap-hold (hold = modifier, tap = symbol):
+;;   LShift -> (   RShift -> )   LAlt -> -   LCmd -> _
+;;   Caps   -> Esc when tapped, Super when held
+;;   RCmd   -> Backspace
+;;
+;; Swaps:
+;;   ; <-> :   (physical P / Shift+P under Colemak-DH)
+;;   ' <-> "   (physical ' / Shift+')
+
+(defcfg
+  ;; Required by defchordsv2.
+  concurrent-tap-hold yes
+  ;; While typing, chords are skipped for this long after a normal key. Without
+  ;; this, every s/d/a/f keystroke waits out the chord timeout (laggy typing).
+  chords-v2-min-idle 200
+  ;; Keys not listed in defsrc are left untouched.
+  process-unmapped-keys no
+  ;; Layer changes happen on every SuperDuper use; skip the journal noise.
+  log-layer-changes no
+)
+
+;; Window (ms) within which all chord participants must be pressed. A short
+;; value keeps the chord responsive; it is also the worst-case delay of the
+;; first s/d/a/f keystroke typed after an idle pause.
+(defvar chord-timeout 50)
+
+(defalias
+  ;; Modifier keys double as symbol keys when tapped.
+  lshift (tap-hold-press 200 200 S-9 lsft)      ;; tap (   hold Shift
+  rshift (tap-hold-press 200 200 S-0 rsft)      ;; tap )   hold Shift
+  loption (tap-hold-press 200 200 - lalt)       ;; tap -   hold Alt
+  lcommand (tap-hold-press 200 200 S-- lmet)    ;; tap _   hold Super
+  capslock (tap-hold-press 200 200 esc lmet)    ;; tap Esc hold Super
+  rcommand bspc                                 ;; RCmd -> Backspace
+)
+
+(defoverrides
+  ;; ; <-> :  (physical P / Shift+P under Colemak-DH)
+  (p) (lsft p)
+  (lsft p) (p)
+  ;; ' <-> "  (physical ' / Shift+')
+  (') (lsft ')
+  (lsft ') (')
+)
+
+;; The whole keyboard is listed so that every key goes through the chord
+;; system. Keys outside defsrc bypass it and would be emitted immediately,
+;; which reorders them ahead of a still-pending chord key (typing "map" could
+;; come out as "mpa").
+(defsrc
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc            ralt rmet rctl
+)
+
+(deflayer base
+  _         _    _    _    _    _    _    _    _    _    _    _    _    _
+  _         _    _    _    _    _    _    _    _    _    _    _    _    _
+  @capslock _    _    _    _    _    _    _    _    _    _    _    _
+  @lshift   _    _    _    _    _    _    _    _    _    _    @rshift
+  _         @lcommand @loption _              _         @rcommand _
+)
+
+(deflayermap (superduper)
+  h left
+  j down
+  k up
+  l right
+  f bspc
+  scln del
+  i C-pgup
+  o C-pgdn
+  a lalt
+  ;; The keyboard layout is Colemak-DH, so physical V types "d" and physical B
+  ;; types "v", while "b" lives on physical T. To keep the SuperDuper
+  ;; physical-key muscle memory (V=paste, B=tmux) we output the key that
+  ;; produces the right character under Colemak-DH.
+  c C-c
+  v C-b
+  b C-t
+  z C-z
+)
+
+(defchordsv2
+  (s d)     (layer-while-held superduper)                    $chord-timeout first-release ()
+  ;; Chords with a and f only activate outside SuperDuper, otherwise pressing
+  ;; a/f inside the layer would be swallowed waiting for these chords.
+  (a s d)   (multi (layer-while-held superduper) lalt)       $chord-timeout first-release (superduper)
+  (a s d f) (multi (layer-while-held superduper) lalt bspc)  $chord-timeout first-release (superduper)
+)

@@ -93,6 +93,7 @@ macos                          Run macos script
 - Linux
   - Ubuntu: dotfiles + base tools (zsh, mise, eza, zoxide, delta, gh)
   - Debian: dotfiles + a minimal base, selectable per-machine via setup profiles
+  - Arch/Omarchy: dotfiles + base tools via `pacman`/`yay` (zsh, git, zoxide, delta, gh, ghq, zellij, ...)
 
 ### Debian setup profiles
 
@@ -114,6 +115,27 @@ chezmoi/.chezmoiscripts/debian/        # run-once installs
 
 scripts/linux-debian/<profile>/        # optional per-apply scripts
 ```
+
+### Omarchy (Arch)
+
+Detected from `/etc/os-release` (`ID=omarchy`, or `ID=arch`). The first `chezmoi
+apply` installs base packages with `yay`/`pacman` and sets `zsh` as the login
+shell.
+
+Omarchy already owns the desktop and its theme integration, so these paths are
+left untouched and never overwritten:
+
+```
+.config/hypr  .config/omarchy  .config/waybar  .config/swayosd  .config/walker
+.config/alacritty  .config/foot  .config/ghostty  .config/btop  .config/nvim
+```
+
+Per-apply scripts for Omarchy live in `scripts/linux-omarchy/`.
+
+Omarchy's bash shell integration (`/usr/share/omarchy/default/bash/`) is ported
+to zsh in `~/.config/zsh/config/00_omarchy.zsh` (env vars, aliases, herdr/tmux
+dev layouts, ssh helpers, worktree helpers, `omarchy` completion). It loads
+before the personal aliases so those still win on conflicts.
 
 <details>
   <summary><b>Notes</b> (If you have some time to read)</summary>

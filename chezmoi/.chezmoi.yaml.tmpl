@@ -8,6 +8,14 @@
 {{- $passphrase := default "change me with 'SETPASS=1 chezmoi init'" (index . "passphrase") -}}
 {{- $debian_profile := "minimal" -}}
 
+{{- /* Arch-based distros (plain Arch or Omarchy). */}}
+{{- $is_arch := false -}}
+{{- $is_omarchy := false -}}
+{{- if eq .chezmoi.os "linux" -}}
+{{-   $is_arch = or (eq .chezmoi.osRelease.id "arch") (eq .chezmoi.osRelease.id "omarchy") (eq .chezmoi.osRelease.idLike "arch") -}}
+{{-   $is_omarchy = eq .chezmoi.osRelease.id "omarchy" -}}
+{{- end -}}
+
 {{- $is_codespace:= env "CODESPACES" | not | not -}}
 
 {{- if (env "ASK") }}
@@ -47,6 +55,8 @@ data:
   nas_mount_path: {{ $nas_mount_path | quote }}
   passphrase: {{ $passphrase | quote }}
   debian_profile: {{ $debian_profile | quote }}
+  is_arch: {{ $is_arch }}
+  is_omarchy: {{ $is_omarchy }}
 
   flags:
     delta_is_not_installed: {{ $delta_is_not_installed }}
