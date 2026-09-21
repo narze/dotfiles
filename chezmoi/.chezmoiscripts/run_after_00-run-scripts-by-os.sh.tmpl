@@ -9,6 +9,8 @@ SCRIPTS_DIR={{ .chezmoi.workingTree }}/scripts
 {{- else if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "debian") }}
   OS=linux-debian
   PROFILE={{ .debian_profile | quote }}
+{{- else if (default false (index . "is_arch")) }}
+  OS=linux-omarchy
 {{- else }}
   echo "Not supported"
   exit 0

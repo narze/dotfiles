@@ -1,3 +1,4 @@
+{{- $is_omarchy := default false (index . "is_omarchy") -}}
 */README.md
 fishd.*
 .config/fish/config.fish.backup
@@ -5,8 +6,11 @@ fishd.*
 .config/fish/fish_variables
 
 {{ if ne .chezmoi.os "darwin" }}
-.config/karabiner
+.aerospace.toml
+.config/karabiner*
 .config/kitty
+.config/omniwm
+.config/raycast
 .config/sketchybar
 .local/macos
 .duti
@@ -14,8 +18,14 @@ fishd.*
 .mackup
 .mackup.cfg
 .skhdrc
+.skhdrc_yabai
 .yabai*
 obsidian
+{{ end }}
+
+{{/* Windows-only tiling WM config. */}}
+{{ if ne .chezmoi.os "windows" }}
+.config/komorebi
 {{ end }}
 
 {{ if ne .chezmoi.os "linux" }}
@@ -39,6 +49,27 @@ obsidian
 {{-   end -}}
 {{ else }}
 .chezmoiscripts/debian/**
+{{ end }}
+
+{{/* Omarchy manages its own Hyprland/desktop, terminal and LazyVim config,
+     including theme integration. Leave those to Omarchy and manage the rest. */}}
+{{ if $is_omarchy }}
+.config/alacritty
+.config/btop
+.config/foot
+.config/ghostty
+.config/hypr
+.config/nvim
+.config/omarchy
+.config/swayosd
+.config/walker
+.config/waybar
+{{ end }}
+
+{{ if not $is_omarchy }}
+.chezmoiscripts/omarchy/**
+.config/kanata
+.config/zsh/config/00_omarchy.zsh
 {{ end }}
 
 {{ if ne .chezmoi.os "windows" }}

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Overview
 
-Personal dotfiles managed with [chezmoi](https://chezmoi.io). Supports macOS, Debian Linux, Ubuntu, GitHub Codespaces, and Windows.
+Personal dotfiles managed with [chezmoi](https://chezmoi.io). Supports macOS, Debian Linux, Ubuntu, Arch/Omarchy, GitHub Codespaces, and Windows.
 
 **Chezmoi source root:** the `chezmoi/` subdirectory (set in `.chezmoiroot`). All managed dotfiles live there — not the repo root.
 
@@ -48,14 +48,16 @@ make macos      # run macOS preference scripts
 
 Files ending in `.tmpl` are Go templates processed by chezmoi. Template data comes from `.chezmoi.yaml.tmpl`, which defines:
 - `{{ .chezmoi.os }}` — `darwin`, `linux`, `windows`
-- `{{ .chezmoi.osRelease.id }}` — `debian`, `ubuntu` (Linux only)
+- `{{ .chezmoi.osRelease.id }}` — `debian`, `ubuntu`, `omarchy`, `arch` (Linux only)
 - `{{ .debian_profile }}` — active Debian profile
+- `{{ .is_arch }}` — Arch-based distro (Arch or Omarchy)
+- `{{ .is_omarchy }}` — Omarchy specifically
 - `{{ .hostname }}`, `{{ .name }}`, `{{ .email }}`, `{{ .github_user }}`
 - `{{ .flags.delta_is_not_installed }}`, `{{ .flags.gh_is_installed }}`, `{{ .flags.is_codespace }}`
 
 ### OS-Conditional File Ignoring
 
-`.chezmoiignore` uses templates to exclude OS-specific files. macOS-only configs (karabiner, sketchybar, yabai, aerospace, hammerspoon) are ignored on Linux. Linux-only configs are ignored on macOS.
+`.chezmoiignore` uses templates to exclude OS-specific files. macOS-only configs (karabiner, sketchybar, yabai, aerospace, omniwm, raycast, hammerspoon) are ignored on Linux. Linux-only configs are ignored on macOS. On Omarchy, desktop/terminal/editor config that Omarchy owns (hypr, omarchy, waybar, swayosd, walker, alacritty, foot, ghostty, btop, nvim) is ignored so Omarchy theming keeps working.
 
 ### Debian Profile System
 
@@ -73,7 +75,9 @@ Scripts in `chezmoi/.chezmoiscripts/` follow chezmoi's naming convention:
 - `run_once_after_*` — run once, after file application
 - `run_before_*` / `run_after_*` — run every `chezmoi apply`
 
-The master dispatcher `run_after_00-run-scripts-by-os.sh.tmpl` routes to `scripts/darwin/`, `scripts/linux-ubuntu/`, or `scripts/linux-debian/<profile>/` based on OS.
+The master dispatcher `run_after_00-run-scripts-by-os.sh.tmpl` routes to `scripts/darwin/`, `scripts/linux-ubuntu/`, `scripts/linux-debian/<profile>/`, or `scripts/linux-omarchy/` based on OS.
+
+Arch/Omarchy run-once install scripts live in `chezmoi/.chezmoiscripts/omarchy/` and are excluded via `.chezmoiignore` on other systems.
 
 ### Encryption
 
@@ -97,3 +101,5 @@ Sensitive files (`.asc` suffix) use GPG symmetric encryption. The passphrase is 
 ## Shell Setup
 
 Zsh loads plugins via one of three plugin managers (zim, zinit, or zpm) — controlled by which is active in `~/.config/zsh/plugin-managers/`. Config pieces load from `~/.config/zsh/config/` in order: `00_aliases`, `10_options`, `20_functions`.
+
+On Omarchy only, `00_omarchy.zsh` loads first (before `00_aliases`) as a zsh port of Omarchy's bash `envs`/`aliases`/`fns`/`completions`. Personal aliases and functions therefore override any same-named Omarchy ones.
