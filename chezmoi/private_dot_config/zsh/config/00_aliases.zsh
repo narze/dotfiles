@@ -137,6 +137,7 @@ alias mk='minikube'
 alias mr='mise run'
 alias mux='tmuxinator'
 alias nf='fastfetch'
+alias ns='npx sshaman'
 alias o.="open ."
 alias o="open"
 alias please='sudo bash -c "$(fc -l -1 | cut -d " " -f 4-)"'

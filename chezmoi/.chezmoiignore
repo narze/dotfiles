@@ -75,6 +75,7 @@ obsidian
 {{ if ne .chezmoi.os "windows" }}
 Documents
 {{ else }}
+.local/state/herdr/plugins/herdr-sidebar/state.json
 .bash_aliases
 .inputrc
 .oh-my-zsh
