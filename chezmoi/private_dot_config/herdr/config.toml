@@ -233,7 +233,7 @@ agent_panel_sort = "priority"
 # delivery = "off"
 # delay_seconds = 1
 
-delivery = "system"
+delivery = "terminal"
 [ui.toast.herdr]
 # position = "bottom-right"
 
