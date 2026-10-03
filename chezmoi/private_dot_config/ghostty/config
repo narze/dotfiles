@@ -24,3 +24,9 @@ keybind = global:ctrl+grave_accent=toggle_quick_terminal
 keybind = shift+enter=text:\x1b\r
 keybind = cmd+ctrl+r=reset
 keybind = cmd+shift+t=toggle_background_opacity
+
+# Notification
+notify-on-command-finish = always
+notify-on-command-finish-action = no-bell,notify
+notify-on-command-finish-after = 5s
+
