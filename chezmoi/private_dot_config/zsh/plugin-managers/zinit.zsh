@@ -7,6 +7,14 @@ if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
         print -P "%F{160} The clone has failed.%f%b"
 fi
 
+# Byte-compile zinit core when missing or stale (zinit only does this on self-update)
+() {
+  local f
+  for f in $HOME/.local/share/zinit/zinit.git/zinit*.zsh(N); do
+    [[ $f.zwc -nt $f ]] || zcompile -R -- $f.zwc $f
+  done
+}
+
 source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 
 autoload -Uz _zinit

@@ -7,37 +7,40 @@ export USE_ZINIT=1
 
 export SHOW_LOAD_TIME=1
 
+# Use zsh's builtin clock instead of forking perl + bc (~20ms per call)
+zmodload zsh/datetime
+
 function get_ms() {
-  print $(($(perl -MTime::HiRes=time -e 'printf "%.3f\n", time') * 1000)) | bc
+  print -- $(( EPOCHREALTIME * 1000 ))
 }
 
 if [[ -n "$USE_ZIM" ]]; then
-  TIME_START=$(get_ms)
+  TIME_START=$(( EPOCHREALTIME * 1000 ))
   source ~/.config/zsh/plugin-managers/zim.zsh
-  TIME_END=$(get_ms)
+  TIME_END=$(( EPOCHREALTIME * 1000 ))
 
   if [[ -n "$SHOW_LOAD_TIME" ]]; then
-    echo "Time used for zim: $((TIME_END - TIME_START)) ms"
+    echo "Time used for zim: ${$((TIME_END - TIME_START))%.*} ms"
   fi
 fi
 
 if [[ -n "$USE_ZINIT" ]]; then
-  TIME_START=$(get_ms)
+  TIME_START=$(( EPOCHREALTIME * 1000 ))
   source ~/.config/zsh/plugin-managers/zinit.zsh
-  TIME_END=$(get_ms)
+  TIME_END=$(( EPOCHREALTIME * 1000 ))
 
   if [[ -n "$SHOW_LOAD_TIME" ]]; then
-    echo "Time used for zinit: $((TIME_END - TIME_START)) ms"
+    echo "Time used for zinit: ${$((TIME_END - TIME_START))%.*} ms"
   fi
 fi
 
 if [[ -n "$USE_ZPM" ]]; then
-  TIME_START=$(get_ms)
+  TIME_START=$(( EPOCHREALTIME * 1000 ))
   source ~/.config/zsh/plugin-managers/zpm.zsh
-  TIME_END=$(get_ms)
+  TIME_END=$(( EPOCHREALTIME * 1000 ))
 
   if [[ -n "$SHOW_LOAD_TIME" ]]; then
-    echo "Time used for zpm: $((TIME_END - TIME_START)) ms"
+    echo "Time used for zpm: ${$((TIME_END - TIME_START))%.*} ms"
   fi
 fi
 
