@@ -1,5 +1,11 @@
 # narze's agent instructions
 
+## Machine notes (Omarchy / ThinkPad)
+
+- English layout is Colemak-DHM via the xkb variant `us(colemak_dh_ortho)` - NEVER plain `us(colemak_dh)`. The ortho variant keeps Z/X/C on their physical keys and maps V->d, B->v, which is what `~/.config/kanata/kanata.kbd` assumes (M on home row, H on M position, B on T).
+- Thai layout is `th(mnc)` (Manoonchai). Switch between layouts with Left Alt + Right Alt (`grp:alts_toggle`).
+- Verify changes with `xkbcli compile-keymap --layout us --variant <variant>`, then `hyprctl reload` and `hyprctl configerrors`.
+
 ## Rules & Guidelines
 
 - Never use em dash "—" - use plain dash "-" instead
