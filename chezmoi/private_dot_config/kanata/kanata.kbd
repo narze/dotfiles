@@ -24,6 +24,13 @@
 ;; Swaps:
 ;;   ; <-> :   (physical P / Shift+P under Colemak-DH)
 ;;   ' <-> "   (physical ' / Shift+')
+;;
+;; Japanese keys:
+;;   Henkan (変換)               -> Backspace
+;;   Hiragana/Katakana (かな/カナ) -> Backspace
+;;   Muhenkan (無変換)           -> _ (Shift+minus)
+;;   Backslash (beside Enter)    -> Enter
+;;   RO/ろ (beside Right Shift)  -> Right Shift
 
 (defcfg
   ;; Required by defchordsv2.
@@ -69,16 +76,16 @@
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
   caps a    s    d    f    g    h    j    k    l    ;    '    ret
-  lsft z    x    c    v    b    n    m    ,    .    /    rsft
-  lctl lmet lalt           spc            ralt rmet rctl
+  lsft z    x    c    v    b    n    m    ,    .    /    ro   rsft
+  lctl lmet lalt           spc            ralt rmet rctl henkan katakanahiragana muhenkan
 )
 
 (deflayer base
   _         _    _    _    _    _    _    _    _    _    _    _    _    _
-  _         _    _    _    _    _    _    _    _    _    _    _    _    _
+  _         _    _    _    _    _    _    _    _    _    _    _    _    ret
   @capslock _    _    _    _    _    _    _    _    _    _    _    _
-  @lshift   _    _    _    _    _    _    _    _    _    _    @rshift
-  _         @lcommand @loption _              _         @rcommand _
+  @lshift   _    _    _    _    _    _    _    _    _    _    rsft @rshift
+  _         @lcommand @loption _              _         @rcommand _    bspc bspc S--
 )
 
 (deflayermap (superduper)
