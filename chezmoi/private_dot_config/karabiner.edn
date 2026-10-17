@@ -61,6 +61,9 @@
                                                                  [:##left_command :left_option [:filco-bt]]
                                                                  [:##left_option :left_command [:filco-bt] {:alone :!Shyphen}]]}
         {:des "Caps -> Hyper / Esc" :rules [[:##caps_lock :!CTOleft_shift :!remote-omarchy {:alone :escape}]]}
+        ; macOS sends Caps Lock to apps only as a lock toggle, so Moonlight never forwards it.
+        ; Send lazy Cmd instead (only sent with another key): kanata on Omarchy turns it into Super.
+        {:des "Caps -> Super / Esc (Omarchy)" :rules [:remote-omarchy [:##caps_lock {:key :left_command :lazy true} nil {:alone :escape}]]}
         {:des "RCmd -> Delete" :rules [[:##right_command :delete_or_backspace :!remote-omarchy]]}
         {:des "LShift -> Shift / (" :rules [[:##left_shift :right_shift :!remote-omarchy {:held :left_shift :alone :!S9}]]}
         {:des "RShift -> Shift / )" :rules [[:##right_shift :left_shift :!remote-omarchy {:held :right_shift :alone :!S0}]]}
