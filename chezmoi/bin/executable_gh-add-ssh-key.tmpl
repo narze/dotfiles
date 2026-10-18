@@ -1,0 +1,42 @@
+#!/bin/bash
+# Generate this machine's SSH key (if missing) and add it to GitHub via gh.
+# Usage: gh-add-ssh-key [title]   (title defaults to the short hostname)
+set -euo pipefail
+
+KEY="$HOME/.ssh/id_ed25519"
+EMAIL={{ .email | quote }}
+TITLE="${1:-$(hostname -s)}"
+
+if ! command -v gh >/dev/null; then
+  echo "gh is not installed" >&2
+  exit 1
+fi
+
+if [ ! -f "$KEY" ]; then
+  echo "Generating $KEY ($EMAIL)..."
+  mkdir -p "$HOME/.ssh" && chmod 700 "$HOME/.ssh"
+  ssh-keygen -t ed25519 -C "$EMAIL" -f "$KEY" -N ""
+fi
+
+if ! gh auth status >/dev/null 2>&1; then
+  gh auth login -h github.com -p ssh -s admin:public_key
+elif ! gh auth status 2>&1 | grep -q "admin:public_key"; then
+  echo "Requesting admin:public_key scope..."
+  gh auth refresh -h github.com -s admin:public_key
+fi
+
+KEY_BODY="$(cut -d' ' -f2 "$KEY.pub")"
+if gh ssh-key list 2>/dev/null | grep -qF "$KEY_BODY"; then
+  echo "Key already on GitHub, skipping upload."
+else
+  gh ssh-key add "$KEY.pub" --title "$TITLE"
+fi
+
+# ssh -T always exits 1 on GitHub (no shell access), so check its output instead
+SSH_OUT="$(ssh -T -o StrictHostKeyChecking=accept-new git@github.com 2>&1 || true)"
+if grep -q "successfully authenticated" <<<"$SSH_OUT"; then
+  echo "✓ SSH to GitHub works"
+else
+  echo "✗ SSH test failed: $SSH_OUT" >&2
+  exit 1
+fi

@@ -28,6 +28,35 @@
 -- o.bind("SUPER + H", nil, "voxtype record toggle")
 -- o.bind("SUPER + PERIOD", nil, "omarchy-shell shell toggle omarchy.emojis")
 
+-- Universal paste on physical V (code:55) too. Colemak-DH puts "v" on physical B,
+-- but macOS muscle memory (also through Moonlight) pastes with Cmd + physical V.
+-- Same logic as /usr/share/omarchy/default/hypr/bindings/clipboard.lua, whose
+-- helpers are local to that file.
+local function send_shortcut_once(mods, key)
+  hl.dispatch(hl.dsp.send_key_state({ mods = mods, key = key, state = "down" }))
+  hl.timer(function()
+    hl.dispatch(hl.dsp.send_key_state({ mods = mods, key = key, state = "up" }))
+  end, { timeout = 50, type = "oneshot" })
+end
+
+local function active_window_is_terminal()
+  local window = hl.get_active_window()
+  for _, tag in ipairs(window and window.tags or {}) do
+    if tag:gsub("%*$", "") == "terminal" then
+      return true
+    end
+  end
+  return false
+end
+
+o.bind("SUPER + code:55", "Universal paste (physical V)", function()
+  if active_window_is_terminal() then
+    send_shortcut_once("SHIFT", "Insert")
+  else
+    send_shortcut_once("CTRL", "V")
+  end
+end)
+
 -- Lid close keeps the system running (logind HandleLidSwitch=ignore in
 -- /etc/systemd/logind.conf.d/lid-no-suspend.conf), so turn the laptop panel off here.
 -- ~/bin/lid-battery-suspend still suspends on battery below 20%.
