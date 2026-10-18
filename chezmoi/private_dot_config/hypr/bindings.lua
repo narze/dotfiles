@@ -56,3 +56,11 @@ o.bind("SUPER + code:55", "Universal paste (physical V)", function()
     send_shortcut_once("CTRL", "V")
   end
 end)
+
+-- Lid close keeps the system running (logind HandleLidSwitch=ignore in
+-- /etc/systemd/logind.conf.d/lid-no-suspend.conf), so turn the laptop panel off here.
+-- ~/bin/lid-battery-suspend still suspends on battery below 20%.
+hl.unbind("switch:on:Lid Switch")
+o.bind("switch:on:Lid Switch", nil, [[omarchy-system-lid-close; hyprctl dispatch "hl.dsp.dpms({ action = \"disable\", monitor = \"$(omarchy-hyprland-monitor-laptop)\" })"; $HOME/bin/lid-battery-suspend]], { locked = true })
+hl.unbind("switch:off:Lid Switch")
+o.bind("switch:off:Lid Switch", nil, [[hyprctl dispatch "hl.dsp.dpms({ action = \"enable\", monitor = \"$(omarchy-hyprland-monitor-laptop)\" })"; omarchy-hyprland-monitor-clamshell]], { locked = true })

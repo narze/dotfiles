@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# Suspend when the lid is closed, no external power is connected, and the
+# system battery is below the threshold. logind ignores the lid switch on this
+# machine, so this is what stops a closed laptop from draining in a bag.
+# Runs on lid close (Hyprland binding) and every minute (systemd user timer).
+set -u
+
+threshold=${LID_BATTERY_SUSPEND_THRESHOLD:-20}
+lid_glob=${LID_STATE_GLOB:-/proc/acpi/button/lid/*/state}
+supply_dir=${POWER_SUPPLY_DIR:-/sys/class/power_supply}
+suspend_cmd=${LID_BATTERY_SUSPEND_CMD:-systemctl suspend}
+
+read_value() {
+  [[ -r $1 ]] && printf '%s' "$(< "$1")"
+}
+
+lid_closed() {
+  local state
+  for state in $lid_glob; do
+    [[ $(read_value "$state") == *closed* ]] && return 0
+  done
+  return 1
+}
+
+# Any non-battery supply (Mains, USB-C PD, ...) that is online counts.
+on_external_power() {
+  local supply
+  for supply in "$supply_dir"/*; do
+    [[ $(read_value "$supply/type") == Battery ]] && continue
+    [[ $(read_value "$supply/online") == 1 ]] && return 0
+  done
+  return 1
+}
+
+# Low only when every system battery is below the threshold. Device batteries
+# (mice, headsets) report scope=Device and are skipped.
+battery_low() {
+  local supply capacity found=0
+  for supply in "$supply_dir"/*; do
+    [[ $(read_value "$supply/type") == Battery ]] || continue
+    [[ $(read_value "$supply/scope") == Device ]] && continue
+    capacity=$(read_value "$supply/capacity")
+    [[ $capacity =~ ^[0-9]+$ ]] || continue
+    found=1
+    (( capacity < threshold )) || return 1
+  done
+  (( found ))
+}
+
+if lid_closed && ! on_external_power && battery_low; then
+  logger -t lid-battery-suspend "lid closed on battery below ${threshold}%, suspending" 2>/dev/null || true
+  $suspend_cmd
+fi

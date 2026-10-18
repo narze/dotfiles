@@ -1,0 +1,6 @@
+[Unit]
+Description=Suspend when the lid is closed on low battery
+
+[Service]
+Type=oneshot
+ExecStart=%h/bin/lid-battery-suspend

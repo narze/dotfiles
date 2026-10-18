@@ -68,6 +68,8 @@ obsidian
 
 {{ if not $is_omarchy }}
 .chezmoiscripts/omarchy/**
+bin/lid-battery-suspend
+.config/systemd/user/lid-battery-suspend.*
 .config/kanata
 .config/zsh/config/00_omarchy.zsh
 {{ end }}
