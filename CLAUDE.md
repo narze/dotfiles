@@ -57,7 +57,7 @@ Files ending in `.tmpl` are Go templates processed by chezmoi. Template data com
 
 ### OS-Conditional File Ignoring
 
-`.chezmoiignore` uses templates to exclude OS-specific files. macOS-only configs (karabiner, sketchybar, yabai, aerospace, omniwm, raycast, hammerspoon) are ignored on Linux. Linux-only configs are ignored on macOS. On Omarchy, desktop/terminal/editor config that Omarchy owns (hypr, omarchy, waybar, swayosd, walker, alacritty, foot, ghostty, btop, nvim) is ignored so Omarchy theming keeps working.
+`.chezmoiignore` uses templates to exclude OS-specific files. macOS-only configs (karabiner, sketchybar, yabai, aerospace, omniwm, raycast, hammerspoon) are ignored on Linux. Linux-only configs are ignored on macOS. On Omarchy, desktop/terminal/editor config that Omarchy owns (hypr, omarchy, waybar, swayosd, walker, alacritty, foot, ghostty, btop, nvim) is ignored so Omarchy theming keeps working. The exceptions are the user override files `hypr/bindings.lua` and `hypr/input.lua`, which are managed.
 
 ### Debian Profile System
 

@@ -52,13 +52,16 @@ obsidian
 {{ end }}
 
 {{/* Omarchy manages its own Hyprland/desktop, terminal and LazyVim config,
-     including theme integration. Leave those to Omarchy and manage the rest. */}}
+     including theme integration. Leave those to Omarchy and manage the rest.
+     Exception: the user override files Omarchy loads from ~/.config/hypr. */}}
 {{ if $is_omarchy }}
 .config/alacritty
 .config/btop
 .config/foot
 .config/ghostty
-.config/hypr
+.config/hypr/*
+!.config/hypr/bindings.lua
+!.config/hypr/input.lua
 .config/nvim
 .config/omarchy
 .config/swayosd
