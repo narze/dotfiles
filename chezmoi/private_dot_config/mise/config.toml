@@ -7,6 +7,7 @@ pnpm = "latest"
 ruby = "4.0.6"
 bun = "latest"
 pitchfork = "latest"
+pi = "latest"
 
 [settings]
 experimental = true
