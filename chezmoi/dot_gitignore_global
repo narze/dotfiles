@@ -67,3 +67,5 @@ mise.local.toml
 Procfile.edk
 
 .playwright-mcp
+
+**/.claude/.cc-writes/
