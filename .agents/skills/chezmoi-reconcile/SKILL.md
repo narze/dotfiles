@@ -11,6 +11,15 @@ Dotfiles live in the `chezmoi/` source directory (set by `.chezmoiroot`), not th
 
 This skill walks the drift file by file, asks the user which side wins, applies the choice, and verifies a clean result. Never run a blanket `chezmoi apply` before resolving drift: it silently overwrites local edits, which is exactly what the user is trying to decide about.
 
+## Encrypted files: never leak their contents
+
+A file is encrypted when its source path (from `chezmoi source-path`) contains `encrypted_` or ends in `.asc`. `chezmoi diff` shows such files **decrypted**, so their plaintext (host aliases, IPs, usernames, keys, tokens) lands in your context. The repo is public. The plaintext must never leave the machine.
+
+- Do not put any detail from an encrypted file into a commit message, PR title, PR body, branch name, issue, or review comment. This includes "harmless" details such as host aliases, hostnames, or IPs.
+- Use only the destination path and a generic verb: `ssh: update encrypted config`, and in a PR body `- ~/.ssh/config: updated (encrypted, contents not shown)`.
+- When you present the choice to the user in chat, you can show the decrypted diff, because chat stays local. Mark it as encrypted content so it is not copied into anything that is published.
+- Before `git push` or `gh pr create`/`gh pr edit`, check every message for leaks (see "Verify and finish").
+
 ## Workflow
 
 ### 1. Inventory the drift
@@ -77,3 +86,12 @@ git status --short    # repo source files that "keep local" updated
 The `chezmoi: warning: config file template has changed, run chezmoi init to regenerate config file` warning is pre-existing; ignore it unless the user asks about it.
 
 Only "keep local" files change the repo. Commit when the user asks, in small commits, with a plain dash (never an em dash). Report which files went each way, which scripts ran, and the final git status.
+
+Before you push or open a PR, do a leak check. Collect the plaintext lines that the decrypted diff added or removed for each encrypted file. Make sure that no distinctive token from them (alias, hostname, IP, user, key name) appears in the unpushed commit messages, the branch name, or the PR text:
+
+```bash
+git log origin/master..HEAD --format='%s%n%b'   # commit messages to be pushed
+git branch --show-current
+```
+
+If a token appears, reword the message before you push. If it is already pushed, reword it, `git push --force-with-lease`, run `gh pr edit` on the body, and tell the user. The old commit SHA and the PR edit history stay readable on GitHub, so the user must decide if the leaked value needs rotation or a GitHub support request to purge it.
