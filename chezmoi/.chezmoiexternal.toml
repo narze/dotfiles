@@ -62,3 +62,7 @@
     type = "git-repo"
     url = "https://github.com/coderabbitai/git-worktree-runner.git"
     refreshPeriod = "48h"
+[".skillsets"]
+    type = "git-repo"
+    url = "https://github.com/narze/skillsets.git"
+    refreshPeriod = "24h"
