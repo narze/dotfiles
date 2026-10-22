@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Desktop only (see .chezmoiignore): turn the display off when idle, without
+# suspend. Re-runs when hypridle.conf changes, to restart the service.
+# hypridle.conf hash: {{ include "private_dot_config/hypr/hypridle.conf" | sha256sum }}
+set -u
+
+if ! command -v hypridle >/dev/null 2>&1; then
+  if command -v yay >/dev/null 2>&1; then
+    yay -S --needed --noconfirm hypridle
+  else
+    sudo pacman -S --needed --noconfirm hypridle
+  fi
+fi
+
+systemctl --user daemon-reload
+systemctl --user enable hypridle.service
+systemctl --user restart hypridle.service

@@ -69,6 +69,15 @@ obsidian
 .config/waybar
 {{ end }}
 
+{{/* Desktops turn the display off when idle (hypridle), without suspend.
+     Laptops are unchanged. */}}
+{{ if and $is_omarchy .is_desktop }}
+!.config/hypr/hypridle.conf
+{{ else }}
+.config/hypr/hypridle.conf
+.chezmoiscripts/omarchy/*hypridle*
+{{ end }}
+
 {{ if not $is_omarchy }}
 .chezmoiscripts/omarchy/**
 bin/lid-battery-suspend
