@@ -112,3 +112,9 @@ o.bind("SUPER + W", "Universal close (CTRL+W)", function()
   send_shortcut_once("CTRL", "W")
 end)
 o.bind("ALT + W", "Close window", hl.dsp.window.close())
+
+-- hyprshell owns SUPER + TAB (hold Super, tap Tab to switch windows like macOS Cmd+Tab),
+-- so drop Omarchy's next/previous workspace binds on the same keys. Workspaces move
+-- on ALT + L and ALT + SEMICOLON instead.
+hl.unbind("SUPER + TAB")
+hl.unbind("SUPER + SHIFT + TAB")

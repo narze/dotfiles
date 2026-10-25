@@ -83,6 +83,7 @@ obsidian
 bin/lid-battery-suspend
 .config/systemd/user/lid-battery-suspend.*
 .config/kanata
+.config/hyprshell
 .config/zsh/config/00_omarchy.zsh
 {{ end }}
 

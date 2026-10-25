@@ -1,0 +1,10 @@
+version = 4
+
+# macOS Cmd+Tab style switcher: hold Super, press Tab to cycle recent windows.
+# Super sits next to Space after the kanata Win/Alt swap, like Cmd on macOS.
+[windows]
+scale = 8.5
+items_per_row = 5
+
+[windows.switch]
+modifier = "super"
