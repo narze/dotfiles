@@ -20,5 +20,9 @@
   "disableClaudeAiConnectors": false,
   "disableWorkflows": true,
   "disableBundledSkills": true,
-  "disableArtifact": false
+  "disableArtifact": false,
+  "statusLine": {
+    "type": "command",
+    "command": "npx ccstatusline@latest"
+  }
 }
