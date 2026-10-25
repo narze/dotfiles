@@ -57,8 +57,9 @@ check semicolon "Next workspace"
 check u "Focus on left monitor"
 check y "Focus on right monitor"
 
-# SUPER+W: browsers close a tab (so the window closes with the last tab), others close the window
-check w "Close tab, or window when not a browser" 64 SUPER
+# SUPER+W sends CTRL+W to every app (Cmd+W on macOS), ALT+W closes the window (yabai: alt+w)
+check w "Universal close (CTRL+W)" 64 SUPER
+check w "Close window"
 
 # Omarchy defaults for 9 and 0 stay
 for n in 9 10; do

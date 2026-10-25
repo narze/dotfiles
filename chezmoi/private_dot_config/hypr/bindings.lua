@@ -103,24 +103,12 @@ o.bind("ALT + SEMICOLON", "Next workspace", hl.dsp.focus({ workspace = "e+1" }))
 o.bind("ALT + U", "Focus on left monitor", hl.dsp.focus({ monitor = "l" }))
 o.bind("ALT + Y", "Focus on right monitor", hl.dsp.focus({ monitor = "r" }))
 
--- SUPER + W closes a browser tab, so the window only closes with its last tab.
--- Other windows close as before. Omarchy tags browsers (see default/hypr/apps/browser.lua).
-local function active_window_is_browser()
-  local window = hl.get_active_window()
-  for _, tag in ipairs(window and window.tags or {}) do
-    tag = tag:gsub("%*$", "")
-    if tag == "chromium-based-browser" or tag == "firefox-based-browser" then
-      return true
-    end
-  end
-  return false
-end
-
+-- SUPER + W sends CTRL + W to every app, like Cmd + W on macOS: it closes a tab or
+-- document, and a browser window only closes with its last tab. This includes
+-- terminals, where CTRL + W goes to the shell. ALT + W closes the window itself
+-- (yabai: alt+w).
 hl.unbind("SUPER + W")
-o.bind("SUPER + W", "Close tab, or window when not a browser", function()
-  if active_window_is_browser() then
-    send_shortcut_once("CTRL", "W")
-  else
-    hl.dispatch(hl.dsp.window.close())
-  end
+o.bind("SUPER + W", "Universal close (CTRL+W)", function()
+  send_shortcut_once("CTRL", "W")
 end)
+o.bind("ALT + W", "Close window", hl.dsp.window.close())
