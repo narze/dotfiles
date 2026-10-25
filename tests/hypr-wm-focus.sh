@@ -71,6 +71,10 @@ check y "Focus on right monitor"
 check w "Universal close (CTRL+W)" 64 SUPER
 check w "Close window"
 
+# CTRL+SPACE opens the launcher like SUPER+SPACE (CTRL=4)
+check space "Omarchy menu" 4 CTRL
+check space "Omarchy menu" 64 SUPER
+
 # Omarchy defaults for 9 and 0 stay
 for n in 9 10; do
   if by_desc 64 "Switch to workspace $n"; then echo "ok   - SUPER+$n kept"; else echo "FAIL - SUPER+$n kept"; fail=1; fi

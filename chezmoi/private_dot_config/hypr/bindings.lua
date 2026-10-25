@@ -129,3 +129,6 @@ o.bind("ALT + code:33", "Move window to next workspace", hl.dsp.window.move({ wo
 -- Move the window to the monitor on the left/right and follow it (yabai: alt+shift+u/y).
 o.bind("ALT + SHIFT + U", "Move window to left monitor", hl.dsp.window.move({ monitor = "l" }))
 o.bind("ALT + SHIFT + Y", "Move window to right monitor", hl.dsp.window.move({ monitor = "r" }))
+
+-- CTRL + SPACE opens the launcher too (Spotlight-style), same as Omarchy's SUPER + SPACE.
+o.bind("CTRL + SPACE", "Omarchy menu", "omarchy-menu toggle")
