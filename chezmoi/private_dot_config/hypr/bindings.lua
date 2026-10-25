@@ -120,3 +120,12 @@ o.bind("ALT + W", "Close window", hl.dsp.window.close())
 -- on ALT + L and ALT + SEMICOLON instead.
 hl.unbind("SUPER + TAB")
 hl.unbind("SUPER + SHIFT + TAB")
+
+-- Send the window to the previous/next workspace and stay (yabai: alt+shift+l and
+-- alt+shift+0x23). Kanata turns Shift + P into plain P, so "next" is ALT + code:33.
+o.bind("ALT + SHIFT + L", "Move window to previous workspace", hl.dsp.window.move({ workspace = "e-1", follow = false }))
+o.bind("ALT + code:33", "Move window to next workspace", hl.dsp.window.move({ workspace = "e+1", follow = false }))
+
+-- Move the window to the monitor on the left/right and follow it (yabai: alt+shift+u/y).
+o.bind("ALT + SHIFT + U", "Move window to left monitor", hl.dsp.window.move({ monitor = "l" }))
+o.bind("ALT + SHIFT + Y", "Move window to right monitor", hl.dsp.window.move({ monitor = "r" }))

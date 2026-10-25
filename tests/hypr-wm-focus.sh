@@ -54,6 +54,15 @@ check l "Previous workspace"
 # Plain physical P reaches Hyprland as ALT+SHIFT+code:33 because kanata's ; <-> : override adds Shift
 if by_desc $ALT_SHIFT "Next workspace"; then echo "ok   - ALT+(physical P) -> Next workspace"; else echo "FAIL - ALT+(physical P) -> Next workspace"; fail=1; fi
 
+# Move window to previous/next workspace and stay (yabai: alt+shift+l, alt+shift+0x23).
+# Real Shift+P is turned into plain P by kanata, so "next" arrives as ALT+code:33 without Shift.
+check l "Move window to previous workspace" $ALT_SHIFT ALT+SHIFT
+if by_desc $ALT "Move window to next workspace"; then echo "ok   - ALT+SHIFT+(physical P) -> Move window to next workspace"; else echo "FAIL - ALT+SHIFT+(physical P) -> Move window to next workspace"; fail=1; fi
+
+# Move window to the monitor on the left/right and follow it (yabai: alt+shift+u/y)
+check u "Move window to left monitor" $ALT_SHIFT ALT+SHIFT
+check y "Move window to right monitor" $ALT_SHIFT ALT+SHIFT
+
 # Focus monitor (yabai: alt+u west, alt+y east)
 check u "Focus on left monitor"
 check y "Focus on right monitor"
