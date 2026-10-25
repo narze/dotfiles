@@ -98,3 +98,7 @@ end
 -- Previous/next workspace (yabai: alt+l and alt+0x23, which is ; on Colemak-DH).
 o.bind("ALT + L", "Previous workspace", hl.dsp.focus({ workspace = "e-1" }))
 o.bind("ALT + SEMICOLON", "Next workspace", hl.dsp.focus({ workspace = "e+1" }))
+
+-- Focus the monitor to the left/right (yabai: alt+u west, alt+y east).
+o.bind("ALT + U", "Focus on left monitor", hl.dsp.focus({ monitor = "l" }))
+o.bind("ALT + Y", "Focus on right monitor", hl.dsp.focus({ monitor = "r" }))

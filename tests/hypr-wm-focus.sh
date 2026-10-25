@@ -53,6 +53,10 @@ done
 check l "Previous workspace"
 check semicolon "Next workspace"
 
+# Focus monitor (yabai: alt+u west, alt+y east)
+check u "Focus on left monitor"
+check y "Focus on right monitor"
+
 # Omarchy defaults for 9 and 0 stay
 for n in 9 10; do
   if by_desc 64 "Switch to workspace $n"; then echo "ok   - SUPER+$n kept"; else echo "FAIL - SUPER+$n kept"; fail=1; fi
