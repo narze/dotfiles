@@ -1,0 +1,24 @@
+{
+  "theme": "dark",
+  "tui": "fullscreen",
+  "permissions": {
+    "deny": [
+      "NotebookEdit",
+      "DesignSync",
+      "CronCreate",
+      "CronDelete",
+      "CronList",
+      "EnterPlanMode",
+      "ExitPlanMode",
+      "ReportFindings",
+      "ScheduleWakeup",
+      "AskUserQuestion",
+      "PushNotification",
+      "RemoteTrigger"
+    ]
+  },
+  "disableClaudeAiConnectors": false,
+  "disableWorkflows": true,
+  "disableBundledSkills": true,
+  "disableArtifact": false
+}
