@@ -9,7 +9,8 @@ t() { local d=$1; shift; if "$@" >/dev/null 2>&1; then ok "$d"; else bad "$d"; f
 
 t "hyprshell installed" command -v hyprshell
 t "config is valid" hyprshell config check
-t "switch mode uses the super modifier" bash -c 'hyprshell config explain 2>&1 | sed 's/\x1b\[[0-9;]*m//g' | grep -q "Press Super + tab"'
+explain() { hyprshell config explain 2>&1 | sed $'s/\x1b\\[[0-9;]*m//g'; }
+t "switch mode uses the super modifier" bash -c "$(declare -f explain); explain | grep -q 'Press Super + tab'"
 t "daemon is enabled" systemctl --user is-enabled hyprshell
 t "daemon is running" systemctl --user is-active hyprshell
 
