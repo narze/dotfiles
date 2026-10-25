@@ -64,3 +64,12 @@ hl.unbind("switch:on:Lid Switch")
 o.bind("switch:on:Lid Switch", nil, [[omarchy-system-lid-close; hyprctl dispatch "hl.dsp.dpms({ action = \"disable\", monitor = \"$(omarchy-hyprland-monitor-laptop)\" })"; $HOME/bin/lid-battery-suspend]], { locked = true })
 hl.unbind("switch:off:Lid Switch")
 o.bind("switch:off:Lid Switch", nil, [[hyprctl dispatch "hl.dsp.dpms({ action = \"enable\", monitor = \"$(omarchy-hyprland-monitor-laptop)\" })"; omarchy-hyprland-monitor-clamshell]], { locked = true })
+
+-- macOS OmniWM/yabai-style WM keys. ALT is the Mac Option position because kanata
+-- swaps the physical Win and Alt keys. Focus uses the Colemak-DH home row
+-- (m/n/e/i = left/down/up/right), the same letters as yabai's skhdrc.
+-- Super + arrows (Omarchy default) stay as a fallback.
+o.bind("ALT + M", "Focus on left window", hl.dsp.focus({ direction = "l" }))
+o.bind("ALT + N", "Focus on below window", hl.dsp.focus({ direction = "d" }))
+o.bind("ALT + E", "Focus on above window", hl.dsp.focus({ direction = "u" }))
+o.bind("ALT + I", "Focus on right window", hl.dsp.focus({ direction = "r" }))
