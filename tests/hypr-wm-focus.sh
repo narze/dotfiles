@@ -49,9 +49,10 @@ for n in 1 2 3 4 5 6 7 8; do
   if by_desc 64 "Switch to workspace $n"; then echo "FAIL - SUPER+$n still bound"; fail=1; else echo "ok   - SUPER+$n unbound"; fi
 done
 
-# Previous/next workspace (yabai: alt+l, alt+0x23 which is ; on Colemak-DH)
+# Previous/next workspace (yabai: alt+l, alt+0x23, the physical P key, ; on Colemak-DH)
 check l "Previous workspace"
-check semicolon "Next workspace"
+# Plain physical P reaches Hyprland as ALT+SHIFT+code:33 because kanata's ; <-> : override adds Shift
+if by_desc $ALT_SHIFT "Next workspace"; then echo "ok   - ALT+(physical P) -> Next workspace"; else echo "FAIL - ALT+(physical P) -> Next workspace"; fail=1; fi
 
 # Focus monitor (yabai: alt+u west, alt+y east)
 check u "Focus on left monitor"

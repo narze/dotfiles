@@ -95,9 +95,11 @@ for workspace = 1, 8 do
   o.bind("ALT + " .. key, "Switch to workspace " .. workspace, hl.dsp.focus({ workspace = tostring(workspace) }))
 end
 
--- Previous/next workspace (yabai: alt+l and alt+0x23, which is ; on Colemak-DH).
+-- Previous/next workspace (yabai: alt+l and alt+0x23, the physical P key).
 o.bind("ALT + L", "Previous workspace", hl.dsp.focus({ workspace = "e-1" }))
-o.bind("ALT + SEMICOLON", "Next workspace", hl.dsp.focus({ workspace = "e+1" }))
+-- Kanata swaps ; and : on that key and adds Shift, so plain Alt + P arrives as
+-- ALT + SHIFT + colon. Bind the keycode (33) so the keysym does not matter.
+o.bind("ALT + SHIFT + code:33", "Next workspace", hl.dsp.focus({ workspace = "e+1" }))
 
 -- Focus the monitor to the left/right (yabai: alt+u west, alt+y east).
 o.bind("ALT + U", "Focus on left monitor", hl.dsp.focus({ monitor = "l" }))
