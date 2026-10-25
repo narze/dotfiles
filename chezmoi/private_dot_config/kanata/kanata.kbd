@@ -64,10 +64,6 @@
   ;; ; <-> :  (physical P / Shift+P under Colemak-DH)
   (p) (lsft p)
   (lsft p) (p)
-  ;; Overrides do not fire with extra modifiers held, so repeat the P swap for Alt
-  ;; (Hyprland binds like ALT + SEMICOLON need it).
-  (lalt p) (lalt lsft p)
-  (lalt lsft p) (lalt p)
   ;; ' <-> "  (physical ' / Shift+')
   (') (lsft ')
   (lsft ') (')
