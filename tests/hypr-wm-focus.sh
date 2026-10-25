@@ -16,6 +16,12 @@ bound_to() { # key, expected description, modmask
     'any(.[]; (.key|ascii_downcase)==$k and .modmask==$m and .description==$d)' >/dev/null
 }
 
+# Digit binds use physical keycodes (code:N), which hyprctl reports with an empty key,
+# so they are matched by modmask and description only.
+by_desc() { # modmask, description
+  hyprctl binds -j | jq -e --arg d "$2" --argjson m "$1" 'any(.[]; .modmask==$m and .description==$d)' >/dev/null
+}
+
 check() { # key, description, [modmask, label]
   local label=${4:-ALT}
   if bound_to "$1" "$2" "${3:-$ALT}"; then echo "ok   - $label+$1 -> $2"; else echo "FAIL - $label+$1 -> $2"; fail=1; fi
@@ -34,7 +40,22 @@ check i "Swap window to the right" $ALT_SHIFT ALT+SHIFT
 
 # Send window to workspace, stay on current one (yabai: shift+alt+1..8)
 for n in 1 2 3 4 5 6 7 8; do
-  check "$n" "Move window to workspace $n" $ALT_SHIFT ALT+SHIFT
+  if by_desc $ALT_SHIFT "Move window to workspace $n"; then echo "ok   - ALT+SHIFT+$n -> Move window to workspace $n"; else echo "FAIL - ALT+SHIFT+$n -> Move window to workspace $n"; fail=1; fi
+done
+
+# Switch workspace on ALT+1..8 instead of SUPER+1..8 (yabai: alt+1..8)
+for n in 1 2 3 4 5 6 7 8; do
+  if by_desc $ALT "Switch to workspace $n"; then echo "ok   - ALT+$n -> Switch to workspace $n"; else echo "FAIL - ALT+$n -> Switch to workspace $n"; fail=1; fi
+  if by_desc 64 "Switch to workspace $n"; then echo "FAIL - SUPER+$n still bound"; fail=1; else echo "ok   - SUPER+$n unbound"; fi
+done
+
+# Previous/next workspace (yabai: alt+l, alt+0x23 which is ; on Colemak-DH)
+check l "Previous workspace"
+check semicolon "Next workspace"
+
+# Omarchy defaults for 9 and 0 stay
+for n in 9 10; do
+  if by_desc 64 "Switch to workspace $n"; then echo "ok   - SUPER+$n kept"; else echo "FAIL - SUPER+$n kept"; fail=1; fi
 done
 
 # Arrow fallback (Omarchy default) must stay

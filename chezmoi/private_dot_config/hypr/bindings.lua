@@ -82,6 +82,19 @@ o.bind("ALT + SHIFT + I", "Swap window to the right", hl.dsp.window.swap({ direc
 
 -- Send the window to a workspace and stay on the current one (yabai: shift+alt+1..8).
 for workspace = 1, 8 do
-  o.bind("ALT + SHIFT + " .. workspace, "Move window to workspace " .. workspace,
+  o.bind("ALT + SHIFT + code:" .. (workspace + 9), "Move window to workspace " .. workspace,
     hl.dsp.window.move({ workspace = tostring(workspace), follow = false }))
 end
+
+-- Switch workspace on ALT + 1..8 (yabai: alt+1..8) instead of Omarchy's SUPER + 1..8.
+-- SUPER + 9 and SUPER + 0 stay as the Omarchy defaults. Omarchy binds the digit row
+-- by physical keycode (code:10 is "1"), so unbind and bind the same way.
+for workspace = 1, 8 do
+  local key = "code:" .. (workspace + 9)
+  hl.unbind("SUPER + " .. key)
+  o.bind("ALT + " .. key, "Switch to workspace " .. workspace, hl.dsp.focus({ workspace = tostring(workspace) }))
+end
+
+-- Previous/next workspace (yabai: alt+l and alt+0x23, which is ; on Colemak-DH).
+o.bind("ALT + L", "Previous workspace", hl.dsp.focus({ workspace = "e-1" }))
+o.bind("ALT + SEMICOLON", "Next workspace", hl.dsp.focus({ workspace = "e+1" }))
