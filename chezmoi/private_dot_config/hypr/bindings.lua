@@ -73,3 +73,15 @@ o.bind("ALT + M", "Focus on left window", hl.dsp.focus({ direction = "l" }))
 o.bind("ALT + N", "Focus on below window", hl.dsp.focus({ direction = "d" }))
 o.bind("ALT + E", "Focus on above window", hl.dsp.focus({ direction = "u" }))
 o.bind("ALT + I", "Focus on right window", hl.dsp.focus({ direction = "r" }))
+
+-- Swap windows in place (yabai: alt+shift+m/n/e/i).
+o.bind("ALT + SHIFT + M", "Swap window to the left", hl.dsp.window.swap({ direction = "l" }))
+o.bind("ALT + SHIFT + N", "Swap window down", hl.dsp.window.swap({ direction = "d" }))
+o.bind("ALT + SHIFT + E", "Swap window up", hl.dsp.window.swap({ direction = "u" }))
+o.bind("ALT + SHIFT + I", "Swap window to the right", hl.dsp.window.swap({ direction = "r" }))
+
+-- Send the window to a workspace and stay on the current one (yabai: shift+alt+1..8).
+for workspace = 1, 8 do
+  o.bind("ALT + SHIFT + " .. workspace, "Move window to workspace " .. workspace,
+    hl.dsp.window.move({ workspace = tostring(workspace), follow = false }))
+end
