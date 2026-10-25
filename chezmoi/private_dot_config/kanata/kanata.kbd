@@ -18,6 +18,7 @@
 ;;
 ;; Modifier tap-hold (hold = modifier, tap = symbol):
 ;;   LShift -> (   RShift -> )   LAlt -> -   LCmd -> _
+;;   (Physical Win and Alt keys are swapped: Win position = Alt, Alt position = Super)
 ;;   Caps   -> Esc when tapped, Super when held
 ;;   RCmd   -> Backspace
 ;;
@@ -85,7 +86,7 @@
   _         _    _    _    _    _    _    _    _    _    _    _    _    ret
   @capslock _    _    _    _    _    _    _    _    _    _    _    _
   @lshift   _    _    _    _    _    _    _    _    _    _    rsft @rshift
-  _         @lcommand @loption _              _         @rcommand _    bspc bspc S--
+  _         @loption @lcommand _              _         @rcommand _    bspc bspc S--
 )
 
 (deflayermap (superduper)
