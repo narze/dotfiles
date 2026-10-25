@@ -135,3 +135,32 @@ o.bind("ALT + SHIFT + Y", "Move window to right monitor", hl.dsp.window.move({ m
 o.bind("CTRL + SPACE", "Omarchy menu", "omarchy-menu toggle")
 hl.unbind("SUPER + SPACE")
 o.bind("SUPER + SPACE", "Toggle keyboard layout", "hyprctl switchxkblayout all next")
+
+-- Window state keys moved from SUPER to ALT, like yabai/OmniWM. The old Omarchy SUPER
+-- binds are removed. Same actions as default/hypr/bindings/tiling.lua. The "a little"
+-- and "a lot" resize variants stay on SUPER.
+hl.unbind("SUPER + F")
+hl.unbind("SUPER + CTRL + F")
+hl.unbind("SUPER + T")
+hl.unbind("SUPER + J")
+hl.unbind("SUPER + L")
+hl.unbind("SUPER + S")
+hl.unbind("SUPER + ALT + S")
+hl.unbind("SUPER + code:20")
+hl.unbind("SUPER + code:21")
+hl.unbind("SUPER + SHIFT + code:20")
+hl.unbind("SUPER + SHIFT + code:21")
+
+o.bind("ALT + F", "Full screen", hl.dsp.window.fullscreen({ mode = "fullscreen" }))
+o.bind("ALT + Z", "Tiled full screen", "omarchy-hyprland-window-tiled-fullscreen-toggle")
+o.bind("ALT + T", "Toggle window floating/tiling", hl.dsp.window.float({ action = "toggle" }))
+o.bind("ALT + C", "Toggle window split", hl.dsp.layout("togglesplit"))
+o.bind("ALT + R", "Toggle workspace layout", "omarchy-hyprland-workspace-layout-toggle")
+o.bind("ALT + S", "Toggle scratchpad", hl.dsp.workspace.toggle_special("scratchpad"))
+o.bind("ALT + SHIFT + S", "Move window to scratchpad", hl.dsp.window.move({ workspace = "special:scratchpad", follow = false }))
+
+-- Resize with ALT + minus/equal (code:20 and code:21), Shift for the vertical edge.
+o.bind("ALT + code:20", "Expand window left", hl.dsp.window.resize({ x = -100, y = 0, relative = true }))
+o.bind("ALT + code:21", "Shrink window left", hl.dsp.window.resize({ x = 100, y = 0, relative = true }))
+o.bind("ALT + SHIFT + code:20", "Shrink window up", hl.dsp.window.resize({ x = 0, y = -100, relative = true }))
+o.bind("ALT + SHIFT + code:21", "Expand window down", hl.dsp.window.resize({ x = 0, y = 100, relative = true }))

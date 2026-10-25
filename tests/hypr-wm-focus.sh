@@ -75,6 +75,25 @@ check w "Close window"
 check space "Omarchy menu" 4 CTRL
 check space "Toggle keyboard layout" 64 SUPER
 
+# Window state keys moved from SUPER to ALT (yabai/OmniWM). Format: new modmask, old modmask, description.
+# modmask: SHIFT=1 CTRL=4 ALT=8 SUPER=64
+moved() {
+  local new=$1 old=$2 desc=$3
+  if by_desc "$new" "$desc"; then echo "ok   - ALT bind: $desc"; else echo "FAIL - ALT bind: $desc"; fail=1; fi
+  if by_desc "$old" "$desc"; then echo "FAIL - old SUPER bind still there: $desc"; fail=1; else echo "ok   - old SUPER bind removed: $desc"; fi
+}
+moved 8 64 "Full screen"                       # alt+f
+moved 8 68 "Tiled full screen"                 # alt+z (was SUPER+CTRL+F, so the old mask is 68)
+moved 8 64 "Toggle window floating/tiling"     # alt+t
+moved 8 64 "Toggle window split"               # alt+c
+moved 8 64 "Toggle workspace layout"           # alt+r
+moved 8 64 "Toggle scratchpad"                 # alt+s
+moved 9 72 "Move window to scratchpad"         # alt+shift+s
+moved 8 64 "Expand window left"                # alt+-
+moved 8 64 "Shrink window left"                # alt+=
+moved 9 65 "Shrink window up"                  # alt+shift+-
+moved 9 65 "Expand window down"                # alt+shift+=
+
 # Omarchy defaults for 9 and 0 stay
 for n in 9 10; do
   if by_desc 64 "Switch to workspace $n"; then echo "ok   - SUPER+$n kept"; else echo "FAIL - SUPER+$n kept"; fail=1; fi
