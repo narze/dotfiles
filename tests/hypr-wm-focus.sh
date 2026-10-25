@@ -71,9 +71,9 @@ check y "Focus on right monitor"
 check w "Universal close (CTRL+W)" 64 SUPER
 check w "Close window"
 
-# CTRL+SPACE opens the launcher like SUPER+SPACE (CTRL=4)
+# CTRL+SPACE opens the launcher, SUPER+SPACE toggles the keyboard layout (CTRL=4)
 check space "Omarchy menu" 4 CTRL
-check space "Omarchy menu" 64 SUPER
+check space "Toggle keyboard layout" 64 SUPER
 
 # Omarchy defaults for 9 and 0 stay
 for n in 9 10; do
