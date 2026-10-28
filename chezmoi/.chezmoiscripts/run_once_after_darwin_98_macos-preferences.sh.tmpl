@@ -196,8 +196,8 @@ sudo systemsetup -settimezone "Asia/Bangkok" >/dev/null
 # # Sleep the display after 15 minutes
 # sudo pmset -a displaysleep 15
 
-# # Disable machine sleep while charging
-# sudo pmset -c sleep 0
+# Disable machine sleep while charging (only display sleep allowed)
+sudo pmset -c sleep 0
 
 # # Set machine sleep to 5 minutes on battery
 # sudo pmset -b sleep 5
