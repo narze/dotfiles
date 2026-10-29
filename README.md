@@ -63,6 +63,10 @@ To change the data or script, `chezmoi cd`, edit them, then run `chezmoi apply`.
   - System Settings
     - Keyboard Shortcuts
       - Change input source switch to CMD+Space, and Spotlight search to Option+Space
+    - Spotlight > Search Privacy
+      - Add `~/Code` to exclude the code directory and its contents from Spotlight indexing and search.
+      - Use the Privacy list on each Mac. `mdutil` controls whole volumes, and a `.metadata_never_index` file inside a folder is not a reliable substitute on current macOS.
+      - [Apple's folder exclusion instructions](https://support.apple.com/guide/mac-help/mchl1bb43b84/mac)
   - Connect to Tailscale to mount NAS
   - Disable Boom 3D keyboard shortcuts
   - Set enrcyption password `SETPASS=1 chezmoi init`
