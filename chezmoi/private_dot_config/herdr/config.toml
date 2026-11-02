@@ -138,12 +138,13 @@ split_horizontal = "prefix+minus"     # - , match tmux split below (herdr defaul
 # type = "pane"
 # command = "lazygit"
 
-# Sidebar file picker (herdr-sidebar plugin). prefix+p is free because
-# previous_tab is remapped to ctrl+u above.
+# Command bar (herdr-bar plugin): fuzzy-jump to any tab, agent, repo or branch.
+# prefix+p is free because previous_tab is remapped to ctrl+u above.
 [[keys.command]]
 key = "prefix+p"
-type = "shell"
-command = "herdr plugin action invoke quick-open --plugin herdr-sidebar"
+type = "plugin_action"
+command = "herdr-bar.open"
+description = "command bar"
 
 # Legacy indexed shortcut config is still parsed for compatibility.
 # Prefer switch_tab, switch_workspace, and focus_agent for new configs.
