@@ -12,7 +12,7 @@
 {{- $is_arch := false -}}
 {{- $is_omarchy := false -}}
 {{- if eq .chezmoi.os "linux" -}}
-{{-   $is_arch = or (eq .chezmoi.osRelease.id "arch") (eq .chezmoi.osRelease.id "omarchy") (eq .chezmoi.osRelease.idLike "arch") -}}
+{{-   $is_arch = or (eq .chezmoi.osRelease.id "arch") (eq .chezmoi.osRelease.id "omarchy") (eq (index .chezmoi.osRelease "idLike" | default "") "arch") -}}
 {{-   $is_omarchy = eq .chezmoi.osRelease.id "omarchy" -}}
 {{- end -}}
 
