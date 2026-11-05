@@ -18,6 +18,19 @@ human_env=("${base_env[@]}" SHELL=/usr/bin/zsh)
 
 src_dir="$(chezmoi source-path)"
 
+# The repo lives at ~/laptop itself, not behind the ~/laptop symlink.
+if [[ -d $HOME/laptop/.git && ! -L $HOME/laptop ]]; then
+  ok "~/laptop is the repo (not a symlink)"
+else
+  bad "~/laptop is the repo (not a symlink)"
+fi
+[[ $src_dir == "$HOME/laptop/chezmoi" ]] && ok "chezmoi source dir is ~/laptop" || bad "chezmoi source dir is ~/laptop (got $src_dir)"
+if chezmoi managed --include=symlinks | grep -qx laptop; then
+  bad "chezmoi does not manage ~/laptop"
+else
+  ok "chezmoi does not manage ~/laptop"
+fi
+
 # The config template must render on Debian, where os-release has no ID_LIKE.
 if chezmoi execute-template --init --promptString "Debian profile (minimal/homelab/ai-agent)=ai-agent" \
   <"$src_dir/.chezmoi.yaml.tmpl" >/dev/null 2>&1; then
