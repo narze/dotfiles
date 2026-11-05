@@ -1,0 +1,6 @@
+[Unit]
+Description=Remove dead Quickshell instance dirs and cap shell log size in the runtime dir
+
+[Service]
+Type=oneshot
+ExecStart=%h/bin/quickshell-runtime-cleanup
