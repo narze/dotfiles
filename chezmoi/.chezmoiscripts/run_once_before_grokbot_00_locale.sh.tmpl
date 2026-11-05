@@ -1,0 +1,14 @@
+{{- if eq .chezmoi.hostname "grokbot" -}}
+#!/bin/sh
+
+# grokbot: ~/.zshrc exports LC_ALL=en_US.UTF-8, so generate that locale.
+# Without it, perl and other tools print locale warnings in every shell.
+
+set -e
+
+if ! locale -a 2>/dev/null | grep -qix 'en_US\.utf-\?8'; then
+  sudo apt-get install -y locales
+  sudo sed -i 's/^# *\(en_US\.UTF-8 UTF-8\)/\1/' /etc/locale.gen
+  sudo locale-gen
+fi
+{{ end -}}
