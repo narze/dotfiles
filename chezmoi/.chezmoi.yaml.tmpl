@@ -77,6 +77,11 @@ data:
     gh_is_installed: {{ $gh_is_installed }}
     is_codespace: {{ $is_codespace }}
 
+{{- /* grokbot keeps the repo at ~/laptop instead of ~/.local/share/chezmoi. */}}
+{{- if eq .chezmoi.hostname "grokbot" }}
+sourceDir: {{ joinPath .chezmoi.homeDir "laptop" | quote }}
+{{- end }}
+
 encryption: gpg
 gpg:
   symmetric: true
