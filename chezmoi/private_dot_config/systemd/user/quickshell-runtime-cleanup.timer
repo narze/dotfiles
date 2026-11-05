@@ -1,0 +1,10 @@
+[Unit]
+Description=Check every 15 minutes that the Omarchy shell is not filling the runtime dir
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=15min
+AccuracySec=1min
+
+[Install]
+WantedBy=timers.target
