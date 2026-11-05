@@ -36,7 +36,7 @@ check_shell() {
   out=$("${env_ref[@]}" zsh "$@" 'command -v direnv; command -v opencode; locale' 2>"$err")
   if [[ -s $err ]]; then
     bad "$label: no errors on stderr"
-    sed 's/^/       /' "$err" | head -10
+    sed 's/^/       /' "$err" | head -20
   else
     ok "$label: no errors on stderr"
   fi
