@@ -36,7 +36,17 @@ if [[ -n "$CURSOR_AGENT" || -n "$CLAUDECODE" || -n "$OPENCODE" ]]; then
   zinit light zsh-users/zsh-syntax-highlighting
   zinit light zsh-users/zsh-history-substring-search
   zinit light zsh-users/zsh-autosuggestions
+{{- if eq .chezmoi.hostname "grokbot" }}
+  # grokbot: load the direnv binary the same way as the non-agent block below.
+  # 'zinit light direnv/direnv' clones the source repo into the same plugin dir,
+  # which then breaks direnv in non-agent shells too.
+  zinit from"gh-r" as"program" mv"direnv* -> direnv" \
+      atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' \
+      pick"direnv" src="zhook.zsh" for \
+          direnv/direnv
+{{- else }}
   zinit light direnv/direnv
+{{- end }}
 else
 
 # Load starship theme
