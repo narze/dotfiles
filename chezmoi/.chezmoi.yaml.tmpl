@@ -7,6 +7,10 @@
 {{- $nas_mount_path := default "~/mnt/nas" (env "NAS_PATH") -}}
 {{- $passphrase := default "change me with 'SETPASS=1 chezmoi init'" (index . "passphrase") -}}
 {{- $debian_profile := "minimal" -}}
+{{- /* grokbot is an agent host (Claude Code / T3 Code). */}}
+{{- if eq .chezmoi.hostname "grokbot" -}}
+{{-   $debian_profile = "ai-agent" -}}
+{{- end -}}
 
 {{- /* Arch-based distros (plain Arch or Omarchy). */}}
 {{- $is_arch := false -}}
