@@ -1,0 +1,307 @@
+#!/usr/bin/env bash
+# verify-dotfiles: apply this repo into a disposable HOME and drive its shells
+# the way a user or an agent does. Run `verify-dotfiles help` for usage.
+set -euo pipefail
+
+REPO=$(cd "$(dirname "$(readlink -f "$0")")/../../../.." && pwd)
+ROOT=${VERIFY_DOTFILES_ROOT:-${TMPDIR:-/tmp}/verify-dotfiles}
+MARKER=.verify-dotfiles-run
+BASE_PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+PROFILE_PROMPT="Debian profile (minimal/homelab/ai-agent)"
+
+die() { echo "verify-dotfiles: $*" >&2; exit 1; }
+
+usage() {
+  cat <<'EOF'
+Usage: verify-dotfiles [--run ID] <command> [args]
+
+  launch [--profile P] [--externals]   Apply the repo into a new disposable HOME
+  doctor                               Read-only check of the selected run
+  shell [--label L] <mode> -- <cmd>    Run <cmd> in a fresh zsh, save evidence
+  chezmoi [--label L] -- <args>        Run chezmoi against the run HOME, save evidence
+  pty start <mode>                     Start an interactive zsh in a private tmux server
+  pty run [--label L] <cmd>            Type <cmd> + Enter, wait for it to finish, save the screen
+  pty capture <label>                  Save the full pane history as evidence
+  pty stop                             Stop the run's tmux server
+  paths                                Print RUN_ID, RUN_HOME, EVIDENCE
+  cleanup                              Stop processes and delete the run HOME (keeps evidence)
+
+Modes:
+  human       zsh -l -i -c   terminal login (SHELL=zsh)
+  agent       zsh -i -c      interactive agent shell (SHELL=/bin/bash, CLAUDECODE=1)
+  agent-tool  zsh -l -c      Claude Code Bash tool form (SHELL=/bin/bash, CLAUDECODE=1)
+
+The run defaults to the last launch. Runs live in $VERIFY_DOTFILES_ROOT
+(default ${TMPDIR:-/tmp}/verify-dotfiles).
+EOF
+}
+
+chezmoi_bin() {
+  command -v chezmoi 2>/dev/null || { [[ -x $HOME/.local/bin/chezmoi ]] && echo "$HOME/.local/bin/chezmoi"; } ||
+    die "chezmoi not found"
+}
+
+select_run() {
+  RUN_ID=${RUN_ID:-$(cat "$ROOT/current" 2>/dev/null || true)}
+  [[ -n $RUN_ID ]] || die "no run selected; run 'verify-dotfiles launch' first"
+  RUN_DIR=$ROOT/runs/$RUN_ID
+  RUN_HOME=$RUN_DIR/home
+  EVIDENCE=$ROOT/evidence/$RUN_ID
+  SOCK=verify-dotfiles-$RUN_ID
+  [[ -f $RUN_HOME/$MARKER ]] || die "run $RUN_ID has no HOME at $RUN_HOME (cleaned up?)"
+}
+
+# Clean environment for a mode. Shells start in RUN_HOME: mise reads config
+# from every parent of the working dir, so starting in the real HOME leaks it.
+mode_env() {
+  local mode=$1
+  ENV=(env -i HOME="$RUN_HOME" USER="$(id -un)" LOGNAME="$(id -un)" TERM=xterm-256color PATH="$BASE_PATH")
+  case $mode in
+    human) ENV+=(SHELL="$(command -v zsh)") ;;
+    agent | agent-tool) ENV+=(SHELL=/bin/bash CLAUDECODE=1) ;;
+    *) die "unknown mode '$mode' (human, agent, agent-tool)" ;;
+  esac
+}
+
+mode_flags() {
+  case $1 in
+    human) FLAGS=(-l -i) ;;
+    agent) FLAGS=(-i) ;;
+    agent-tool) FLAGS=(-l) ;;
+  esac
+}
+
+next_prefix() { # label -> evidence path prefix
+  local n
+  n=$(($(cat "$EVIDENCE/.seq" 2>/dev/null || echo 0) + 1))
+  echo "$n" >"$EVIDENCE/.seq"
+  printf '%s/%02d-%s' "$EVIDENCE" "$n" "$1"
+}
+
+# Run a command in RUN_HOME, save .cmd/.stdout/.stderr/.exit, print a summary.
+record() { # label, command...
+  local label=$1 prefix code=0
+  shift
+  prefix=$(next_prefix "$label")
+  LAST_PREFIX=$prefix
+  printf '%q ' "$@" >"$prefix.cmd"
+  echo >>"$prefix.cmd"
+  (cd "$RUN_HOME" && timeout "${VERIFY_TIMEOUT:-900}" "$@" </dev/null >"$prefix.stdout" 2>"$prefix.stderr") || code=$?
+  echo "$code" >"$prefix.exit"
+  echo "== $label: exit $code (evidence: $prefix.*)"
+  # Print only the end of long output (a first zinit install writes ~1 MB).
+  local lines=${VERIFY_PRINT_LINES:-40} f
+  for f in stdout stderr; do
+    echo "-- $f ($(wc -l <"$prefix.$f") lines, last $lines shown)"
+    tail -n "$lines" "$prefix.$f"
+  done
+  return 0
+}
+
+chezmoi_cmd() { # sets CHEZ to the chezmoi command line for the run HOME
+  CHEZ=(env -i HOME="$RUN_HOME" USER="$(id -un)" TERM=xterm-256color PATH="$BASE_PATH"
+    "$CHEZMOI" --source "$REPO" --no-tty)
+}
+
+run_chezmoi() { # args... (no evidence)
+  chezmoi_cmd
+  (cd "$RUN_HOME" && "${CHEZ[@]}" "$@")
+}
+
+cmd_launch() {
+  local profile="" externals=0 real_home=$HOME
+  while [[ $# -gt 0 ]]; do
+    case $1 in
+      --profile) profile=$2; shift 2 ;;
+      --externals) externals=1; shift ;;
+      *) die "launch: unknown argument '$1'" ;;
+    esac
+  done
+  CHEZMOI=$(chezmoi_bin)
+  # Same Debian profile as this machine unless told otherwise.
+  [[ -n $profile ]] || profile=$("$CHEZMOI" data --format json 2>/dev/null | jq -r '.debian_profile // "minimal"')
+  RUN_ID=${RUN_ID:-$(date +%Y%m%d-%H%M%S)-$$}
+  RUN_DIR=$ROOT/runs/$RUN_ID
+  RUN_HOME=$RUN_DIR/home
+  EVIDENCE=$ROOT/evidence/$RUN_ID
+  [[ ! -e $RUN_DIR ]] || die "run $RUN_ID already exists"
+  mkdir -p "$RUN_HOME" "$EVIDENCE"
+  {
+    echo "run_id=$RUN_ID"
+    echo "repo=$REPO"
+    echo "repo_head=$(git -C "$REPO" rev-parse --short HEAD)"
+    echo "profile=$profile"
+    echo "launched_at=$(date -Is)"
+  } >"$RUN_HOME/$MARKER"
+  echo "$RUN_ID" >"$ROOT/current"
+
+  # Verification scaffolding: run scripts (apt, chsh, installers) are excluded
+  # because they change the whole machine, so link the tools they would install.
+  mkdir -p "$RUN_HOME/.local/bin"
+  local tool
+  for tool in mise chezmoi; do
+    if [[ -x $real_home/.local/bin/$tool ]]; then
+      ln -s "$real_home/.local/bin/$tool" "$RUN_HOME/.local/bin/$tool"
+      echo "scaffold=.local/bin/$tool" >>"$RUN_HOME/$MARKER"
+    fi
+  done
+  if [[ -d $real_home/.opencode ]]; then
+    ln -s "$real_home/.opencode" "$RUN_HOME/.opencode"
+    echo "scaffold=.opencode" >>"$RUN_HOME/$MARKER"
+  fi
+
+  local exclude=scripts,encrypted,externals
+  [[ $externals == 1 ]] && exclude=scripts,encrypted
+  chezmoi_cmd
+  record init "${CHEZ[@]}" init --promptString "$PROFILE_PROMPT=$profile"
+  [[ $(cat "$LAST_PREFIX.exit") == 0 ]] || die "launch: chezmoi init failed (see $LAST_PREFIX.stderr)"
+  record apply "${CHEZ[@]}" apply --force -x "$exclude"
+  [[ $(cat "$LAST_PREFIX.exit") == 0 ]] || die "launch: chezmoi apply failed (see $LAST_PREFIX.stderr)"
+  record status "${CHEZ[@]}" status -x "$exclude"
+  if [[ -s $LAST_PREFIX.stdout ]]; then
+    die "launch: chezmoi status is not clean after apply (see $EVIDENCE)"
+  fi
+  echo
+  echo "RUN_ID=$RUN_ID"
+  echo "RUN_HOME=$RUN_HOME"
+  echo "EVIDENCE=$EVIDENCE"
+  echo "Ready: files applied and chezmoi status is clean. zinit installs on the first interactive shell."
+}
+
+cmd_doctor() {
+  select_run
+  CHEZMOI=$(chezmoi_bin)
+  local bad=0 status
+  echo "run_id=$RUN_ID"
+  echo "run_home=$RUN_HOME"
+  echo "evidence=$EVIDENCE"
+  sed -n 's/^\(repo\|repo_head\|profile\|launched_at\|scaffold\)=/launch.\1=/p' "$RUN_HOME/$MARKER"
+  echo "repo_head_now=$(git -C "$REPO" rev-parse --short HEAD)"
+  echo "repo_dirty=$([[ -n $(git -C "$REPO" status --porcelain) ]] && echo yes || echo no)"
+  echo "host=$(hostname -s) os=$(. /etc/os-release 2>/dev/null && echo "${ID:-unknown}" || uname -s)"
+  echo "chezmoi=$("$CHEZMOI" --version | awk '{print $3}' | tr -d ,)"
+  echo "debian_profile=$(run_chezmoi data --format json | jq -r '.debian_profile')"
+  status=$(run_chezmoi status -x scripts,encrypted,externals 2>&1) || true
+  if [[ -z $status ]]; then echo "applied=yes"; else echo "applied=no (drift: $(echo "$status" | wc -l) entries)"; bad=1; fi
+  [[ -f $RUN_HOME/.local/share/zinit/zinit.git/zinit.zsh ]] && echo "zinit=installed" || echo "zinit=not-yet (first interactive shell installs it)"
+  tmux -L "$SOCK" has-session -t main 2>/dev/null && echo "pty=running" || echo "pty=stopped"
+  command -v zsh >/dev/null && echo "zsh=$(command -v zsh)" || { echo "zsh=missing"; bad=1; }
+  return $bad
+}
+
+cmd_shell() {
+  select_run
+  local label=""
+  [[ ${1:-} == --label ]] && { label=$2; shift 2; }
+  local mode=${1:?mode}
+  shift
+  [[ ${1:-} == -- ]] && shift
+  [[ $# -gt 0 ]] || die "shell: missing command"
+  mode_env "$mode"
+  mode_flags "$mode"
+  record "${label:-$mode}" "${ENV[@]}" "$(command -v zsh)" "${FLAGS[@]}" -c "$*"
+}
+
+cmd_chezmoi() {
+  select_run
+  CHEZMOI=$(chezmoi_bin)
+  local label=chezmoi
+  [[ ${1:-} == --label ]] && { label=$2; shift 2; }
+  [[ ${1:-} == -- ]] && shift
+  chezmoi_cmd
+  record "$label" "${CHEZ[@]}" "$@"
+}
+
+pty_screen() { tmux -L "$SOCK" capture-pane -p -J -t main -S -; }
+
+pty_wait() { # regex, timeout seconds
+  local i
+  for ((i = 0; i < $2; i++)); do
+    pty_screen | grep -Eq "$1" && return 0
+    sleep 1
+  done
+  return 1
+}
+
+pty_type() { tmux -L "$SOCK" send-keys -t main -l -- "$1" && tmux -L "$SOCK" send-keys -t main Enter; }
+
+cmd_pty() {
+  select_run
+  local sub=${1:?pty start|run|capture|stop}
+  shift
+  case $sub in
+    start)
+      local mode=${1:?mode}
+      [[ $mode != agent-tool ]] || die "pty: agent-tool is not interactive; use 'shell agent-tool'"
+      mode_env "$mode"
+      mode_flags "$mode"
+      tmux -L "$SOCK" -f /dev/null new-session -d -s main -x 160 -y 48 -c "$RUN_HOME" \
+        "${ENV[@]}" "$(command -v zsh)" "${FLAGS[@]}"
+      echo "$mode" >"$RUN_DIR/pty-mode"
+      # The first prompt can take minutes while zinit clones plugins.
+      cmd_pty_run --label "pty-ready-$mode" true
+      ;;
+    run) cmd_pty_run "$@" ;;
+    capture) local p; p=$(next_prefix "${1:?label}"); pty_screen >"$p.screen"; echo "saved $p.screen" ;;
+    stop) tmux -L "$SOCK" kill-server 2>/dev/null && echo "pty stopped" || echo "pty was not running" ;;
+    *) die "pty: unknown subcommand '$sub'" ;;
+  esac
+}
+
+cmd_pty_run() {
+  local label=pty
+  [[ ${1:-} == --label ]] && { label=$2; shift 2; }
+  [[ $# -gt 0 ]] || die "pty run: missing command"
+  local prefix n
+  prefix=$(next_prefix "$label")
+  n=${prefix##*/}
+  n=${n%%-*}
+  echo "$*" >"$prefix.cmd"
+  # The typed line shows the printf format, the output shows the filled marker.
+  pty_type "$*; printf '__VD_%s_%s_%s__\n' DONE $n \$?"
+  if pty_wait "__VD_DONE_${n}_[0-9]+__" "${VERIFY_TIMEOUT:-900}"; then
+    pty_screen >"$prefix.screen"
+    pty_screen | grep -Eo "__VD_DONE_${n}_[0-9]+__" | tail -1 | sed -E 's/.*_([0-9]+)__/\1/' >"$prefix.exit"
+    echo "== $label: exit $(cat "$prefix.exit") (evidence: $prefix.screen)"
+  else
+    pty_screen >"$prefix.screen"
+    echo "== $label: TIMEOUT (evidence: $prefix.screen)"
+    return 1
+  fi
+}
+
+cmd_paths() {
+  select_run
+  echo "RUN_ID=$RUN_ID"
+  echo "RUN_HOME=$RUN_HOME"
+  echo "EVIDENCE=$EVIDENCE"
+}
+
+cmd_cleanup() {
+  select_run
+  tmux -L "$SOCK" kill-server 2>/dev/null || true
+  # Stop only processes that run from this run's HOME.
+  local pids
+  pids=$(pgrep -f -- "$RUN_HOME" || true)
+  [[ -z $pids ]] || kill $pids 2>/dev/null || true
+  case $RUN_DIR in "$ROOT"/runs/?*) ;; *) die "refusing to delete '$RUN_DIR'" ;; esac
+  rm -rf -- "$RUN_DIR"
+  [[ $(cat "$ROOT/current" 2>/dev/null) != "$RUN_ID" ]] || rm -f -- "$ROOT/current"
+  echo "deleted $RUN_DIR"
+  if [[ -d $EVIDENCE ]]; then echo "evidence kept: $EVIDENCE"; else die "evidence missing: $EVIDENCE"; fi
+}
+
+[[ ${1:-} == --run ]] && { RUN_ID=$2; shift 2; }
+cmd=${1:-help}
+shift || true
+case $cmd in
+  launch) cmd_launch "$@" ;;
+  doctor) cmd_doctor ;;
+  shell) cmd_shell "$@" ;;
+  chezmoi) cmd_chezmoi "$@" ;;
+  pty) cmd_pty "$@" ;;
+  paths) cmd_paths ;;
+  cleanup) cmd_cleanup ;;
+  help | -h | --help) usage ;;
+  *) usage >&2; exit 2 ;;
+esac
