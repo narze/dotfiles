@@ -7,12 +7,16 @@
 {{- $nas_mount_path := default "~/mnt/nas" (env "NAS_PATH") -}}
 {{- $passphrase := default "change me with 'SETPASS=1 chezmoi init'" (index . "passphrase") -}}
 {{- $debian_profile := "minimal" -}}
+{{- /* grokbot is an agent host (Claude Code / T3 Code). */}}
+{{- if eq .chezmoi.hostname "grokbot" -}}
+{{-   $debian_profile = "ai-agent" -}}
+{{- end -}}
 
 {{- /* Arch-based distros (plain Arch or Omarchy). */}}
 {{- $is_arch := false -}}
 {{- $is_omarchy := false -}}
 {{- if eq .chezmoi.os "linux" -}}
-{{-   $is_arch = or (eq .chezmoi.osRelease.id "arch") (eq .chezmoi.osRelease.id "omarchy") (eq .chezmoi.osRelease.idLike "arch") -}}
+{{-   $is_arch = or (eq .chezmoi.osRelease.id "arch") (eq .chezmoi.osRelease.id "omarchy") (eq (index .chezmoi.osRelease "idLike" | default "") "arch") -}}
 {{-   $is_omarchy = eq .chezmoi.osRelease.id "omarchy" -}}
 {{- end -}}
 
@@ -72,6 +76,11 @@ data:
     delta_is_not_installed: {{ $delta_is_not_installed }}
     gh_is_installed: {{ $gh_is_installed }}
     is_codespace: {{ $is_codespace }}
+
+{{- /* grokbot keeps the repo at ~/laptop instead of ~/.local/share/chezmoi. */}}
+{{- if eq .chezmoi.hostname "grokbot" }}
+sourceDir: {{ joinPath .chezmoi.homeDir "laptop" | quote }}
+{{- end }}
 
 encryption: gpg
 gpg:

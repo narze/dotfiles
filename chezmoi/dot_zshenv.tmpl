@@ -1,6 +1,12 @@
+{{ if eq .chezmoi.hostname "grokbot" -}}
+# grokbot: mise and opencode install to the home dir, and nothing else puts
+# them on PATH before this file runs.
+export PATH="$HOME/.local/bin:$HOME/.opencode/bin:$PATH"
+
+{{ end -}}
 # Activate mise when running in Cursor or other agents
 if [[ -n "$CURSOR_AGENT" || -n "$CLAUDECODE" || -n "$OPENCODE" ]]; then
-  eval "$(mise activate)"
+  eval "$(mise activate{{ if eq .chezmoi.hostname "grokbot" }} zsh{{ end }})"
 fi
 
 if [ -x /opt/homebrew/bin/brew ]; then
