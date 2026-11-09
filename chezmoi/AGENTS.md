@@ -16,6 +16,8 @@
 - Prefer battle-tested libraries & frameworks over custom or bare-metal solutions
 - Make minimal changes - do not touch or refactor unrelated code
 - Prefer `mise` as the version manager for programming languages
+- In a project, run language runtimes and their tools through `mise exec --` (for example `mise exec -- ruby -v`, `mise exec -- bundle exec rspec`, `mise exec -- bin/setup`). The agent shell is not interactive, so the `mise activate` hook does not run when you change directory. The PATH then keeps the global versions, and the project's `mise.toml` or `.tool-versions` has no effect
+- Before the first Ruby, Node or Python command in a project, compare `mise current` with `<tool> --version`. If they are different, use `mise exec --` for all commands in that project
 - Prefer `pnpm` over `npm` for installing packages and running scripts
 - Prefer the Cloudflare `cf` CLI over Wrangler (https://developers.cloudflare.com/cf) - for existing Wrangler projects, run `cf migrate` before using `cf dev`, `cf build`, or `cf deploy`
 - When fixing bugs, first reproduce the bug in an E2E setting as close as possible to how a user would encounter it, so you're fixing the real problem, not a symptom
