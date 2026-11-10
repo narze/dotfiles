@@ -5,6 +5,11 @@ fishd.*
 .config/fish/fish_history
 .config/fish/fish_variables
 
+{{/* grokbot keeps the repo itself at ~/laptop, so do not make it a symlink. */}}
+{{ if eq .chezmoi.hostname "grokbot" }}
+laptop
+{{ end }}
+
 {{ if ne .chezmoi.os "darwin" }}
 .aerospace.toml
 .config/karabiner*

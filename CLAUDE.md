@@ -68,6 +68,10 @@ On Debian, users choose a profile at `chezmoi init` time:
 
 Profiles live in `chezmoi/.chezmoiscripts/debian/<profile>/`. The active profile's scripts run; others are ignored via `.chezmoiignore`. Adding a new profile = create a new directory there.
 
+### Host-Specific: grokbot
+
+`grokbot` is a Debian agent host (Claude Code / T3 Code). Its changes are gated on `{{ eq .chezmoi.hostname "grokbot" }}`, so other hosts render the same files: repo at `~/laptop` (`sourceDir`, `laptop` symlink ignored), default `ai-agent` profile, `en_US.UTF-8` locale script, PATH and `mise activate zsh` in `dot_zshenv.tmpl`, and the direnv load and `zsh-defer` shim for agent shells in `zinit.zsh.tmpl`. Check it with `tests/grokbot.sh`.
+
 ### Script Execution Order
 
 Scripts in `chezmoi/.chezmoiscripts/` follow chezmoi's naming convention:
