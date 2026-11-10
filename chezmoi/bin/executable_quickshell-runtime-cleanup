@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# Keep the Omarchy shell (Quickshell) from filling $XDG_RUNTIME_DIR.
+# Quickshell writes per-instance logs to a small RAM tmpfs with no size cap
+# or rotation, and leaves the dirs of dead instances behind. When the tmpfs
+# is full, uwsm cannot launch apps ("Invalid arguments:"). This script:
+#   - removes instance dirs whose instance.lock no process holds open,
+#   - removes dangling by-pid / by-path links,
+#   - truncates live instance logs above the size limit.
+# Runs every 15 minutes (systemd user timer). Remove it when Omarchy ships
+# a fix: https://github.com/omacom/omarchy/issues/13287
+set -u
+
+qs=${QS_RUNTIME_DIR:-${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/quickshell}
+max_kb=${QS_LOG_MAX_KB:-102400}
+min_age=${QS_REAP_MIN_AGE:-60}
+
+[[ -d $qs/by-id ]] || exit 0
+by_id=$(realpath "$qs/by-id")
+
+# Lock files that a running process holds open, i.e. live instances.
+declare -A held
+while IFS= read -r lock; do
+  held[$lock]=1
+done < <(find /proc/[0-9]*/fd -lname "$by_id/*/instance.lock" -printf '%l\n' 2>/dev/null)
+
+now=$(date +%s)
+for dir in "$by_id"/*/; do
+  dir=${dir%/}
+  [[ -d $dir ]] || continue
+  if [[ -n ${held[$dir/instance.lock]:-} ]]; then
+    for log in "$dir"/log.qslog "$dir"/log.log; do
+      [[ -f $log ]] || continue
+      kb=$(du -k "$log" | cut -f1)
+      if (( kb > max_kb )); then
+        truncate -s 0 "$log"
+        echo "truncated $log (${kb} KiB)"
+      fi
+    done
+  elif (( now - $(stat -c %Y "$dir") >= min_age )); then
+    # Not held and not just created (a starting instance opens its lock
+    # right after it makes the dir).
+    rm -rf "$dir"
+    echo "removed dead instance $dir"
+  fi
+done
+
+for links in "$qs/by-pid" "$qs/by-path"; do
+  [[ -d $links ]] && find "$links" -maxdepth 1 -xtype l -delete
+done
+exit 0
