@@ -1,6 +1,9 @@
-# Activate mise when running in Cursor or other agents
-if [[ -n "$CURSOR_AGENT" || -n "$CLAUDECODE" || -n "$OPENCODE" ]]; then
-  eval "$(mise activate)"
+# Agent shells (Claude Code, Codex, Cursor, OpenCode) are not interactive, so the
+# `mise activate` hook does not keep PATH correct. Use mise shims: a shim picks
+# the tool version for its current directory each time it runs, also in daemons
+# (for example pitchfork) that are started from the agent shell.
+if [[ -n "$AI_AGENT$CLAUDECODE$CODEX_THREAD_ID$CURSOR_AGENT$OPENCODE" ]] && (( $+commands[mise] )); then
+  eval "$(mise activate zsh --shims)"
 fi
 
 if [ -x /opt/homebrew/bin/brew ]; then
