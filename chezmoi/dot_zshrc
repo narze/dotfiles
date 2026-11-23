@@ -142,9 +142,9 @@ if [ -e ~/.nix-profile/etc/profile.d/nix.sh ]; then
   . ~/.nix-profile/etc/profile.d/nix.sh;
 fi
 
-# Zoxide : prompt hook mode
+# Zoxide: add the directory on cd (pwd hook), not at each prompt
 if command -v zoxide &> /dev/null; then
-  eval "$(zoxide init zsh --hook prompt)"
+  eval "$(zoxide init zsh --hook pwd)"
 fi
 
 # Source additional zsh config files (now handled in z4h.zsh)
