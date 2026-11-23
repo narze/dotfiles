@@ -143,6 +143,29 @@ fi
 
 # Source additional zsh config files (now handled in z4h.zsh)
 
+# Extend fpath for custom completions.
+fpath=(~/.config/zsh/completions $fpath)
+
+# Completion system. Start it here, before `mise activate`: mise runs
+# `compinit -i` from its hook when compdef is missing. Agent shells load other
+# plugins (see plugin-managers/zinit.zsh), so they get their own dump file. With
+# one shared dump, each context rebuilt it (~265 ms) after the other one ran.
+() {
+  setopt local_options extended_glob
+  local dump=${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump-$ZSH_VERSION
+  [[ -n "$CURSOR_AGENT$CLAUDECODE$OPENCODE" ]] && dump+=-agent
+  [[ -d ${dump:h} ]] || mkdir -p ${dump:h}
+  autoload -Uz compinit
+  if [[ -n $dump.checked(#qN.mh-24) ]]; then
+    # Checked in the last 24 hours: use the dump as it is (~11 ms).
+    compinit -C -d $dump
+  else
+    # Find new completion files and rebuild the dump if necessary (~30 ms).
+    compinit -i -d $dump
+    : >| $dump.checked
+  fi
+}
+
 # Use mise (https://mise.jdx.dev) instead of asdf
 if command -v mise &> /dev/null; then
   eval "$(mise activate zsh)"
@@ -184,9 +207,6 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # Extend bin PATH.
 path=(./bin ~/bin $path)
-
-# Extend fpath for custom completions.
-fpath=(~/.config/zsh/completions $fpath)
 
 # Omarchy shell integration (loaded first so personal aliases/functions can override)
 [[ -f $HOME/.config/zsh/config/00_omarchy.zsh ]] && source $HOME/.config/zsh/config/00_omarchy.zsh
