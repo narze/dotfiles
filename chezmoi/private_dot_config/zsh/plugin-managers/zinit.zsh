@@ -22,6 +22,9 @@ autoload -Uz _zinit
 
 ### End of Zinit's installer chunk
 
+# _evalcache keeps the output of `<tool> init` commands in a file (see .zshrc)
+zinit light mroth/evalcache
+
 # If run from Cursor or other agents, load packages synchronously to prevent errors, and also skip using starship & defer
 if [[ -n "$CURSOR_AGENT" || -n "$CLAUDECODE" || -n "$OPENCODE" ]]; then
   zinit light olets/zsh-abbr

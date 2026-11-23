@@ -144,8 +144,16 @@ fi
 
 # Zoxide: add the directory on cd (pwd hook), not at each prompt
 if command -v zoxide &> /dev/null; then
-  eval "$(zoxide init zsh --hook pwd)"
+  if (( $+functions[_evalcache] )); then
+    # Use the cached init script (~4 ms less). The resolved binary path contains
+    # the version, so a new zoxide version makes a new cache.
+    _evalcache ZOXIDE_BIN=${commands[zoxide]:A} zoxide init zsh --hook pwd
+  else
+    eval "$(zoxide init zsh --hook pwd)"
+  fi
 fi
+
+# Do not cache `mise activate`: its output contains the PATH of that moment.
 
 # Source additional zsh config files (now handled in z4h.zsh)
 
