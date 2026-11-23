@@ -55,6 +55,9 @@ zsh-defer zinit light mollifier/cd-gitroot
 
 zsh-defer zinit light zsh-users/zsh-syntax-highlighting
 zsh-defer zinit light zsh-users/zsh-history-substring-search
+# Bind the autosuggestion widgets once, not again at each prompt (~8 ms).
+# This is safe because autosuggestions loads after the other widget plugins.
+ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 zsh-defer zinit light zsh-users/zsh-autosuggestions
 
 zinit from"gh-r" as"program" mv"direnv* -> direnv" \
