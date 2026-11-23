@@ -232,7 +232,19 @@ export PATH="$PNPM_HOME:$PATH"
 
 # Hishtory Config:
 export PATH="$PATH:$HOME/.hishtory"
-[ -s "$HOME/.hishtory/config.zsh" ] && zsh-defer source $HOME/.hishtory/config.zsh
+if [ -s "$HOME/.hishtory/config.zsh" ]; then
+  # The hishtory hook runs `hishtory getTimestamp` (~21 ms) before each
+  # command. Give the same value (Unix time in ns) from the zsh clock instead.
+  # Send all other calls to the hishtory binary.
+  hishtory() {
+    if [[ $1 == getTimestamp ]]; then
+      print -r -- $(( epochtime[1] * 1000000000 + epochtime[2] ))
+    else
+      command hishtory "$@"
+    fi
+  }
+  zsh-defer source $HOME/.hishtory/config.zsh
+fi
 
 # Pulumi
 [ -d "$HOME/.pulumi" ] && export PATH="$PATH:$HOME/.pulumi/bin"
