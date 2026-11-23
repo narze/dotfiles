@@ -2,7 +2,7 @@ format = """
 [░▒▓](#a3aed2)\
 $os\
 $hostname\
-$custom\
+$shell\
 [](bg:#769ff0 fg:#a3aed2)\
 $directory\
 [](fg:#769ff0 bg:#394260)\
@@ -82,11 +82,18 @@ ssh_only = true
 style = "fg:#090c0c bg:#a3aed2"
 format = "[ $hostname ](fg:#090c0c bg:#a3aed2)"
 
-[custom.shell]
-command = "echo $STARSHIP_SHELL"
-when = '[ "$STARSHIP_SHELL" != zsh ]'
+# Show the shell name when it is not zsh. The built-in module needs no
+# process; `custom` started a shell for `when` at each prompt (~20 ms).
+# An empty indicator gives an empty segment.
+[shell]
+disabled = false
+zsh_indicator = ""
+bash_indicator = " bash "
+fish_indicator = " fish "
+nu_indicator = " nu "
+powershell_indicator = " pwsh "
 style = "fg:#090c0c bg:#a3aed2"
-format = "[ $output ]($style)"
+format = "[$indicator]($style)"
 
 [directory]
 style = "fg:#e3e5e5 bg:#769ff0"
