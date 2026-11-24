@@ -77,4 +77,41 @@ out=$(modify $codex $'[analytics]\n\n[tui]\nx = 1\n')
 eq "codex: key added to an empty table" "$(toml 'd["analytics"], d["tui"]' <<<"$out")" "{'enabled': False} {'x': 1}"
 common codex $codex "$in"
 
+# JSON with // comment lines (Zed, VS Code, Cursor). The comments must stay.
+jsonc() { python3 -I -c "import json,re,sys; d=json.loads(re.sub(r'(?m)^\s*//.*\n', '', sys.stdin.read())); print($1)"; }
+
+# Zed: "telemetry": { "diagnostics": false, "metrics": false }
+zed=chezmoi/private_dot_config/zed/modify_settings.json
+in=$'// Zed settings\n{\n  "diagnostics": { "button": true },\n  "theme": "One Dark"\n}\n'
+out=$(modify $zed "$in")
+eq "zed: telemetry off" "$(jsonc 'd["telemetry"]' <<<"$out")" "{'diagnostics': False, 'metrics': False}"
+eq "zed: other keys kept" "$(jsonc 'd["diagnostics"], d["theme"]' <<<"$out")" "{'button': True} One Dark"
+eq "zed: comments kept" "$(head -1 <<<"$out")" "// Zed settings"
+out=$(modify $zed $'{\n  "telemetry": { "metrics": true },\n  "theme": "x"\n}\n')
+eq "zed: one-line object changes to false" "$(jsonc 'd["telemetry"], d["theme"]' <<<"$out")" "{'diagnostics': False, 'metrics': False} x"
+out=$(modify $zed $'{\n  "telemetry": {\n    "diagnostics": true,\n    "x": 1\n  },\n  "diagnostics": { "button": true }\n}\n')
+eq "zed: multi-line object changes to false" \
+  "$(jsonc 'sorted(d["telemetry"].items()), d["diagnostics"]' <<<"$out")" \
+  "[('diagnostics', False), ('metrics', False), ('x', 1)] {'button': True}"
+common zed $zed "$in"
+
+# VS Code and Cursor: "telemetry.telemetryLevel": "off"
+for app in Code Cursor; do
+  f="chezmoi/Library/private_Application Support/private_$app/User/modify_settings.json.tmpl"
+  in=$'{\n  // editor\n  "editor.fontSize": 14,\n  "telemetry.telemetryLevel": "crash",\n  "x": 1\n}\n'
+  out=$(modify "$f" "$in")
+  eq "$app: telemetry level off" "$(jsonc 'd["telemetry.telemetryLevel"]' <<<"$out")" off
+  eq "$app: other keys kept" "$(jsonc 'd["editor.fontSize"], d["x"]' <<<"$out")" "14 1"
+  eq "$app: comments kept" "$(grep -c '// editor' <<<"$out")" 1
+  out=$(modify "$f" $'{\n  "editor.fontSize": 14\n}\n')
+  eq "$app: missing key added" "$(jsonc 'd["telemetry.telemetryLevel"], d["editor.fontSize"]' <<<"$out")" "off 14"
+  common "$app" "$f" "$in"
+done
+
+# The Library folder exists only on macOS.
+eq "Library is ignored on Linux" \
+  "$(chezmoi --source chezmoi execute-template --override-data '{"chezmoi":{"os":"linux","osRelease":{"id":"arch"}}}' < chezmoi/.chezmoiignore | grep -cx Library)" 1
+eq "Library is used on macOS" \
+  "$(chezmoi --source chezmoi execute-template --override-data '{"chezmoi":{"os":"darwin"}}' < chezmoi/.chezmoiignore | grep -cx Library)" 0
+
 exit $fail

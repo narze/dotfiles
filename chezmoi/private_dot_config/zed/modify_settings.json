@@ -1,0 +1,48 @@
+#!/bin/sh
+# chezmoi modify_ script: set "telemetry": { "diagnostics": false,
+# "metrics": false } in ~/.config/zed/settings.json and keep all other lines
+# and comments.
+# Test: tests/telemetry-off.sh
+input=$(cat)
+# No file (Zed is not installed): print nothing, so chezmoi creates nothing.
+[ -z "$input" ] && exit 0
+printf '%s\n' "$input" | awk '
+  { line[NR] = $0 }
+  END {
+    for (i = 1; i <= NR; i++)
+      if (line[i] ~ /^[[:space:]]*"telemetry"[[:space:]]*:/) { t = i; break }
+    off = "\"telemetry\": { \"diagnostics\": false, \"metrics\": false }"
+
+    # No "telemetry" key: add it just after the opening brace.
+    if (!t) {
+      for (i = 1; i <= NR; i++) {
+        print line[i]
+        if (!added && line[i] ~ /^[[:space:]]*\{[[:space:]]*$/) { print "  " off ","; added = 1 }
+      }
+      exit
+    }
+
+    match(line[t], /^[[:space:]]*/); indent = substr(line[t], 1, RLENGTH)
+
+    # One-line object: write it again with both values off.
+    if (line[t] ~ /\}/) {
+      comma = (line[t] ~ /\}[[:space:]]*,[[:space:]]*$/) ? "," : ""
+      line[t] = indent off comma
+      for (i = 1; i <= NR; i++) print line[i]
+      exit
+    }
+
+    # Multi-line object: change true to false, and add the keys that are missing.
+    for (i = t + 1; i <= NR && line[i] !~ /\}/; i++) {
+      if (line[i] ~ /^[[:space:]]*"diagnostics"[[:space:]]*:/) { sub(/true/, "false", line[i]); seen_d = 1 }
+      if (line[i] ~ /^[[:space:]]*"metrics"[[:space:]]*:/) { sub(/true/, "false", line[i]); seen_m = 1 }
+    }
+    for (i = 1; i <= NR; i++) {
+      print line[i]
+      if (i == t) {
+        if (!seen_d) print indent "  \"diagnostics\": false,"
+        if (!seen_m) print indent "  \"metrics\": false,"
+      }
+    }
+  }
+'
