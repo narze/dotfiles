@@ -21,6 +21,7 @@ fishd.*
 .skhdrc_yabai
 .yabai*
 obsidian
+Library
 {{ end }}
 
 {{/* Windows-only tiling WM config. */}}

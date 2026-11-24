@@ -18,7 +18,7 @@ project=$(ls "$installs" | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' | grep -vxF "$glob
 tmp=$(mktemp -d)
 trap 'rm -rf "$tmp"' EXIT
 mkdir -p "$tmp/zdot" "$tmp/proj"
-chezmoi execute-template < chezmoi/dot_zshenv.tmpl > "$tmp/zdot/.zshenv" || exit 1
+chezmoi --source chezmoi execute-template < chezmoi/dot_zshenv.tmpl > "$tmp/zdot/.zshenv" || exit 1
 echo "ruby $project" > "$tmp/proj/.tool-versions"
 
 # PATH like the one an agent gets from its parent process: the global Ruby is

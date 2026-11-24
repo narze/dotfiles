@@ -6,6 +6,23 @@ if [[ -n "$AI_AGENT$CLAUDECODE$CODEX_THREAD_ID$CURSOR_AGENT$OPENCODE" ]] && (( $
   eval "$(mise activate zsh --shims)"
 fi
 
+# Disable T3 Code telemetry (PostHog usage analytics and relay tracing). The
+# T3 Code desktop app reads this variable from the login shell when it starts.
+export T3CODE_TELEMETRY_ENABLED=false
+
+# Disable telemetry in other CLI tools. DO_NOT_TRACK is the general opt-out
+# (https://consoledonottrack.com) that some tools follow. The other variables
+# are for tools that do not follow it.
+export DO_NOT_TRACK=1
+export DISABLE_TELEMETRY=1          # Claude Code
+export HOMEBREW_NO_ANALYTICS=1
+export NEXT_TELEMETRY_DISABLED=1
+export VERCEL_TELEMETRY_DISABLED=1
+export WRANGLER_SEND_METRICS=false
+export TURBO_TELEMETRY_DISABLED=1
+export ASTRO_TELEMETRY_DISABLED=1
+export NUXT_TELEMETRY_DISABLED=1
+
 {{ if stat "/opt/homebrew/bin/brew" -}}
 # Homebrew environment. chezmoi writes the `brew shellenv` output here when it
 # applies this file, so zsh does not start brew each time (~17 ms in every zsh).

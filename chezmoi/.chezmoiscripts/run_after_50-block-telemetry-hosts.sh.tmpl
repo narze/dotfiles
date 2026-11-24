@@ -1,0 +1,35 @@
+{{- if ne .chezmoi.os "windows" -}}
+#!/bin/sh
+# Blocks telemetry hosts in /etc/hosts with a marked block, and keeps all
+# other lines. It runs on each chezmoi apply, but it asks for sudo only when
+# the block must change. To block one more host, add lines to the block.
+# Test: tests/telemetry-off.sh
+hosts=${HOSTS_FILE:-/etc/hosts}
+sudo=${SUDO-sudo}
+begin='# BEGIN chezmoi: block telemetry hosts'
+end='# END chezmoi: block telemetry hosts'
+block="$begin
+0.0.0.0 ingest.t3.codes
+:: ingest.t3.codes
+$end"
+
+current=$(cat "$hosts") || exit 0
+# Remove the old block, then add the current block at the end.
+rest=$(printf '%s\n' "$current" | awk -v b="$begin" -v e="$end" '$0 == b { skip = 1 } !skip { print } $0 == e { skip = 0 }')
+new=$(printf '%s\n\n%s' "$rest" "$block")
+[ "$new" = "$current" ] && exit 0
+
+echo "Updating the telemetry block in $hosts (needs sudo)"
+# tee writes into the same file, so its owner and mode stay the same.
+if printf '%s\n' "$new" | $sudo tee "$hosts" >/dev/null; then
+{{- if eq .chezmoi.os "darwin" }}
+  $sudo dscacheutil -flushcache 2>/dev/null
+  $sudo killall -HUP mDNSResponder 2>/dev/null
+{{- end }}
+  :
+else
+  # Do not stop chezmoi apply. The next apply tries again.
+  echo "warning: could not update $hosts" >&2
+fi
+exit 0
+{{ end -}}
