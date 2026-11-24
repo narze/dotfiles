@@ -108,6 +108,29 @@ for app in Code Cursor; do
   common "$app" "$f" "$in"
 done
 
+# /etc/hosts: a marked block sends telemetry hosts to 0.0.0.0 and ::.
+# HOSTS_FILE and SUDO let the test use a temporary file without root.
+hosts_script=chezmoi/.chezmoiscripts/run_after_50-block-telemetry-hosts.sh.tmpl
+hosts() {
+  chezmoi --source chezmoi execute-template < "$hosts_script" > "$tmp/hosts.sh"
+  chmod +x "$tmp/hosts.sh"
+  HOSTS_FILE="$tmp/hosts" SUDO= "$tmp/hosts.sh" 2>&1
+}
+printf '127.0.0.1\tlocalhost\n::1             localhost\n' > "$tmp/hosts"
+hosts >/dev/null
+eq "hosts: other lines kept" "$(grep -c localhost "$tmp/hosts")" 2
+eq "hosts: IPv4 blocked" "$(grep -cx '0.0.0.0 ingest.t3.codes' "$tmp/hosts")" 1
+eq "hosts: IPv6 blocked" "$(grep -cx ':: ingest.t3.codes' "$tmp/hosts")" 1
+cp "$tmp/hosts" "$tmp/hosts.once"
+eq "hosts: second run prints nothing" "$(hosts)" ""
+eq "hosts: second run changes nothing" "$(cmp -s "$tmp/hosts" "$tmp/hosts.once" && echo same)" same
+printf 'x\n# BEGIN chezmoi: block telemetry hosts\n0.0.0.0 old.example\n# END chezmoi: block telemetry hosts\ny\n' > "$tmp/hosts"
+hosts >/dev/null
+eq "hosts: old block replaced, not repeated" \
+  "$(grep -c old.example "$tmp/hosts") $(grep -c 'BEGIN chezmoi' "$tmp/hosts") $(grep -cx y "$tmp/hosts")" "0 1 1"
+eq "hosts: no script on Windows" \
+  "$(chezmoi --source chezmoi execute-template --override-data '{"chezmoi":{"os":"windows"}}' < "$hosts_script" | tr -d '[:space:]')" ""
+
 # The Library folder exists only on macOS.
 eq "Library is ignored on Linux" \
   "$(chezmoi --source chezmoi execute-template --override-data '{"chezmoi":{"os":"linux","osRelease":{"id":"arch"}}}' < chezmoi/.chezmoiignore | grep -cx Library)" 1
