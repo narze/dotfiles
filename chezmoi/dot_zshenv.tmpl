@@ -6,9 +6,16 @@ if [[ -n "$AI_AGENT$CLAUDECODE$CODEX_THREAD_ID$CURSOR_AGENT$OPENCODE" ]] && (( $
   eval "$(mise activate zsh --shims)"
 fi
 
-if [ -x /opt/homebrew/bin/brew ]; then
-  eval "$(/opt/homebrew/bin/brew shellenv)"
+{{ if stat "/opt/homebrew/bin/brew" -}}
+# Homebrew environment. chezmoi writes the `brew shellenv` output here when it
+# applies this file, so zsh does not start brew each time (~17 ms in every zsh).
+# Run `chezmoi apply` again if a new Homebrew version changes this output.
+# Like `brew shellenv`, do nothing when PATH already starts with the brew paths.
+if [[ $PATH != /opt/homebrew/bin:/opt/homebrew/sbin:* ]]; then
+  {{- output "/usr/bin/env" "PATH=/usr/bin:/bin" "/opt/homebrew/bin/brew" "shellenv" "zsh" | trim | nindent 2 }}
 fi
+
+{{ end -}}
 
 # # Documentation: https://github.com/romkatv/zsh4humans/blob/v5/README.md.
 # #

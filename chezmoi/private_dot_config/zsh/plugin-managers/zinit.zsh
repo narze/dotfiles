@@ -20,15 +20,10 @@ source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
-# Load a few important annexes, without Turbo
-# (this is currently required for annexes)
-zinit light-mode for \
-    zdharma-continuum/zinit-annex-as-monitor \
-    zdharma-continuum/zinit-annex-bin-gem-node \
-    zdharma-continuum/zinit-annex-patch-dl \
-    zdharma-continuum/zinit-annex-rust
-
 ### End of Zinit's installer chunk
+
+# _evalcache keeps the output of `<tool> init` commands in a file (see .zshrc)
+zinit light mroth/evalcache
 
 # If run from Cursor or other agents, load packages synchronously to prevent errors, and also skip using starship & defer
 if [[ -n "$CURSOR_AGENT" || -n "$CLAUDECODE" || -n "$OPENCODE" ]]; then
@@ -55,6 +50,9 @@ zsh-defer zinit light mollifier/cd-gitroot
 
 zsh-defer zinit light zsh-users/zsh-syntax-highlighting
 zsh-defer zinit light zsh-users/zsh-history-substring-search
+# Bind the autosuggestion widgets once, not again at each prompt (~8 ms).
+# This is safe because autosuggestions loads after the other widget plugins.
+ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 zsh-defer zinit light zsh-users/zsh-autosuggestions
 
 zinit from"gh-r" as"program" mv"direnv* -> direnv" \
