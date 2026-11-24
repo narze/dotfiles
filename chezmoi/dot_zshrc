@@ -225,9 +225,13 @@ path=(./bin ~/bin $path)
 # Omarchy shell integration (loaded first so personal aliases/functions can override)
 [[ -f $HOME/.config/zsh/config/00_omarchy.zsh ]] && source $HOME/.config/zsh/config/00_omarchy.zsh
 
-zsh-defer source $HOME/.config/zsh/config/00_aliases.zsh
+# Defer without precmd hooks or prompt redraw (see plugin-managers/zinit.zsh).
+# Agent shells do not load zsh-defer, so source the files directly there.
+if (( $+functions[zsh-defer] )); then _defer=(zsh-defer -mp); else _defer=(); fi
+$_defer source $HOME/.config/zsh/config/00_aliases.zsh
 source $HOME/.config/zsh/config/10_options.zsh
-zsh-defer source $HOME/.config/zsh/config/20_functions.zsh
+$_defer source $HOME/.config/zsh/config/20_functions.zsh
+unset _defer
 
 # Nix
 if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
