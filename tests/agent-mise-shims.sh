@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Checks that chezmoi/dot_zshenv gives agent shells the project's tool versions.
+# Checks that chezmoi/dot_zshenv.tmpl gives agent shells the project's tool versions.
 # Agent shells are not interactive, so the `mise activate` cd hook never runs.
 # Run: tests/agent-mise-shims.sh
 set -u
@@ -18,7 +18,7 @@ project=$(ls "$installs" | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' | grep -vxF "$glob
 tmp=$(mktemp -d)
 trap 'rm -rf "$tmp"' EXIT
 mkdir -p "$tmp/zdot" "$tmp/proj"
-cp chezmoi/dot_zshenv "$tmp/zdot/.zshenv"
+chezmoi --source chezmoi execute-template < chezmoi/dot_zshenv.tmpl > "$tmp/zdot/.zshenv"
 echo "ruby $project" > "$tmp/proj/.tool-versions"
 
 # PATH like the one an agent gets from its parent process: the global Ruby is
