@@ -44,16 +44,21 @@ zinit ice as"command" from"gh-r" \
 zinit light starship/starship
 
 zinit light romkatv/zsh-defer
+# By default, zsh-defer runs all precmd hooks (-m) and redraws the prompt (-p)
+# after each task. With starship, direnv and mise this adds ~37 ms per task,
+# and zsh cannot read keys during that time. These plugins do not change the
+# prompt, so do not do this.
 # zinit ice wait"0" silent
-zsh-defer zinit light olets/zsh-abbr
-zsh-defer zinit light mollifier/cd-gitroot
+zsh-defer -mp zinit light olets/zsh-abbr
+zsh-defer -mp zinit light mollifier/cd-gitroot
 
-zsh-defer zinit light zsh-users/zsh-syntax-highlighting
-zsh-defer zinit light zsh-users/zsh-history-substring-search
+zsh-defer -mp zinit light zsh-users/zsh-syntax-highlighting
+zsh-defer -mp zinit light zsh-users/zsh-history-substring-search
 # Bind the autosuggestion widgets once, not again at each prompt (~8 ms).
 # This is safe because autosuggestions loads after the other widget plugins.
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1
-zsh-defer zinit light zsh-users/zsh-autosuggestions
+# Keep -m here: autosuggestions binds its widgets in a precmd hook.
+zsh-defer -p zinit light zsh-users/zsh-autosuggestions
 
 zinit from"gh-r" as"program" mv"direnv* -> direnv" \
     atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' \
