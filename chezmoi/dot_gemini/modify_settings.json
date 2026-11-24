@@ -1,0 +1,13 @@
+#!/bin/sh
+# chezmoi modify_ script: turn off Gemini CLI usage statistics in
+# ~/.gemini/settings.json and keep all other settings.
+# Test: tests/telemetry-off.sh
+input=$(cat)
+# No file (Gemini CLI is not installed): print nothing, so chezmoi creates nothing.
+[ -z "$input" ] && exit 0
+# If jq is missing or the file is not valid JSON, keep the file as it is.
+if out=$(printf '%s\n' "$input" | jq '.privacy.usageStatisticsEnabled = false' 2>/dev/null); then
+  printf '%s\n' "$out"
+else
+  printf '%s\n' "$input"
+fi

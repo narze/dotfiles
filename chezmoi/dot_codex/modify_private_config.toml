@@ -1,0 +1,18 @@
+#!/bin/sh
+# chezmoi modify_ script: turn off Codex analytics in ~/.codex/config.toml
+# ([analytics] enabled = false) and keep all other settings.
+# Test: tests/telemetry-off.sh
+input=$(cat)
+# No file (Codex is not installed): print nothing, so chezmoi creates nothing.
+[ -z "$input" ] && exit 0
+printf '%s\n' "$input" | awk '
+  # A table header. Write "enabled = false" just after [analytics].
+  /^[[:space:]]*\[/ {
+    in_analytics = ($0 ~ /^[[:space:]]*\[analytics\][[:space:]]*(#.*)?$/)
+    if (in_analytics) { print; print "enabled = false"; found = 1; next }
+  }
+  # Remove the old "enabled" value in [analytics].
+  in_analytics && /^[[:space:]]*enabled[[:space:]]*=/ { next }
+  { print }
+  END { if (!found) printf "\n[analytics]\nenabled = false\n" }
+'
