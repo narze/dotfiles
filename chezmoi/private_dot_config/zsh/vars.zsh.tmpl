@@ -3,7 +3,7 @@ export CM_computer_name={{ .computer_name }}
 export CM_hostname={{ .hostname }}
 
 {{ if eq .chezmoi.os "linux" -}}
-# Reuse the committed abbreviations with zsh-abbr (loaded via zinit).
-# Set before the deferred zsh-abbr load so they're picked up on Linux.
+# The committed abbreviations file, read by ~/.config/zsh/abbr.zsh (also the
+# default path there).
 export ABBR_USER_ABBREVIATIONS_FILE="$HOME/.config/zsh/abbreviations"
 {{ end -}}

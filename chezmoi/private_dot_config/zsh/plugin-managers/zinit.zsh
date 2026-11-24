@@ -25,9 +25,12 @@ autoload -Uz _zinit
 # _evalcache keeps the output of `<tool> init` commands in a file (see .zshrc)
 zinit light mroth/evalcache
 
+# Abbreviations (~6 ms, so no defer). This replaces olets/zsh-abbr (~80 ms).
+# Load before the widget plugins below, so that they wrap its widgets.
+source $HOME/.config/zsh/abbr.zsh
+
 # If run from Cursor or other agents, load packages synchronously to prevent errors, and also skip using starship & defer
 if [[ -n "$CURSOR_AGENT" || -n "$CLAUDECODE" || -n "$OPENCODE" ]]; then
-  zinit light olets/zsh-abbr
   zinit light zsh-users/zsh-syntax-highlighting
   zinit light zsh-users/zsh-history-substring-search
   zinit light zsh-users/zsh-autosuggestions
@@ -49,7 +52,6 @@ zinit light romkatv/zsh-defer
 # and zsh cannot read keys during that time. These plugins do not change the
 # prompt, so do not do this.
 # zinit ice wait"0" silent
-zsh-defer -mp zinit light olets/zsh-abbr
 zsh-defer -mp zinit light mollifier/cd-gitroot
 
 zsh-defer -mp zinit light zsh-users/zsh-syntax-highlighting
