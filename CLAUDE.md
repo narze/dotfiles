@@ -97,6 +97,7 @@ Sensitive files (`.asc` suffix) use GPG symmetric encryption. The passphrase is 
 | `chezmoi/private_dot_config/starship.toml` | Starship prompt (uses `[os]` module for auto OS icon) |
 | `chezmoi/dot_gitconfig.tmpl` | Git config (delta pager, gh credential helper, opencode as git worktree AI) |
 | `chezmoi/dot_zshenv` | Activates mise for Claude Code / Cursor / OpenCode agents |
+| `chezmoi/private_dot_config/mise/conf.d/bootstrap-darwin.toml` | macOS Homebrew, cask, and Mac App Store packages, installed by `mise bootstrap packages apply` (run by `run_onchange_after_darwin_31-mise-bootstrap-packages`) |
 
 ## Shell Setup
 

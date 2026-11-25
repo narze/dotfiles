@@ -1,0 +1,36 @@
+{{- if (eq .chezmoi.os "darwin") -}}
+#!/bin/bash
+
+# Install macOS packages (Homebrew formulae, casks, Mac App Store apps) with
+# mise bootstrap. Re-runs when the package list changes.
+# bootstrap-darwin.toml hash: {{ include "private_dot_config/mise/conf.d/bootstrap-darwin.toml" | sha256sum }}
+
+source /tmp/chezmoi-utils.sh
+
+printf "${green}[31 - macOS] ${reset}"
+{{- if or (lt 31 (atoi (env "SCRIPTS_START_AT"))) (env "SKIP_BREW") }}
+echo "Skip installing macOS packages"
+exit 0
+{{ else }}
+echo "Install macOS packages with mise bootstrap"
+{{- end }}
+
+set -uo pipefail
+
+# mise is installed by darwin_30; mise.run puts it in ~/.local/bin.
+MISE="$(command -v mise || echo "$HOME/.local/bin/mise")"
+
+# A package that fails to install (for example a mas app before App Store
+# sign-in) must not stop chezmoi apply. Run it again later to retry.
+"$MISE" bootstrap packages apply --yes ||
+  echo "Some packages failed. Check with: mise bootstrap packages status"
+
+echo "Start services..."
+brew services restart goku
+
+if command -v skhd &> /dev/null; then
+  skhd --install-service
+  skhd --start-service
+fi
+
+{{ end -}}
