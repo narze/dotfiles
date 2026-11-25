@@ -21,6 +21,7 @@ fishd.*
 .skhdrc_yabai
 .yabai*
 obsidian
+.config/mise/conf.d/bootstrap-darwin.toml
 Library
 {{ end }}
 

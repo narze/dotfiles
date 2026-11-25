@@ -1,0 +1,117 @@
+# macOS packages, applied by `mise bootstrap packages apply`.
+# chezmoi deploys this file on macOS only (see .chezmoiignore), and
+# run_onchange_after_darwin_31-mise-bootstrap-packages runs it when it changes.
+# Check what is missing with `mise bootstrap packages status`.
+# mise finds third-party taps from the `owner/tap/name` form.
+
+[bootstrap.packages]
+# Shell and git
+"brew:fish" = "latest"
+"brew:gh" = "latest"
+"brew:ghq" = "latest"
+"brew:git" = "latest"
+"brew:git-delta" = "latest"
+"brew:git-extras" = "latest"
+"brew:zellij" = "latest"
+"brew:zsh" = "latest"
+
+# Containers
+"brew:docker" = "latest"
+"brew:docker-buildx" = "latest"
+"brew:docker-compose" = "latest"
+"brew:kubectx" = "latest"
+"brew:kubernetes-cli" = "latest"
+
+# Window management and keyboard
+"brew:FelixKratz/formulae/borders" = "latest"
+"brew:FelixKratz/formulae/sketchybar" = "latest"
+"brew:lutzifer/homebrew-tap/keyboardSwitcher" = "latest"
+"brew:yqrashawn/goku/goku" = "latest"
+"brew-cask:nikitabobko/tap/aerospace" = "latest"
+
+# CLI tools
+"brew:bat" = "latest"
+"brew:btop" = "latest"
+"brew:chezmoi" = "latest"
+"brew:eza" = "latest"
+"brew:fastfetch" = "latest"
+"brew:ffmpeg" = "latest"
+"brew:fileicon" = "latest"
+"brew:fzf" = "latest"
+"brew:fzy" = "latest"
+"brew:gnupg" = "latest"
+"brew:jq" = "latest"
+"brew:mas" = "latest"
+"brew:reattach-to-user-namespace" = "latest"
+"brew:ripgrep" = "latest"
+"brew:shellcheck" = "latest"
+"brew:switchaudio-osx" = "latest"
+"brew:terminal-notifier" = "latest"
+"brew:tree" = "latest"
+"brew:wakatime-cli" = "latest"
+"brew:watch" = "latest"
+"brew:wget" = "latest"
+"brew:zoxide" = "latest"
+"brew-cask:1password/tap/1password-cli" = "latest"
+
+# Fonts
+"brew-cask:font-comic-mono" = "latest"
+"brew-cask:font-fantasque-sans-mono" = "latest"
+"brew-cask:font-fantasque-sans-mono-nerd-font" = "latest"
+"brew-cask:font-fira-code-nerd-font" = "latest"
+"brew-cask:font-monaspice-nerd-font" = "latest"
+
+# Quick Look plugins (quicklook-json, quicklookase and webpquicklook are
+# disabled in Homebrew; macOS previews JSON and WebP without them)
+"brew-cask:qlmarkdown" = "latest"
+"brew-cask:quicklook-video" = "latest"
+"brew-cask:suspicious-package" = "latest"
+
+# Apps (Homebrew disabled amitv87-pip, and removed beardedspice and kawa)
+"brew-cask:1password" = "latest"
+"brew-cask:airflow" = "latest"
+"brew-cask:alt-tab" = "latest"
+"brew-cask:anki" = "latest"
+"brew-cask:arc" = "latest"
+"brew-cask:betterdisplay" = "latest"
+"brew-cask:cursor" = "latest"
+"brew-cask:discord" = "latest"
+"brew-cask:ghostty" = "latest"
+"brew-cask:google-chrome" = "latest"
+"brew-cask:google-drive" = "latest"
+"brew-cask:grishka/grishka/neardrop" = "latest"
+"brew-cask:hammerspoon" = "latest"
+"brew-cask:iina" = "latest"
+"brew-cask:karabiner-elements" = "latest"
+"brew-cask:keyboard-maestro" = "latest"
+"brew-cask:keycastr" = "latest"
+"brew-cask:kitty" = "latest"
+"brew-cask:localsend/localsend/localsend" = "latest"
+"brew-cask:lulu" = "latest"
+"brew-cask:notunes" = "latest"
+"brew-cask:obsidian" = "latest"
+"brew-cask:orbstack" = "latest"
+"brew-cask:plex" = "latest"
+"brew-cask:postgres-app" = "latest"
+"brew-cask:postman" = "latest"
+"brew-cask:raindropio" = "latest"
+"brew-cask:raycast" = "latest"
+"brew-cask:rescuetime" = "latest"
+"brew-cask:shortcat" = "latest"
+"brew-cask:slack" = "latest"
+"brew-cask:soundsource" = "latest"
+"brew-cask:spotify" = "latest"
+"brew-cask:syncthing-app" = "latest"
+"brew-cask:tailscale-app" = "latest"
+"brew-cask:telegram" = "latest"
+"brew-cask:the-unarchiver" = "latest"
+"brew-cask:thaw" = "latest"
+"brew-cask:visual-studio-code" = "latest"
+"brew-cask:vivaldi" = "latest"
+"brew-cask:zen" = "latest"
+# Setapp opens its own installer after the cask installs.
+"brew-cask:setapp" = "latest"
+
+# Mac App Store (sign in to the App Store first)
+"mas:1541027222" = "latest" # ScreenZen
+"mas:6445813049" = "latest" # Spark Mail
