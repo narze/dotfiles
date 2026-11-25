@@ -6,7 +6,7 @@
 
 [bootstrap.packages]
 # Shell and git
-"brew:fish" = "latest"
+# "brew:fish" = "latest"
 "brew:gh" = "latest"
 "brew:ghq" = "latest"
 "brew:git" = "latest"
@@ -19,15 +19,15 @@
 "brew:docker" = "latest"
 "brew:docker-buildx" = "latest"
 "brew:docker-compose" = "latest"
-"brew:kubectx" = "latest"
-"brew:kubernetes-cli" = "latest"
+# "brew:kubectx" = "latest"
+# "brew:kubernetes-cli" = "latest"
 
 # Window management and keyboard
-"brew:FelixKratz/formulae/borders" = "latest"
-"brew:FelixKratz/formulae/sketchybar" = "latest"
+# "brew:FelixKratz/formulae/borders" = "latest"
+# "brew:FelixKratz/formulae/sketchybar" = "latest"
 "brew:lutzifer/homebrew-tap/keyboardSwitcher" = "latest"
 "brew:yqrashawn/goku/goku" = "latest"
-"brew-cask:nikitabobko/tap/aerospace" = "latest"
+# "brew-cask:nikitabobko/tap/aerospace" = "latest"
 
 # CLI tools
 "brew:bat" = "latest"
@@ -70,9 +70,9 @@
 # Apps (Homebrew disabled amitv87-pip, and removed beardedspice and kawa)
 "brew-cask:1password" = "latest"
 "brew-cask:airflow" = "latest"
-"brew-cask:alt-tab" = "latest"
+# "brew-cask:alt-tab" = "latest"
 "brew-cask:anki" = "latest"
-"brew-cask:arc" = "latest"
+# "brew-cask:arc" = "latest"
 "brew-cask:betterdisplay" = "latest"
 "brew-cask:cursor" = "latest"
 "brew-cask:discord" = "latest"
@@ -85,13 +85,13 @@
 "brew-cask:karabiner-elements" = "latest"
 "brew-cask:keyboard-maestro" = "latest"
 "brew-cask:keycastr" = "latest"
-"brew-cask:kitty" = "latest"
+# "brew-cask:kitty" = "latest"
 "brew-cask:localsend/localsend/localsend" = "latest"
-"brew-cask:lulu" = "latest"
+# "brew-cask:lulu" = "latest"
 "brew-cask:notunes" = "latest"
 "brew-cask:obsidian" = "latest"
 "brew-cask:orbstack" = "latest"
-"brew-cask:plex" = "latest"
+# "brew-cask:plex" = "latest"
 "brew-cask:postgres-app" = "latest"
 "brew-cask:postman" = "latest"
 "brew-cask:raindropio" = "latest"
@@ -99,19 +99,19 @@
 "brew-cask:rescuetime" = "latest"
 "brew-cask:shortcat" = "latest"
 "brew-cask:slack" = "latest"
-"brew-cask:soundsource" = "latest"
+# "brew-cask:soundsource" = "latest"
 "brew-cask:spotify" = "latest"
 "brew-cask:syncthing-app" = "latest"
 "brew-cask:tailscale-app" = "latest"
 "brew-cask:telegram" = "latest"
 "brew-cask:the-unarchiver" = "latest"
-"brew-cask:thaw" = "latest"
-"brew-cask:visual-studio-code" = "latest"
-"brew-cask:vivaldi" = "latest"
-"brew-cask:zen" = "latest"
+# "brew-cask:thaw" = "latest"
+# "brew-cask:visual-studio-code" = "latest"
+# "brew-cask:vivaldi" = "latest"
+# "brew-cask:zen" = "latest"
 # Setapp opens its own installer after the cask installs.
 "brew-cask:setapp" = "latest"
 
 # Mac App Store (sign in to the App Store first)
-"mas:1541027222" = "latest" # ScreenZen
+# "mas:1541027222" = "latest" # ScreenZen
 "mas:6445813049" = "latest" # Spark Mail
