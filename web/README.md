@@ -4,10 +4,11 @@ This host-local dashboard checks for incoming chezmoi commits, local dotfile dri
 
 ## Run on macOS
 
-Use Go 1.24+, Node 22.12+ (or Node 20.19+), pnpm 12.23.0, Git, Homebrew, and a chezmoi version that supports `--skip-secrets`.
+Tool versions are pinned in `mise.toml`. Install them with `mise install`. You also need Git, Homebrew, and a chezmoi version that supports `--skip-secrets`.
 
 ```sh
 cd web
+mise install
 pnpm install --frozen-lockfile
 pnpm run build
 go build -o host-updates .
@@ -71,7 +72,7 @@ For a host where Serve can reach a Unix socket, use an absolute socket path in a
 
 ```sh
 pnpm run check
-TEST_CHEZMOI="$(brew --prefix)/bin/chezmoi" go test ./...
+TEST_CHEZMOI="$(brew --prefix)/bin/chezmoi" mise exec -- go test ./...
 ```
 
 APT, pacman, durable history, and service installation are outside this Mac prototype.

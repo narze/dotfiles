@@ -1,0 +1,7 @@
+# Tool versions for the host updates dashboard.
+# Run `mise install` in this directory before building.
+
+[tools]
+go = "1.26.11"
+node = "24.22.3"
+pnpm = "12.23.0"
