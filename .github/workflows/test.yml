@@ -27,11 +27,11 @@ jobs:
           - os: ubuntu-latest
             tests: >-
               abbr.zsh agent-mise-shims.sh ai-aligned-zsh.sh
-              quickshell-runtime-cleanup.sh telemetry-off.sh zsh-options.sh
+              quickshell-runtime-cleanup.sh telemetry-off.sh zsh-aliases.sh zsh-options.sh
           - os: macos-latest
             tests: >-
               abbr.zsh agent-mise-shims.sh ai-aligned-zsh.sh
-              mise-bootstrap-darwin.sh telemetry-off.sh zsh-options.sh
+              mise-bootstrap-darwin.sh telemetry-off.sh zsh-aliases.sh zsh-options.sh
     env:
       MISE_EXPERIMENTAL: "1"
       MISE_RUBY_COMPILE: "false"
@@ -73,7 +73,7 @@ jobs:
       MISE_YES: "1"
       TESTS: >-
         abbr.zsh agent-mise-shims.sh ai-aligned-zsh.sh arch-managed.sh
-        quickshell-runtime-cleanup.sh telemetry-off.sh zsh-options.sh
+        quickshell-runtime-cleanup.sh telemetry-off.sh zsh-aliases.sh zsh-options.sh
     steps:
       # Install git before checkout, so that checkout makes a real git clone.
       # telemetry-off.sh needs python3, jq and cmp (diffutils).
