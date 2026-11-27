@@ -59,15 +59,46 @@ jobs:
         env:
           TESTS: ${{ matrix.tests }}
         run: |
-          fail=0
-          for t in $TESTS; do
-            echo "::group::$t"
-            if "tests/$t"; then
-              echo "::endgroup::"
-            else
-              echo "::endgroup::"
-              echo "::error title=tests/$t::tests/$t failed"
-              fail=1
-            fi
-          done
-          exit $fail
+          # shellcheck disable=SC2086 # one argument per test
+          .github/scripts/run-tests.sh $TESTS
+
+  arch:
+    name: Test (archlinux, omarchy)
+    runs-on: ubuntu-latest
+    container: archlinux:latest
+    timeout-minutes: 20
+    env:
+      MISE_EXPERIMENTAL: "1"
+      MISE_RUBY_COMPILE: "false"
+      MISE_YES: "1"
+      TESTS: >-
+        abbr.zsh agent-mise-shims.sh ai-aligned-zsh.sh arch-managed.sh
+        quickshell-runtime-cleanup.sh telemetry-off.sh zsh-options.sh
+    steps:
+      # Install git before checkout, so that checkout makes a real git clone.
+      # telemetry-off.sh needs python3 and cmp (diffutils).
+      - name: Install packages
+        run: pacman -Syu --noconfirm --needed chezmoi diffutils git mise python zsh
+
+      - uses: actions/checkout@v5
+
+      # agent-mise-shims.sh needs a global Ruby and one more installed Ruby.
+      - name: Install Ruby
+        run: |
+          mise use --global ruby@4.0.6
+          mise install ruby@3.4.8
+
+      - name: Run tests on Arch
+        run: |
+          # shellcheck disable=SC2086 # one argument per test
+          .github/scripts/run-tests.sh $TESTS
+
+      # There is no Omarchy image. chezmoi finds Omarchy from ID in
+      # /etc/os-release, so change ID and run the tests again.
+      - name: Pretend to be Omarchy
+        run: sed -i 's/^ID=.*/ID=omarchy/' /etc/os-release && grep '^ID=' /etc/os-release
+
+      - name: Run tests on Omarchy
+        run: |
+          # shellcheck disable=SC2086 # one argument per test
+          .github/scripts/run-tests.sh $TESTS
