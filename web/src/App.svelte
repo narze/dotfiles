@@ -41,7 +41,7 @@
 
   const jobLabels: Record<string, string> = {
     check: 'Checking for updates…',
-    shell: 'The terminal is connected.',
+    shell: 'Terminal connected',
     'preview dotfiles': 'Preparing the dotfiles preview…',
     'preview brew': 'Preparing the Homebrew preview…',
     'apply dotfiles': 'Applying dotfiles…',
@@ -117,7 +117,7 @@
 <main class="page">
   <header class="page-header">
     <div>
-      <p class="host"><span class="mark" aria-hidden="true"></span>{status?.host ?? 'This machine'}</p>
+      <p class="host">{status?.host ?? 'This machine'}</p>
       <h1>Host updates</h1>
       {#if status}<p class="subtitle">Checks every {status.intervalMinutes} min</p>{/if}
     </div>
@@ -132,9 +132,9 @@
   {#if error}
     <p class="notice error" role="alert">{error}</p>
   {:else if status?.busy}
-    <p class="notice" role="status"><span class="working" aria-hidden="true"></span>{jobLabels[status.busy]}</p>
+    <p class="notice activity" role="status">{jobLabels[status.busy]}</p>
   {:else if status?.last}
-    <p class:error={status.last.failed} class="notice" role="status">
+    <p class:error={status.last.failed} class="notice activity" role="status">
       <span>{status.last.message}</span><span class="muted">{time(status.last.at)}</span>
     </p>
   {/if}
@@ -163,8 +163,8 @@
             <p>{item.description}</p>
           </div>
           {#if section?.checkedAt}
-            <span class="badge" class:pending={changes.length > 0 || !!inventory?.behind}>
-              {item.id === 'dotfiles' ? changes.length + ' files' : changes.length + ' outdated'}
+            <span class="count" class:pending={changes.length > 0 || !!inventory?.behind}>
+              {item.id === 'dotfiles' ? changes.length + (changes.length === 1 ? ' file' : ' files') : changes.length + ' outdated'}
             </span>
           {/if}
         </div>
@@ -207,7 +207,7 @@
           {#if preview && !packagePreview}
             <h3>Update preview</h3>
           {:else}
-            <h3>{item.id === 'dotfiles' ? 'Changes against current checkout' : 'Available upgrades'}</h3>
+            <h3>{item.id === 'dotfiles' ? 'Changes in current checkout' : 'Available upgrades'}</h3>
           {/if}
         </div>
         {#if changes.length}
@@ -220,9 +220,9 @@
                   <tr>
                     <td>
                       <span class="item-name">{change.name}</span>
-                      {#if item.id === 'brew'}<small>{change.kind} · Installed {change.current}{change.pinned ? ' · Pinned' : ''}</small>{/if}
+                      {#if item.id === 'brew'}<small>{change.kind} · Installed <span class="version">{change.current}</span>{change.pinned ? ' · Pinned' : ''}</small>{/if}
                     </td>
-                    <td>{item.id === 'brew' ? change.available : (changeLabels[change.kind ?? ''] ?? change.kind)}</td>
+                    <td class:version={item.id === 'brew'}>{item.id === 'brew' ? change.available : (changeLabels[change.kind ?? ''] ?? change.kind)}</td>
                     {#if item.id === 'brew'}
                       <td class="update-cell">
                         {#if !change.pinned && change.kind}
@@ -241,7 +241,7 @@
             </table>
           </div>
         {:else}
-          <p class="empty">{section?.checkedAt || preview ? 'No changes in this list.' : 'Waiting for the first successful check.'}</p>
+          <p class="empty">{section?.checkedAt || preview ? 'No changes to show' : 'Waiting for the first successful check'}</p>
         {/if}
 
         {#if preview?.detail && !packagePreview}
