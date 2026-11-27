@@ -1,0 +1,73 @@
+name: Test
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Test (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # hypr-wm-focus.sh and hyprshell.sh need a running Hyprland session,
+          # so CI does not run them.
+          - os: ubuntu-latest
+            tests: >-
+              abbr.zsh agent-mise-shims.sh ai-aligned-zsh.sh
+              quickshell-runtime-cleanup.sh telemetry-off.sh zsh-options.sh
+          - os: macos-latest
+            tests: >-
+              abbr.zsh agent-mise-shims.sh ai-aligned-zsh.sh
+              mise-bootstrap-darwin.sh telemetry-off.sh zsh-options.sh
+    env:
+      MISE_EXPERIMENTAL: "1"
+      MISE_RUBY_COMPILE: "false"
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Install zsh
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y zsh
+
+      - uses: jdx/mise-action@v5.2.7
+        with:
+          version: 2026.11.9
+          install: false
+          cache: false
+
+      # agent-mise-shims.sh needs a global Ruby and one more installed Ruby.
+      - name: Install chezmoi and Ruby
+        run: |
+          mise use --global chezmoi@2.74.1 ruby@4.0.6
+          mise install ruby@3.4.8
+          chezmoi --version
+
+      - name: Run tests
+        env:
+          TESTS: ${{ matrix.tests }}
+        run: |
+          fail=0
+          for t in $TESTS; do
+            echo "::group::$t"
+            if "tests/$t"; then
+              echo "::endgroup::"
+            else
+              echo "::endgroup::"
+              echo "::error title=tests/$t::tests/$t failed"
+              fail=1
+            fi
+          done
+          exit $fail
