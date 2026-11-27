@@ -11,10 +11,10 @@
     exact = true
     stripComponents = 1
     refreshPeriod = "2160h"
-# https://github.com/Hammerspoon/Spoons/raw/master/Spoons/MouseFollowsFocus.spoon.zip
+# https://raw.githubusercontent.com/Hammerspoon/Spoons/master/Spoons/MouseFollowsFocus.spoon.zip
 [".hammerspoon/Spoons/MouseFollowsFocus.spoon"]
     type = "archive"
-    url = "https://github.com/Hammerspoon/Spoons/raw/master/Spoons/MouseFollowsFocus.spoon.zip"
+    url = "https://raw.githubusercontent.com/Hammerspoon/Spoons/master/Spoons/MouseFollowsFocus.spoon.zip"
     exact = true
     stripComponents = 1
     refreshPeriod = "2160h"

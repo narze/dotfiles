@@ -1,0 +1,21 @@
+{
+  "name": "host-updates",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.23.0",
+  "scripts": {
+    "build": "vite build",
+    "check": "svelte-check --tsconfig ./tsconfig.json"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "7.3.2",
+    "svelte": "5.59.2",
+    "svelte-check": "^4.3.0",
+    "typescript": "~5.9.3",
+    "vite": "8.4.0"
+  },
+  "dependencies": {
+    "@xterm/addon-fit": "^0.11.0",
+    "@xterm/xterm": "^6.0.0"
+  }
+}

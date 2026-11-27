@@ -1,0 +1,14 @@
+/* FantasqueSansM Nerd Font Mono v3.5.1, converted to WOFF2. See OFL-Fantasque.txt. */
+@font-face {
+  font-family: "Fantasque Nerd Mono";
+  src: url("./FantasqueSansMNerdFontMono-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Fantasque Nerd Mono";
+  src: url("./FantasqueSansMNerdFontMono-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}

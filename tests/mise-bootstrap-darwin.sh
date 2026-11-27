@@ -43,7 +43,7 @@ check "runner holds the package list hash" 'grep -q "$hash" <<<"$rendered"'
 
 # chezmoi deploys the list on macOS only.
 check "chezmoi manages the list" \
-  'chezmoi --source chezmoi managed -i files | grep -qx ".config/mise/conf.d/bootstrap-darwin.toml"'
+  'chezmoi --refresh-externals=never --source chezmoi managed -i files | grep -qx ".config/mise/conf.d/bootstrap-darwin.toml"'
 check ".chezmoiignore excludes the list off macOS" \
   'awk "/ne .chezmoi.os \"darwin\"/,/end/" chezmoi/.chezmoiignore | grep -qx ".config/mise/conf.d/bootstrap-darwin.toml"'
 
