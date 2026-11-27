@@ -1,0 +1,104 @@
+name: Test
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Test (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # hypr-wm-focus.sh and hyprshell.sh need a running Hyprland session,
+          # so CI does not run them.
+          - os: ubuntu-latest
+            tests: >-
+              abbr.zsh agent-mise-shims.sh ai-aligned-zsh.sh
+              quickshell-runtime-cleanup.sh telemetry-off.sh zsh-aliases.sh zsh-options.sh
+          - os: macos-latest
+            tests: >-
+              abbr.zsh agent-mise-shims.sh ai-aligned-zsh.sh
+              mise-bootstrap-darwin.sh telemetry-off.sh zsh-aliases.sh zsh-options.sh
+    env:
+      MISE_EXPERIMENTAL: "1"
+      MISE_RUBY_COMPILE: "false"
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Install zsh
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y zsh
+
+      - uses: jdx/mise-action@v5.2.7
+        with:
+          version: 2026.11.9
+          install: false
+          cache: false
+
+      # agent-mise-shims.sh needs a global Ruby and one more installed Ruby.
+      - name: Install chezmoi and Ruby
+        run: |
+          mise use --global chezmoi@2.74.1 ruby@4.0.6
+          mise install ruby@3.4.8
+          chezmoi --version
+
+      - name: Run tests
+        env:
+          TESTS: ${{ matrix.tests }}
+        run: |
+          # shellcheck disable=SC2086 # one argument per test
+          .github/scripts/run-tests.sh $TESTS
+
+  arch:
+    name: Test (archlinux, omarchy)
+    runs-on: ubuntu-latest
+    container: archlinux:latest
+    timeout-minutes: 20
+    env:
+      MISE_EXPERIMENTAL: "1"
+      MISE_RUBY_COMPILE: "false"
+      MISE_YES: "1"
+      TESTS: >-
+        abbr.zsh agent-mise-shims.sh ai-aligned-zsh.sh arch-managed.sh
+        quickshell-runtime-cleanup.sh telemetry-off.sh zsh-aliases.sh zsh-options.sh
+    steps:
+      # Install git before checkout, so that checkout makes a real git clone.
+      # telemetry-off.sh needs python3, jq and cmp (diffutils).
+      - name: Install packages
+        run: pacman -Syu --noconfirm --needed chezmoi diffutils git jq mise python zsh
+
+      - uses: actions/checkout@v5
+
+      # agent-mise-shims.sh needs a global Ruby and one more installed Ruby.
+      - name: Install Ruby
+        run: |
+          mise use --global ruby@4.0.6
+          mise install ruby@3.4.8
+
+      - name: Run tests on Arch
+        run: |
+          # shellcheck disable=SC2086 # one argument per test
+          .github/scripts/run-tests.sh $TESTS
+
+      # There is no Omarchy image. chezmoi finds Omarchy from ID in
+      # /etc/os-release, so change ID and run the tests again.
+      - name: Pretend to be Omarchy
+        run: sed -i 's/^ID=.*/ID=omarchy/' /etc/os-release && grep '^ID=' /etc/os-release
+
+      - name: Run tests on Omarchy
+        run: |
+          # shellcheck disable=SC2086 # one argument per test
+          .github/scripts/run-tests.sh $TESTS

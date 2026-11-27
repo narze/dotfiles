@@ -39,7 +39,17 @@ eq "Claude Code shell uses the project Ruby" "$(agent_ruby CLAUDECODE=1)" "$proj
 eq "AI_AGENT shell uses the project Ruby" "$(agent_ruby AI_AGENT=x)" "$project"
 eq "stale mise variables do not change the result" \
   "$(agent_ruby CODEX_THREAD_ID=t "${stale[@]}")" "$project"
-eq "non-agent shell is not changed" "$(agent_ruby)" "$global"
+# Homebrew can link a tool that mise also manages (node, ruby) into
+# /opt/homebrew/bin, so the mise shims must come before the Homebrew paths.
+shell_path() {
+  env -i HOME="$HOME" PATH="$base_path" ZDOTDIR="$tmp/zdot" "$@" zsh -c 'print -r -- $PATH'
+}
+shims=${MISE_DATA_DIR:-$HOME/.local/share/mise}/shims
+first_of() { tr ':' '\n' | grep -m1 -xE "$shims|/opt/homebrew/bin"; }
+eq "agent shell finds mise shims before Homebrew" \
+  "$(shell_path CLAUDECODE=1 | first_of)" "$shims"
+# Only PATH is compared: Homebrew can come first in a non-agent shell.
+eq "non-agent shell gets no mise shims" "$(shell_path | tr ':' '\n' | grep -cxF "$shims")" 0
 
 # A daemon (for example a pitchfork supervisor) keeps the agent shell's PATH
 # and later starts a process in the project directory, without zsh.

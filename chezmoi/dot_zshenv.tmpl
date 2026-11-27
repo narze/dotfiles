@@ -9,6 +9,17 @@
 [[ -r "$HOME/.local/bin/ai-aligned-zsh" ]] && source "$HOME/.local/bin/ai-aligned-zsh"
 # <<< ai-aligned-zsh <<<
 
+{{ if stat "/opt/homebrew/bin/brew" -}}
+# Homebrew environment. chezmoi writes the `brew shellenv` output here when it
+# applies this file, so zsh does not start brew each time (~17 ms in every zsh).
+# Run `chezmoi apply` again if a new Homebrew version changes this output.
+# Like `brew shellenv`, do nothing when PATH already starts with the brew paths.
+# Keep this before the mise shims below, so that the shims come first in PATH.
+if [[ $PATH != /opt/homebrew/bin:/opt/homebrew/sbin:* ]]; then
+  {{- output "/usr/bin/env" "PATH=/usr/bin:/bin" "/opt/homebrew/bin/brew" "shellenv" "zsh" | trim | nindent 2 }}
+fi
+
+{{ end -}}
 # Agent shells (Claude Code, Codex, Cursor, OpenCode) are not interactive, so the
 # `mise activate` hook does not keep PATH correct. Use mise shims: a shim picks
 # the tool version for its current directory each time it runs, also in daemons
@@ -33,14 +44,3 @@ export WRANGLER_SEND_METRICS=false
 export TURBO_TELEMETRY_DISABLED=1
 export ASTRO_TELEMETRY_DISABLED=1
 export NUXT_TELEMETRY_DISABLED=1
-
-{{ if stat "/opt/homebrew/bin/brew" -}}
-# Homebrew environment. chezmoi writes the `brew shellenv` output here when it
-# applies this file, so zsh does not start brew each time (~17 ms in every zsh).
-# Run `chezmoi apply` again if a new Homebrew version changes this output.
-# Like `brew shellenv`, do nothing when PATH already starts with the brew paths.
-if [[ $PATH != /opt/homebrew/bin:/opt/homebrew/sbin:* ]]; then
-  {{- output "/usr/bin/env" "PATH=/usr/bin:/bin" "/opt/homebrew/bin/brew" "shellenv" "zsh" | trim | nindent 2 }}
-fi
-
-{{ end -}}
