@@ -1,0 +1,847 @@
+#!/usr/bin/env zsh
+#
+# ai-aligned-zsh - a zsh that parses bash the way coding agents expect
+#
+# Coding agents write bash. When the login shell is zsh, Claude Code, Codex and
+# the rest run that bash through `zsh -c`, and zsh disagrees with it:
+#
+#   FILES="a.ts b.ts"; for f in $FILES     one iteration, not two
+#   grep -rn foo --include=*.ts .          "no matches found: --include=*.ts"
+#   echo =====                             "==== not found"
+#   git show $REV:src/index.ts             "bad substitution" ($REV:s is a modifier)
+#
+# Sourced from the top of ~/.zshenv, this file turns on a handful of
+# bash-compatible options for one kind of shell only: a non-interactive
+# `zsh -c` (or zsh reading commands from a pipe) whose environment says a
+# coding agent is driving it. The options take effect when the agent's command
+# string starts, after every startup file has run with the user's own options,
+# and functions those files defined keep zsh semantics. Interactive shells,
+# zsh scripts and humans are untouched.
+#
+# Run as a command it reports what it would do: status, doctor, options.
+#
+# See: https://github.com/ai-ecoverse/ai-aligned-zsh
+
+# ---------------------------------------------------------------- the options
+#
+# Each one is backed by failures in real agent transcripts; see the README for
+# the evidence and for the options deliberately left out.
+
+typeset -ga _ai_aligned_zsh_default_options=(
+    sh_word_split       # V="a b"; for x in $V      splits, as bash does
+    glob_subst          # p=src/*.ts; ls $p         globs, as bash does
+    no_nomatch          # ls --include=*.ts        unmatched globs stay literal
+    no_bad_pattern      # echo [WIP                malformed globs stay literal
+    no_equals           # echo =====               no =cmd path expansion
+    no_bare_glob_qual   # ls shot*(1)              no glob qualifiers
+    no_extended_glob    # git show HEAD^           ^ ~ # are not glob operators
+    ksh_arrays          # ${a[0]}, $R:src, "$i[x]" 0-indexed, braces required
+    bash_rematch        # ${BASH_REMATCH[1]}       first capture group
+)
+
+# ---------------------------------------------------------------- detection
+#
+# A zsh mirror of ami_check_env from am-i-ai, bundled verbatim at the end of
+# this file. am-i-ai runs it in a subshell and lowercases with `tr`; doing the
+# same here would add two forks to every agent command, so the rules are
+# restated in zsh. test.sh compares the two for every variable am-i-ai reads.
+# The process-tree phase (ps per ancestor) is far too slow for every `zsh -c`
+# and is not used here; AI_ALIGNED_ZSH=on covers agents only it would catch.
+#
+# Sets REPLY to the space-separated list of detected agents, as ami_check_env
+# prints it.
+_ai_aligned_zsh_check_env() {
+    emulate -L zsh
+    local detected=""
+
+    if [[ -n $CLAUDECODE || $CLAUDE_CODE_ENTRYPOINT == cli || $CLAUDE_CODE_ENTRYPOINT == sdk-ts ]]; then
+        detected+=" claude"
+    fi
+    if [[ -n $GROK_CODE_XAI_API_KEY || -n $GROK_BUILD || $GROK_MODEL == grok-build ]]; then
+        detected+=" grok"
+    fi
+    [[ -n $PI_CODING_AGENT ]] && detected+=" pi"
+    [[ -n $GEMINI_CLI ]] && detected+=" gemini"
+    [[ -n $QWEN_CODE ]] && detected+=" qwen"
+    [[ -n $CURSOR_AGENT ]] && detected+=" cursor"
+    [[ -n $OPENCODE_AI ]] && detected+=" opencode"
+    if [[ -n $CODEX_CLI || -n $CODEX_SANDBOX || -n $CODEX_SHELL || -n $CODEX_THREAD_ID ]]; then
+        detected+=" codex"
+    fi
+    [[ $OR_APP_NAME == Aider ]] && detected+=" aider"
+    # Zed sets ZED_ENVIRONMENT for every terminal; only a shell whose parent is
+    # not itself an interactive shell is the agent. This is the one rule that
+    # needs ps, and only inside Zed.
+    if [[ -n $ZED_ENVIRONMENT ]]; then
+        if [[ ${(L)TERM_PROGRAM} == zed || -n $ZED_TERM ]] && (( ${SHLVL:-1} > 1 )); then
+            local parent_comm=${(L)"$(ps -p $PPID -o comm= 2>/dev/null)"}
+            case $parent_comm in
+                (bash|elvish|zsh|fish|ksh|tcsh|dash|-bash|-elvish|-zsh|-fish|-ksh|-tcsh|-dash) ;;
+                (*) detected+=" zed" ;;
+            esac
+        fi
+    fi
+    [[ $GITHUB_COPILOT_CLI_MODE == true ]] && detected+=" copilot"
+    [[ -n $DROID_CLI ]] && detected+=" droid"
+    [[ $AGENT == amp || -n $AMP_HOME ]] && detected+=" amp"
+    [[ -n $KIMI_CLI ]] && detected+=" kimi"
+    [[ $OR_APP_NAME == OpenHands || -n $OR_SITE_URL ]] && detected+=" openhands"
+    [[ -n $GOOSE_TERMINAL ]] && detected+=" goose"
+    [[ -n $AUGMENT_API_TOKEN || -n $AUGMENT_AGENT ]] && detected+=" auggie"
+    [[ -n $CLINE_TASK_ID ]] && detected+=" cline"
+    [[ -n $ROO_CODE_TASK_ID ]] && detected+=" roo"
+    [[ -n $WINDSURF_SESSION || $TERM_PROGRAM == windsurf ]] && detected+=" windsurf"
+
+    REPLY=$detected
+}
+
+# Would this shell be aligned? Sets REPLY to the agent (or "forced") and
+# returns 0 if so; sets REPLY to the reason and returns 1 if not. With
+# "assume-c", answers for a `zsh -c` with this environment.
+_ai_aligned_zsh_wanted() {
+    emulate -L zsh
+    if [[ -o interactive ]]; then
+        REPLY="interactive shell"; return 1
+    fi
+    # `zsh -c '...'`, or commands piped to zsh. Never a script file: those are
+    # written in zsh, for zsh. (SHIN_STDIN is not set yet while .zshenv runs;
+    # the trap checks it again for zsh versions without ZSH_SCRIPT.)
+    if [[ $1 != assume-c && -z $ZSH_EXECUTION_STRING && -n $ZSH_SCRIPT ]]; then
+        REPLY="a zsh script"; return 1
+    fi
+    case ${(L)AI_ALIGNED_ZSH:-auto} in
+        (off|0|false|no) REPLY="AI_ALIGNED_ZSH=$AI_ALIGNED_ZSH"; return 1 ;;
+        (on|1|true|yes|force) REPLY="forced"; return 0 ;;
+    esac
+    if [[ $AMI_PASSTHROUGH == true ]]; then
+        REPLY="AMI_PASSTHROUGH=true"; return 1
+    fi
+    _ai_aligned_zsh_check_env
+    REPLY=${${REPLY# }%% *}
+    [[ -n $REPLY ]] || { REPLY="no coding agent detected"; return 1; }
+}
+
+# ---------------------------------------------------------------- the hook
+#
+# Sourced ("file", or "filecode" from a zcompiled copy) unless run directly as
+# a script ("toplevel"). Anything but a direct run takes this branch, so the
+# command below, which ends in exit, can never run inside someone's shell.
+
+if [[ $ZSH_EVAL_CONTEXT != toplevel ]]; then
+    if ! _ai_aligned_zsh_wanted; then
+        unfunction _ai_aligned_zsh_check_env _ai_aligned_zsh_wanted
+        unset _ai_aligned_zsh_default_options
+        return 0
+    fi
+    typeset -g _ai_aligned_zsh_agent=$REPLY
+
+    # Where are we? Called from the DEBUG trap with the trap's own
+    # ZSH_EVAL_CONTEXT (in here it would end in ":shfunc"). Startup files run
+    # in context "file"; the agent's command string in "cmdarg" ("toplevel"
+    # when piped to zsh), possibly inside eval. Returns
+    #   0  switch now: the first command of the agent's command string
+    #   3  that command sourced a snapshot of the user's interactive shell (as
+    #      Claude Code and Codex do) and the next one is starting
+    #   1  not yet          2  never: the startup files turned it off
+    _ai_aligned_zsh_ready() {
+        emulate -L zsh
+        local c=${1%:trap}
+        c=${c//:eval/}
+        case $c in
+            (cmdarg) ;;
+            (toplevel) [[ -o shinstdin ]] || return 2 ;;
+            (*) return 1 ;;
+        esac
+        [[ -n $_ai_aligned_zsh_snapshot ]] && return 3
+        case ${(L)AI_ALIGNED_ZSH:-auto} in
+            (off|0|false|no) return 2 ;;
+        esac
+        return 0
+    }
+
+    # Every function defined so far was written for zsh: by .zshenv, .zprofile,
+    # .zlogin or the snapshot. Redefine each under sticky emulation with the
+    # options it was written for, so it keeps running with them after the
+    # agent's options are switched on. Later calls only handle new functions.
+    #
+    # Those options are the current ones on the first call. After a snapshot
+    # they are the current ones with our own changes taken back out, except
+    # where the snapshot set an option to something else. (One it set to the
+    # value we chose cannot be told apart, and is taken back out too.)
+    typeset -ga _ai_aligned_zsh_done
+    typeset -gA _ai_aligned_zsh_before _ai_aligned_zsh_after
+    _ai_aligned_zsh_protect() {
+        # Read before emulate, and in a form any option set can expand.
+        local -A theirs
+        theirs=("${(@kv)options[@]}")
+        emulate -L zsh
+        local -a todo flags
+        local o f
+        for f in ${(k)functions}; do
+            [[ $f == _ai_aligned_zsh_* ]] && continue
+            (( ${_ai_aligned_zsh_done[(Ie)$f]} )) && continue
+            _ai_aligned_zsh_done+=($f)
+            # Unloaded autoload stubs load their own code later; leave them.
+            [[ $functions[$f] == "builtin autoload -X"* ]] && continue
+            todo+=($f)
+        done
+        (( $#todo )) || return 0
+        if [[ $1 == snapshot ]]; then
+            for o in ${(k)_ai_aligned_zsh_after}; do
+                [[ $_ai_aligned_zsh_before[$o] != $_ai_aligned_zsh_after[$o] &&
+                   $theirs[$o] == $_ai_aligned_zsh_after[$o] ]] && theirs[$o]=$_ai_aligned_zsh_before[$o]
+            done
+        fi
+        local -A zdefault
+        zdefault=("${(@kv)options}")
+        for o in ${(k)theirs}; do
+            case $o in
+                (interactive|login|shinstdin|singlecommand|privileged|restricted|zle|monitor|localoptions|localtraps|localpatterns) continue ;;
+            esac
+            [[ $theirs[$o] == $zdefault[$o] ]] && continue
+            if [[ $theirs[$o] == on ]]; then flags+=(-o $o); else flags+=(+o $o); fi
+        done
+        for f in $todo; do
+            emulate zsh $flags -c "function ${(q)f} {
+${functions[$f]}
+}" 2>/dev/null
+        done
+    }
+
+    # Runs before every command until its work is done. Options are set here,
+    # in the trap body, so no function scope can roll them back. The trap
+    # removes itself before the step that finishes it, so even a failure in
+    # that step cannot leave it running.
+    typeset -g _ai_aligned_zsh_snapshot= _ai_aligned_zsh_step=
+    trap '
+        _ai_aligned_zsh_ready "$ZSH_EVAL_CONTEXT"
+        _ai_aligned_zsh_step=$?
+        if (( _ai_aligned_zsh_step == 0 )); then
+            case $ZSH_DEBUG_CMD in
+                (*shell[-_]snapshots/*) _ai_aligned_zsh_snapshot=pending ;;
+                (*) trap - DEBUG ;;
+            esac
+            AI_ALIGNED_ZSH_ACTIVE=$_ai_aligned_zsh_agent
+            _ai_aligned_zsh_protect first
+        elif (( _ai_aligned_zsh_step >= 2 )); then
+            trap - DEBUG
+            _ai_aligned_zsh_snapshot=
+            (( _ai_aligned_zsh_step == 3 )) && _ai_aligned_zsh_protect snapshot
+        fi
+        if (( _ai_aligned_zsh_step == 0 || _ai_aligned_zsh_step == 3 )); then
+            _ai_aligned_zsh_before=("${(@kv)options[@]}")
+            if [[ -n ${AI_ALIGNED_ZSH_OPTIONS:-} ]]; then
+                setopt ${=AI_ALIGNED_ZSH_OPTIONS}
+            else
+                setopt "${_ai_aligned_zsh_default_options[@]}"
+            fi
+            _ai_aligned_zsh_after=("${(@kv)options[@]}")
+        fi
+        if (( _ai_aligned_zsh_step != 1 )) && [[ -z $_ai_aligned_zsh_snapshot ]]; then
+            unfunction _ai_aligned_zsh_check_env _ai_aligned_zsh_wanted _ai_aligned_zsh_ready _ai_aligned_zsh_protect
+            unset _ai_aligned_zsh_default_options _ai_aligned_zsh_agent _ai_aligned_zsh_before _ai_aligned_zsh_after _ai_aligned_zsh_done _ai_aligned_zsh_snapshot _ai_aligned_zsh_step
+        fi
+    ' DEBUG
+    return 0
+fi
+
+# ---------------------------------------------------------------- the command
+
+emulate -R zsh
+
+VERSION="0.1.0"
+SELF=${0:A}
+
+say()  { print -r -- "$*"; }
+ok()   { print -r -- "✓ $*"; }
+warn() { print -r -- "! $*"; problems=1; }
+
+zshenv_path() { print -r -- "${ZDOTDIR:-$HOME}/.zshenv"; }
+
+cmd_options() {
+    say "Options set for agents (AI_ALIGNED_ZSH_OPTIONS overrides the list):"
+    local line
+    while IFS= read -r line; do
+        [[ $line == '    '[a-z]* ]] && say "  ${line#    }"
+    done < <(sed -n '/^typeset -ga _ai_aligned_zsh_default_options=(/,/^)/p' "$SELF")
+}
+
+cmd_status() {
+    local mode
+    # This process is a script; ask the question for a `zsh -c` with this
+    # environment instead.
+    REPLY=""
+    if _ai_aligned_zsh_wanted assume-c; then
+        mode="aligned ($REPLY)"
+    else
+        mode="untouched: $REPLY"
+    fi
+    say "zsh -c from this environment: $mode"
+    _ai_aligned_zsh_check_env
+    say "agent variables (am-i-ai rules): ${${REPLY# }:-none}"
+}
+
+cmd_detect() {
+    # The full am-i-ai detection, process tree included. Slow; for diagnosis.
+    bash -c "$(sed -n '/^# --- BEGIN BUNDLED am-i-ai ---$/,/^# --- END BUNDLED am-i-ai ---$/p' "$SELF")"'
+        printf "env:  %s\n" "$(ami_check_env)"
+        printf "tree: %s\n" "$(ami_check_ps_tree)"
+        printf "agent: %s\n" "$(ami_detect)"'
+}
+
+cmd_doctor() {
+    local problems=0 zshenv out
+    zshenv=$(zshenv_path)
+    say "ai-aligned-zsh $VERSION ($SELF)"
+    say "zsh $ZSH_VERSION"
+    if [[ -r $zshenv ]] && grep -q '>>> ai-aligned-zsh >>>' "$zshenv"; then
+        ok "hooked from $zshenv"
+    else
+        warn "not hooked from $zshenv; run install.sh, or add: source \"$SELF\""
+    fi
+    local f
+    for f in ${CHEZMOI_SOURCE_DIR:-$HOME/.local/share/chezmoi}/{,private_}dot_zshenv{,.tmpl}; do
+        [[ -e $f ]] || continue
+        say "  chezmoi manages ~/.zshenv ($f); keep the hook there, or chezmoi apply drops it"
+        break
+    done
+    # Probe the real startup files: a forced and a human `zsh -c`.
+    out=$(env AI_ALIGNED_ZSH=on zsh -c 'print -r -- "${AI_ALIGNED_ZSH_ACTIVE:-none} ${options[shwordsplit]} ${options[nomatch]}"' 2>&1)
+    if [[ $out == "forced on off" ]]; then
+        ok "a forced zsh -c gets the options"
+    else
+        warn "a forced zsh -c did not get the options (got: $out)"
+    fi
+    out=$(env AI_ALIGNED_ZSH=off zsh -c 'print -r -- "${AI_ALIGNED_ZSH_ACTIVE:-none} ${options[shwordsplit]} ${options[nomatch]}"' 2>&1)
+    if [[ $out == "none off on" ]]; then
+        ok "a zsh -c with AI_ALIGNED_ZSH=off is untouched"
+    else
+        warn "a zsh -c with AI_ALIGNED_ZSH=off was changed (got: $out)"
+    fi
+    cmd_status
+    return $problems
+}
+
+usage() {
+    cat <<EOF
+ai-aligned-zsh $VERSION - bash-compatible zsh options for coding agents
+
+Source it from the top of ~/.zshenv (install.sh does this). Run it to inspect:
+
+  ai-aligned-zsh status    would a zsh -c from this environment be aligned
+  ai-aligned-zsh options   the options it sets
+  ai-aligned-zsh doctor    check the hook against your real startup files
+  ai-aligned-zsh detect    full am-i-ai detection, process tree included
+
+  AI_ALIGNED_ZSH=on|off           force on, or turn off
+  AI_ALIGNED_ZSH_OPTIONS="..."    replace the option list
+EOF
+}
+
+case ${1:-status} in
+    (status) cmd_status ;;
+    (options) cmd_options ;;
+    (doctor) cmd_doctor ;;
+    (detect) cmd_detect ;;
+    (version|--version|-v) say "ai-aligned-zsh $VERSION" ;;
+    (help|--help|-h) usage ;;
+    (*) usage >&2; exit 2 ;;
+esac
+exit
+
+# ---------------------------------------------------------------- am-i-ai
+#
+# Never run by zsh: `ai-aligned-zsh detect` hands it to bash, and test.sh
+# checks the zsh mirror above against ami_check_env.
+: <<'__AM_I_AI__'
+# --- BEGIN BUNDLED am-i-ai ---
+# Bundled from am-i-ai v1.5.1
+# https://github.com/ai-ecoverse/am-i-ai
+#
+# This code is auto-generated. Do not edit manually.
+# To update, run the propagate-updates workflow in am-i-ai.
+
+_ami_debug() {
+    if [ "$AMI_DEBUG" = "true" ]; then
+        echo "[am-i-ai] $*" >&2
+    fi
+}
+ami_process_contains() {
+    local pid=$1
+    local pattern=$2
+
+    # Get process command and name
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        # macOS
+        ps -p "$pid" -o comm= 2>/dev/null | grep -qi "$pattern" || \
+        ps -p "$pid" -o command= 2>/dev/null | grep -qi "$pattern"
+    else
+        # Linux
+        ps -p "$pid" -o comm= 2>/dev/null | grep -qi "$pattern" || \
+        ps -p "$pid" -o cmd= 2>/dev/null | grep -qi "$pattern"
+    fi
+}
+ami_check_env() {
+    local detected=""
+
+    # Claude Code detection
+    # Detect via CLAUDECODE or CLAUDE_CODE_ENTRYPOINT env vars
+    # ACP mode sets CLAUDECODE=1 without CLAUDE_CODE_ENTRYPOINT
+    # CLI/SDK mode sets both CLAUDECODE and CLAUDE_CODE_ENTRYPOINT
+    if [ -n "$CLAUDECODE" ] || [ "$CLAUDE_CODE_ENTRYPOINT" = "cli" ] || [ "$CLAUDE_CODE_ENTRYPOINT" = "sdk-ts" ]; then
+        detected="$detected claude"
+        _ami_debug "Detected Claude via environment variable"
+    fi
+
+    # Grok Build detection (xAI)
+    # Primary detection via process tree (the 'grok' binary or 'grok-macos-*' is the TUI/agent parent)
+    # GROK_CODE_XAI_API_KEY for API key auth in headless/agent mode (not always exported to child processes)
+    # GROK_MODEL=grok-build or GROK_BUILD may be set in some contexts
+    if [ -n "$GROK_CODE_XAI_API_KEY" ] || [ -n "$GROK_BUILD" ] || [ "$GROK_MODEL" = "grok-build" ]; then
+        detected="$detected grok"
+        _ami_debug "Detected Grok Build via environment variable"
+    fi
+
+    # Pi Coding Agent detection (package @earendil-works/pi-coding-agent, https://pi.dev)
+    # Primary: PI_CODING_AGENT env var (set e.g. to true); process tree uses "pi-coding-agent"
+    # (npm-installed path fragment) to avoid false-positives on bare "pi" (pip/mpi/etc.)
+    if [ -n "$PI_CODING_AGENT" ]; then
+        detected="$detected pi"
+        _ami_debug "Detected Pi via environment variable"
+    fi
+
+    # Gemini detection
+    if [ -n "$GEMINI_CLI" ]; then
+        detected="$detected gemini"
+        _ami_debug "Detected Gemini via environment variable"
+    fi
+
+    # Qwen detection
+    if [ -n "$QWEN_CODE" ]; then
+        detected="$detected qwen"
+        _ami_debug "Detected Qwen via environment variable"
+    fi
+
+    # Cursor detection - use CURSOR_AGENT to avoid false positives in Cursor IDE terminals
+    if [ -n "$CURSOR_AGENT" ]; then
+        detected="$detected cursor"
+        _ami_debug "Detected Cursor via environment variable"
+    fi
+
+    # OpenCode detection
+    if [ -n "$OPENCODE_AI" ]; then
+        detected="$detected opencode"
+        _ami_debug "Detected OpenCode via environment variable"
+    fi
+
+    # Codex detection
+    # CLI sets CODEX_CLI, sandboxed ACP sessions set CODEX_SANDBOX,
+    # and Codex Desktop shells expose CODEX_SHELL/CODEX_THREAD_ID.
+    if [ -n "$CODEX_CLI" ] || [ -n "$CODEX_SANDBOX" ] || \
+       [ -n "$CODEX_SHELL" ] || [ -n "$CODEX_THREAD_ID" ]; then
+        detected="$detected codex"
+        _ami_debug "Detected Codex via environment variable"
+    fi
+
+    # Aider detection
+    if [ "$OR_APP_NAME" = "Aider" ]; then
+        detected="$detected aider"
+        _ami_debug "Detected Aider via environment variable"
+    fi
+
+    # Zed detection - complex logic to distinguish human from AI
+    # Observed patterns:
+    # 1. Human via git panel: ZED_ENVIRONMENT + NO terminal vars + SHLVL=1
+    # 2. Human via terminal: ZED_ENVIRONMENT + parent is interactive shell (elvish, zsh, bash, fish)
+    # 3. Zed's native agent: ZED_ENVIRONMENT + HAS terminal vars + SHLVL>1 + parent NOT interactive shell
+    # 4. ACP integrations: Have their own tool markers (handled above)
+    #
+    # Key insight: If the direct parent process is an interactive shell,
+    # the user is typing commands manually, not the Zed agent.
+    local term_program_lower
+    term_program_lower=$(echo "$TERM_PROGRAM" | tr '[:upper:]' '[:lower:]')
+    if [ -n "$ZED_ENVIRONMENT" ]; then
+        if { [ "$term_program_lower" = "zed" ] || [ -n "$ZED_TERM" ]; } && [ "${SHLVL:-1}" -gt 1 ]; then
+            # Has terminal vars and SHLVL>1 - could be agent or human in terminal
+            # Check if parent process is an interactive shell (human typing)
+            local parent_comm
+            parent_comm=$(ps -p "$PPID" -o comm= 2>/dev/null | tr '[:upper:]' '[:lower:]')
+            case "$parent_comm" in
+                bash|elvish|zsh|fish|ksh|tcsh|dash|-bash|-elvish|-zsh|-fish|-ksh|-tcsh|-dash)
+                    # Parent is interactive shell - human typing in terminal
+                    _ami_debug "Zed detected but parent is interactive shell ($parent_comm) - human typing"
+                    ;;
+                *)
+                    # Parent is not an interactive shell - likely Zed agent
+                    detected="$detected zed"
+                    _ami_debug "Detected Zed AI agent via environment (parent: $parent_comm)"
+                    ;;
+            esac
+        fi
+        # else: Human git panel (SHLVL=1, no terminal vars)
+    fi
+
+    # Copilot detection
+    if [ "$GITHUB_COPILOT_CLI_MODE" = "true" ]; then
+        detected="$detected copilot"
+        _ami_debug "Detected Copilot via environment variable"
+    fi
+
+    # Droid detection (Factory AI)
+    if [ -n "$DROID_CLI" ]; then
+        detected="$detected droid"
+        _ami_debug "Detected Droid via environment variable"
+    fi
+
+    # Amp detection (Sourcegraph)
+    if [ "$AGENT" = "amp" ] || [ -n "$AMP_HOME" ]; then
+        detected="$detected amp"
+        _ami_debug "Detected Amp via environment variable"
+    fi
+
+    # Kimi CLI detection
+    if [ -n "$KIMI_CLI" ]; then
+        detected="$detected kimi"
+        _ami_debug "Detected Kimi CLI via environment variable"
+    fi
+
+    # OpenHands detection
+    if [ "$OR_APP_NAME" = "OpenHands" ] || [ -n "$OR_SITE_URL" ]; then
+        detected="$detected openhands"
+        _ami_debug "Detected OpenHands via environment variable"
+    fi
+
+    # Goose detection (Block)
+    if [ -n "$GOOSE_TERMINAL" ]; then
+        detected="$detected goose"
+        _ami_debug "Detected Goose via environment variable"
+    fi
+
+    # Auggie detection (Augment Code)
+    # Intent by Augment / ACP mode sets AUGMENT_AGENT=1 without AUGMENT_API_TOKEN.
+    if [ -n "$AUGMENT_API_TOKEN" ] || [ -n "$AUGMENT_AGENT" ]; then
+        detected="$detected auggie"
+        _ami_debug "Detected Auggie via environment variable"
+    fi
+
+    # Cline detection (VS Code extension)
+    if [ -n "$CLINE_TASK_ID" ]; then
+        detected="$detected cline"
+        _ami_debug "Detected Cline via environment variable"
+    fi
+
+    # Roo Code detection (VS Code extension)
+    if [ -n "$ROO_CODE_TASK_ID" ]; then
+        detected="$detected roo"
+        _ami_debug "Detected Roo Code via environment variable"
+    fi
+
+    # Windsurf/Cascade detection
+    if [ -n "$WINDSURF_SESSION" ] || [ "$TERM_PROGRAM" = "windsurf" ]; then
+        detected="$detected windsurf"
+        _ami_debug "Detected Windsurf via environment variable"
+    fi
+
+    echo "$detected"
+}
+ami_check_ps_tree() {
+    local detected=""
+    local max_depth=10
+    local depth=0
+
+    _ami_debug "Starting process tree detection from PID $$"
+
+    # Ancestor chain (parent first, up to max_depth, stopping at PID 0/1),
+    # computed from a single snapshot of the process table.
+    local chain
+    chain=$(ps -A -o pid=,ppid= 2>/dev/null | awk -v pid="$$" -v max="$max_depth" '
+        { parent[$1] = $2 }
+        END {
+            out = ""
+            for (d = 0; d < max && (pid in parent); d++) {
+                pid = parent[pid]
+                if (pid == "" || pid + 0 <= 1) break
+                out = out (out == "" ? "" : ",") pid
+            }
+            print out
+        }')
+
+    if [ -z "$chain" ]; then
+        _ami_debug "Reached top of process tree at depth 0"
+        echo ""
+        return 0
+    fi
+
+    # One lowercased snapshot of comm and command for every ancestor.
+    local cmd_field="command"
+    [[ "$OSTYPE" == "darwin"* ]] || cmd_field="cmd"
+    local snapshot
+    snapshot=$( { ps -p "$chain" -o pid=,comm=; echo "--"; ps -p "$chain" -o "pid=,${cmd_field}="; } 2>/dev/null \
+        | tr '[:upper:]' '[:lower:]')
+
+    local -a comm_of cmd_of
+    local section=comm line spid rest
+    while IFS= read -r line; do
+        if [ "$line" = "--" ]; then
+            section=cmd
+            continue
+        fi
+        read -r spid rest <<< "$line"
+        case "$spid" in ''|*[!0-9]*) continue ;; esac
+        if [ "$section" = comm ]; then comm_of[spid]=$rest; else cmd_of[spid]=$rest; fi
+    done <<< "$snapshot"
+
+    local current_pid c a pattern tool words
+    for current_pid in ${chain//,/ }; do
+        # A process that exited between the two ps calls ends the walk,
+        # just like a failed `ps -p` did before.
+        if [ -z "${comm_of[current_pid]+x}" ] && [ -z "${cmd_of[current_pid]+x}" ]; then
+            _ami_debug "Reached top of process tree at depth $depth"
+            break
+        fi
+
+        _ami_debug "Checking PID $current_pid at depth $depth"
+        c=${comm_of[current_pid]}
+        a=${cmd_of[current_pid]}
+        words=""
+
+        # Patterns in the original detection order ("pattern:tool"). Plain entries
+        # are case-insensitive substring matches against comm and command (same as
+        # ami_process_contains); cursor-agent avoids Cursor IDE terminals.
+        for pattern in claude:claude gemini:gemini codex:codex aider:aider qwen:qwen \
+                       zed:zed opencode:opencode cursor-agent:cursor kimi:kimi \
+                       crush:crush goose:goose grok:grok pi:pi auggie:auggie \
+                       cline:cline roo:roo windsurf:windsurf droid:droid; do
+            tool=${pattern#*:}
+            pattern=${pattern%%:*}
+            case "$tool" in
+                pi)
+                    # Space-bounded token match on " comm command ": catches the
+                    # launched `pi` binary (@earendil-works/pi-coding-agent) without
+                    # false positives on pip/mpi/picocom/etc.
+                    [[ " $c $a " == *" pi "* || " $c $a " == *" pi-coding-agent "* ]] || continue
+                    ;;
+                roo|droid)
+                    # Whole-word match (like grep -w): avoids "kangaroo" for Roo Code
+                    # and "android-studio" for Droid.
+                    [ -n "$words" ] || words=" ${c//[![:alnum:]_]/ } ${a//[![:alnum:]_]/ } "
+                    [[ "$words" == *" $pattern "* ]] || continue
+                    ;;
+                *)
+                    [[ "$c" == *"$pattern"* || "$a" == *"$pattern"* ]] || continue
+                    ;;
+            esac
+            if [ "$tool" = zed ]; then
+                # Attribute to Zed's native agent when terminal vars ARE set and SHLVL > 1
+                # BUT not if parent is an interactive shell (human typing)
+                local tp_lower parent_comm
+                tp_lower=$(echo "$TERM_PROGRAM" | tr '[:upper:]' '[:lower:]')
+                { { [ "$tp_lower" = "zed" ] || [ -n "$ZED_TERM" ]; } && [ "${SHLVL:-1}" -gt 1 ]; } || continue
+                if [ -n "${comm_of[PPID]+x}" ]; then
+                    parent_comm=${comm_of[PPID]}
+                else
+                    parent_comm=$(ps -p "$PPID" -o comm= 2>/dev/null | tr '[:upper:]' '[:lower:]')
+                fi
+                case "$parent_comm" in
+                    bash|elvish|zsh|fish|ksh|tcsh|dash|-bash|-elvish|-zsh|-fish|-ksh|-tcsh|-dash)
+                        _ami_debug "Zed in tree but parent is interactive shell - human typing"
+                        continue
+                        ;;
+                esac
+            fi
+            detected="$detected $tool"
+            _ami_debug "Detected $tool in process tree at depth $depth"
+        done
+
+        depth=$((depth + 1))
+    done
+
+    echo "$detected"
+}
+ami_detect() {
+    # Allow callers to opt out of AI detection (e.g., read-only tools)
+    # Set AMI_PASSTHROUGH=true to force "none" result
+    if [[ "${AMI_PASSTHROUGH:-}" == "true" ]]; then
+        _ami_debug "AMI_PASSTHROUGH is set, returning none"
+        echo "none"
+        return 0
+    fi
+
+    _ami_debug "Starting AI detection"
+
+    # Phase 1: Environment variable detection
+    local env_detected
+    env_detected=$(ami_check_env)
+
+    # Phase 2: Process tree detection
+    local ps_detected
+    ps_detected=$(ami_check_ps_tree)
+
+    # Combine results and apply priority order
+    local all_detected="$env_detected $ps_detected"
+
+    _ami_debug "Environment detected: '$env_detected'"
+    _ami_debug "Process tree detected: '$ps_detected'"
+    _ami_debug "Combined detected: '$all_detected'"
+
+    # Priority order: Amp > Codex > Aider > Grok > Pi > Claude > Gemini > Qwen > Droid > OpenCode > Cursor > Copilot > Kimi > OpenHands > Cline > Roo > Windsurf > Crush > Goose > Auggie > Zed
+    # Zed is last because it often hosts other AI tools
+    # More specific AI tools take precedence over IDE-level tools
+    if [[ "$all_detected" =~ "amp" ]]; then
+        _ami_debug "Final result: amp"
+        echo "amp"
+    elif [[ "$all_detected" =~ "codex" ]]; then
+        _ami_debug "Final result: codex"
+        echo "codex"
+    elif [[ "$all_detected" =~ "aider" ]]; then
+        _ami_debug "Final result: aider"
+        echo "aider"
+    elif [[ "$all_detected" =~ "grok" ]]; then
+        _ami_debug "Final result: grok"
+        echo "grok"
+    elif [[ " $all_detected " =~ " pi " ]]; then
+        _ami_debug "Final result: pi"
+        echo "pi"
+    elif [[ "$all_detected" =~ "claude" ]]; then
+        _ami_debug "Final result: claude"
+        echo "claude"
+    elif [[ "$all_detected" =~ "gemini" ]]; then
+        _ami_debug "Final result: gemini"
+        echo "gemini"
+    elif [[ "$all_detected" =~ "qwen" ]]; then
+        _ami_debug "Final result: qwen"
+        echo "qwen"
+    elif [[ "$all_detected" =~ "droid" ]]; then
+        _ami_debug "Final result: droid"
+        echo "droid"
+    elif [[ "$all_detected" =~ "opencode" ]]; then
+        _ami_debug "Final result: opencode"
+        echo "opencode"
+    elif [[ "$all_detected" =~ "cursor" ]]; then
+        _ami_debug "Final result: cursor"
+        echo "cursor"
+    elif [[ "$all_detected" =~ "copilot" ]]; then
+        _ami_debug "Final result: copilot"
+        echo "copilot"
+    elif [[ "$all_detected" =~ "kimi" ]]; then
+        _ami_debug "Final result: kimi"
+        echo "kimi"
+    elif [[ "$all_detected" =~ "openhands" ]]; then
+        _ami_debug "Final result: openhands"
+        echo "openhands"
+    elif [[ "$all_detected" =~ "cline" ]]; then
+        _ami_debug "Final result: cline"
+        echo "cline"
+    elif [[ "$all_detected" =~ "roo" ]]; then
+        _ami_debug "Final result: roo"
+        echo "roo"
+    elif [[ "$all_detected" =~ "windsurf" ]]; then
+        _ami_debug "Final result: windsurf"
+        echo "windsurf"
+    elif [[ "$all_detected" =~ "crush" ]]; then
+        _ami_debug "Final result: crush"
+        echo "crush"
+    elif [[ "$all_detected" =~ "goose" ]]; then
+        _ami_debug "Final result: goose"
+        echo "goose"
+    elif [[ "$all_detected" =~ "auggie" ]]; then
+        _ami_debug "Final result: auggie"
+        echo "auggie"
+    elif [[ "$all_detected" =~ "zed" ]]; then
+        _ami_debug "Final result: zed"
+        echo "zed"
+    else
+        _ami_debug "Final result: none"
+        echo "none"
+    fi
+}
+ami_is_ai() {
+    local result
+    result=$(ami_detect)
+    [ "$result" != "none" ]
+}
+ami_detect_all() {
+    # Allow callers to opt out of AI detection (e.g., read-only tools)
+    # Set AMI_PASSTHROUGH=true to force empty result
+    if [[ "${AMI_PASSTHROUGH:-}" == "true" ]]; then
+        _ami_debug "AMI_PASSTHROUGH is set, returning empty"
+        echo ""
+        return 0
+    fi
+
+    local env_detected
+    env_detected=$(ami_check_env)
+
+    local ps_detected
+    ps_detected=$(ami_check_ps_tree)
+
+    # Combine and deduplicate
+    local all_detected="$env_detected $ps_detected"
+
+    # Remove leading/trailing spaces and deduplicate
+    echo "$all_detected" | tr ' ' '\n' | sort -u | tr '\n' ' ' | sed 's/^ *//;s/ *$//'
+}
+ami_get_email() {
+    local tool="${1:-$(ami_detect)}"
+
+    case "$tool" in
+        "claude")   echo "noreply@anthropic.com" ;;
+        "gemini")   echo "noreply@google.com" ;;
+        "codex")    echo "noreply@openai.com" ;;
+        "aider")    echo "aider@aider.chat" ;;
+        "qwen")     echo "noreply@alibaba.com" ;;
+        "cursor")   echo "cursoragent@cursor.com" ;;
+        "opencode") echo "noreply@opencode.ai" ;;
+        "zed")      echo "noreply@zed.dev" ;;
+        "copilot")  echo "copilot@github.com" ;;
+        "droid")    echo "droid@factory.ai" ;;
+        "amp")      echo "noreply@sourcegraph.com" ;;
+        "kimi")     echo "noreply@kimi.com" ;;
+        "openhands") echo "openhands@all-hands.dev" ;;
+        "crush")    echo "crush@charm.land" ;;
+        "goose")    echo "goose@opensource.block.xyz" ;;
+        "grok")     echo "grok@x.ai" ;;
+        "pi")       echo "pi@earendil.works" ;;
+        "auggie")   echo "noreply@augmentcode.com" ;;
+        "cline")    echo "cline@cline.bot" ;;
+        "roo")      echo "roo@roocode.dev" ;;
+        "windsurf") echo "cascade@codeium.com" ;;
+        *)          echo "" ;;
+    esac
+}
+ami_get_name() {
+    local tool="${1:-$(ami_detect)}"
+
+    case "$tool" in
+        "claude")   echo "Claude Code" ;;
+        "gemini")   echo "Gemini" ;;
+        "codex")    echo "Codex" ;;
+        "aider")    echo "Aider" ;;
+        "qwen")     echo "Qwen Code" ;;
+        "cursor")   echo "Cursor AI" ;;
+        "opencode") echo "opencode AI" ;;
+        "zed")      echo "Zed AI" ;;
+        "copilot")  echo "GitHub Copilot" ;;
+        "droid")    echo "Droid" ;;
+        "amp")      echo "Amp" ;;
+        "kimi")     echo "Kimi CLI" ;;
+        "openhands") echo "OpenHands" ;;
+        "crush")    echo "Crush" ;;
+        "goose")    echo "Goose User" ;;
+        "grok")     echo "Grok Build" ;;
+        "pi")       echo "Pi" ;;
+        "auggie")   echo "Augment Code" ;;
+        "cline")    echo "Cline" ;;
+        "roo")      echo "Roo Code" ;;
+        "windsurf") echo "Windsurf Cascade" ;;
+        *)          echo "" ;;
+    esac
+}
+
+# Function aliases for backward compatibility
+process_contains() { ami_process_contains "$@"; }
+check_env_vars() { ami_check_env; }
+check_ps_tree() { ami_check_ps_tree; }
+detect_ai_tool() { ami_detect; }
+# --- END BUNDLED am-i-ai ---
+__AM_I_AI__
