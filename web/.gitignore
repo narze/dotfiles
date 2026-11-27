@@ -1,0 +1,7 @@
+/node_modules/
+/dist/
+/host-updates
+/.env
+/.env.*
+!/.env.example
+!/.env.tailscale.example
