@@ -7,3 +7,6 @@ setopt extendedglob
 
 # Allow [ or ] whereever you want
 unsetopt nomatch
+
+# Allow # comments in typed and pasted commands
+setopt interactive_comments

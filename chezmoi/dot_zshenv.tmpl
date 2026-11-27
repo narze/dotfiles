@@ -1,3 +1,14 @@
+# Agents write bash, but run it through the login shell (`zsh -c`, `zsh -lc`).
+# ai-aligned-zsh turns on bash-like options (word splitting, literal unmatched
+# globs, no `=cmd` expansion, ...) only in those non-interactive agent shells.
+# Its own detection checks OPENCODE_AI, not OPENCODE, and not AI_AGENT, so force
+# it on for those two.
+# https://github.com/ai-ecoverse/ai-aligned-zsh (vendored at 2e4f1c4)
+[[ -n "$AI_AGENT$OPENCODE" && -z "$AI_ALIGNED_ZSH" ]] && AI_ALIGNED_ZSH=on
+# >>> ai-aligned-zsh >>>
+[[ -r "$HOME/.local/bin/ai-aligned-zsh" ]] && source "$HOME/.local/bin/ai-aligned-zsh"
+# <<< ai-aligned-zsh <<<
+
 # Agent shells (Claude Code, Codex, Cursor, OpenCode) are not interactive, so the
 # `mise activate` hook does not keep PATH correct. Use mise shims: a shim picks
 # the tool version for its current directory each time it runs, also in daemons
@@ -33,49 +44,3 @@ if [[ $PATH != /opt/homebrew/bin:/opt/homebrew/sbin:* ]]; then
 fi
 
 {{ end -}}
-
-# # Documentation: https://github.com/romkatv/zsh4humans/blob/v5/README.md.
-# #
-# # Do not modify this file unless you know exactly what you are doing.
-# # It is strongly recommended to keep all shell customization and configuration
-# # (including exported environment variables such as PATH) in ~/.zshrc or in
-# # files sourced from ~/.zshrc. If you are certain that you must export some
-# # environment variables in ~/.zshenv, do it where indicated by comments below.
-
-# if [ -n "${ZSH_VERSION-}" ]; then
-#   # If you are certain that you must export some environment variables
-#   # in ~/.zshenv (see comments at the top!), do it here:
-#   #
-#   #   export GOPATH=$HOME/go
-#   #
-#   # Do not change anything else in this file.
-
-#   : ${ZDOTDIR:=~}
-#   setopt no_global_rcs
-#   [[ -o no_interactive && -z "${Z4H_BOOTSTRAPPING-}" ]] && return
-#   setopt no_rcs
-#   unset Z4H_BOOTSTRAPPING
-# fi
-
-# Z4H_URL="https://raw.githubusercontent.com/romkatv/zsh4humans/v5"
-# : "${Z4H:=${XDG_CACHE_HOME:-$HOME/.cache}/zsh4humans/v5}"
-
-# umask o-w
-
-# if [ ! -e "$Z4H"/z4h.zsh ]; then
-#   mkdir -p -- "$Z4H" || return
-#   printf >&2 '\033[33mz4h\033[0m: fetching \033[4mz4h.zsh\033[0m\n'
-#   if command -v curl >/dev/null 2>&1; then
-#     curl -fsSL -- "$Z4H_URL"/z4h.zsh >"$Z4H"/z4h.zsh.$$ || return
-#   elif command -v wget >/dev/null 2>&1; then
-#     wget -O- -- "$Z4H_URL"/z4h.zsh >"$Z4H"/z4h.zsh.$$ || return
-#   else
-#     printf >&2 '\033[33mz4h\033[0m: please install \033[32mcurl\033[0m or \033[32mwget\033[0m\n'
-#     return 1
-#   fi
-#   mv -- "$Z4H"/z4h.zsh.$$ "$Z4H"/z4h.zsh || return
-# fi
-
-# . "$Z4H"/z4h.zsh || return
-
-# setopt rcs

@@ -23,7 +23,8 @@ echo "ruby $project" > "$tmp/proj/.tool-versions"
 
 # PATH like the one an agent gets from its parent process: the global Ruby is
 # already on it, and mise's cd hook will not run again.
-base_path="$(dirname "$mise_bin"):$installs/$global/bin:/usr/bin:/bin"
+# The global Ruby comes first: mise can be in /usr/bin (Arch), next to a system Ruby.
+base_path="$installs/$global/bin:$(dirname "$mise_bin"):/usr/bin:/bin"
 stale=(__MISE_ORIG_PATH="/usr/bin:/bin" __MISE_SESSION=stale MISE_SHELL=zsh)
 [[ -n ${__MISE_DIFF:-} ]] && stale+=(__MISE_DIFF="$__MISE_DIFF")
 
