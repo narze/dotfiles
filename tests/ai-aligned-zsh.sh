@@ -20,6 +20,7 @@ hook=chezmoi/dot_local/bin/executable_ai-aligned-zsh
 [[ -f $hook ]] && cp "$hook" "$tmp/home/.local/bin/ai-aligned-zsh"
 
 # The command that failed in an agent session: in zsh, $B stays one argument.
+# shellcheck disable=SC2016 # zsh expands it, not this script
 cmd='B="-c user.name=x -c user.email=y"; V="a b"; for v in $V; do printf "<%s>" "$v"; done; echo " $(git $B config user.name 2>&1 | head -1)"'
 split='<a><b> x'
 nosplit='<a b> unknown option: -c user.name=x -c user.email=y'
