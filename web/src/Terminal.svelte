@@ -135,7 +135,7 @@
   <header class="terminal-header">
     <div>
       <h2>{mode === 'brew' ? 'Homebrew terminal' : 'Interactive shell'}</h2>
-      <p role="status">{message || 'Open a shell as the dashboard’s Mac user.'}</p>
+      <p role="status">{message || 'Connect to a shell as the dashboard’s Mac user'}</p>
     </div>
     <div class="terminal-actions">
       {#if mode === 'shell' && (phase === 'idle' || phase === 'finished')}
