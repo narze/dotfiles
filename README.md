@@ -84,7 +84,7 @@ macos                          Run macos script
   - [Homebrew Cask](https://github.com/Homebrew/homebrew-cask)
   - [Mas](https://github.com/mas-cli/mas)
   - [Chezmoi](https://chezmoi.io)
-  - [zsh](https://zsh.org) with [zsh4humans](https://github.com/romkatv/zsh4humans) + [Powerlevel10k](https://github.com/romkatv/powerlevel10k) theme
+  - [zsh](https://zsh.org) with [Zinit](https://github.com/zdharma-continuum/zinit) + [Starship](https://starship.rs) prompt
   - [fish](https://fishshell.com) with [fisher](https://github.com/jorgebucaran/fisher) + [Tide](https://github.com/IlanCosman/tide) theme
   - [mise](https://mise.jdx.dev)
   - [zellij](https://zellij.dev)
@@ -142,7 +142,7 @@ before the personal aliases so those still win on conflicts.
 
 ### Zsh + Fish
 
-After the recent [drama with Zinit](https://github.com/zdharma-continuum/I_WANT_TO_HELP), I decided to give [Fish](https://fishshell.com) a try, it is good but I also want to still maintain my Zsh configuration. I migrated the settings to [zsh4human](https://github.com/romkatv/zsh4humans) which is maintained by the one who made Powerlevel10k. It's 2-3x faster than Zinit as of now.
+After the recent [drama with Zinit](https://github.com/zdharma-continuum/I_WANT_TO_HELP), I decided to give [Fish](https://fishshell.com) a try, it is good but I also want to still maintain my Zsh configuration. The Zsh configuration now uses Zinit again, with the Starship prompt.
 
 I'll separate the dotfiles script to install zsh or fish separately to save some space. You can also install both like mine.
 

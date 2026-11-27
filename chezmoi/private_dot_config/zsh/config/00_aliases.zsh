@@ -51,7 +51,11 @@ alias gaa="git add --all"
 alias gai="git add -i"
 alias gs="git stash"
 alias gsp="git stash pop"
-gcam() {
+# Omarchy defines `alias gcam` (00_omarchy.zsh). Remove it so this function wins.
+# A `gcam() {` line with the alias still set is a parse error, and zsh then
+# stops reading this file.
+unalias gcam 2>/dev/null
+function gcam {
   git add --all && git commit -m "$*"
 }
 alias gcaa="git commit -a --amend"
