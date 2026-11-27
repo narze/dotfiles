@@ -39,7 +39,9 @@ eq "agent glob with no match stays literal" \
 eq "agent echo ==== prints it" "$(run CLAUDECODE=1 zsh -c 'echo ====')" "===="
 eq "AI_ALIGNED_ZSH=off turns it off" "$(run AI_ALIGNED_ZSH=off CLAUDECODE=1 zsh -c "$cmd")" "$nosplit"
 eq "non-agent shell is not changed" "$(run zsh -c "$cmd")" "$nosplit"
+# Without a terminal (CI), zsh -i warns on stderr, so only stdout is compared.
 eq "interactive agent shell is not changed" \
-  "$(run CLAUDECODE=1 zsh -i -c "$cmd")" "$nosplit"
+  "$(env -i HOME="$tmp/home" PATH="/usr/bin:/bin" CLAUDECODE=1 zsh -i -c "$cmd" 2>/dev/null | head -1)" \
+  "$nosplit"
 
 exit $fail
