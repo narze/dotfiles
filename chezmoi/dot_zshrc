@@ -155,8 +155,6 @@ fi
 
 # Do not cache `mise activate`: its output contains the PATH of that moment.
 
-# Source additional zsh config files (now handled in z4h.zsh)
-
 # Extend fpath for custom completions.
 fpath=(~/.config/zsh/completions $fpath)
 
