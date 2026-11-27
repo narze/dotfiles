@@ -24,6 +24,8 @@ cp "$conf" "$tmp/mise.toml"
 status=$(cd "$tmp" && MISE_TRUSTED_CONFIG_PATHS="$tmp" mise bootstrap packages status 2>&1)
 code=$?
 check "mise reads the package list" '[[ $code -eq 0 ]]'
+# Show why mise failed.
+[[ $code -eq 0 ]] || sed 's/^/# /' <<<"$status"
 for want in "brew +gh " "brew +lutzifer/homebrew-tap/keyboardSwitcher " \
   "brew-cask +1password " "brew-cask +setapp "; do
   check "status lists $want" 'grep -Eq "^$want" <<<"$status"'
