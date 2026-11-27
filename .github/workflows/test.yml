@@ -35,6 +35,9 @@ jobs:
     env:
       MISE_EXPERIMENTAL: "1"
       MISE_RUBY_COMPILE: "false"
+      # mise calls api.github.com (Ruby, Homebrew taps). Without a token the
+      # limit is 60 calls per hour per IP, and runners share IPs.
+      MISE_GITHUB_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v5
 
@@ -70,6 +73,9 @@ jobs:
     env:
       MISE_EXPERIMENTAL: "1"
       MISE_RUBY_COMPILE: "false"
+      # mise calls api.github.com (Ruby, Homebrew taps). Without a token the
+      # limit is 60 calls per hour per IP, and runners share IPs.
+      MISE_GITHUB_TOKEN: ${{ github.token }}
       MISE_YES: "1"
       TESTS: >-
         abbr.zsh agent-mise-shims.sh ai-aligned-zsh.sh arch-managed.sh
