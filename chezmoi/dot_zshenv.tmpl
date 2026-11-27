@@ -1,3 +1,14 @@
+# Agents write bash, but run it through the login shell (`zsh -c`, `zsh -lc`).
+# ai-aligned-zsh turns on bash-like options (word splitting, literal unmatched
+# globs, no `=cmd` expansion, ...) only in those non-interactive agent shells.
+# Its own detection checks OPENCODE_AI, not OPENCODE, and not AI_AGENT, so force
+# it on for those two.
+# https://github.com/ai-ecoverse/ai-aligned-zsh (vendored at 2e4f1c4)
+[[ -n "$AI_AGENT$OPENCODE" && -z "$AI_ALIGNED_ZSH" ]] && AI_ALIGNED_ZSH=on
+# >>> ai-aligned-zsh >>>
+[[ -r "$HOME/.local/bin/ai-aligned-zsh" ]] && source "$HOME/.local/bin/ai-aligned-zsh"
+# <<< ai-aligned-zsh <<<
+
 # Agent shells (Claude Code, Codex, Cursor, OpenCode) are not interactive, so the
 # `mise activate` hook does not keep PATH correct. Use mise shims: a shim picks
 # the tool version for its current directory each time it runs, also in daemons
