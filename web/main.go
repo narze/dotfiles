@@ -147,7 +147,7 @@ func main() {
 		}
 	}
 	if _, err := os.Stat(filepath.Join(*assets, "index.html")); err != nil {
-		log.Fatal("build the Svelte UI with npm ci and npm run build")
+		log.Fatal("build the Svelte UI with pnpm install --frozen-lockfile and pnpm run build")
 	}
 
 	if (*socket != "" || *keyFile != "" || *githubAuthFile != "" || *shell != "") && *tailscaleUser == "" {

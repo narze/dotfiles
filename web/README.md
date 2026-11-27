@@ -4,12 +4,12 @@ This host-local dashboard checks for incoming chezmoi commits, local dotfile dri
 
 ## Run on macOS
 
-Use Go 1.24+, Node 22.12+ (or Node 20.19+), Git, Homebrew, and a chezmoi version that supports `--skip-secrets`.
+Use Go 1.24+, Node 22.12+ (or Node 20.19+), pnpm 12.23.0, Git, Homebrew, and a chezmoi version that supports `--skip-secrets`.
 
 ```sh
 cd web
-npm ci
-npm run build
+pnpm install --frozen-lockfile
+pnpm run build
 go build -o host-updates .
 cp .env.example .env
 set -a
@@ -70,7 +70,7 @@ For a host where Serve can reach a Unix socket, use an absolute socket path in a
 ## Verification
 
 ```sh
-npm run check
+pnpm run check
 TEST_CHEZMOI="$(brew --prefix)/bin/chezmoi" go test ./...
 ```
 

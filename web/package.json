@@ -2,6 +2,7 @@
   "name": "host-updates",
   "private": true,
   "type": "module",
+  "packageManager": "pnpm@12.23.0",
   "scripts": {
     "build": "vite build",
     "check": "svelte-check --tsconfig ./tsconfig.json"
