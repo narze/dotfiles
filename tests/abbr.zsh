@@ -67,9 +67,14 @@ eq "no expansion in argument position"   "$(run_keys 'print zzt')"   "zzt"
 eq "Ctrl-Space is a plain space" \
   "$(ABBR_USER_ABBREVIATIONS_FILE=$tmp/e2e zsh -f -i -c 'source $0; bindkey -M emacs "^ "' $src)" '"^@" magic-space'
 
-# 3. Load time for the committed file
-ms=$(ABBR_USER_ABBREVIATIONS_FILE=$file zsh -f -i -c '
-  zmodload zsh/datetime; t=$EPOCHREALTIME; source $0; print ${$(( (EPOCHREALTIME-t)*1000 ))%.*}' $src)
+# 3. Load time for the committed file. One run can be slow on a busy machine
+# (CI runners), so the fastest of 5 runs is compared.
+integer ms=999 t
+repeat 5; do
+  t=$(ABBR_USER_ABBREVIATIONS_FILE=$file zsh -f -i -c '
+    zmodload zsh/datetime; t=$EPOCHREALTIME; source $0; print ${$(( (EPOCHREALTIME-t)*1000 ))%.*}' $src)
+  (( t < ms )) && ms=t
+done
 if (( ms < 10 )); then ok "loads the committed file in ${ms} ms"; else bad "load time" "${ms} ms" "< 10 ms"; fi
 
 # 4. Same result as zsh-abbr for each committed abbreviation
