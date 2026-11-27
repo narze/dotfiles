@@ -56,6 +56,8 @@ common() {
 }
 
 # Gemini CLI: privacy.usageStatisticsEnabled
+# Without jq the script keeps the file as it is, so these checks need jq.
+command -v jq >/dev/null || bad "jq is installed" missing jq
 gemini=chezmoi/dot_gemini/modify_settings.json
 in='{"security": {"auth": {"selectedType": "oauth-personal"}}}'
 out=$(modify $gemini "$in")

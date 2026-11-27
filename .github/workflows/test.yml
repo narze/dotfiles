@@ -76,9 +76,9 @@ jobs:
         quickshell-runtime-cleanup.sh telemetry-off.sh zsh-options.sh
     steps:
       # Install git before checkout, so that checkout makes a real git clone.
-      # telemetry-off.sh needs python3 and cmp (diffutils).
+      # telemetry-off.sh needs python3, jq and cmp (diffutils).
       - name: Install packages
-        run: pacman -Syu --noconfirm --needed chezmoi diffutils git mise python zsh
+        run: pacman -Syu --noconfirm --needed chezmoi diffutils git jq mise python zsh
 
       - uses: actions/checkout@v5
 
